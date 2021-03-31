@@ -93,9 +93,11 @@ class TRENDiiAd {
         const adSliderContainerEl = iframe.contentWindow?.document.getElementById(this.HTML_TEMPLATE_SLIDER_CONTAINER_ID);
         if (adSliderContainerEl) {
             // only update products container
-            this.updateSliderContainerWithAdProducts(adSliderContainerEl, this.feedProducts, currentImageSrc);
+            // this.updateSliderContainerWithAdProducts(adSliderContainerEl, this.feedProducts, currentImageSrc);
+
             // debugger;
-            const src = iframe.contentDocument.documentElement.innerHTML;
+            const imageData = this.feedProducts.find((x) => x.imageSource === visibleImageSrc);
+            const src = imageData.iframeHtmlSrc;
             iframe.srcdoc = src;
             // iframe.contentDocument.location.reload(true);
         }
@@ -197,6 +199,8 @@ class TRENDiiAd {
                 };
                 // create an array where key is imageSource and values are adProductsData
                 this.feedProducts.push(imageSourceWithAdProducts);
+                const iframeHtmlSrc = this.parseHTMLStringToDocument(this.htmlString, this.feedProducts, imageSource);
+                imageSourceWithAdProducts.iframeHtmlSrc = iframeHtmlSrc;
                 // if the current visible image is stored and the data is fetched
                 if (this.currentlyVisibleImageSrcURL === imageSource && this.htmlString) {
                     this.bindAdProductsToAdIframe(this.currentlyVisibleImageSrcURL);
