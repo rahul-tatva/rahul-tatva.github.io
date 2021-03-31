@@ -96,7 +96,7 @@ class TRENDiiAd {
             // this.updateSliderContainerWithAdProducts(adSliderContainerEl, this.feedProducts, currentImageSrc);
 
             // debugger;
-            const imageData = this.feedProducts.find((x) => x.imageSource === visibleImageSrc);
+            const imageData = this.feedProducts.find((x) => x.imageSource === currentImageSrc);
             const src = imageData.iframeHtmlSrc;
             iframe.srcdoc = src;
             // iframe.contentDocument.location.reload(true);
