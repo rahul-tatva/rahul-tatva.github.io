@@ -18,6 +18,12 @@ class TRENDiiAd {
         // this.API_GET_TRENDII_AD_TEMPLATE = `http://localhost:8081/Trendii-${this.AD_DIMENSION}.html`;
         this.API_GET_TRENDII_AD_TEMPLATE = `https://rahul-tatva.github.io/Trendii-${this.AD_DIMENSION}.html`;
 
+
+        // this.parentDiv = document.createElement("div");
+        // this.parentDiv.setAttribute("id", "trendiiads-float-right");
+        // document.body.prepend(this.parentDiv);
+        // document.getElementById("trendiiads-float-right").hidden = true;
+
         // initial setup
         this.createObserverForCurrentVisibleImage();
         this.getAdTemplateHTML();
