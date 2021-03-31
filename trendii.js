@@ -191,11 +191,11 @@ class TRENDiiAd {
                 const result = response.data;
                 const imageSourceWithAdProducts = {
                     imageSource: imageSource,
-                    // adProductsData: response.data.result.map(x => {
-                    //     x.localimage = imageSource;
-                    //     return x;
-                    // }),
-                    adProductsData: result.payload.list,
+                    adProductsData: response.data.result.map(x => {
+                        x.image = imageSource;
+                        return x;
+                    }),
+                    // adProductsData: result.payload.list,
                 };
                 // create an array where key is imageSource and values are adProductsData
                 this.feedProducts.push(imageSourceWithAdProducts);
