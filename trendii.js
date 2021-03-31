@@ -191,11 +191,11 @@ class TRENDiiAd {
                 const result = response.data;
                 const imageSourceWithAdProducts = {
                     imageSource: imageSource,
-                    adProductsData: result.payload.list.map(x => {
-                        x.image = imageSource;
-                        return x;
-                    }),
-                    // adProductsData: result.payload.list,
+                    // adProductsData: result.payload.list.map(x => {
+                    //     x.image = imageSource;
+                    //     return x;
+                    // }),
+                    adProductsData: result.payload.list,
                 };
                 // create an array where key is imageSource and values are adProductsData
                 this.feedProducts.push(imageSourceWithAdProducts);
@@ -242,7 +242,7 @@ class TRENDiiAd {
             // check if image el is visible in screen/window
             if (entry.isIntersecting) {
                 const visibleImageSrc = entry.target?.currentSrc || "";
-                console.log(visibleImageSrc);
+                // console.log(visibleImageSrc);
                 this.currentlyVisibleImageSrcURL = visibleImageSrc;
                 if (this.feedProducts.length > 0) {
                     this.bindAdProductsToAdIframe(visibleImageSrc);
