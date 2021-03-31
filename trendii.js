@@ -121,67 +121,11 @@ class TRENDiiAd {
                 if (typeof onErrorCallback === "function") onErrorCallback(error);
             });
     };
-    createProductsSlider(productsContainerEl, feedProducts, currentImageSrc) {
-        // debugger;
-        let sliderItemListEl;
-        const currentImageData = feedProducts.find(x => x.imageSource === currentImageSrc);
-        const adProducts = currentImageData?.adProductsData;
-        // TO-DO: Not found any ad products for the particular image
-        if (adProducts?.length > 0) {
-            for (let index = 0; index < adProducts.length; index++) {
-                const product = adProducts[index];
-                if (index % 4 === 0) {
-                    // create a new list element
-                    sliderItemListEl = document.createElement("LI");
-                    sliderItemListEl.classList.add("splide__slide");
-                }
-                const productItemEl = this.createSliderProductItemElement(product);
-                sliderItemListEl.appendChild(productItemEl);
-                productsContainerEl.appendChild(sliderItemListEl);
-            }
-        }
-    };
-    createSliderProductItemElement(product) {
-        const productItem = document.createElement("DIV");
-        productItem.classList.add("product-item");
-        productItem.style.backgroundImage = `url(${product.image})`;
-
-        if (product.sale) {
-            const onSaleTag = document.createElement('SPAN');
-            onSaleTag.classList.add("onsale");
-            onSaleTag.innerHTML = "ON SALE";
-            productItem.appendChild(onSaleTag);
-        }
-
-        const productItemCardBody = document.createElement("DIV");
-        productItemCardBody.classList.add("card-body");
-
-        const productName = document.createElement("B");
-        const productNameText = document.createTextNode(product.name);
-        productName.appendChild(productNameText);
-        productItemCardBody.appendChild(productName);
-
-        const productCashback = document.createElement("P");
-        productCashback.innerHTML = product.name;
-        productItemCardBody.appendChild(productCashback);
-
-        const productPriceLink = document.createElement("EM");
-        productPriceLink.innerHTML = product.currency + product.price;
-        productItemCardBody.appendChild(productPriceLink);
-
-        productItem.appendChild(productItemCardBody);
-
-        const cashbackLabel = document.createElement("I");
-        cashbackLabel.classList.add("cashback-chip");
-        cashbackLabel.innerHTML = product.cashback + " cashback";
-        productItem.appendChild(cashbackLabel);
-        return productItem;
-    };
     // to fetch the image's ad products from trendii api
     getAdProductsByImageURL(imageSource = "", onSuccessCallback, onErrorCallback) {
         const requestBody = {
-            // url: imageSource,
-            url: "https://images.squarespace-cdn.com/content/v1/5d7b55a7cab21367173472ca/1617021622513-QDKPHMGC7Q77PSLTU7NO/ke17ZwdGBToddI8pDm48kMhuiFqOarpg5ZSSgOuL4KxZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZamWLI2zvYWH8K3-s_4yszcp2ryTI0HqTOaaUohrI8PIfwzeWaN1u0xgydZbMMaNw0yictQozOKVrF7K98f8aA0KMshLAGzx4R3EDFOm1kBS/20-46-1-e409ebc018a94120833d9bf6b7eb1047.jpg"
+            url: imageSource,
+            // url: "https://images.squarespace-cdn.com/content/v1/5d7b55a7cab21367173472ca/1617021622513-QDKPHMGC7Q77PSLTU7NO/ke17ZwdGBToddI8pDm48kMhuiFqOarpg5ZSSgOuL4KxZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZamWLI2zvYWH8K3-s_4yszcp2ryTI0HqTOaaUohrI8PIfwzeWaN1u0xgydZbMMaNw0yictQozOKVrF7K98f8aA0KMshLAGzx4R3EDFOm1kBS/20-46-1-e409ebc018a94120833d9bf6b7eb1047.jpg"
         };
         axios
             .post(API_GET_AD_PRODUCTS, requestBody)
@@ -271,5 +215,61 @@ class TRENDiiAd {
             };
             this.intersectionObserver = new IntersectionObserver(this.handleIntersectionEntries.bind(this), options);
         }
+    };
+    createProductsSlider(productsContainerEl, feedProducts, currentImageSrc) {
+        // debugger;
+        let sliderItemListEl;
+        const currentImageData = feedProducts.find(x => x.imageSource === currentImageSrc);
+        const adProducts = currentImageData?.adProductsData;
+        // TO-DO: Not found any ad products for the particular image
+        if (adProducts?.length > 0) {
+            for (let index = 0; index < adProducts.length; index++) {
+                const product = adProducts[index];
+                if (index % 4 === 0) {
+                    // create a new list element
+                    sliderItemListEl = document.createElement("LI");
+                    sliderItemListEl.classList.add("splide__slide");
+                }
+                const productItemEl = this.createSliderProductItemElement(product);
+                sliderItemListEl.appendChild(productItemEl);
+                productsContainerEl.appendChild(sliderItemListEl);
+            }
+        }
+    };
+    createSliderProductItemElement(product) {
+        const productItem = document.createElement("DIV");
+        productItem.classList.add("product-item");
+        productItem.style.backgroundImage = `url(${product.image})`;
+
+        if (product.sale) {
+            const onSaleTag = document.createElement('SPAN');
+            onSaleTag.classList.add("onsale");
+            onSaleTag.innerHTML = "ON SALE";
+            productItem.appendChild(onSaleTag);
+        }
+
+        const productItemCardBody = document.createElement("DIV");
+        productItemCardBody.classList.add("card-body");
+
+        const productName = document.createElement("B");
+        const productNameText = document.createTextNode(product.name);
+        productName.appendChild(productNameText);
+        productItemCardBody.appendChild(productName);
+
+        const productCashback = document.createElement("P");
+        productCashback.innerHTML = product.name;
+        productItemCardBody.appendChild(productCashback);
+
+        const productPriceLink = document.createElement("EM");
+        productPriceLink.innerHTML = product.currency + product.price;
+        productItemCardBody.appendChild(productPriceLink);
+
+        productItem.appendChild(productItemCardBody);
+
+        const cashbackLabel = document.createElement("I");
+        cashbackLabel.classList.add("cashback-chip");
+        cashbackLabel.innerHTML = product.cashback + " cashback";
+        productItem.appendChild(cashbackLabel);
+        return productItem;
     };
 }
