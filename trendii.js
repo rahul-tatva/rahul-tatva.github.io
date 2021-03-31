@@ -8,6 +8,7 @@ class TRENDiiAd {
         this.height = options?.height;
         this.feedProducts = [];
         this.htmlString;
+        this.allImageElements;
         this.currentlyVisibleImageSrcURL = null;
         this.intersectionObserver;
         this.AD_DIMENSION = `${this.width}X${this.height}`;
@@ -210,10 +211,10 @@ class TRENDiiAd {
     handleDOMLoaded() {
         // debugger;
         // TO DO throw error if image selector not present
-        const allImageElements = document.querySelectorAll(this.options.adImagesSelector);
+        this.allImageElements = document.querySelectorAll(this.options.adImagesSelector);
         // debugger;
-        const initialLoadImageSource = allImageElements[0].src;
-        allImageElements.forEach((imgEl) => {
+        const initialLoadImageSource = this.allImageElements[0].src;
+        this.allImageElements.forEach((imgEl) => {
             // debugger;
             const imageSourceURL = imgEl.src;
             this.intersectionObserver.observe(imgEl);
