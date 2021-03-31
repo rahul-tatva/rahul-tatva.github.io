@@ -63,7 +63,7 @@ class TRENDiiAd {
             adContainerEl.appendChild(adIframe);
         } else {
             // to make iframe sticky and append to body
-            adIframe.style = "overflow: hidden; position: fixed; right: 0px; bottom: 0px;";
+            adIframe.style = "overflow: hidden; z-index:9999; position: fixed; right: 0px; bottom: 0px;";
             document.body.appendChild(adIframe);
         }
     };
