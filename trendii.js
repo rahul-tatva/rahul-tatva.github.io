@@ -1,5 +1,5 @@
-// const API_GET_SIMILAR_PRODUCTS = "https://flashtalking-sandbox-f6i4ayd3wa-ts.a.run.app/?site=16230&banner=300x600&p1=2487&p2=1636&p3=12345";
-const API_GET_SIMILAR_PRODUCTS = "https://beeswaxcreatives.trendii.com/webImageProcess";
+// const API_GET_AD_PRODUCTS = "https://flashtalking-sandbox-f6i4ayd3wa-ts.a.run.app/?site=16230&banner=300x600&p1=2487&p2=1636&p3=12345";
+const API_GET_AD_PRODUCTS = "https://beeswax-creative-f6i4ayd3wa-ts.a.run.app/webImageProcess";
 const SUPPORTED_DIMENSIONS = ["160X600"];
 class TRENDiiAd {
     constructor(options) {
@@ -141,7 +141,7 @@ class TRENDiiAd {
     createSliderProductItemElement(product) {
         const productItem = document.createElement("DIV");
         productItem.classList.add("product-item");
-        productItem.style.backgroundImage = `url(${product.localimage})`;
+        productItem.style.backgroundImage = `url(${product.image})`;
 
         if (product.sale) {
             const onSaleTag = document.createElement('SPAN');
@@ -177,20 +177,22 @@ class TRENDiiAd {
     // to fetch the image's ad products from trendii api
     getAdProductsByImageURL(imageSource = "", onSuccessCallback, onErrorCallback) {
         const requestBody = {
-            url: imageSource,
+            // url: imageSource,
+            url: "https://images.squarespace-cdn.com/content/v1/5d7b55a7cab21367173472ca/1617021622513-QDKPHMGC7Q77PSLTU7NO/ke17ZwdGBToddI8pDm48kMhuiFqOarpg5ZSSgOuL4KxZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZamWLI2zvYWH8K3-s_4yszcp2ryTI0HqTOaaUohrI8PIfwzeWaN1u0xgydZbMMaNw0yictQozOKVrF7K98f8aA0KMshLAGzx4R3EDFOm1kBS/20-46-1-e409ebc018a94120833d9bf6b7eb1047.jpg"
         };
         axios
-            .post(API_GET_SIMILAR_PRODUCTS, requestBody)
+            .post(API_GET_AD_PRODUCTS, requestBody)
             .then((response) => {
                 // console.log(response.data);
                 // this.productsFeed = response.data;
+                const result = response.data;
                 const imageSourceWithAdProducts = {
                     imageSource: imageSource,
                     // adProductsData: response.data.result.map(x => {
                     //     x.localimage = imageSource;
                     //     return x;
                     // }),
-                    adProductsData: response.data.result,
+                    adProductsData: result.payload.list,
                 };
                 // create an array where key is imageSource and values are adProductsData
                 this.feedProducts.push(imageSourceWithAdProducts);
