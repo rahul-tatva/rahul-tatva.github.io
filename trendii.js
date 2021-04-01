@@ -1,7 +1,7 @@
 // const API_GET_AD_PRODUCTS = "https://flashtalking-sandbox-f6i4ayd3wa-ts.a.run.app/?site=16230&banner=300x600&p1=2487&p2=1636&p3=12345";
 const API_GET_AD_PRODUCTS =
   "https://beeswax-creative-f6i4ayd3wa-ts.a.run.app/webImageProcess";
-const SUPPORTED_DIMENSIONS = ["160X600"];
+const SUPPORTED_DIMENSIONS = ["160X600", "300X600"];
 class TRENDiiAd {
   constructor(options) {
     this.options = options;
@@ -80,7 +80,7 @@ class TRENDiiAd {
       window.addEventListener(
         "scroll",
         function () {
-          //   debugger;
+          // debugger;
           var blogContainerHeight = document.querySelector(
             this.blogContainerSelector
           ).scrollHeight;
@@ -212,8 +212,9 @@ class TRENDiiAd {
     onErrorCallback
   ) {
     const requestBody = {
-      url: imageSource,
-      //   url:"https://images.squarespace-cdn.com/content/v1/5d7b55a7cab21367173472ca/1617021622513-QDKPHMGC7Q77PSLTU7NO/ke17ZwdGBToddI8pDm48kMhuiFqOarpg5ZSSgOuL4KxZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZamWLI2zvYWH8K3-s_4yszcp2ryTI0HqTOaaUohrI8PIfwzeWaN1u0xgydZbMMaNw0yictQozOKVrF7K98f8aA0KMshLAGzx4R3EDFOm1kBS/20-46-1-e409ebc018a94120833d9bf6b7eb1047.jpg",
+      // url: imageSource,
+      url:
+        "https://images.squarespace-cdn.com/content/v1/5d7b55a7cab21367173472ca/1617021622513-QDKPHMGC7Q77PSLTU7NO/ke17ZwdGBToddI8pDm48kMhuiFqOarpg5ZSSgOuL4KxZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZamWLI2zvYWH8K3-s_4yszcp2ryTI0HqTOaaUohrI8PIfwzeWaN1u0xgydZbMMaNw0yictQozOKVrF7K98f8aA0KMshLAGzx4R3EDFOm1kBS/20-46-1-e409ebc018a94120833d9bf6b7eb1047.jpg",
     };
     axios
       .post(API_GET_AD_PRODUCTS, requestBody)
@@ -320,6 +321,16 @@ class TRENDiiAd {
       );
     }
   }
+  sliderListProductCount() {
+    switch (this.AD_DIMENSION) {
+      case "160X600":
+        return 4;
+      case "300X600":
+        return 3;
+      default:
+        break;
+    }
+  }
   createProductsSlider(productsContainerEl, feedProducts, currentImageSrc) {
     // debugger;
     let sliderItemListEl;
@@ -327,11 +338,12 @@ class TRENDiiAd {
       (x) => x.imageSource === currentImageSrc
     );
     const adProducts = currentImageData?.adProductsData;
+    const sliderListItemProductCount = this.sliderListProductCount();
     // TO-DO: Not found any ad products for the particular image
     if (adProducts?.length > 0) {
       for (let index = 0; index < adProducts.length; index++) {
         const product = adProducts[index];
-        if (index % 4 === 0) {
+        if (index % sliderListItemProductCount === 0) {
           // create a new list element
           sliderItemListEl = document.createElement("LI");
           sliderItemListEl.classList.add("splide__slide");
