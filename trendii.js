@@ -54,6 +54,7 @@ class TRENDiiAd {
       iframe.frameBorder = 0;
       iframe.width = this.width;
       iframe.height = this.height;
+      // iframe.sandbox = "allow-top-navigation allow-scripts allow-popups";
       // iframe.style.display = "none";
       // iframe.onload = function () {
       //     // alert('myframe is loaded');
@@ -355,13 +356,25 @@ class TRENDiiAd {
     }
   }
   createSliderProductItemElement(product) {
+    const productItemRedirectContainer = document.createElement("A");
+    productItemRedirectContainer.style = "text-decoration: none;";
+    productItemRedirectContainer.href = product.url;
+    productItemRedirectContainer.target = "_blank";
+
     const productItem = document.createElement("DIV");
     productItem.classList.add("product-item");
     productItem.style.backgroundImage = `url(${product.image})`;
-
-    productItem.addEventListener("click", function () {
-      window.open(product.url, "_blank");
-    });
+    // debugger;
+    // function test() {
+    //   console.log("clcick product");
+    //   window.open(product.url, "_blank");
+    // }
+    // productItem.onclick = "test();";
+    // productItem.addEventListener("click", function () {
+    //   console.log("clcick product");
+    //   debugger;
+    //   window.open(product.url, "_blank");
+    // });
 
     if (product.sale) {
       const onSaleTag = document.createElement("SPAN");
@@ -392,6 +405,8 @@ class TRENDiiAd {
     cashbackLabel.classList.add("cashback-chip");
     cashbackLabel.innerHTML = product.cashback + " cashback";
     productItem.appendChild(cashbackLabel);
-    return productItem;
+    productItemRedirectContainer.appendChild(productItem);
+    return productItemRedirectContainer;
+    // return productItem;
   }
 }
