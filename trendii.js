@@ -359,6 +359,10 @@ class TRENDiiAd {
     productItem.classList.add("product-item");
     productItem.style.backgroundImage = `url(${product.image})`;
 
+    productItem.addEventListener("click", function () {
+      window.open(product.url, "_blank");
+    });
+
     if (product.sale) {
       const onSaleTag = document.createElement("SPAN");
       onSaleTag.classList.add("onsale");
