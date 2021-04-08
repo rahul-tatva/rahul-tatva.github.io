@@ -519,12 +519,13 @@
         }
         // same origin frame elements
         else if (w.frameElement) {
-          debugger;
           const adContainerFrameEl = window.frameElement;
           // Get Left Position
-          var iframeLeft = adContainerFrameEl.offsetLeft;
+          const iframeLeft = adContainerFrameEl.offsetLeft;
           // Get Top Position
-          var iframeTop = adContainerFrameEl.offsetTop;
+          const iframeTop = adContainerFrameEl.offsetTop;
+          const iframeWidth = adContainerFrameEl.offsetWidth;
+          const iframeHeight = adContainerFrameEl.offsetHeight;
           // check if the iframe having id attribute
           if (window.frameElement.id) {
             const adContainerElId = window.frameElement.id;
