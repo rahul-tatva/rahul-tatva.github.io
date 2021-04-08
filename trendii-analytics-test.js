@@ -10,6 +10,7 @@
 //stackoverflow.com/questions/17628456/measure-distance-between-two-html-elements-centers
 
 document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
+  console.log("anaylitics test");
   const adContainerWithNearestImageData = [];
   const coordinates = $sf.ext.geom;
   // debugger;
