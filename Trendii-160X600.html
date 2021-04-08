@@ -508,6 +508,31 @@
         fixedWidth: 140,
         perMove: 1,
       }).mount();
+      document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
+        // check if its a safe frame
+        var w = window,
+          sf = w["$sf"],
+          ext = sf && sf.ext;
+        if (ext) {
+          const sfCoordinates = $sf.ext.geom();
+        }
+        // same origin frame elements
+        else if (!w.frameElement) {
+          debugger;
+          const adContainerFrameEl = window.frameElement;
+          // Get Left Position
+          var iframeLeft = adContainerFrameEl.offsetLeft;
+          // Get Top Position
+          var iframeTop = adContainerFrameEl.offsetTop;
+          // check if the iframe having id attribute
+          if (window.frameElement.id)
+            const adContainerElId = window.frameElement.id;
+          const adContainerEl = window.top.document.getElementById(
+            adContainerElId
+          );
+        }
+        console.log(sfCoordinates);
+      });
     </script>
   </body>
 </html>
