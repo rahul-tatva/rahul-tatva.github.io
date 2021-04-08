@@ -8,7 +8,7 @@
 // references:
 //stackoverflow.com/questions/17628456/measure-distance-between-two-html-elements-centers
 function getPositionAtCenter(element) {
-  debugger;
+  // debugger;
   const { top, left, width, height } = element.getBoundingClientRect();
   return {
     x: left + width / 2,
@@ -17,7 +17,7 @@ function getPositionAtCenter(element) {
 }
 
 function getDistanceBetweenElements(a, b) {
-  debugger;
+  // debugger;
   const aPosition = getPositionAtCenter(a);
   const bPosition = getPositionAtCenter(b);
 
