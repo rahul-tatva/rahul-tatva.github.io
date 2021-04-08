@@ -508,16 +508,17 @@
         perMove: 1,
       }).mount();
       document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
-        debugger;
         // check if its a safe frame
         var w = window,
           sf = w["$sf"],
           ext = sf && sf.ext;
         if (ext) {
           const sfCoordinates = $sf.ext.geom();
+          console.log(window.$sf);
+          // console.log(window.sf_conf);
         }
         // same origin frame elements
-        else if (!w.frameElement) {
+        else if (w.frameElement) {
           debugger;
           const adContainerFrameEl = window.frameElement;
           // Get Left Position
