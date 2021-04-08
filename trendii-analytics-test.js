@@ -12,7 +12,7 @@
 document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
   console.log("anaylitics test");
   const adContainerWithNearestImageData = [];
-  const coordinates = $sf.ext.geom;
+  // const coordinates = window.$sf.ext.geom;
   // debugger;
   const currentUrl = window.location.href;
   var currentLocation = window.location;
