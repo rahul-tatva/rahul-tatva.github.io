@@ -18,9 +18,10 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
   // const adContainerEl = document.createElement("div");
   // document.body.appendChild(adContainerEl);
 
-  const adContainerEl = window.frameElement;
+  const adContainerFrameEl = window.frameElement;
   console.log(window.top.document.images);
-
+  const adContainerElId = window.frameElement.id;
+  const adContainerEl = window.top.document.getElementById(adContainerElId);
   // TO DO throw error if image selector not present
   var imageCollection = window.top.document.images;
   for (var i = 0; i < imageCollection.length; i++) {
@@ -34,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
     };
     adContainerWithNearestImageData.push(imageData);
   }
-
+  console.log(adContainerWithNearestImageData);
   const nearestImageData = adContainerWithNearestImageData.reduce(function (
     prev,
     curr
