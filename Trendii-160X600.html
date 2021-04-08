@@ -525,11 +525,12 @@
           // Get Top Position
           var iframeTop = adContainerFrameEl.offsetTop;
           // check if the iframe having id attribute
-          if (window.frameElement.id)
+          if (window.frameElement.id) {
             const adContainerElId = window.frameElement.id;
-          const adContainerEl = window.top.document.getElementById(
-            adContainerElId
-          );
+            const adContainerEl = window.top.document.getElementById(
+              adContainerElId
+            );
+          }
         }
       });
     </script>
