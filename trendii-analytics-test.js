@@ -7,25 +7,7 @@
  */
 // references:
 //stackoverflow.com/questions/17628456/measure-distance-between-two-html-elements-centers
-function getPositionAtCenter(element) {
-  const { top, left, width, height } = element.getBoundingClientRect();
-  return {
-    x: left + width / 2,
-    y: top + height / 2,
-  };
-}
 
-function getDistanceBetweenElements(a, b) {
-  const aPosition = getPositionAtCenter(a);
-  const bPosition = getPositionAtCenter(b);
-
-  return Math.hypot(aPosition.x - bPosition.x, aPosition.y - bPosition.y);
-}
-
-const distance = getDistanceBetweenElements(
-  document.getElementById("x"),
-  document.getElementById("y")
-);
 document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
   console.log("anaylitics test");
   const adContainerWithNearestImageData = [];
@@ -66,3 +48,24 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
   });
   console.log(nearestImageData);
 });
+function getPositionAtCenter(element) {
+  debugger;
+  const { top, left, width, height } = element.getBoundingClientRect();
+  return {
+    x: left + width / 2,
+    y: top + height / 2,
+  };
+}
+
+function getDistanceBetweenElements(a, b) {
+  debugger;
+  const aPosition = getPositionAtCenter(a);
+  const bPosition = getPositionAtCenter(b);
+
+  return Math.hypot(aPosition.x - bPosition.x, aPosition.y - bPosition.y);
+}
+
+const distance = getDistanceBetweenElements(
+  document.getElementById("x"),
+  document.getElementById("y")
+);
