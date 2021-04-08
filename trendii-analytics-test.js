@@ -22,12 +22,14 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
   console.log(window.top.document.images);
   const adContainerElId = window.frameElement.id;
   const adContainerEl = window.top.document.getElementById(adContainerElId);
+  console.log(adContainerEl);
   // TO DO throw error if image selector not present
   var imageCollection = window.top.document.images;
   for (var i = 0; i < imageCollection.length; i++) {
     const imageEl = imageCollection[i];
     const imgElSrc = imageCollection[i].src;
     const distance = mezr.distance(adContainerEl, imageEl);
+    const distance2 = mezr.distance(adContainerFrameEl, imageEl);
     const imageData = {
       imageSrc: imgElSrc,
       distance: distance,
