@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
       const imageWidth = adContainerFrameEl.offsetWidth;
       // Get Height
       const imageHeight = adContainerFrameEl.offsetHeight;
-      const distance = getDistanceBetweenElements(adContainerEl, imageEl);
+      const distance = getDistanceBetweenElements(adContainerFrameEl, imageEl);
       const imageData = {
         src: imgElSrc,
         distance: distance,
