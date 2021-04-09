@@ -106,9 +106,17 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
       return a.distance - b.distance;
     });
     console.log(allImageData);
-
-    console.log(get3ImagesAboveAdContainer(adContainerIframeEl, allImageData));
-    console.log(get3ImagesAboveAdContainer(adContainerIframeEl, allImageData));
-    console.log(getNearest6Images(allImageData));
+    const above3NearestImages = get3ImagesAboveAdContainer(
+      adContainerIframeEl,
+      allImageData
+    );
+    const below3NearestImages = get3ImagesAboveAdContainer(
+      adContainerIframeEl,
+      allImageData
+    );
+    const nearest6ImagesData = getNearest6Images(allImageData);
+    console.log(above3NearestImages);
+    console.log(below3NearestImages);
+    console.log(nearest6ImagesData);
   }
 });
