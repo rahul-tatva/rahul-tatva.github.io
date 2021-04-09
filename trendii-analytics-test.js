@@ -16,6 +16,36 @@ function findNearestImage(imageDataArray) {
   });
   return nearestImageData;
 }
+function get3ImagesAboveAdContainer(adContainerEl, imageSortedArray) {
+  const iframeTop = adContainerEl.offsetTop;
+  const above3NearestImages = [];
+  const count = 0;
+  for (let index = 0; index < imageSortedArray.length && count !== 3; index++) {
+    const imgData = imageSortedArray[index];
+    if (imgData.imageEl.offsetTop <= adContainerEl.offsetTop) {
+      above3NearestImages.push(imgData);
+      count++;
+    }
+  }
+  return above3NearestImages;
+}
+function get3ImagesBelowAdContainer(adContainerEl, imageSortedArray) {
+  const iframeTop = adContainerEl.offsetTop;
+  const below3NearestImages = [];
+  const count = 0;
+  for (let index = 0; index < imageSortedArray.length && count !== 3; index++) {
+    const imgData = imageSortedArray[index];
+    if (imgData.imageEl.offsetTop > adContainerEl.offsetTop) {
+      below3NearestImages.push(imgData);
+      count++;
+    }
+  }
+  return below3NearestImages;
+}
+
+function getNearest6Images(imageSortedArray) {
+  return imageSortedArray.slice(0, 6);
+}
 document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
   // check if its a safe frame
   var w = window,
@@ -30,15 +60,15 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
   else if (w.frameElement) {
     const allImageData = [];
     console.log(window);
-    const adContainerFrameEl = window.frameElement;
+    const adContainerIframeEl = window.frameElement;
     // Get Left Position
-    const iframeLeft = adContainerFrameEl.offsetLeft;
+    const iframeLeft = adContainerIframeEl.offsetLeft;
     // Get Top Position
-    const iframeTop = adContainerFrameEl.offsetTop;
+    const iframeTop = adContainerIframeEl.offsetTop;
     // Get Width
-    const iframeWidth = adContainerFrameEl.offsetWidth;
+    const iframeWidth = adContainerIframeEl.offsetWidth;
     // Get Height
-    const iframeHeight = adContainerFrameEl.offsetHeight;
+    const iframeHeight = adContainerIframeEl.offsetHeight;
     // check if the iframe having id attribute
     if (window.frameElement.id) {
       const adContainerElId = window.frameElement.id;
@@ -51,14 +81,14 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
       const imageEl = imageCollection[i];
       const imgElSrc = imageCollection[i].src;
       // Get Left Position
-      const imageLeft = adContainerFrameEl.offsetLeft;
+      const imageLeft = adContainerIframeEl.offsetLeft;
       // Get Top Position
-      const imageTop = adContainerFrameEl.offsetTop;
+      const imageTop = adContainerIframeEl.offsetTop;
       // Get Width
-      const imageWidth = adContainerFrameEl.offsetWidth;
+      const imageWidth = adContainerIframeEl.offsetWidth;
       // Get Height
-      const imageHeight = adContainerFrameEl.offsetHeight;
-      const distance = getDistanceBetweenElements(adContainerFrameEl, imageEl);
+      const imageHeight = adContainerIframeEl.offsetHeight;
+      const distance = getDistanceBetweenElements(adContainerIframeEl, imageEl);
       const imageData = {
         src: imgElSrc,
         distance: distance,
@@ -69,12 +99,16 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
         h: imageHeight,
       };
       allImageData.push(imageData);
-    }
+    } // for loop end
     console.log(findNearestImage(allImageData));
-    // sort ascending for nearest images
+    // sort ascending by distance for nearest images
     allImageData.sort(function (a, b) {
       return a.distance - b.distance;
     });
     console.log(allImageData);
+
+    console.log(get3ImagesAboveAdContainer(adContainerIframeEl, allImageData));
+    console.log(get3ImagesAboveAdContainer(adContainerIframeEl, allImageData));
+    console.log(getNearest6Images(allImageData));
   }
 });
