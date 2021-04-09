@@ -284,12 +284,12 @@ class TRENDiiAd {
   handleIntersectionEntries(entries, observer) {
     // debugger;
     entries.forEach((entry) => {
-      console.log(entry);
+      // console.log(entry);
       // debugger;
       // check if image el is visible in screen/window
       if (entry.isIntersecting) {
         const visibleImageSrc = entry.target?.currentSrc || "";
-        console.log(visibleImageSrc);
+        // console.log(visibleImageSrc);
         this.currentlyVisibleImageSrcURL = visibleImageSrc;
         if (this.feedProducts.length > 0) {
           this.bindAdProductsToAdIframe(visibleImageSrc);
