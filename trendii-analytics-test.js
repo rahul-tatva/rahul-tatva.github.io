@@ -19,7 +19,7 @@ function findNearestImage(imageDataArray) {
 function get3ImagesAboveAdContainer(adContainerEl, imageSortedArray) {
   const iframeTop = adContainerEl.offsetTop;
   const above3NearestImages = [];
-  const count = 0;
+  let count = 0;
   for (let index = 0; index < imageSortedArray.length && count !== 3; index++) {
     const imgData = imageSortedArray[index];
     if (imgData.imageEl.offsetTop <= adContainerEl.offsetTop) {
@@ -32,7 +32,7 @@ function get3ImagesAboveAdContainer(adContainerEl, imageSortedArray) {
 function get3ImagesBelowAdContainer(adContainerEl, imageSortedArray) {
   const iframeTop = adContainerEl.offsetTop;
   const below3NearestImages = [];
-  const count = 0;
+  let count = 0;
   for (let index = 0; index < imageSortedArray.length && count !== 3; index++) {
     const imgData = imageSortedArray[index];
     if (imgData.imageEl.offsetTop > adContainerEl.offsetTop) {
