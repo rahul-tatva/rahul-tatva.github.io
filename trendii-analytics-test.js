@@ -51,13 +51,15 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
   let tagId = "";
   debugger;
   const iframeCollection = document.getElementsByTagName('iframe');
-  for (const iframe in iframeCollection) {
-    if (iframe.getAttribute('name') && iframe.getAttribute('src').contains('flashtalking')) {
-      const data = iframe.getAttribute('name');
-      const jsonObj = JSON.parse(data);
-      const key = jsonObj.trendiiParam3;
-      tagId = key;
-      break;
+  if (iframeCollection.length > 0) {
+    for (const iframe in iframeCollection) {
+      if (iframe.getAttribute('name') && iframe.getAttribute('src').contains('flashtalking')) {
+        const data = iframe.getAttribute('name');
+        const jsonObj = JSON.parse(data);
+        const key = jsonObj.trendiiParam3;
+        tagId = key;
+        break;
+      }
     }
   }
 
