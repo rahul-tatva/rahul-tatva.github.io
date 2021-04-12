@@ -51,8 +51,13 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
   let tagId = "";
   debugger;
   const iframeCollection = document.getElementsByTagName('iframe');
+
+  // Array.from(collection).forEach(someFn)
+  // for (var header of this.headers) {
+  //   console.log(header);
+  // }
   if (iframeCollection.length > 0) {
-    for (const iframe in iframeCollection) {
+    for (const iframe of iframeCollection) {
       if (iframe.getAttribute('name') && iframe.getAttribute('src').contains('flashtalking')) {
         const data = iframe.getAttribute('name');
         const jsonObj = JSON.parse(data);
