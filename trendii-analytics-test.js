@@ -47,6 +47,7 @@ function getNearest6Images(imageSortedArray) {
   return imageSortedArray.slice(0, 6);
 }
 document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
+  debugger;
   // check if its a safe frame
   var w = window,
     sf = w["$sf"],
