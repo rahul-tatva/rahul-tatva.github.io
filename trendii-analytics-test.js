@@ -47,7 +47,20 @@ function getNearest6Images(imageSortedArray) {
   return imageSortedArray.slice(0, 6);
 }
 document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
+
+  let tagId = "";
   debugger;
+  const iframeCollection = document.getElementsByTagName('iframe');
+  for (const iframe in iframeCollection) {
+    if (iframe.getAttribute('name') && iframe.getAttribute('src').contains('flashtalking')) {
+      const data = iframe.getAttribute('name');
+      const jsonObj = JSON.parse(data);
+      const key = jsonObj.trendiiParam3;
+      tagId = key;
+      break;
+    }
+  }
+
   // check if its a safe frame
   var w = window,
     sf = w["$sf"],
