@@ -17,69 +17,125 @@ function findNearestImage(imageDataArray) {
   return nearestImageData;
 }
 function get3ImagesAboveAdContainer(adContainerEl, imageSortedArray) {
-  const iframeTop = adContainerEl.offsetTop;
   const above3NearestImages = [];
   let count = 0;
   for (let index = 0; index < imageSortedArray.length && count !== 3; index++) {
     const imgData = imageSortedArray[index];
-    if (imgData.imageEl.offsetTop <= adContainerEl.offsetTop) {
+    if (imgData.offsetTop <= adContainerEl.offsetTop) {
       above3NearestImages.push(imgData);
       count++;
     }
   }
   return above3NearestImages;
 }
+function getImagesAboveCenterOfAdContainer(adContainerEl, imageSortedArray, countOfImagesToReturn = 3) {
+  const aboveNearestImages = [];
+  let count = 0;
+  for (let index = 0; index < imageSortedArray.length && count !== countOfImagesToReturn; index++) {
+    const imgData = imageSortedArray[index];
+    if (imgData.center.y <= adContainerEl.center.y) {
+      aboveNearestImages.push(imgData);
+      count++;
+    }
+  }
+  return aboveNearestImages;
+}
 function get3ImagesBelowAdContainer(adContainerEl, imageSortedArray) {
-  const iframeTop = adContainerEl.offsetTop;
   const below3NearestImages = [];
   let count = 0;
   for (let index = 0; index < imageSortedArray.length && count !== 3; index++) {
     const imgData = imageSortedArray[index];
-    if (imgData.imageEl.offsetTop > adContainerEl.offsetTop) {
+    if (imgData.offsetTop > adContainerEl.offsetTop) {
       below3NearestImages.push(imgData);
       count++;
     }
   }
   return below3NearestImages;
 }
-
+function getImagesBelowCenterOfAdContainer(adContainerEl, imageSortedArray, countOfImagesToReturn = 3) {
+  const belowNearestImages = [];
+  let count = 0;
+  for (let index = 0; index < imageSortedArray.length && count !== countOfImagesToReturn; index++) {
+    const imgData = imageSortedArray[index];
+    if (imgData.center.y > adContainerEl.center.y) {
+      belowNearestImages.push(imgData);
+      count++;
+    }
+  }
+  return belowNearestImages;
+}
 function getNearest6Images(imageSortedArray) {
   return imageSortedArray.slice(0, 6);
 }
-document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
 
+function getTagIdKeyFromFlashtalkingAdFrame() {
   let tagId = "";
-  debugger;
   const iframeCollection = document.getElementsByTagName('iframe');
-
   // Array.from(collection).forEach(someFn)
   // for (var header of this.headers) {
   //   console.log(header);
   // }
-  if (iframeCollection.length > 0) {
-    for (const iframe of iframeCollection) {
-      if (iframe.getAttribute('name') && iframe.getAttribute('src').contains('flashtalking')) {
-        const data = iframe.getAttribute('name');
-        const jsonObj = JSON.parse(data);
-        const key = jsonObj.trendiiParam3;
-        tagId = key;
-        break;
-      }
+  for (const i = 0; i < iframeCollection.length; i++) {
+    const iframe = iframeCollection[i];
+    if (iframe.getAttribute('name') && iframe.getAttribute('src').contains('flashtalking')) {
+      const data = iframe.getAttribute('name');
+      const jsonObj = JSON.parse(data);
+      const key = jsonObj.trendiiparam3;
+      tagId = key;
+      break;
     }
   }
+  return tagId;
+}
 
+function getDOMElementDimensions(domEl) {
+  // Get Left Position
+  const iframeLeft = domEl.offsetLeft;
+  // Get Top Position
+  const iframeTop = domEl.offsetTop;
+  // Get Width
+  const iframeWidth = domEl.offsetWidth;
+  // Get Height
+  const iframeHeight = domEl.offsetHeight;
+  const iframeCoordinates = {
+    t: iframeTop,
+    l: iframeLeft,
+    r: iframeLeft + iframeWidth,
+    b: iframeTop + iframeHeight,
+  };
+  return iframeCoordinates;
+}
+document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
+  debugger;
+  const MIN_WIDTH = 200;
+  const MIN_HEIGHT = 150;
+  getTagIdKeyFromFlashtalkingAdFrame();
+  const requestPayload = {
+    key: getTagIdKeyFromFlashtalkingAdFrame(),
+    windowWidth: 0,
+    windowHeight: 0,
+    frame: {
+      // t: 516,
+      // l: 211,
+      // r: 371,
+      // b: 1116,
+    },
+    // nearestImagesData: [],
+  };
   // check if its a safe frame
-  var w = window,
-    sf = w["$sf"],
-    ext = sf && sf.ext;
+  const w = window, sf = w["$sf"], ext = sf && sf.ext;
   if (ext) {
     const sfCoordinates = sf.ext.geom();
+    const { w, h } = sfCoordinates.win;
+    const { t, l, r, b } = sfCoordinates.self;
+    requestPayload.windowWidth = w;
+    requestPayload.windowHeight = h;
+    requestPayload.frame = { t, l, r, b };
     console.log(window.$sf);
     console.log(window);
   }
   // same origin frame elements
   else if (w.frameElement) {
-    const allImageData = [];
     console.log(window);
     const adContainerIframeEl = window.frameElement;
     // Get Left Position
@@ -90,6 +146,12 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
     const iframeWidth = adContainerIframeEl.offsetWidth;
     // Get Height
     const iframeHeight = adContainerIframeEl.offsetHeight;
+    const { t, l, r, b } = getDOMElementDimensions(adContainerIframeEl);
+    requestPayload.frame = { t, l, r, b };
+    const iframeCoordinates = {
+      t, l, r, b,
+      center: getPositionOfCenter(adContainerIframeEl),
+    };
     // check if the iframe having id attribute
     if (window.frameElement.id) {
       const adContainerElId = window.frameElement.id;
@@ -97,35 +159,60 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
     }
     const topWindow = window.top;
     // TO DO throw error if image selector not present
-    const imageCollection = topWindow.document.images;
-    for (var i = 0; i < imageCollection.length; i++) {
-      const imageEl = imageCollection[i];
-      const imgElSrc = imageCollection[i].src;
+    const domImages = topWindow.document.images;
+    const allDOMImagesArray = Array.from(domImages);
+    const regex = [
+      /^.*(\.svg|\.gif)(\?.*)?$/,
+      /^data:(.+);base64,(.+)$/,
+      /^data:image\/svg\+xml,(.+)$/,
+      /^https:\/\/([\w\.]+)?facebook([\w\.-]+)\/.*/i,
+    ];
+    const allImageData = allDOMImagesArray.map(imgEl => {
+      let blackListed = false;
+      if (imgEl.width < MIN_WIDTH && imgEl.height < MIN_HEIGHT) blackListed = true;
+      regex.forEach(reg => {
+        if (reg.test(imgEl.currentSrc)) {
+          blackListed = true;
+          break;
+        }
+      });
+      if (blackListed) return null;
+      const elemRect = imgEl.getBoundingClientRect();
+      // const elemTop = Math.ceil(window.scrollY + elemRect.top);
+      // const elemLeft = Math.ceil(window.scrollX + elemRect.left);
       // Get Left Position
-      const imageLeft = imageEl.offsetLeft;
-      // Get Top Position
-      const imageTop = imageEl.offsetTop;
-      // Get Width
-      const imageWidth = imageEl.offsetWidth;
-      // Get Height
-      const imageHeight = imageEl.offsetHeight;
-      const distance = getDistanceBetweenElements(adContainerIframeEl, imageEl);
+      const { offsetLeft, offsetTop, offsetWidth, offsetHeight } = imgEl;
       const imageData = {
-        src: imgElSrc,
-        distance: distance,
-        imageEl: imageEl,
-        l: imageLeft,
-        t: imageTop,
-        w: imageWidth,
-        h: imageHeight,
+        src: imgEl.currentSrc,
+        offsetLeft,
+        offsetTop,
+        offsetWidth,
+        offsetHeight,
+        center: getPositionOfCenter(imgEl),
+        distance: getDistanceBetweenElements(adContainerIframeEl, imgEl),
+        rectTop: elemRect.top,
+        rectLeft: elemRect.left,
+        rectWidth: elemRect.width,
+        rectHeight: elemRect.height,
       };
-      allImageData.push(imageData);
-    } // for loop end
+      return imageData;
+    });
+    // const allImageData = [];
+    // for (var i = 0; i < imageCollection.length; i++) {
+    //   const imageEl = imageCollection[i];
+    //   const imgElSrc = imageCollection[i].src;
+    //   const distance = getDistanceBetweenElements(adContainerIframeEl, imageEl);
+    //   const imageData = {
+    //     src: imgElSrc,
+    //     distance: distance,
+    //     imageEl: imageEl,
+    //     center: getPositionOfCenter(imageEl),
+    //   };
+    //   allImageData.push(imageData);
+    // } // for loop end
     console.log(findNearestImage(allImageData));
     // sort ascending by distance for nearest images
-    allImageData.sort(function (a, b) {
-      return a.distance - b.distance;
-    });
+    allImageData.sort((a, b) => a.distance - b.distance);
     console.log(allImageData);
     const above3NearestImages = get3ImagesAboveAdContainer(
       adContainerIframeEl,
@@ -139,5 +226,15 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
     console.log(above3NearestImages);
     console.log(below3NearestImages);
     console.log(nearest6ImagesData);
+    const aboveNearestImages = getImagesAboveCenterOfAdContainer(
+      adContainerIframeEl,
+      allImageData
+    );
+    const belowNearestImages = getImagesBelowCenterOfAdContainer(
+      adContainerIframeEl,
+      allImageData
+    );
+    console.log(aboveNearestImages);
+    console.log(belowNearestImages);
   }
 });
