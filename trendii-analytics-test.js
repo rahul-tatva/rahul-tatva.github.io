@@ -86,8 +86,11 @@ function getTagIdKeyFromFlashtalkingAdFrame() {
 function testDimensionsOfElement(domElArray) {
   domElArray.forEach(el => {
     const toolTipDiv = document.createElement("DIV");
-    toolTipDiv.innerHTML("test chckec");
+    toolTipDiv.innerHTML = "test chckec";
     toolTipDiv.style.backgroundColor = "white";
+
+    toolTipDiv.style.position = "relative";
+    toolTipDiv.style.zIndex = 99;
     el.appendChild(toolTipDiv);
   });
 }
