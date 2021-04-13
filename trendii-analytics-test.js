@@ -168,15 +168,12 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
       /^https:\/\/([\w\.]+)?facebook([\w\.-]+)\/.*/i,
     ];
     const allImageData = allDOMImagesArray.map(imgEl => {
-      let blackListed = false;
-      if (imgEl.width < MIN_WIDTH && imgEl.height < MIN_HEIGHT) blackListed = true;
+      let ignore = false;
+      if (imgEl.width < MIN_WIDTH && imgEl.height < MIN_HEIGHT) ignore = true;
       regex.forEach(reg => {
-        if (reg.test(imgEl.currentSrc)) {
-          blackListed = true;
-          break;
-        }
+        if (reg.test(imgEl.currentSrc)) ignore = true;
       });
-      if (blackListed) return null;
+      if (ignore) return null;
       const elemRect = imgEl.getBoundingClientRect();
       // const elemTop = Math.ceil(window.scrollY + elemRect.top);
       // const elemLeft = Math.ceil(window.scrollX + elemRect.left);
