@@ -1,4 +1,4 @@
-function getPositionAtCenter(element) {
+function getPositionOfCenter(element) {
   const { top, left, width, height } = element.getBoundingClientRect();
   return {
     x: left + width / 2,
@@ -6,8 +6,8 @@ function getPositionAtCenter(element) {
   };
 }
 function getDistanceBetweenElements(a, b) {
-  const aPosition = getPositionAtCenter(a);
-  const bPosition = getPositionAtCenter(b);
+  const aPosition = getPositionOfCenter(a);
+  const bPosition = getPositionOfCenter(b);
   return Math.hypot(aPosition.x - bPosition.x, aPosition.y - bPosition.y);
 }
 function findNearestImage(imageDataArray) {
@@ -102,13 +102,13 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
       const imageEl = imageCollection[i];
       const imgElSrc = imageCollection[i].src;
       // Get Left Position
-      const imageLeft = adContainerIframeEl.offsetLeft;
+      const imageLeft = imageEl.offsetLeft;
       // Get Top Position
-      const imageTop = adContainerIframeEl.offsetTop;
+      const imageTop = imageEl.offsetTop;
       // Get Width
-      const imageWidth = adContainerIframeEl.offsetWidth;
+      const imageWidth = imageEl.offsetWidth;
       // Get Height
-      const imageHeight = adContainerIframeEl.offsetHeight;
+      const imageHeight = imageEl.offsetHeight;
       const distance = getDistanceBetweenElements(adContainerIframeEl, imageEl);
       const imageData = {
         src: imgElSrc,
