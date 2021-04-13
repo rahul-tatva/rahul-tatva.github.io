@@ -67,7 +67,6 @@ function getImagesBelowCenterOfAdContainer(adContainerEl, imageSortedArray, coun
 function getNearest6Images(imageSortedArray) {
   return imageSortedArray.slice(0, 6);
 }
-
 function getTagIdKeyFromFlashtalkingAdFrame() {
   let tagId = "";
   const iframeCollection = document.getElementsByTagName('iframe');
@@ -95,23 +94,24 @@ function getTagIdKeyFromFlashtalkingAdFrame() {
 // }
 function getDOMElementDimensions(domEl) {
   // Get Left Position
-  const iframeLeft = domEl.offsetLeft;
+  const elementLeft = domEl.offsetLeft;
   // Get Top Position
-  const iframeTop = domEl.offsetTop;
+  const elementTop = domEl.offsetTop;
   // Get Width
-  const iframeWidth = domEl.offsetWidth;
+  const elementWidth = domEl.offsetWidth;
   // Get Height
-  const iframeHeight = domEl.offsetHeight;
-  const iframeCoordinates = {
-    t: iframeTop,
-    l: iframeLeft,
-    r: iframeLeft + iframeWidth,
-    b: iframeTop + iframeHeight,
+  const elementHeight = domEl.offsetHeight;
+  const elementCoordinates = {
+    t: elementTop,
+    l: elementLeft,
+    r: elementLeft + elementWidth,
+    b: elementTop + elementHeight,
   };
-  return iframeCoordinates;
+  return elementCoordinates;
 }
+// to get the logs printed just uncomment the console.log 
 function trendiiLog(message) {
-  console.log(message);
+  // console.log(message);
 }
 document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
   debugger;
@@ -233,26 +233,16 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
     trendiiLog(aboveNearestImages);
     trendiiLog(belowNearestImages);
     // prepare data for request payload
-    const aboveNearestImagesData = aboveNearestImages.map((imgData) => {
-      const { src, distance } = imgData;
-      return {
-        src,
-        distance
-      };
-    });
-    const belowNearestImagesData = belowNearestImages.map((imgData) => {
-      const { src, distance } = imgData;
-      return {
-        src,
-        distance
-      };
-    });
+    const aboveNearestImagesData = aboveNearestImages.map((imgData) => ({ src: imgData.src, distance: imgData.distance }));
+    const belowNearestImagesData = belowNearestImages.map((imgData) => ({ src: imgData.src, distance: imgData.distance }));
     // prepare request payload
     requestPayload.nearestImageData = [
       ...aboveNearestImagesData,
       ...belowNearestImagesData
     ];
+    trendiiLog(requestPayload);
   }
+  // TO-DO: remove this line for key after tested
   requestPayload.key = "123123123";
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
