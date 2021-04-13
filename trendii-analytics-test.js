@@ -83,16 +83,16 @@ function getTagIdKeyFromFlashtalkingAdFrame() {
   }
   return tagId;
 }
-function testDimensionsOfElement(domElArray) {
-  domElArray.forEach(el => {
-    const toolTipDiv = document.createElement("DIV");
-    toolTipDiv.innerHTML = "test chckec";
-    toolTipDiv.style.backgroundColor = "white";
-    toolTipDiv.style.position = "relative";
-    toolTipDiv.style.zIndex = 99;
-    el.parentNode.prependChild(toolTipDiv);
-  });
-}
+// function testDimensionsOfElement(domElArray) {
+//   domElArray.forEach(el => {
+//     const toolTipDiv = document.createElement("DIV");
+//     toolTipDiv.innerHTML = "test chckec";
+//     toolTipDiv.style.backgroundColor = "white";
+//     toolTipDiv.style.position = "relative";
+//     toolTipDiv.style.zIndex = 99;
+//     el.parentNode.prependChild(toolTipDiv);
+//   });
+// }
 function getDOMElementDimensions(domEl) {
   // Get Left Position
   const iframeLeft = domEl.offsetLeft;
@@ -165,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
     // TO DO throw error if image selector not present
     const domImages = topWindow.document.images;
     const allDOMImagesArray = Array.from(domImages);
-    testDimensionsOfElement(allDOMImagesArray);
+    // testDimensionsOfElement(allDOMImagesArray);
     const regex = [
       /^.*(\.svg|\.gif)(\?.*)?$/,
       /^data:(.+);base64,(.+)$/,
