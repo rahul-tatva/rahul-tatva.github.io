@@ -88,10 +88,9 @@ function testDimensionsOfElement(domElArray) {
     const toolTipDiv = document.createElement("DIV");
     toolTipDiv.innerHTML = "test chckec";
     toolTipDiv.style.backgroundColor = "white";
-
     toolTipDiv.style.position = "relative";
     toolTipDiv.style.zIndex = 99;
-    el.appendChild(toolTipDiv);
+    el.parentNode.prependChild(toolTipDiv);
   });
 }
 function getDOMElementDimensions(domEl) {
