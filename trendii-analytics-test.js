@@ -253,13 +253,18 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
       ...belowNearestImagesData
     ];
   }
-
-  fetch('https://beeswaxcreatives.trendii.com/adsEnvironment', {
+  requestPayload.key = "123123123";
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+  const raw = JSON.stringify(requestPayload);
+  const requestOptions = {
     method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(requestPayload)
-  });
+    headers: headers,
+    body: raw,
+    // redirect: 'follow'
+  };
+  fetch("https://beeswaxcreatives.trendii.com/adsEnvironment", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
 });
