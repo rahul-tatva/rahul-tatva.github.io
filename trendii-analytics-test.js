@@ -210,18 +210,18 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
     // sort ascending by distance for nearest images
     allImageData.sort((a, b) => a.distance - b.distance);
     trendiiLog(allImageData);
-    const above3NearestImages = get3ImagesAboveAdContainer(
-      adContainerIframeEl,
-      allImageData
-    );
-    const below3NearestImages = get3ImagesAboveAdContainer(
-      adContainerIframeEl,
-      allImageData
-    );
-    const nearest6ImagesData = getNearest6Images(allImageData);
-    trendiiLog(above3NearestImages);
-    trendiiLog(below3NearestImages);
-    trendiiLog(nearest6ImagesData);
+    // const above3NearestImages = get3ImagesAboveAdContainer(
+    //   adContainerIframeEl,
+    //   allImageData
+    // );
+    // const below3NearestImages = get3ImagesAboveAdContainer(
+    //   adContainerIframeEl,
+    //   allImageData
+    // );
+    // const nearest6ImagesData = getNearest6Images(allImageData);
+    // trendiiLog(above3NearestImages);
+    // trendiiLog(below3NearestImages);
+    // trendiiLog(nearest6ImagesData);
     const aboveNearestImages = getImagesAboveCenterOfAdContainer(
       iframeCoordinates,
       allImageData
