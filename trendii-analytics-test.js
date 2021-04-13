@@ -88,9 +88,9 @@ function getTagIdKeyFromFlashtalkingAdFrame() {
 //     const toolTipDiv = document.createElement("DIV");
 //     toolTipDiv.innerHTML = "test chckec";
 //     toolTipDiv.style.backgroundColor = "white";
-//     toolTipDiv.style.position = "relative";
+//     toolTipDiv.style.position = "absolute";
 //     toolTipDiv.style.zIndex = 99;
-//     el.parentNode.prependChild(toolTipDiv);
+//     el.parentNode.prepend(toolTipDiv)
 //   });
 // }
 function getDOMElementDimensions(domEl) {
@@ -239,12 +239,12 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
     ];
   }
 
-  // fetch('https://beeswaxcreatives.trendii.com/adsEnvironment', {
-  //   method: 'POST',
-  //   headers: {
-  //     'Accept': 'application/json',
-  //     'Content-Type': 'application/json'
-  //   },
-  //   body: JSON.stringify(requestPayload)
-  // });
+  fetch('https://beeswaxcreatives.trendii.com/adsEnvironment', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(requestPayload)
+  });
 });
