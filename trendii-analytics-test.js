@@ -73,7 +73,7 @@ function getTagIdKeyFromFlashtalkingAdFrame() {
   const iframeCollection = document.getElementsByTagName('iframe');
   // Array.from(collection).forEach(someFn)
   // for (var header of this.headers) {
-  //   console.log(header);
+  //    trendiiLog(header);
   // }
   for (const i = 0; i < iframeCollection.length; i++) {
     const iframe = iframeCollection[i];
@@ -105,6 +105,9 @@ function getDOMElementDimensions(domEl) {
   };
   return iframeCoordinates;
 }
+function trendiiLog(message) {
+  console.log(message);
+}
 document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
   debugger;
   const MIN_WIDTH = 200;
@@ -131,12 +134,12 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
     requestPayload.windowWidth = w;
     requestPayload.windowHeight = h;
     requestPayload.frame = { t, l, r, b };
-    console.log(window.$sf);
-    console.log(window);
+    trendiiLog(window.$sf);
+    trendiiLog(window);
   }
   // same origin frame elements
   else if (w.frameElement) {
-    console.log(window);
+    trendiiLog(window);
     const adContainerIframeEl = window.frameElement;
     // Get Left Position
     const iframeLeft = adContainerIframeEl.offsetLeft;
@@ -207,10 +210,10 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
     //   };
     //   allImageData.push(imageData);
     // } // for loop end
-    console.log(findNearestImage(allImageData));
+    trendiiLog(findNearestImage(allImageData));
     // sort ascending by distance for nearest images
     allImageData.sort((a, b) => a.distance - b.distance);
-    console.log(allImageData);
+    trendiiLog(allImageData);
     const above3NearestImages = get3ImagesAboveAdContainer(
       adContainerIframeEl,
       allImageData
@@ -220,9 +223,9 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
       allImageData
     );
     const nearest6ImagesData = getNearest6Images(allImageData);
-    console.log(above3NearestImages);
-    console.log(below3NearestImages);
-    console.log(nearest6ImagesData);
+    trendiiLog(above3NearestImages);
+    trendiiLog(below3NearestImages);
+    trendiiLog(nearest6ImagesData);
     const aboveNearestImages = getImagesAboveCenterOfAdContainer(
       adContainerIframeEl,
       allImageData
@@ -231,7 +234,16 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
       adContainerIframeEl,
       allImageData
     );
-    console.log(aboveNearestImages);
-    console.log(belowNearestImages);
+    trendiiLog(aboveNearestImages);
+    trendiiLog(belowNearestImages);
+
+    // fetch('https://beeswaxcreatives.trendii.com/adsEnvironment', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify({ a: 1, b: 'Textual content' })
+    // });
   }
 });
