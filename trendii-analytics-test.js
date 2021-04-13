@@ -197,6 +197,7 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
       };
       return imageData;
     });
+    trendiiLog(allImageData);
     // const allImageData = [];
     // for (var i = 0; i < imageCollection.length; i++) {
     //   const imageEl = imageCollection[i];
