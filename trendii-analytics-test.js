@@ -232,10 +232,25 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
     );
     trendiiLog(aboveNearestImages);
     trendiiLog(belowNearestImages);
+    // prepare data for request payload
+    const aboveNearestImagesData = aboveNearestImages.map((imgData) => {
+      const { src, distance } = imgData;
+      return {
+        src,
+        distance
+      };
+    });
+    const belowNearestImagesData = belowNearestImages.map((imgData) => {
+      const { src, distance } = imgData;
+      return {
+        src,
+        distance
+      };
+    });
     // prepare request payload
     requestPayload.nearestImageData = [
-      ...aboveNearestImages,
-      ...belowNearestImages
+      ...aboveNearestImagesData,
+      ...belowNearestImagesData
     ];
   }
 
