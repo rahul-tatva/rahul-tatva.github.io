@@ -71,10 +71,6 @@ function getNearest6Images(imageSortedArray) {
 function getTagIdKeyFromFlashtalkingAdFrame() {
   let tagId = "";
   const iframeCollection = document.getElementsByTagName('iframe');
-  // Array.from(collection).forEach(someFn)
-  // for (var header of this.headers) {
-  //    trendiiLog(header);
-  // }
   for (const i = 0; i < iframeCollection.length; i++) {
     const iframe = iframeCollection[i];
     if (iframe.getAttribute('name') && iframe.getAttribute('src').contains('flashtalking')) {
@@ -112,7 +108,6 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
   debugger;
   const MIN_WIDTH = 200;
   const MIN_HEIGHT = 150;
-  getTagIdKeyFromFlashtalkingAdFrame();
   const requestPayload = {
     key: getTagIdKeyFromFlashtalkingAdFrame(),
     windowWidth: 0,
@@ -131,6 +126,7 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
     const sfCoordinates = sf.ext.geom();
     const { w, h } = sfCoordinates.win;
     const { t, l, r, b } = sfCoordinates.self;
+    // prepare request payload
     requestPayload.windowWidth = w;
     requestPayload.windowHeight = h;
     requestPayload.frame = { t, l, r, b };
@@ -142,8 +138,12 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
     trendiiLog(window);
     const adContainerIframeEl = window.frameElement;
     const { t, l, r, b } = getDOMElementDimensions(adContainerIframeEl);
+    // prepare request payload
+    requestPayload.windowWidth = window.top.width;
+    requestPayload.windowHeight = window.top.height;
     requestPayload.frame = { t, l, r, b };
     const iframeCoordinates = {
+      adContainerIframeEl,
       t, l, r, b,
       center: getPositionOfCenter(adContainerIframeEl),
     };
@@ -172,11 +172,15 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
     });
     const allImageData = filteredImageData.map(imgEl => {
       const elemRect = imgEl.getBoundingClientRect();
+      // to get the absolute positions of the elements from the window
+      // var topPos = imgEl.getBoundingClientRect().top + window.scrollY;
+      // var leftPos = imgEl.getBoundingClientRect().left + window.scrollX;
       // const elemTop = Math.ceil(window.scrollY + elemRect.top);
       // const elemLeft = Math.ceil(window.scrollX + elemRect.left);
       // Get Left Position
       const { offsetLeft, offsetTop, offsetWidth, offsetHeight } = imgEl;
       const imageData = {
+        imgEl,
         src: imgEl.currentSrc,
         offsetLeft,
         offsetTop,
@@ -192,19 +196,6 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
       return imageData;
     });
     trendiiLog(allImageData);
-    // const allImageData = [];
-    // for (var i = 0; i < imageCollection.length; i++) {
-    //   const imageEl = imageCollection[i];
-    //   const imgElSrc = imageCollection[i].src;
-    //   const distance = getDistanceBetweenElements(adContainerIframeEl, imageEl);
-    //   const imageData = {
-    //     src: imgElSrc,
-    //     distance: distance,
-    //     imageEl: imageEl,
-    //     center: getPositionOfCenter(imageEl),
-    //   };
-    //   allImageData.push(imageData);
-    // } // for loop end
     trendiiLog(findNearestImage(allImageData));
     // sort ascending by distance for nearest images
     allImageData.sort((a, b) => a.distance - b.distance);
@@ -231,14 +222,19 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
     );
     trendiiLog(aboveNearestImages);
     trendiiLog(belowNearestImages);
-
-    // fetch('https://beeswaxcreatives.trendii.com/adsEnvironment', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify({ a: 1, b: 'Textual content' })
-    // });
+    // prepare request payload
+    requestPayload.nearestImageData = [
+      ...aboveNearestImages,
+      ...belowNearestImages
+    ];
   }
+
+  // fetch('https://beeswaxcreatives.trendii.com/adsEnvironment', {
+  //   method: 'POST',
+  //   headers: {
+  //     'Accept': 'application/json',
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify(requestPayload)
+  // });
 });
