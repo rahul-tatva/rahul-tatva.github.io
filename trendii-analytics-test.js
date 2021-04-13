@@ -146,8 +146,8 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
     const adContainerIframeEl = window.frameElement;
     const { t, l, r, b } = getDOMElementDimensions(adContainerIframeEl);
     // prepare request payload
-    requestPayload.windowWidth = window.top.width;
-    requestPayload.windowHeight = window.top.height;
+    requestPayload.windowWidth = window.top.innerWidth;
+    requestPayload.windowHeight = window.top.innerHeight;
     requestPayload.frame = { t, l, r, b };
     const iframeCoordinates = {
       adContainerIframeEl,
