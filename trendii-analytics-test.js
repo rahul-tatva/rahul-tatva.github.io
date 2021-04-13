@@ -141,14 +141,6 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
   else if (w.frameElement) {
     trendiiLog(window);
     const adContainerIframeEl = window.frameElement;
-    // Get Left Position
-    const iframeLeft = adContainerIframeEl.offsetLeft;
-    // Get Top Position
-    const iframeTop = adContainerIframeEl.offsetTop;
-    // Get Width
-    const iframeWidth = adContainerIframeEl.offsetWidth;
-    // Get Height
-    const iframeHeight = adContainerIframeEl.offsetHeight;
     const { t, l, r, b } = getDOMElementDimensions(adContainerIframeEl);
     requestPayload.frame = { t, l, r, b };
     const iframeCoordinates = {
@@ -170,33 +162,34 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
       /^data:image\/svg\+xml,(.+)$/,
       /^https:\/\/([\w\.]+)?facebook([\w\.-]+)\/.*/i,
     ];
-    const allImageData = allDOMImagesArray.filter(imgEl => {
+    const filteredImageData = allDOMImagesArray.filter(imgEl => {
       let ignore = false;
       if (imgEl.width < MIN_WIDTH && imgEl.height < MIN_HEIGHT) ignore = true;
       regex.forEach(reg => {
         if (reg.test(imgEl.currentSrc)) ignore = true;
       });
-      if (!ignore) {
-        const elemRect = imgEl.getBoundingClientRect();
-        // const elemTop = Math.ceil(window.scrollY + elemRect.top);
-        // const elemLeft = Math.ceil(window.scrollX + elemRect.left);
-        // Get Left Position
-        const { offsetLeft, offsetTop, offsetWidth, offsetHeight } = imgEl;
-        const imageData = {
-          src: imgEl.currentSrc,
-          offsetLeft,
-          offsetTop,
-          offsetWidth,
-          offsetHeight,
-          center: getPositionOfCenter(imgEl),
-          distance: getDistanceBetweenElements(adContainerIframeEl, imgEl),
-          rectTop: elemRect.top,
-          rectLeft: elemRect.left,
-          rectWidth: elemRect.width,
-          rectHeight: elemRect.height,
-        };
-        return imageData;
-      }
+      if (!ignore) return imgEl;
+    });
+    const allImageData = filteredImageData.map(imgEl => {
+      const elemRect = imgEl.getBoundingClientRect();
+      // const elemTop = Math.ceil(window.scrollY + elemRect.top);
+      // const elemLeft = Math.ceil(window.scrollX + elemRect.left);
+      // Get Left Position
+      const { offsetLeft, offsetTop, offsetWidth, offsetHeight } = imgEl;
+      const imageData = {
+        src: imgEl.currentSrc,
+        offsetLeft,
+        offsetTop,
+        offsetWidth,
+        offsetHeight,
+        center: getPositionOfCenter(imgEl),
+        distance: getDistanceBetweenElements(adContainerIframeEl, imgEl),
+        rectTop: elemRect.top,
+        rectLeft: elemRect.left,
+        rectWidth: elemRect.width,
+        rectHeight: elemRect.height,
+      };
+      return imageData;
     });
     trendiiLog(allImageData);
     // const allImageData = [];
