@@ -222,11 +222,11 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
     trendiiLog(below3NearestImages);
     trendiiLog(nearest6ImagesData);
     const aboveNearestImages = getImagesAboveCenterOfAdContainer(
-      adContainerIframeEl,
+      iframeCoordinates,
       allImageData
     );
     const belowNearestImages = getImagesBelowCenterOfAdContainer(
-      adContainerIframeEl,
+      iframeCoordinates,
       allImageData
     );
     trendiiLog(aboveNearestImages);
