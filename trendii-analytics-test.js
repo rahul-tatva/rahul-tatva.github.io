@@ -68,18 +68,18 @@ function getNearest6Images(imageSortedArray) {
   return imageSortedArray.slice(0, 6);
 }
 function getTagIdKeyFromFlashtalkingAdFrame() {
-  let paramKey = "";
-  const iframeCollection = document.getElementsByTagName('iframe');
-  for (let i = 0; i < iframeCollection.length; i++) {
-    const iframe = iframeCollection[i];
-    if (iframe.getAttribute('name')) {
-      const data = iframe.getAttribute('name');
-      const jsonObj = JSON.parse(data);
-      const key = jsonObj.trendiiparam3;
-      paramKey = key;
+  let keyValue = "";
+  const scriptElementsCollection = document.getElementsByTagName("script");
+  for (let i = 0; i < scriptElementsCollection.length; i++) {
+    const scriptElement = scriptElementsCollection[i];
+    if (scriptElement.getAttribute("src").includes("servedby.flashtalking")) {
+      const srcUrl = scriptElement.getAttribute("src").includes("servedby.flashtalking");
+      const urlObj = new URL(srcUrl);
+      const trendiiParam = urlObj.searchParams.get("trendiiparam3");
+      keyValue = trendiiParam;
     }
   }
-  return paramKey;
+  return keyValue;
 }
 // function testDimensionsOfElement(domElArray) {
 //   domElArray.forEach(el => {
