@@ -73,7 +73,7 @@ function getTagIdKeyFromFlashtalkingAdFrame() {
   for (let i = 0; i < scriptElementsCollection.length; i++) {
     const scriptElement = scriptElementsCollection[i];
     if (scriptElement.getAttribute("src").includes("servedby.flashtalking")) {
-      const srcUrl = scriptElement.getAttribute("src").includes("servedby.flashtalking");
+      const srcUrl = scriptElement.getAttribute("src");
       const urlObj = new URL(srcUrl);
       const trendiiParam = urlObj.searchParams.get("trendiiparam3");
       keyValue = trendiiParam;
