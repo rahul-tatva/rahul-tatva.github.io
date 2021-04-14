@@ -242,7 +242,7 @@ document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
     trendiiLog(requestPayload);
   }
   // TO-DO: remove this line for key after tested
-  requestPayload.key = "123123123";
+  // requestPayload.key = "123123123";
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
   const raw = JSON.stringify(requestPayload);
