@@ -70,7 +70,7 @@ function getNearest6Images(imageSortedArray) {
 function getTagIdKeyFromFlashtalkingAdFrame() {
   let tagId = "";
   const iframeCollection = document.getElementsByTagName('iframe');
-  for (const i = 0; i < iframeCollection.length; i++) {
+  for (let i = 0; i < iframeCollection.length; i++) {
     const iframe = iframeCollection[i];
     if (iframe.getAttribute('name') && iframe.getAttribute('src').includes('flashtalking')) {
       const data = iframe.getAttribute('name');
