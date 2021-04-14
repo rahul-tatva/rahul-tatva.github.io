@@ -113,7 +113,7 @@ function getDOMElementDimensions(domEl) {
 function trendiiLog(message) {
   // console.log(message);
 }
-document.addEventListener("DOMContentLoaded", function handleDOMLoaded() {
+window.addEventListener("load", function handleDOMLoaded() {
   const MIN_WIDTH = 200;
   const MIN_HEIGHT = 150;
   const requestPayload = {
