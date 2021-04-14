@@ -112,7 +112,7 @@ function getDOMElementDimensions(domEl) {
 function trendiiLog(message) {
   // console.log(message);
 }
-window.addEventListener("load", function handleDOMLoaded() {
+function handleDOMLoaded() {
   const MIN_WIDTH = 200;
   const MIN_HEIGHT = 150;
   const requestPayload = {
@@ -255,4 +255,9 @@ window.addEventListener("load", function handleDOMLoaded() {
     .then(response => response.text())
     .then(result => console.log(result))
     .catch(error => console.log('error', error));
+}
+window.addEventListener("load", function () {
+  setTimeout(() => {
+    handleDOMLoaded();
+  }, 3000);
 });
