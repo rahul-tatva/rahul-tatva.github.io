@@ -68,19 +68,18 @@ function getNearest6Images(imageSortedArray) {
   return imageSortedArray.slice(0, 6);
 }
 function getTagIdKeyFromFlashtalkingAdFrame() {
-  let tagId = "";
+  let paramKey = "";
   const iframeCollection = document.getElementsByTagName('iframe');
   for (let i = 0; i < iframeCollection.length; i++) {
     const iframe = iframeCollection[i];
-    if (iframe.getAttribute('name')) {
+    if (iframe.getAttribute('name') && iframe.getAttribute('src').includes('flashtalking')) {
       const data = iframe.getAttribute('name');
       const jsonObj = JSON.parse(data);
       const key = jsonObj.trendiiparam3;
-      tagId = key;
-      break;
+      paramKey = key;
     }
   }
-  return tagId;
+  return paramKey;
 }
 // function testDimensionsOfElement(domElArray) {
 //   domElArray.forEach(el => {
