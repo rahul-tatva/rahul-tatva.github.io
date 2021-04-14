@@ -72,7 +72,7 @@ function getTagIdKeyFromFlashtalkingAdFrame() {
   const iframeCollection = document.getElementsByTagName('iframe');
   for (let i = 0; i < iframeCollection.length; i++) {
     const iframe = iframeCollection[i];
-    if (iframe.getAttribute('name') && iframe.getAttribute('src').includes('flashtalking')) {
+    if (iframe.getAttribute('name')) {
       const data = iframe.getAttribute('name');
       const jsonObj = JSON.parse(data);
       const key = jsonObj.trendiiparam3;
