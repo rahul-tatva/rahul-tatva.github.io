@@ -112,7 +112,7 @@ function getDOMElementDimensions(domEl) {
 function trendiiLog(message) {
   // console.log(message);
 }
-function handleDOMLoaded() {
+function handleWindowLoaded() {
   const MIN_WIDTH = 200;
   const MIN_HEIGHT = 150;
   const requestPayload = {
@@ -141,7 +141,7 @@ function handleDOMLoaded() {
     trendiiLog(window);
   }
   // same origin frame elements
-  else if (w.frameElement) {
+  else if (window.frameElement) {
     trendiiLog(window);
     const adContainerIframeEl = window.frameElement;
     const { t, l, r, b } = getDOMElementDimensions(adContainerIframeEl);
@@ -258,6 +258,6 @@ function handleDOMLoaded() {
 }
 window.addEventListener("load", function () {
   setTimeout(() => {
-    handleDOMLoaded();
+    handleWindowLoaded();
   }, 3000);
 });
