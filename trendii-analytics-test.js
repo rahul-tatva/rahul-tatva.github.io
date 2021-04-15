@@ -72,11 +72,13 @@ function getTagIdKeyFromFlashtalkingAdFrame() {
   const scriptElementsCollection = document.getElementsByTagName("script");
   for (let i = 0; i < scriptElementsCollection.length; i++) {
     const scriptElement = scriptElementsCollection[i];
-    if (scriptElement.getAttribute("src").includes("servedby.flashtalking")) {
+    if (scriptElement.getAttribute("src").includes("trendiiparam3")) {
       const srcUrl = scriptElement.getAttribute("src");
       const urlObj = new URL(srcUrl);
-      const trendiiParam = urlObj.searchParams.get("trendiiparam3");
-      keyValue = trendiiParam;
+      if (urlObj.searchParams.has("trendiiparam3")) {
+        keyValue = urlObj.searchParams.get("trendiiparam3");
+        break;
+      }
     }
   }
   return keyValue;
@@ -112,7 +114,7 @@ function getDOMElementDimensions(domEl) {
 function trendiiLog(message) {
   // console.log(message);
 }
-function handleWindowLoaded() {
+window.addEventListener("load", function handleWindowLoaded() {
   const MIN_WIDTH = 200;
   const MIN_HEIGHT = 150;
   const requestPayload = {
@@ -255,9 +257,4 @@ function handleWindowLoaded() {
     .then(response => response.text())
     .then(result => console.log(result))
     .catch(error => console.log('error', error));
-}
-window.addEventListener("load", function () {
-  setTimeout(() => {
-    handleWindowLoaded();
-  }, 3000);
 });
