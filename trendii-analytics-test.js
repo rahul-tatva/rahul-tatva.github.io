@@ -5,9 +5,27 @@ function getPositionOfCenter(element) {
     y: top + height / 2,
   };
 }
+function getAbsolutePositionOfCenter(element) {
+  const { top, left, width, height } = element.getBoundingClientRect();
+  const absLeft = left + window.top.scrollX;
+  const absTop = top + window.top.scrollY;
+  return {
+    x: absLeft + width / 2,
+    y: absTop + height / 2,
+  };
+}
+function getAbsolutePositionOnPage(el) {
+  const rect = el.getBoundingClientRect();
+  return {
+    left: rect.left + window.top.scrollX,
+    top: rect.top + window.top.scrollY,
+    width: rect.width,
+    height: rect.height,
+  };
+}
 function getDistanceBetweenElements(a, b) {
-  const aPosition = getPositionOfCenter(a);
-  const bPosition = getPositionOfCenter(b);
+  const aPosition = getAbsolutePositionOfCenter(a);
+  const bPosition = getAbsolutePositionOfCenter(b);
   return Math.hypot(aPosition.x - bPosition.x, aPosition.y - bPosition.y);
 }
 function findNearestImage(imageDataArray) {
@@ -151,19 +169,13 @@ window.addEventListener("load", function handleWindowLoaded() {
     requestPayload.windowWidth = window.top.innerWidth;
     requestPayload.windowHeight = window.top.innerHeight;
     requestPayload.frame = { t, l, r, b };
-    const iframeCoordinates = {
+    const adIframeCoordinates = {
       adContainerIframeEl,
       t, l, r, b,
-      center: getPositionOfCenter(adContainerIframeEl),
+      center: getAbsolutePositionOfCenter(adContainerIframeEl),
     };
-    // check if the iframe having id attribute
-    if (window.frameElement.id) {
-      const adContainerElId = window.frameElement.id;
-      const adContainerEl = window.top.document.getElementById(adContainerElId);
-    }
-    const topWindow = window.top;
     // TO DO throw error if image selector not present
-    const domImages = topWindow.document.images;
+    const domImages = window.top.document.images;
     const allDOMImagesArray = Array.from(domImages);
     // testDimensionsOfElement(allDOMImagesArray);
     const regex = [
@@ -187,17 +199,19 @@ window.addEventListener("load", function handleWindowLoaded() {
       // var leftPos = imgEl.getBoundingClientRect().left + window.scrollX;
       // const elemTop = Math.ceil(window.scrollY + elemRect.top);
       // const elemLeft = Math.ceil(window.scrollX + elemRect.left);
-      // Get Left Position
+      // Get relative positions from the parentNode
       const { offsetLeft, offsetTop, offsetWidth, offsetHeight } = imgEl;
       const imageData = {
         imgEl,
         src: imgEl.currentSrc,
+        // relative positions from the parentNode
         offsetLeft,
         offsetTop,
         offsetWidth,
         offsetHeight,
-        center: getPositionOfCenter(imgEl),
+        center: getAbsolutePositionOfCenter(imgEl),
         distance: getDistanceBetweenElements(adContainerIframeEl, imgEl),
+        // relative positions with window/browser/view port
         rectTop: elemRect.top,
         rectLeft: elemRect.left,
         rectWidth: elemRect.width,
@@ -206,10 +220,10 @@ window.addEventListener("load", function handleWindowLoaded() {
       return imageData;
     });
     trendiiLog(allImageData);
-    trendiiLog(findNearestImage(allImageData));
     // sort ascending by distance for nearest images
     allImageData.sort((a, b) => a.distance - b.distance);
     trendiiLog(allImageData);
+    trendiiLog(findNearestImage(allImageData));
     // const above3NearestImages = get3ImagesAboveAdContainer(
     //   adContainerIframeEl,
     //   allImageData
@@ -223,11 +237,11 @@ window.addEventListener("load", function handleWindowLoaded() {
     // trendiiLog(below3NearestImages);
     // trendiiLog(nearest6ImagesData);
     const aboveNearestImages = getImagesAboveCenterOfAdContainer(
-      iframeCoordinates,
+      adIframeCoordinates,
       allImageData
     );
     const belowNearestImages = getImagesBelowCenterOfAdContainer(
-      iframeCoordinates,
+      adIframeCoordinates,
       allImageData
     );
     trendiiLog(aboveNearestImages);
