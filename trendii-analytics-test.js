@@ -90,7 +90,7 @@ function getTagIdKeyFromFlashtalkingAdFrame() {
   const scriptElementsCollection = document.getElementsByTagName("script");
   for (let i = 0; i < scriptElementsCollection.length; i++) {
     const scriptElement = scriptElementsCollection[i];
-    if (scriptElement.getAttribute("src").includes("trendiiparam3")) {
+    if (scriptElement.getAttribute("src")) {
       const srcUrl = scriptElement.getAttribute("src");
       const urlObj = new URL(srcUrl);
       if (urlObj.searchParams.has("trendiiparam3")) {
