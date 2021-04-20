@@ -10,8 +10,8 @@ function getAbsolutePositionOfCenter(element) {
   const absLeft = left + window.top.scrollX;
   const absTop = top + window.top.scrollY;
   return {
-    x: absLeft + width / 2,
-    y: absTop + height / 2,
+    x: absLeft + (width / 2), // x = x1 + (width / 2)
+    y: absTop + (height / 2), // y = y1 + (height / 2)
   };
 }
 function getAbsolutePositionOnPage(el) {
@@ -28,64 +28,45 @@ function getDistanceBetweenElements(a, b) {
   const bPosition = getAbsolutePositionOfCenter(b);
   return Math.hypot(aPosition.x - bPosition.x, aPosition.y - bPosition.y);
 }
+function getDistanceBetweenCenterOfElements(a, b) {
+  const aCenterPosition = a.center;
+  const bCenterPosition = b.center;
+  return Math.hypot(aCenterPosition.x - bCenterPosition.x, aCenterPosition.y - bCenterPosition.y);
+}
 function findNearestImage(imageDataArray) {
   const nearestImageData = imageDataArray.reduce(function (prev, curr) {
     return prev.distance < curr.distance ? prev : curr;
   });
   return nearestImageData;
 }
-function get3ImagesAboveAdContainer(adContainerEl, imageSortedArray) {
-  const above3NearestImages = [];
-  let count = 0;
-  for (let index = 0; index < imageSortedArray.length && count !== 3; index++) {
-    const imgData = imageSortedArray[index];
-    if (imgData.offsetTop <= adContainerEl.offsetTop) {
-      above3NearestImages.push(imgData);
-      count++;
-    }
-  }
-  return above3NearestImages;
-}
-function getImagesAboveCenterOfAdContainer(adContainerEl, imageSortedArray, countOfImagesToReturn = 3) {
+function getImagesAboveCenterOfAdContainer(adContainerData, imageSortedArray, countOfImagesToReturn = 3) {
   const aboveNearestImages = [];
   let count = 0;
   for (let index = 0; index < imageSortedArray.length && count !== countOfImagesToReturn; index++) {
     const imgData = imageSortedArray[index];
-    if (imgData.center.y <= adContainerEl.center.y) {
+    if (imgData.center.y <= adContainerData.center.y) {
       aboveNearestImages.push(imgData);
       count++;
     }
   }
   return aboveNearestImages;
 }
-function get3ImagesBelowAdContainer(adContainerEl, imageSortedArray) {
-  const below3NearestImages = [];
-  let count = 0;
-  for (let index = 0; index < imageSortedArray.length && count !== 3; index++) {
-    const imgData = imageSortedArray[index];
-    if (imgData.offsetTop > adContainerEl.offsetTop) {
-      below3NearestImages.push(imgData);
-      count++;
-    }
-  }
-  return below3NearestImages;
-}
-function getImagesBelowCenterOfAdContainer(adContainerEl, imageSortedArray, countOfImagesToReturn = 3) {
+function getImagesBelowCenterOfAdContainer(adContainerData, imageSortedArray, countOfImagesToReturn = 3) {
   const belowNearestImages = [];
   let count = 0;
   for (let index = 0; index < imageSortedArray.length && count !== countOfImagesToReturn; index++) {
     const imgData = imageSortedArray[index];
-    if (imgData.center.y > adContainerEl.center.y) {
+    if (imgData.center.y > adContainerData.center.y) {
       belowNearestImages.push(imgData);
       count++;
     }
   }
   return belowNearestImages;
 }
-function getNearest6Images(imageSortedArray) {
-  return imageSortedArray.slice(0, 6);
+function getNearestImagesUptoCount(imageSortedArray, count = 6) {
+  return imageSortedArray.slice(0, count);
 }
-function getTagIdKeyFromFlashtalkingAdFrame() {
+function getKeyFromFlashtalkingSetup() {
   let keyValue = "";
   const scriptElementsCollection = document.getElementsByTagName("script");
   for (let i = 0; i < scriptElementsCollection.length; i++) {
@@ -111,23 +92,6 @@ function getTagIdKeyFromFlashtalkingAdFrame() {
 //     el.parentNode.prepend(toolTipDiv)
 //   });
 // }
-function getDOMElementDimensions(domEl) {
-  // Get Left Position
-  const elementLeft = domEl.offsetLeft;
-  // Get Top Position
-  const elementTop = domEl.offsetTop;
-  // Get Width
-  const elementWidth = domEl.offsetWidth;
-  // Get Height
-  const elementHeight = domEl.offsetHeight;
-  const elementCoordinates = {
-    t: elementTop,
-    l: elementLeft,
-    r: elementLeft + elementWidth,
-    b: elementTop + elementHeight,
-  };
-  return elementCoordinates;
-}
 // to get the logs printed just uncomment the console.log 
 function trendiiLog(message) {
   // console.log(message);
@@ -136,7 +100,7 @@ window.addEventListener("load", function handleWindowLoaded() {
   const MIN_WIDTH = 200;
   const MIN_HEIGHT = 150;
   const requestPayload = {
-    key: getTagIdKeyFromFlashtalkingAdFrame(),
+    key: getKeyFromFlashtalkingSetup(),
     windowWidth: 0,
     windowHeight: 0,
     frame: {
@@ -150,6 +114,12 @@ window.addEventListener("load", function handleWindowLoaded() {
   // check if its a safe frame
   const w = window, sf = w["$sf"], ext = sf && sf.ext;
   if (ext) {
+    /**
+      * Identifies the z-index and location, width, and height (in pixels) of the SafeFrame container relative
+      * to the browser or application window (win). In addition, width, height, and area percentage of
+      * SafeFrame content in view is provided, based on how much of the container is located within the
+      * boundaries of the browser or application window (win).
+      */
     const sfCoordinates = sf.ext.geom();
     const { w, h } = sfCoordinates.win;
     const { t, l, r, b } = sfCoordinates.self;
@@ -164,14 +134,34 @@ window.addEventListener("load", function handleWindowLoaded() {
   else if (window.frameElement) {
     trendiiLog(window);
     const adContainerIframeEl = window.frameElement;
-    const { t, l, r, b } = getDOMElementDimensions(adContainerIframeEl);
+    // offset positions are relative to its parent not to the window/whole page
+    const { offsetTop, offsetLeft, offsetWidth, offsetHeight } = domEl;
+    const boundingRect = adContainerIframeEl.getBoundingClientRect();
+    // absolute positions from the relation to page itself including scrolls
+    const absLeft = boundingRect.left + window.top.scrollX;
+    const absTop = boundingRect.top + window.top.scrollY;
+    // including scrolls
+    const absoluteCoordinates = {
+      t: absTop,
+      l: absLeft,
+      r: absLeft + boundingRect.width,
+      b: absTop + boundingRect.height,
+    };
     // prepare request payload
     requestPayload.windowWidth = window.top.innerWidth;
     requestPayload.windowHeight = window.top.innerHeight;
-    requestPayload.frame = { t, l, r, b };
+    requestPayload.frame = absoluteCoordinates;
     const adIframeCoordinates = {
-      adContainerIframeEl,
-      t, l, r, b,
+      iframeEl: adContainerIframeEl,
+      // relative positions from the parentNode
+      offsetLeft,
+      offsetTop,
+      offsetWidth,
+      offsetHeight,
+      rectTop: boundingRect.top,
+      rectLeft: boundingRect.left,
+      rectWidth: boundingRect.width,
+      rectHeight: boundingRect.height,
       center: getAbsolutePositionOfCenter(adContainerIframeEl),
     };
     // TO DO throw error if image selector not present
@@ -194,11 +184,6 @@ window.addEventListener("load", function handleWindowLoaded() {
     });
     const allImageData = filteredImageData.map(imgEl => {
       const elemRect = imgEl.getBoundingClientRect();
-      // to get the absolute positions of the elements from the window
-      // var topPos = imgEl.getBoundingClientRect().top + window.scrollY;
-      // var leftPos = imgEl.getBoundingClientRect().left + window.scrollX;
-      // const elemTop = Math.ceil(window.scrollY + elemRect.top);
-      // const elemLeft = Math.ceil(window.scrollX + elemRect.left);
       // Get relative positions from the parentNode
       const { offsetLeft, offsetTop, offsetWidth, offsetHeight } = imgEl;
       const imageData = {
@@ -224,18 +209,6 @@ window.addEventListener("load", function handleWindowLoaded() {
     allImageData.sort((a, b) => a.distance - b.distance);
     trendiiLog(allImageData);
     trendiiLog(findNearestImage(allImageData));
-    // const above3NearestImages = get3ImagesAboveAdContainer(
-    //   adContainerIframeEl,
-    //   allImageData
-    // );
-    // const below3NearestImages = get3ImagesAboveAdContainer(
-    //   adContainerIframeEl,
-    //   allImageData
-    // );
-    // const nearest6ImagesData = getNearest6Images(allImageData);
-    // trendiiLog(above3NearestImages);
-    // trendiiLog(below3NearestImages);
-    // trendiiLog(nearest6ImagesData);
     const aboveNearestImages = getImagesAboveCenterOfAdContainer(
       adIframeCoordinates,
       allImageData
@@ -255,9 +228,7 @@ window.addEventListener("load", function handleWindowLoaded() {
       ...belowNearestImagesData
     ];
     trendiiLog(requestPayload);
-  }
-  // TO-DO: remove this line for key after tested
-  // requestPayload.key = "123123123";
+  };
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
   const raw = JSON.stringify(requestPayload);
@@ -265,7 +236,6 @@ window.addEventListener("load", function handleWindowLoaded() {
     method: 'POST',
     headers: headers,
     body: raw,
-    // redirect: 'follow'
   };
   fetch("https://beeswaxcreatives.trendii.com/adsEnvironment", requestOptions)
     .then(response => response.text())
