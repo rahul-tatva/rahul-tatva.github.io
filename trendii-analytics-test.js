@@ -135,7 +135,7 @@ window.addEventListener("load", function handleWindowLoaded() {
     trendiiLog(window);
     const adContainerIframeEl = window.frameElement;
     // offset positions are relative to its parent not to the window/whole page
-    const { offsetTop, offsetLeft, offsetWidth, offsetHeight } = domEl;
+    const { offsetTop, offsetLeft, offsetWidth, offsetHeight } = adContainerIframeEl;
     const boundingRect = adContainerIframeEl.getBoundingClientRect();
     // absolute positions from the relation to page itself including scrolls
     const absLeft = boundingRect.left + window.top.scrollX;
