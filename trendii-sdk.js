@@ -237,7 +237,8 @@ class TRENDiiAd {
           //   x.image = imageSource;
           //   return x;
           // }),
-          adProductsData: result.payload.list,
+          // adProductsData: result.payload.list,
+          adProductsData: result.result,
         };
         // create an array where key is imageSource and values are adProductsData
         this.feedProducts.push(imageSourceWithAdProducts);
