@@ -1,6 +1,6 @@
-// const API_GET_AD_PRODUCTS = "https://flashtalking-sandbox-f6i4ayd3wa-ts.a.run.app/?site=16230&banner=300x600&p1=2487&p2=1636&p3=12345";
-const API_GET_AD_PRODUCTS =
-  "https://beeswax-creative-f6i4ayd3wa-ts.a.run.app/webImageProcess";
+const API_GET_AD_PRODUCTS = "https://flashtalking-sandbox-f6i4ayd3wa-ts.a.run.app/?site=16230&banner=300x600&p1=2487&p2=1636&p3=12345";
+// const API_GET_AD_PRODUCTS =
+//   "https://beeswax-creative-f6i4ayd3wa-ts.a.run.app/webImageProcess";
 const SUPPORTED_DIMENSIONS = ["160X600", "300X600"];
 class TRENDiiAd {
   constructor(options) {
@@ -38,7 +38,7 @@ class TRENDiiAd {
       );
     }
   }
-  log(message) {
+  trendiiLog(message) {
     console.log(message);
   }
   createOrGetAdContainer() {
