@@ -889,11 +889,14 @@ and is wrapped around the whole page content, except for the footer in this exam
     //   // adContainerId: "trendii-ad",
     // };
 
+    // simple default ads on the right of the page
     // for size 300x600 options
     const options = {
       adImagesSelector: ".ad-image",
       width: 300,
       height: 600,
+      // blog container is used to hide the ads when the main parent container
+      // is over , and header or footer starts on the page.
       // blogContainerSelector: ".blog-container",
       // adContainerId: "trendii-ad",
     };
@@ -906,6 +909,7 @@ and is wrapped around the whole page content, except for the footer in this exam
     //   adContainerId: "trendii-ad-container-sticky",
     // };
 
+    // static ad container inside div
     // const options = {
     //   adImagesSelector: ".ad-image",
     //   width: 300,
