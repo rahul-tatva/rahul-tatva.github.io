@@ -1,4 +1,5 @@
-const API_GET_AD_PRODUCTS = "https://flashtalking-sandbox-f6i4ayd3wa-ts.a.run.app/?site=16230&banner=300x600&p1=12345&p2=12345&p3=12345";
+const API_GET_AD_PRODUCTS =
+  "https://flashtalking-sandbox-f6i4ayd3wa-ts.a.run.app/?site=16230&banner=300x600&p1=12345&p2=12345&p3=12345";
 // const API_GET_AD_PRODUCTS =
 //   "https://beeswax-creative-f6i4ayd3wa-ts.a.run.app/webImageProcess";
 const SUPPORTED_DIMENSIONS = ["160X600", "300X600"];
@@ -80,7 +81,6 @@ class TRENDiiAd {
       document.body.appendChild(adIframe);
 
       if (this.blogContainerSelector) {
-
         window.addEventListener(
           "scroll",
           function () {
@@ -90,8 +90,9 @@ class TRENDiiAd {
             ).scrollHeight;
             var topOffset = document.querySelector(this.blogContainerSelector)
               .offsetTop;
-            var bottomHeight = document.querySelector(this.blogContainerSelector)
-              .offsetHeight;
+            var bottomHeight = document.querySelector(
+              this.blogContainerSelector
+            ).offsetHeight;
 
             var bottomOffsetDiv = topOffset + blogContainerHeight;
             let showAdBlock = true;
@@ -196,8 +197,11 @@ class TRENDiiAd {
     }
   }
   getAdTemplateHTML(onSuccessCallback, onErrorCallback) {
-    axios
-      .get(this.API_GET_TRENDII_AD_TEMPLATE)
+    const requestOptions = {
+      method: "get",
+      url: this.API_GET_TRENDII_AD_TEMPLATE,
+    };
+    axios(requestOptions)
       .then((response) => {
         // debugger;
         this.htmlString = response.data;
@@ -224,11 +228,11 @@ class TRENDiiAd {
 
     const requestOptions = {
       // method: 'POST',
-      method: 'GET',
+      method: "GET",
       url: API_GET_AD_PRODUCTS,
       data: {
-        ...requestBody
-      }
+        ...requestBody,
+      },
     };
     axios(requestOptions)
       .then((response) => {
