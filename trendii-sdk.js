@@ -38,7 +38,7 @@ class TRENDiiAd {
       );
     }
   }
-  trendiiLog(message) {
+  log(message) {
     console.log(message);
   }
   createOrGetAdContainer() {
