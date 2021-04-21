@@ -241,12 +241,19 @@ class TRENDiiAd {
         const result = response.data;
         const imageSourceWithAdProducts = {
           imageSource: imageSource,
+          // adProductsData: result.payload.list,
           // adProductsData: result.payload.list.map((x) => {
           //   x.image = imageSource;
           //   return x;
           // }),
-          // adProductsData: result.payload.list,
+
+          // test data
           adProductsData: result.result,
+          adProductsData: result.result.map((x) => {
+            // x.image = imageSource;
+            x.localImage = imageSource;
+            return x;
+          }),
         };
         // create an array where key is imageSource and values are adProductsData
         this.feedProducts.push(imageSourceWithAdProducts);
@@ -380,7 +387,7 @@ class TRENDiiAd {
 
     const productItem = document.createElement("DIV");
     productItem.classList.add("product-item");
-    productItem.style.backgroundImage = `url(${product.image})`;
+    productItem.style.backgroundImage = `url(${product.image || product.localImage})`;
     // debugger;
     // function test() {
     //   console.log("clcick product");
