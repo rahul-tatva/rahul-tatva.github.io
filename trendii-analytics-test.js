@@ -114,26 +114,26 @@ function getAllImagesInVisibleViewPort(
 ) {
   // here should we consider MAX( window.width, window.height) to find the nearest
   // const threshold = MAX( window.width, window.height)
-  const aboveNearestImagesInVisibleViewport = [];
+  const aboveImagesInVisibleViewport = [];
   for (let index = 0; index < allAboveNearestImages.length; index++) {
     const imgData = allAboveNearestImages[index];
-    if (imgData.distance <= windowDimensions.height) {
-      aboveNearestImagesInVisibleViewport.push(imgData);
+    if (imgData.distance <= windowDimensions.width) {
+      aboveImagesInVisibleViewport.push(imgData);
     }
   }
-  const belowNearestImagesInVisibleViewport = [];
+  const belowImagesInVisibleViewport = [];
   // belowNearestImagesInVisibleViewport = allBelowNearestImages.filter((imgData) => imgData.distance <= windowDimensions.height);
   for (let index = 0; index < allBelowNearestImages.length; index++) {
     const imgData = allBelowNearestImages[index];
-    if (imgData.distance <= windowDimensions.height) {
-      belowNearestImagesInVisibleViewport.push(imgData);
+    if (imgData.distance <= windowDimensions.width) {
+      belowImagesInVisibleViewport.push(imgData);
     }
   }
   // prepare resultant arrays
-  const resultantAboveNearestImagesInVisibleViewport = aboveNearestImagesInVisibleViewport.slice(0, (MAX_IMAGES_TO_RETURN / 2));
-  const resultBelowNearestImagesInVisibleViewport = belowNearestImagesInVisibleViewport.slice(0, MAX_IMAGES_TO_RETURN - resultantAboveNearestImagesInVisibleViewport.length);
+  const resultantAboveNearestImagesInVisibleViewport = aboveImagesInVisibleViewport.slice(0, (MAX_IMAGES_TO_RETURN / 2));
+  const resultBelowNearestImagesInVisibleViewport = belowImagesInVisibleViewport.slice(0, MAX_IMAGES_TO_RETURN - resultantAboveNearestImagesInVisibleViewport.length);
 
-  let filteredAboveNearestImagesInVisibleViewport = aboveNearestImagesInVisibleViewport;
+  let filteredAboveNearestImagesInVisibleViewport = aboveImagesInVisibleViewport;
   resultantAboveNearestImagesInVisibleViewport.forEach((currentImgData) => {
     // let result = [];
     // for (let index = 0; index < aboveNearestImagesInVisibleViewport.length; index++) {
@@ -145,7 +145,7 @@ function getAllImagesInVisibleViewPort(
       .filter((imgData) => imgData.src !== currentImgData.src);
   });
 
-  let filteredBelowNearestImagesInVisibleViewport = belowNearestImagesInVisibleViewport;
+  let filteredBelowNearestImagesInVisibleViewport = belowImagesInVisibleViewport;
   resultBelowNearestImagesInVisibleViewport.forEach((currentImgData) => {
     // let result = [];
     // for (let index = 0; index < belowNearestImagesInVisibleViewport.length; index++) {
@@ -241,15 +241,15 @@ window.addEventListener("load", function handleWindowLoaded() {
   // same origin frame elements
   else if (window.frameElement) {
     trendiiLog(window);
-    const adContainerIframeEl = window.frameElement;
+    const adIframeEl = window.frameElement;
     // offset positions are relative to its parent not to the window/whole page
     const {
       offsetTop,
       offsetLeft,
       offsetWidth,
       offsetHeight,
-    } = adContainerIframeEl;
-    const boundingRect = adContainerIframeEl.getBoundingClientRect();
+    } = adIframeEl;
+    const boundingRect = adIframeEl.getBoundingClientRect();
     // absolute positions from the relation to page itself including scrolls
     const absLeft = boundingRect.left + window.top.scrollX;
     const absTop = boundingRect.top + window.top.scrollY;
@@ -271,7 +271,7 @@ window.addEventListener("load", function handleWindowLoaded() {
     requestPayload.windowHeight = window.top.innerHeight;
     requestPayload.frame = absoluteCoordinates;
     const adIframeCoordinates = {
-      iframeEl: adContainerIframeEl,
+      iframeEl: adIframeEl,
       // relative positions from the parentNode
       offsetLeft,
       offsetTop,
@@ -281,27 +281,25 @@ window.addEventListener("load", function handleWindowLoaded() {
       rectLeft: boundingRect.left,
       rectWidth: boundingRect.width,
       rectHeight: boundingRect.height,
-      center: getAbsolutePositionOfCenter(adContainerIframeEl),
+      center: getAbsolutePositionOfCenter(adIframeEl),
     };
     // TO DO throw error if image selector not present
     const domImages = window.top.document.images;
-    const allDOMImagesArray = Array.from(domImages);
-    // testDimensionsOfElement(allDOMImagesArray);
+    const allImagesArray = Array.from(domImages);
+    // testDimensionsOfElement(allImagesArray);
     const regex = [
       /^.*(\.svg|\.gif|\.webp)(\?.*)?$/,
       /^data:(.+);base64,(.+)$/,
       /^data:image\/svg\+xml,(.+)$/,
       /^https:\/\/([\w\.]+)?facebook([\w\.-]+)\/.*/i,
     ];
-    const filteredImageData = allDOMImagesArray.filter((imgEl) => {
+    const filteredImageElements = allImagesArray.filter((imgEl) => {
       let ignore = false;
       if (imgEl.width < MIN_WIDTH && imgEl.height < MIN_HEIGHT) ignore = true;
-      regex.forEach((reg) => {
-        if (reg.test(imgEl.src)) ignore = true;
-      });
+      regex.forEach((reg) => { if (reg.test(imgEl.src)) ignore = true; });
       if (!ignore) return imgEl;
     });
-    const allImageData = filteredImageData.map((imgEl) => {
+    const allImagesDataArray = filteredImageElements.map((imgEl) => {
       const elemRect = imgEl.getBoundingClientRect();
       // Get relative positions from the parentNode
       const { offsetLeft, offsetTop, offsetWidth, offsetHeight } = imgEl;
@@ -315,7 +313,7 @@ window.addEventListener("load", function handleWindowLoaded() {
         offsetHeight,
         center: getAbsolutePositionOfCenter(imgEl),
         distance: getAbsoluteDistanceBetweenElementsOnPage(
-          adContainerIframeEl,
+          adIframeEl,
           imgEl
         ),
         // relative positions with window/browser/view port
@@ -326,29 +324,29 @@ window.addEventListener("load", function handleWindowLoaded() {
       };
       return imageData;
     });
-    trendiiLog(allImageData);
+    trendiiLog(allImagesDataArray);
     // sort ascending by distance for nearest images
-    allImageData.sort((a, b) => a.distance - b.distance);
-    trendiiLog(allImageData);
-    trendiiLog(findNearestImage(allImageData));
-    const allAboveNearestImagesData = getAllImagesAboveCenterOfAdContainer(
+    allImagesDataArray.sort((a, b) => a.distance - b.distance);
+    trendiiLog(allImagesDataArray);
+    trendiiLog(findNearestImage(allImagesDataArray));
+    const allAboveImagesDataArray = getAllImagesAboveCenterOfAdContainer(
       adIframeCoordinates,
-      allImageData
+      allImagesDataArray
     );
-    const allBelowNearestImagesData = getAllImagesBelowCenterOfAdContainer(
+    const allBelowImagesDataArray = getAllImagesBelowCenterOfAdContainer(
       adIframeCoordinates,
-      allImageData
+      allImagesDataArray
     );
-    trendiiLog(allAboveNearestImagesData);
-    trendiiLog(allBelowNearestImagesData);
+    trendiiLog(allAboveImagesDataArray);
+    trendiiLog(allBelowImagesDataArray);
     const {
       mixVisibleImagesInViewport,
       filteredAboveNearestImagesInVisibleViewport,
       filteredBelowNearestImagesInVisibleViewport,
     } = getAllImagesInVisibleViewPort(
       windowDimensions,
-      allAboveNearestImagesData,
-      allBelowNearestImagesData
+      allAboveImagesDataArray,
+      allBelowImagesDataArray
     );
     trendiiLog(mixVisibleImagesInViewport);
     /*
