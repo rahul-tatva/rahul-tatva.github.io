@@ -109,29 +109,32 @@ function getAllImagesBelowCenterOfAdContainer(
 }
 function getAllImagesInVisibleViewPort(
   windowDimensions,
-  allAboveNearestImages,
-  allBelowNearestImages
+  allAboveImages,
+  allBelowImages
 ) {
   // here should we consider MAX( window.width, window.height) to find the nearest
   // const threshold = MAX( window.width, window.height)
-  const aboveImagesInVisibleViewport = [];
-  for (let index = 0; index < allAboveNearestImages.length; index++) {
-    const imgData = allAboveNearestImages[index];
-    if (imgData.distance <= windowDimensions.width) {
-      aboveImagesInVisibleViewport.push(imgData);
-    }
-  }
-  const belowImagesInVisibleViewport = [];
-  // belowNearestImagesInVisibleViewport = allBelowNearestImages.filter((imgData) => imgData.distance <= windowDimensions.height);
-  for (let index = 0; index < allBelowNearestImages.length; index++) {
-    const imgData = allBelowNearestImages[index];
-    if (imgData.distance <= windowDimensions.width) {
-      belowImagesInVisibleViewport.push(imgData);
-    }
-  }
+  const aboveImagesInVisibleViewport = allAboveImages
+    .filter((imgData) => imgData.distance <= windowDimensions.height);
+  // for (let index = 0; index < allAboveImages.length; index++) {
+  //   const imgData = allAboveImages[index];
+  //   if (imgData.distance <= windowDimensions.width) {
+  //     aboveImagesInVisibleViewport.push(imgData);
+  //   }
+  // }
+  const belowImagesInVisibleViewport = allBelowImages
+    .filter((imgData) => imgData.distance <= windowDimensions.height);
+  // for (let index = 0; index < allBelowNearestImages.length; index++) {
+  //   const imgData = allBelowNearestImages[index];
+  //   if (imgData.distance <= windowDimensions.width) {
+  //     belowImagesInVisibleViewport.push(imgData);
+  //   }
+  // }
   // prepare resultant arrays
-  const resultantAboveNearestImagesInVisibleViewport = aboveImagesInVisibleViewport.slice(0, (MAX_IMAGES_TO_RETURN / 2));
-  const resultBelowNearestImagesInVisibleViewport = belowImagesInVisibleViewport.slice(0, MAX_IMAGES_TO_RETURN - resultantAboveNearestImagesInVisibleViewport.length);
+  const resultantAboveNearestImagesInVisibleViewport = aboveImagesInVisibleViewport
+    .slice(0, (MAX_IMAGES_TO_RETURN / 2));
+  const resultBelowNearestImagesInVisibleViewport = belowImagesInVisibleViewport
+    .slice(0, MAX_IMAGES_TO_RETURN - resultantAboveNearestImagesInVisibleViewport.length);
 
   let filteredAboveNearestImagesInVisibleViewport = aboveImagesInVisibleViewport;
   resultantAboveNearestImagesInVisibleViewport.forEach((currentImgData) => {
