@@ -223,7 +223,7 @@ function generateImageData(imgEl, adIframeEl) {
 }
 // to get the logs printed just uncomment the console.log
 function trendiiLog(message) {
-    console.log(message);
+    // console.log(message);
 }
 window.addEventListener("load", () => {
     const MIN_WIDTH = 200;
