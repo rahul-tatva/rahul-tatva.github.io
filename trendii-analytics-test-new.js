@@ -1,23 +1,13 @@
 const MAX_IMAGES_TO_RETURN = 6;
 function getPositionOfCenter(element) {
-    const {
-        top,
-        left,
-        width,
-        height,
-    } = element.getBoundingClientRect();
+    const { top, left, width, height } = element.getBoundingClientRect();
     return {
         x: left + width / 2,
         y: top + height / 2,
     };
 }
 function getAbsolutePositionOfCenter(element) {
-    const {
-        top,
-        left,
-        width,
-        height,
-    } = element.getBoundingClientRect();
+    const { top, left, width, height } = element.getBoundingClientRect();
     const absLeft = left + window.top.scrollX;
     const absTop = top + window.top.scrollY;
     return {
@@ -44,27 +34,30 @@ function getDistanceBetweenCenterOfElements(a, b) {
     const bCenterPosition = b.center;
     return Math.hypot(
         aCenterPosition.x - bCenterPosition.x,
-        aCenterPosition.y - bCenterPosition.y,
+        aCenterPosition.y - bCenterPosition.y
     );
 }
 function findNearestImage(imageDataArray) {
-    const nearestImageData = imageDataArray.reduce((prev, curr) => (prev.distance < curr.distance ? prev : curr));
+    const nearestImageData = imageDataArray.reduce((prev, curr) =>
+        prev.distance < curr.distance ? prev : curr
+    );
     return nearestImageData;
 }
 function getAllImagesAboveCenterOfAdContainer(
     adContainerData,
-    imageSortedArray,
+    imageSortedArray
 ) {
     const aboveNearestImages = [];
     for (let index = 0; index < imageSortedArray.length; index++) {
         const imgData = imageSortedArray[index];
-        if (imgData.center.y <= adContainerData.center.y) aboveNearestImages.push(imgData);
+        if (imgData.center.y <= adContainerData.center.y)
+            aboveNearestImages.push(imgData);
     }
     return aboveNearestImages;
 }
 function filteredNearestImagesInVisibleViewport(
     totalImagesDataArray,
-    filteringImagesWhichAreNeedsToBeExcluded,
+    filteringImagesWhichAreNeedsToBeExcluded
 ) {
     // filter out taken images
     let filteredAboveOrBelowNearestImagesData = totalImagesDataArray;
@@ -76,44 +69,45 @@ function filteredNearestImagesInVisibleViewport(
         // }
         // filteredAboveNearestImagesInVisibleViewport = result;
         filteredAboveOrBelowNearestImagesData = filteredAboveOrBelowNearestImagesData.filter(
-            (imgData) => imgData.src !== filteringImgData.src,
+            (imgData) => imgData.src !== filteringImgData.src
         );
     });
     return filteredAboveOrBelowNearestImagesData;
 }
 function getAllImagesBelowCenterOfAdContainer(
     adContainerData,
-    imageSortedArray,
+    imageSortedArray
 ) {
     const belowNearestImages = [];
     for (let index = 0; index < imageSortedArray.length; index++) {
         const imgData = imageSortedArray[index];
-        if (imgData.center.y > adContainerData.center.y) belowNearestImages.push(imgData);
+        if (imgData.center.y > adContainerData.center.y)
+            belowNearestImages.push(imgData);
     }
     return belowNearestImages;
 }
 function getAllImagesInVisibleViewPort(
     windowDimensions,
     allAboveImages,
-    allBelowImages,
+    allBelowImages
 ) {
     // here should we consider MAX( window.width, window.height) to find the nearest
     // const threshold = MAX( window.width, window.height)
     const aboveImagesInVisibleViewport = allAboveImages.filter(
-        (imgData) => imgData.distance <= windowDimensions.height,
+        (imgData) => imgData.distance <= windowDimensions.height
     );
     const belowImagesInVisibleViewport = allBelowImages.filter(
-        (imgData) => imgData.distance <= windowDimensions.height,
+        (imgData) => imgData.distance <= windowDimensions.height
     );
     // prepare resultant arrays
     const ABOVE_IMAGES_TO_RETURN = Math.ceil(MAX_IMAGES_TO_RETURN / 2);
     const aboveNearestImagesInVisibleViewport = aboveImagesInVisibleViewport.slice(
         0,
-        ABOVE_IMAGES_TO_RETURN,
+        ABOVE_IMAGES_TO_RETURN
     );
     const belowNearestImagesInVisibleViewport = belowImagesInVisibleViewport.slice(
         0,
-        MAX_IMAGES_TO_RETURN - aboveNearestImagesInVisibleViewport.length,
+        MAX_IMAGES_TO_RETURN - aboveNearestImagesInVisibleViewport.length
     );
     // merge the results
     let mixVisibleImagesInViewport = [
@@ -125,20 +119,23 @@ function getAllImagesInVisibleViewPort(
     if (mixVisibleImagesInViewport.length < MAX_IMAGES_TO_RETURN) {
         filteredAboveNearestImagesInVisibleViewport = filteredNearestImagesInVisibleViewport(
             aboveImagesInVisibleViewport,
-            aboveNearestImagesInVisibleViewport,
+            aboveNearestImagesInVisibleViewport
         );
         filteredBelowNearestImagesInVisibleViewport = filteredNearestImagesInVisibleViewport(
             belowImagesInVisibleViewport,
-            belowNearestImagesInVisibleViewport,
+            belowNearestImagesInVisibleViewport
         );
-        const REMAINING_MAX_IMAGES_COUNT = MAX_IMAGES_TO_RETURN - mixVisibleImagesInViewport.length;
+        const REMAINING_MAX_IMAGES_COUNT =
+            MAX_IMAGES_TO_RETURN - mixVisibleImagesInViewport.length;
         const ABOVE_IMAGES_TO_RETURN_2 = Math.ceil(REMAINING_MAX_IMAGES_COUNT / 2);
         const aboveNearestImagesInVisibleViewport2 = filteredAboveNearestImagesInVisibleViewport.slice(
             0,
-            ABOVE_IMAGES_TO_RETURN_2,
+            ABOVE_IMAGES_TO_RETURN_2
         );
-        const belowNearestImagesInVisibleViewport2 = filteredBelowNearestImagesInVisibleViewport
-            .slice(0, REMAINING_MAX_IMAGES_COUNT - aboveNearestImagesInVisibleViewport2.length);
+        const belowNearestImagesInVisibleViewport2 = filteredBelowNearestImagesInVisibleViewport.slice(
+            0,
+            REMAINING_MAX_IMAGES_COUNT - aboveNearestImagesInVisibleViewport2.length
+        );
         mixVisibleImagesInViewport = [
             ...mixVisibleImagesInViewport,
             ...aboveNearestImagesInVisibleViewport2,
@@ -149,11 +146,11 @@ function getAllImagesInVisibleViewPort(
         // from the resultant above or below visible images
         filteredAboveNearestImagesInVisibleViewport = filteredNearestImagesInVisibleViewport(
             allAboveImages,
-            aboveNearestImagesInVisibleViewport2,
+            aboveNearestImagesInVisibleViewport2
         );
         filteredBelowNearestImagesInVisibleViewport = filteredNearestImagesInVisibleViewport(
             allBelowImages,
-            belowNearestImagesInVisibleViewport2,
+            belowNearestImagesInVisibleViewport2
         );
     }
     return {
@@ -165,7 +162,7 @@ function getAllImagesInVisibleViewPort(
 }
 function getNearestImagesUptoCount(
     imageSortedArray,
-    count = MAX_IMAGES_TO_RETURN,
+    count = MAX_IMAGES_TO_RETURN
 ) {
     return imageSortedArray.slice(0, count);
 }
@@ -199,12 +196,7 @@ function getPositionDataOfElement(domEl) {
     const boundingRect = domEl.getBoundingClientRect();
     // Get relative positions from the parentNode
     // offset positions are relative to its parent not to the window/whole page
-    const {
-        offsetLeft,
-        offsetTop,
-        offsetWidth,
-        offsetHeight,
-    } = domEl;
+    const { offsetLeft, offsetTop, offsetWidth, offsetHeight } = domEl;
     const elPositionData = {
         // relative positions from the parentNode
         offsetLeft,
@@ -260,25 +252,13 @@ window.addEventListener("load", () => {
          * boundaries of the browser or application window (win).
          */
         const sfCoordinates = sf.ext.geom();
-        const {
-            w,
-            h,
-        } = sfCoordinates.win;
-        const {
-            t,
-            l,
-            r,
-            b,
-        } = sfCoordinates.self;
+        const { w, h } = sfCoordinates.win;
+        const { t, l, r, b } = sfCoordinates.self;
         // prepare request payload
         requestPayload.windowWidth = w;
         requestPayload.windowHeight = h;
-        requestPayload.frame = {
-            t,
-            l,
-            r,
-            b,
-        };
+        requestPayload.frame = { t, l, r, b, };
+        requestPayload.url = window.document.referrer;
         trendiiLog(window.$sf);
         trendiiLog(window);
     }
@@ -301,6 +281,7 @@ window.addEventListener("load", () => {
         requestPayload.windowWidth = window.top.innerWidth;
         requestPayload.windowHeight = window.top.innerHeight;
         requestPayload.frame = absoluteCoordinates;
+        requestPayload.url = window.location.href;
         const windowDimensions = {
             width: window.top.innerWidth,
             height: window.top.innerHeight,
@@ -326,7 +307,9 @@ window.addEventListener("load", () => {
             });
             if (!ignore) return imgEl;
         });
-        const allImagesDataArray = filteredImageElements.map((imgEl) => generateImageData(imgEl, adIframeEl));
+        const allImagesDataArray = filteredImageElements.map((imgEl) =>
+            generateImageData(imgEl, adIframeEl)
+        );
         trendiiLog(allImagesDataArray);
         // sort ascending by distance for nearest images
         allImagesDataArray.sort((a, b) => a.distance - b.distance);
@@ -334,25 +317,22 @@ window.addEventListener("load", () => {
         trendiiLog(findNearestImage(allImagesDataArray));
         const allAboveImagesDataArray = getAllImagesAboveCenterOfAdContainer(
             adIframeData,
-            allImagesDataArray,
+            allImagesDataArray
         );
         const allBelowImagesDataArray = getAllImagesBelowCenterOfAdContainer(
             adIframeData,
-            allImagesDataArray,
+            allImagesDataArray
         );
         trendiiLog(allAboveImagesDataArray);
         trendiiLog(allBelowImagesDataArray);
-        const {
-            mixVisibleImagesInViewport,
-        } = getAllImagesInVisibleViewPort(
+        const { mixVisibleImagesInViewport } = getAllImagesInVisibleViewPort(
             windowDimensions,
             allAboveImagesDataArray,
-            allBelowImagesDataArray,
+            allBelowImagesDataArray
         );
         trendiiLog(mixVisibleImagesInViewport);
         // set prioritized images firstly into the final array
         let finalResultantImagesArray = [...mixVisibleImagesInViewport];
-
 
         // Note: In this case no need to prioritize images into half above first and then half above below
         // because the, the priority based on the view port visible images is already handled and cleared into
@@ -367,24 +347,32 @@ window.addEventListener("load", () => {
         // and the returned array is not much of significance
         // then just add normal above and below images taking above images to the priority
         if (mixVisibleImagesInViewport.length < MAX_IMAGES_TO_RETURN) {
-            const REMAINING_ABOVE_IMAGES_COUNT = MAX_IMAGES_TO_RETURN - mixVisibleImagesInViewport.length;
+            const REMAINING_ABOVE_IMAGES_COUNT =
+                MAX_IMAGES_TO_RETURN - mixVisibleImagesInViewport.length;
             const filteredAllAboveImages = filteredNearestImagesInVisibleViewport(
                 allAboveImagesDataArray,
-                mixVisibleImagesInViewport,
+                mixVisibleImagesInViewport
             );
             const filteredAllBelowImages = filteredNearestImagesInVisibleViewport(
                 allBelowImagesDataArray,
-                mixVisibleImagesInViewport,
+                mixVisibleImagesInViewport
             );
 
             // take all normal above images into first priority
-            const normalAboveImages = filteredAllAboveImages.slice(0, REMAINING_ABOVE_IMAGES_COUNT);
+            const normalAboveImages = filteredAllAboveImages.slice(
+                0,
+                REMAINING_ABOVE_IMAGES_COUNT
+            );
             trendiiLog(normalAboveImages);
-            const REMAINING_BELOW_IMAGES_COUNT = REMAINING_ABOVE_IMAGES_COUNT - normalAboveImages.length;
+            const REMAINING_BELOW_IMAGES_COUNT =
+                REMAINING_ABOVE_IMAGES_COUNT - normalAboveImages.length;
             // if any of the above images are not present i.e. above images are just zero or less than the
             // maximum required images
             // then take all the remaining images from the below images only
-            const normalBelowImages = filteredAllBelowImages.slice(0, REMAINING_BELOW_IMAGES_COUNT);
+            const normalBelowImages = filteredAllBelowImages.slice(
+                0,
+                REMAINING_BELOW_IMAGES_COUNT
+            );
             trendiiLog(normalBelowImages);
 
             // prepare final data array for the nearest images
@@ -400,7 +388,7 @@ window.addEventListener("load", () => {
             (imgData) => ({
                 src: imgData.src,
                 distance: imgData.distance,
-            }),
+            })
         );
         trendiiLog(finalNearestImageDataArray);
         // prepare request payload
