@@ -295,12 +295,19 @@
             </div>
         </div>
     </div>
-    <script>
+    <script type="text/javascript">
         console.log(window.FEED_PRODUCTS);
         document.addEventListener("DOMContentLoaded", function () {
             debugger;
+            alert("DOM READt");
+            console.log(window.FEED_PRODUCTS);
             feedSuccess(window.FEED_PRODUCTS);
         });
+        window.onload = function () {
+            console.log(window.FEED_PRODUCTS);
+            alert("WINDOW READY");
+            feedSuccess(window.FEED_PRODUCTS);
+        }
         function feedSuccess(feedResponse) {
             let sliderItem;
             // if feed does not deliver an empty response
