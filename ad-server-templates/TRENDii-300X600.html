@@ -296,6 +296,7 @@
         </div>
     </div>
     <script type="text/javascript">
+        debugger;
         console.log(window.FEED_PRODUCTS);
         document.addEventListener("DOMContentLoaded", function () {
             debugger;
@@ -308,6 +309,7 @@
             alert("WINDOW READY");
             feedSuccess(window.FEED_PRODUCTS);
         }
+        feedSuccess(window.FEED_PRODUCTS);
         function feedSuccess(feedResponse) {
             let sliderItem;
             // if feed does not deliver an empty response
