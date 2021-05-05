@@ -289,6 +289,8 @@ window.addEventListener("load", () => {
       scrollY: window.top.scrollY,
     };
     const adIframeData = getPositionDataOfElement(adIframeEl);
+    // send message to the iframes
+    window.postMessage(requestPayload, "*");
     // TO DO throw error if image selector not present
     const domImages = window.top.document.images;
     const allImagesArray = Array.from(domImages);
