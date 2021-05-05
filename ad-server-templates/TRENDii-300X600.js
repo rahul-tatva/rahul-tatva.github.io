@@ -12,7 +12,6 @@
 // };
 feedSuccess(window.FEED_PRODUCTS);
 function feedSuccess(feedResponse) {
-    debugger;
     let sliderItem;
     // if feed does not deliver an empty response
     if (feedResponse !== "") {
