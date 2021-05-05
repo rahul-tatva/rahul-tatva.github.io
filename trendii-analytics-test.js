@@ -221,6 +221,20 @@ function generateImageData(imgEl, adIframeEl) {
   };
   return imageData;
 }
+function sendMessageToIframe(message) {
+  // console.log(message);
+  // setTimeout(() => {
+  debugger;
+  //   if (event.origin != 'https://beeswax.com') {
+  //     // something from an unknown domain, let's ignore it
+  //     return;
+  //   }
+  const trendiiAdIframe = document.getElementsByTagName('iframe')[0];
+  // window.postMessage(JSON.stringify(requestPayload), "*");
+  // send message to the iframes
+  trendiiAdIframe.contentWindow.postMessage(JSON.stringify(message), "*");
+  // }, 5000);
+}
 // to get the logs printed just uncomment the console.log
 function trendiiLog(message) {
   // console.log(message);
@@ -260,6 +274,7 @@ window.addEventListener("load", () => {
     requestPayload.windowHeight = h;
     requestPayload.frame = { t, l, r, b, };
     requestPayload.url = window.document.referrer;
+    sendMessageToIframe(requestPayload);
     trendiiLog(window.$sf);
     trendiiLog(window);
   }
@@ -290,26 +305,7 @@ window.addEventListener("load", () => {
       scrollY: window.top.scrollY,
     };
     const adIframeData = getPositionDataOfElement(adIframeEl);
-    // setTimeout(() => {
-    debugger;
-    const trendiiAdIframe = document.getElementsByTagName('iframe')[0];
-    // send message to the iframes
-    window.postMessage(JSON.stringify(requestPayload), "*");
-    trendiiAdIframe.contentWindow.postMessage(JSON.stringify(requestPayload), "https://rahulparmarrp.github.io");
-    // }, 5000);
-
-
-    // window.addEventListener("message", function (event) {
-    //   debugger;
-    //   if (event.origin != 'http://javascript.info') {
-    //     // something from an unknown domain, let's ignore it
-    //     return;
-    //   }
-
-    //   alert("received: " + event.data);
-
-    //   // can message back using event.source.postMessage(...)
-    // });
+    sendMessageToIframe(requestPayload);
     // TO DO throw error if image selector not present
     const domImages = window.top.document.images;
     const allImagesArray = Array.from(domImages);
