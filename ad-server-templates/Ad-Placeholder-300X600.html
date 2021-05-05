@@ -6,7 +6,8 @@
 </head>
 
 <body>
-    <script>
+    <script src="https://rahul-tatva.github.io/assets/splide.min.js"></script>
+    <script type="text/javascript">
 
         // here we will just pass the ad container coordinates and size to the API url
         const API_GET_AD_PRODUCTS = "https://flashtalking-sandbox-f6i4ayd3wa-ts.a.run.app/?site=16230&banner=300x50&p1=2477&p2=1636&p3=12345";
@@ -16,7 +17,6 @@
         const requestOptions = {
             method: "GET",
             headers,
-            // body: raw,
         };
         fetch(API_GET_AD_PRODUCTS, requestOptions)
             .then((response) => response.json())
@@ -32,28 +32,34 @@
         function feedSuccess(feedResponse, feedUrl) {
             if (feedResponse.success && feedResponse.success === true) {
                 var feedProducts = feedResponse.result;
-
+                window.FEED_PRODUCTS = feedResponse;
                 // here we get some details about which retailer it is
                 // some ads size details
+                const retailer = "TRENDii";
 
                 // so now get the html template for that retailer
                 // from CDN url
-                const CDN_URL = "https://rahul-tatva.github.io";
-                const API_GET_AD_TEMPLATE = `${CDN_URL}/${"Trendii"}-${"300X600"}.html`;
-                const requestOptions = {
-                    method: "GET",
-                };
-                fetch(API_GET_AD_TEMPLATE, requestOptions)
+                const fileName = `${retailer}-300X600`;
+                const CDN_URL = "https://rahul-tatva.github.io/ad-server-templates";
+                const API_GET_AD_HTML_TEMPLATE = `${CDN_URL}/${fileName}.html`;
+                // create js file url to render feed products with slider
+                const API_GET_AD_JS_SCRIPT = `${CDN_URL}/${fileName}.js`;
+                const requestOptions = { method: "GET" };
+                fetch(API_GET_AD_HTML_TEMPLATE, requestOptions)
                     .then((response) => response.text())
                     .then((htmlResult) => {
-                        debugger;
-                        console.log(htmlResult);
                         const domParser = new DOMParser();
                         const parsedHtmlDocumentEl = domParser.parseFromString(htmlResult, "text/html");
-
                         const templateHead = parsedHtmlDocumentEl.head;
                         const templateBody = parsedHtmlDocumentEl.body;
                         document.head.innerHTML = templateHead.innerHTML;
+                        const adWrapperDiv = templateBody.getElementsByClassName("block300X600-wrapper")[0];
+                        document.body.prepend(adWrapperDiv);
+
+                        // refer the dynamic script for feed renderer
+                        var script = document.createElement('script');
+                        script.src = API_GET_AD_JS_SCRIPT;
+                        document.body.appendChild(script);
                     })
                     .catch((error) => {
                         console.log("error", error);
