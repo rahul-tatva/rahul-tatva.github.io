@@ -295,7 +295,7 @@ window.addEventListener("load", () => {
       const allFrames = window.frames;
       // send message to the iframes
       window.postMessage(JSON.stringify(requestPayload), "*");
-      window.contentWindow.postMessage.postMessage(JSON.stringify(requestPayload), "https://rahulparmarrp.github.io");
+      allFrames.contentWindow.postMessage.postMessage(JSON.stringify(requestPayload), "https://rahulparmarrp.github.io");
     }, 5000);
 
 
