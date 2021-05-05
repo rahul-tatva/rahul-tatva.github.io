@@ -295,6 +295,19 @@ window.addEventListener("load", () => {
       // send message to the iframes
       window.postMessage(requestPayload, "*");
     }, 5000);
+
+
+    window.addEventListener("message", function (event) {
+      debugger;
+      if (event.origin != 'http://javascript.info') {
+        // something from an unknown domain, let's ignore it
+        return;
+      }
+
+      alert("received: " + event.data);
+
+      // can message back using event.source.postMessage(...)
+    });
     // TO DO throw error if image selector not present
     const domImages = window.top.document.images;
     const allImagesArray = Array.from(domImages);
