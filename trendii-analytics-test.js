@@ -293,7 +293,7 @@ window.addEventListener("load", () => {
     setTimeout(() => {
       debugger;
       // send message to the iframes
-      window.postMessage(requestPayload, "*");
+      window.postMessage(JSON.stringify(requestPayload), "*");
     }, 5000);
 
 
