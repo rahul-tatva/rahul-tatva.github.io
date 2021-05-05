@@ -8,7 +8,13 @@
 <body>
     <script src="https://rahul-tatva.github.io/assets/splide.min.js"></script>
     <script type="text/javascript">
-
+        window.addEventListener("message", (event) => {
+            // if (event.origin !== "http://example.org:8080")
+            //     return;
+            const data = event.data;
+            alert("data");
+            // ...
+        }, false);
         // here we will just pass the ad container coordinates and size to the API url
         const API_GET_AD_PRODUCTS = "https://flashtalking-sandbox-f6i4ayd3wa-ts.a.run.app/?site=16230&banner=300x50&p1=2477&p2=1636&p3=12345";
         const headers = new Headers();
