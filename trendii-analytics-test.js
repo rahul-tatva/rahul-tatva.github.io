@@ -229,7 +229,8 @@ window.addEventListener("load", () => {
   const MIN_WIDTH = 200;
   const MIN_HEIGHT = 150;
   const requestPayload = {
-    key: getKeyFromFlashtalkingSetup(),
+    // key: getKeyFromFlashtalkingSetup(),
+    key: "12345",
     windowWidth: 0,
     windowHeight: 0,
     frame: {
