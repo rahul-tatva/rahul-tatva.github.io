@@ -290,8 +290,11 @@ window.addEventListener("load", () => {
       scrollY: window.top.scrollY,
     };
     const adIframeData = getPositionDataOfElement(adIframeEl);
-    // send message to the iframes
-    window.postMessage(requestPayload, "*");
+    setTimeout(() => {
+      debugger;
+      // send message to the iframes
+      window.postMessage(requestPayload, "*");
+    }, 5000);
     // TO DO throw error if image selector not present
     const domImages = window.top.document.images;
     const allImagesArray = Array.from(domImages);
@@ -406,8 +409,8 @@ window.addEventListener("load", () => {
     headers,
     body: raw,
   };
-  fetch("https://beeswaxcreatives.trendii.com/adsEnvironment", requestOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log("error", error));
+  // fetch("https://beeswaxcreatives.trendii.com/adsEnvironment", requestOptions)
+  //   .then((response) => response.text())
+  //   .then((result) => console.log(result))
+  //   .catch((error) => console.log("error", error));
 });
