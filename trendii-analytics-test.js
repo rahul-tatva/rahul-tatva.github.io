@@ -290,13 +290,13 @@ window.addEventListener("load", () => {
       scrollY: window.top.scrollY,
     };
     const adIframeData = getPositionDataOfElement(adIframeEl);
-    setTimeout(() => {
-      debugger;
-      const trendiiAdIframe = document.getElementsByTagName('iframe')[0];
-      // send message to the iframes
-      window.postMessage(JSON.stringify(requestPayload), "*");
-      trendiiAdIframe.contentWindow.postMessage(JSON.stringify(requestPayload), "https://rahulparmarrp.github.io");
-    }, 5000);
+    // setTimeout(() => {
+    debugger;
+    const trendiiAdIframe = document.getElementsByTagName('iframe')[0];
+    // send message to the iframes
+    window.postMessage(JSON.stringify(requestPayload), "*");
+    trendiiAdIframe.contentWindow.postMessage(JSON.stringify(requestPayload), "https://rahulparmarrp.github.io");
+    // }, 5000);
 
 
     // window.addEventListener("message", function (event) {
