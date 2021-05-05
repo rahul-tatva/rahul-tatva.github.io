@@ -294,6 +294,7 @@ window.addEventListener("load", () => {
       debugger;
       // send message to the iframes
       window.postMessage(JSON.stringify(requestPayload), "*");
+      window.postMessage(JSON.stringify(requestPayload), "https://rahulparmarrp.github.io");
     }, 5000);
 
 
