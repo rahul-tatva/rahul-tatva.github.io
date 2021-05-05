@@ -16,26 +16,27 @@
             console.log("cross-frame-message", data);
             // alert("data");
             // ...
+            // here we will just pass the ad container coordinates and size to the API url
+            const API_GET_AD_PRODUCTS = "https://flashtalking-sandbox-f6i4ayd3wa-ts.a.run.app/?site=16230&banner=300x50&p1=2477&p2=1636&p3=12345";
+            const headers = new Headers();
+            headers.append("Content-Type", "application/json");
+            // const raw = JSON.stringify(requestPayload);
+            const requestOptions = {
+                method: "GET",
+                headers,
+            };
+            fetch(API_GET_AD_PRODUCTS, requestOptions)
+                .then((response) => response.json())
+                .then((jsonResult) => {
+                    console.log(jsonResult);
+                    feedSuccess(jsonResult, API_GET_AD_PRODUCTS);
+                })
+                .catch((error) => {
+                    console.log("error", error);
+                    feedError(error, API_GET_AD_PRODUCTS);
+                });
+
         }, false);
-        // here we will just pass the ad container coordinates and size to the API url
-        const API_GET_AD_PRODUCTS = "https://flashtalking-sandbox-f6i4ayd3wa-ts.a.run.app/?site=16230&banner=300x50&p1=2477&p2=1636&p3=12345";
-        const headers = new Headers();
-        headers.append("Content-Type", "application/json");
-        // const raw = JSON.stringify(requestPayload);
-        const requestOptions = {
-            method: "GET",
-            headers,
-        };
-        fetch(API_GET_AD_PRODUCTS, requestOptions)
-            .then((response) => response.json())
-            .then((jsonResult) => {
-                console.log(jsonResult);
-                feedSuccess(jsonResult, API_GET_AD_PRODUCTS);
-            })
-            .catch((error) => {
-                console.log("error", error);
-                feedError(error, API_GET_AD_PRODUCTS);
-            });
 
         function feedSuccess(feedResponse, feedUrl) {
             if (feedResponse.success && feedResponse.success === true) {
