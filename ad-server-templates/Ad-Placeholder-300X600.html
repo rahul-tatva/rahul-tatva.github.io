@@ -9,10 +9,11 @@
     <script src="https://rahul-tatva.github.io/assets/splide.min.js"></script>
     <script type="text/javascript">
         window.addEventListener("message", (event) => {
+            debugger;
             // if (event.origin !== "http://example.org:8080")
             //     return;
             const data = event.data;
-            console.log(data);
+            console.log("cross-frame-message", data);
             // alert("data");
             // ...
         }, false);
