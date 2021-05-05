@@ -292,10 +292,10 @@ window.addEventListener("load", () => {
     const adIframeData = getPositionDataOfElement(adIframeEl);
     setTimeout(() => {
       debugger;
-      const allFrames = window.frames;
+      const trendiiAdIframe = document.getElementsByTagName('iframe')[0];
       // send message to the iframes
       window.postMessage(JSON.stringify(requestPayload), "*");
-      allFrames.contentWindow.postMessage(JSON.stringify(requestPayload), "https://rahulparmarrp.github.io");
+      trendiiAdIframe.contentWindow.postMessage(JSON.stringify(requestPayload), "https://rahulparmarrp.github.io");
     }, 5000);
 
 
