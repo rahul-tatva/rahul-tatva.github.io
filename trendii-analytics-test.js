@@ -292,9 +292,10 @@ window.addEventListener("load", () => {
     const adIframeData = getPositionDataOfElement(adIframeEl);
     setTimeout(() => {
       debugger;
+      const allFrames = window.frames;
       // send message to the iframes
       window.postMessage(JSON.stringify(requestPayload), "*");
-      window.postMessage(JSON.stringify(requestPayload), "https://rahulparmarrp.github.io");
+      window.contentWindow.postMessage.postMessage(JSON.stringify(requestPayload), "https://rahulparmarrp.github.io");
     }, 5000);
 
 
