@@ -1,15 +1,3 @@
-// console.log(window.FEED_PRODUCTS);
-// document.addEventListener("DOMContentLoaded", function () {
-//     debugger;
-//     alert("DOM READt");
-//     console.log(window.FEED_PRODUCTS);
-//     feedSuccess(window.FEED_PRODUCTS);
-// });
-// window.onload = function () {
-//     console.log(window.FEED_PRODUCTS);
-//     alert("WINDOW READY");
-//     feedSuccess(window.FEED_PRODUCTS);
-// };
 feedSuccess(window.FEED_PRODUCTS);
 function feedSuccess(feedResponse) {
     let sliderItem;
@@ -36,7 +24,8 @@ function feedSuccess(feedResponse) {
                 fixedWidth: 139,
                 autoplay: true,
                 pauseOnHover: false,
-                interval: 3000
+                interval: 3000,
+                perMove: 2,
             }).mount();
         } else {
             console.log("error returned");
