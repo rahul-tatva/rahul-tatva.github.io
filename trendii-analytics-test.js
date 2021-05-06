@@ -377,7 +377,7 @@ window.addEventListener("load", () => {
   }
   const retailer = "Trendii";
   const fileName = `${retailer}-300X600`;
-  const CDN_URL = `https://cdn.trendii.com/${retailer}`;
+  const CDN_URL = `https://storage.googleapis.com/cdn.trendii.com/${retailer}`;
   const CDN_AD_HTML_TEMPLATE = `${CDN_URL}/${fileName}.html`;
   const CDN_AD_JS_SCRIPT = `${CDN_URL}/${fileName}.js`;
   const requestOptions1 = { method: "GET" };
