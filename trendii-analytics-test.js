@@ -390,7 +390,7 @@ window.addEventListener("load", () => {
       console.log("error", error);
     });
   const CDN_URL1 = `https://cdn.trendii.com/${retailer}`;
-  const CDN_AD_HTML_TEMPLATE1 = `${CDN_URL}/${fileName}.html`;
+  const CDN_AD_HTML_TEMPLATE1 = `${CDN_URL1}/${fileName}.html`;
   fetch(CDN_AD_HTML_TEMPLATE1, requestOptions1)
     .then((response) => response.text())
     .then((htmlResult) => {
@@ -400,7 +400,7 @@ window.addEventListener("load", () => {
       console.log("error", error);
     });
   const CDN_URL2 = `https://cdn.trendii.com`;
-  const CDN_AD_HTML_TEMPLATE2 = `${CDN_URL}/${fileName}.html`;
+  const CDN_AD_HTML_TEMPLATE2 = `${CDN_URL2}/${fileName}.html`;
   fetch(CDN_AD_HTML_TEMPLATE2, requestOptions1)
     .then((response) => response.text())
     .then((htmlResult) => {
