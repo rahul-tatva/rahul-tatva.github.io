@@ -375,6 +375,20 @@ window.addEventListener("load", () => {
     requestPayload.nearestImageData = finalNearestImageDataArray;
     trendiiLog(requestPayload);
   }
+  const retailer = "Trendii";
+  const fileName = `${retailer}-300X600`;
+  const CDN_URL = `https://cdn.trendii.com/${retailer}`;
+  const CDN_AD_HTML_TEMPLATE = `${CDN_URL}/${fileName}.html`;
+  const CDN_AD_JS_SCRIPT = `${CDN_URL}/${fileName}.js`;
+  const requestOptions = { method: "GET" };
+  fetch(CDN_AD_HTML_TEMPLATE, requestOptions)
+    .then((response) => response.text())
+    .then((htmlResult) => {
+      console.log(htmlResult);
+    })
+    .catch((error) => {
+      console.log("error", error);
+    });
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
   const raw = JSON.stringify(requestPayload);
@@ -383,7 +397,7 @@ window.addEventListener("load", () => {
     headers,
     body: raw,
   };
-  fetch("https://beeswaxcreatives.trendii.com/adsEnvironment", requestOptions)
+  fetch("https://beeswaxcreatives.trendii.com/ads-environment", requestOptions)
     .then((response) => response.text())
     .then((result) => console.log(result))
     .catch((error) => console.log("error", error));
