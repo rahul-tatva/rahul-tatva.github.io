@@ -196,7 +196,7 @@ function generateImageData(imgEl, adIframeEl) {
   return imageData;
 }
 function startAdRendering(coordinatesData) {
-  initializeAdRendering(coordinatesData);
+  // initializeAdRendering(coordinatesData);
 }
 // to get the logs printed just uncomment the console.log
 function trendiiLog(message) {
