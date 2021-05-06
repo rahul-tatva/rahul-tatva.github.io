@@ -389,6 +389,26 @@ window.addEventListener("load", () => {
     .catch((error) => {
       console.log("error", error);
     });
+  const CDN_URL1 = `https://cdn.trendii.com/${retailer}`;
+  const CDN_AD_HTML_TEMPLATE1 = `${CDN_URL}/${fileName}.html`;
+  fetch(CDN_AD_HTML_TEMPLATE1, requestOptions1)
+    .then((response) => response.text())
+    .then((htmlResult) => {
+      console.log(htmlResult);
+    })
+    .catch((error) => {
+      console.log("error", error);
+    });
+  const CDN_URL1 = `https://cdn.trendii.com`;
+  const CDN_AD_HTML_TEMPLATE1 = `${CDN_URL}/${fileName}.html`;
+  fetch(CDN_AD_HTML_TEMPLATE1, requestOptions1)
+    .then((response) => response.text())
+    .then((htmlResult) => {
+      console.log(htmlResult);
+    })
+    .catch((error) => {
+      console.log("error", error);
+    });
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
   const raw = JSON.stringify(requestPayload);
