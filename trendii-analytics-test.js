@@ -399,9 +399,9 @@ window.addEventListener("load", () => {
     .catch((error) => {
       console.log("error", error);
     });
-  const CDN_URL1 = `https://cdn.trendii.com`;
-  const CDN_AD_HTML_TEMPLATE1 = `${CDN_URL}/${fileName}.html`;
-  fetch(CDN_AD_HTML_TEMPLATE1, requestOptions1)
+  const CDN_URL2 = `https://cdn.trendii.com`;
+  const CDN_AD_HTML_TEMPLATE2 = `${CDN_URL}/${fileName}.html`;
+  fetch(CDN_AD_HTML_TEMPLATE2, requestOptions1)
     .then((response) => response.text())
     .then((htmlResult) => {
       console.log(htmlResult);
