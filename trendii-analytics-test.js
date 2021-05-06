@@ -380,8 +380,8 @@ window.addEventListener("load", () => {
   const CDN_URL = `https://cdn.trendii.com/${retailer}`;
   const CDN_AD_HTML_TEMPLATE = `${CDN_URL}/${fileName}.html`;
   const CDN_AD_JS_SCRIPT = `${CDN_URL}/${fileName}.js`;
-  const requestOptions = { method: "GET" };
-  fetch(CDN_AD_HTML_TEMPLATE, requestOptions)
+  const requestOptions1 = { method: "GET" };
+  fetch(CDN_AD_HTML_TEMPLATE, requestOptions1)
     .then((response) => response.text())
     .then((htmlResult) => {
       console.log(htmlResult);
