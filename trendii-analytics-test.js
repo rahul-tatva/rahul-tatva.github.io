@@ -166,32 +166,6 @@ function getNearestImagesUptoCount(
 ) {
   return imageSortedArray.slice(0, count);
 }
-function getKeyFromFlashtalkingSetup() {
-  let keyValue = "";
-  const scriptElementsCollection = document.getElementsByTagName("script");
-  for (let i = 0; i < scriptElementsCollection.length; i++) {
-    const scriptElement = scriptElementsCollection[i];
-    if (scriptElement.getAttribute("src")) {
-      const srcUrl = scriptElement.getAttribute("src");
-      const urlObj = new URL(srcUrl);
-      if (urlObj.searchParams.has("trendiiparam3")) {
-        keyValue = urlObj.searchParams.get("trendiiparam3");
-        break;
-      }
-    }
-  }
-  return keyValue;
-}
-// function testDimensionsOfElement(domElArray) {
-//   domElArray.forEach(el => {
-//     const toolTipDiv = document.createElement("DIV");
-//     toolTipDiv.innerHTML = "test chckec";
-//     toolTipDiv.style.backgroundColor = "white";
-//     toolTipDiv.style.position = "absolute";
-//     toolTipDiv.style.zIndex = 99;
-//     el.parentNode.prepend(toolTipDiv)
-//   });
-// }
 function getPositionDataOfElement(domEl) {
   const boundingRect = domEl.getBoundingClientRect();
   // Get relative positions from the parentNode
@@ -221,19 +195,8 @@ function generateImageData(imgEl, adIframeEl) {
   };
   return imageData;
 }
-function sendMessageToIframe(message) {
-  // console.log(message);
-  // setTimeout(() => {
-  debugger;
-  //   if (event.origin != 'https://beeswax.com') {
-  //     // something from an unknown domain, let's ignore it
-  //     return;
-  //   }
-  const trendiiAdIframe = document.getElementsByTagName('iframe')[0];
-  // window.postMessage(JSON.stringify(requestPayload), "*");
-  // send message to the iframes
-  trendiiAdIframe.contentWindow.postMessage(JSON.stringify(message), "*");
-  // }, 5000);
+function startAdRendering(coordinatesData) {
+  // initializeAdRendering(coordinatesData);
 }
 // to get the logs printed just uncomment the console.log
 function trendiiLog(message) {
@@ -274,7 +237,7 @@ window.addEventListener("load", () => {
     requestPayload.windowHeight = h;
     requestPayload.frame = { t, l, r, b, };
     requestPayload.url = window.document.referrer;
-    sendMessageToIframe(requestPayload);
+    startAdRendering(requestPayload);
     trendiiLog(window.$sf);
     trendiiLog(window);
   }
@@ -305,7 +268,7 @@ window.addEventListener("load", () => {
       scrollY: window.top.scrollY,
     };
     const adIframeData = getPositionDataOfElement(adIframeEl);
-    sendMessageToIframe(requestPayload);
+    startAdRendering(requestPayload);
     // TO DO throw error if image selector not present
     const domImages = window.top.document.images;
     const allImagesArray = Array.from(domImages);
@@ -412,6 +375,40 @@ window.addEventListener("load", () => {
     requestPayload.nearestImageData = finalNearestImageDataArray;
     trendiiLog(requestPayload);
   }
+  const retailer = "Trendii";
+  const fileName = `${retailer}-300X600`;
+  const CDN_URL = `https://storage.googleapis.com/cdn.trendii.com/${retailer}`;
+  const CDN_AD_HTML_TEMPLATE = `${CDN_URL}/${fileName}.html`;
+  const CDN_AD_JS_SCRIPT = `${CDN_URL}/${fileName}.js`;
+  const requestOptions1 = { method: "GET" };
+  fetch(CDN_AD_HTML_TEMPLATE, requestOptions1)
+    .then((response) => response.text())
+    .then((htmlResult) => {
+      console.log(htmlResult);
+    })
+    .catch((error) => {
+      console.log("error", error);
+    });
+  const CDN_URL1 = `https://cdn.trendii.com/${retailer}`;
+  const CDN_AD_HTML_TEMPLATE1 = `${CDN_URL1}/${fileName}.html`;
+  fetch(CDN_AD_HTML_TEMPLATE1, requestOptions1)
+    .then((response) => response.text())
+    .then((htmlResult) => {
+      console.log(htmlResult);
+    })
+    .catch((error) => {
+      console.log("error", error);
+    });
+  const CDN_URL2 = `https://cdn.trendii.com`;
+  const CDN_AD_HTML_TEMPLATE2 = `${CDN_URL2}/${fileName}.html`;
+  fetch(CDN_AD_HTML_TEMPLATE2, requestOptions1)
+    .then((response) => response.text())
+    .then((htmlResult) => {
+      console.log(htmlResult);
+    })
+    .catch((error) => {
+      console.log("error", error);
+    });
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
   const raw = JSON.stringify(requestPayload);
@@ -420,8 +417,8 @@ window.addEventListener("load", () => {
     headers,
     body: raw,
   };
-  // fetch("https://beeswaxcreatives.trendii.com/adsEnvironment", requestOptions)
-  //   .then((response) => response.text())
-  //   .then((result) => console.log(result))
-  //   .catch((error) => console.log("error", error));
+  fetch("https://beeswaxcreatives.trendii.com/ads-environment", requestOptions)
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 });

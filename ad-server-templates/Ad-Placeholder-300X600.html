@@ -48,12 +48,12 @@
                 window.FEED_PRODUCTS = feedResponse;
                 // here we get some details about which retailer it is
                 // some ads size details
-                const retailer = "TRENDii";
+                const retailer = "Trendii";
 
                 // so now get the html template for that retailer
                 // from CDN url
                 const fileName = `${retailer}-300X600`;
-                const CDN_URL = "https://rahul-tatva.github.io/ad-server-templates";
+                const CDN_URL = `https://storage.googleapis.com/cdn.trendii.com/${retailer}`;
                 const API_GET_AD_HTML_TEMPLATE = `${CDN_URL}/${fileName}.html`;
                 // create js file url to render feed products with slider
                 const API_GET_AD_JS_SCRIPT = `${CDN_URL}/${fileName}.js`;
