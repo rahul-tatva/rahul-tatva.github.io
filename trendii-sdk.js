@@ -48,7 +48,7 @@ class TRENDiiAd {
     );
     if (trendiiAdIframe) return trendiiAdIframe;
     else {
-      const iframe = document.createElement("iframe");
+      const iframe = document.createElement("iframe") ;
       iframe.id = this.TRENDII_AD_CONTAINER_ID;
       iframe.title = "Trendii Ads";
       iframe.scrolling = "no";
