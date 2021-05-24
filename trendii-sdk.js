@@ -1,630 +1,436 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>TRENDii Ads | 300X600</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, user-scalable=no"
-    />
-    <meta name="description" content="This is Ads of Trendii Web" />
-    <script src="https://rahul-tatva.github.io/assets/splide.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://rahul-tatva.github.io/assets/splide-core.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800;900&display=swap"
-    />
-    <style>
-      * {
-        outline: none !important;
+const API_GET_AD_PRODUCTS =
+  "https://flashtalking-sandbox-f6i4ayd3wa-ts.a.run.app/?site=16230&banner=300x600&p1=12345&p2=12345&p3=12345";
+// const API_GET_AD_PRODUCTS =
+//   "https://beeswax-creative-f6i4ayd3wa-ts.a.run.app/webImageProcess";
+const SUPPORTED_DIMENSIONS = ["160X600", "300X600"];
+class TRENDiiAd {
+  constructor(options) {
+    this.options = options;
+    this.width = options?.width;
+    this.height = options?.height;
+    this.blogContainerSelector = options?.blogContainerSelector;
+    // debugger;
+    this.feedProducts = [];
+    this.htmlString;
+    this.allImageElements;
+    this.currentlyVisibleImageSrcURL = null;
+    this.intersectionObserver;
+    this.AD_DIMENSION = `${this.width}X${this.height}`;
+    this.checkSupportedDimensions();
+    this.TRENDII_AD_CONTAINER_ID = "trendii-ads-iframe";
+    this.HTML_TEMPLATE_SLIDER_CONTAINER_ID = `trendii-products-container-${this.AD_DIMENSION}`;
+    // this.API_GET_TRENDII_AD_TEMPLATE = `http://localhost:8081/Trendii-${this.AD_DIMENSION}.html`;
+    this.API_GET_TRENDII_AD_TEMPLATE = `https://rahul-tatva.github.io/Trendii-${this.AD_DIMENSION}.html`;
+
+    // this.parentDiv = document.createElement("div");
+    // this.parentDiv.setAttribute("id", "trendiiads-float-right");
+    // document.body.prepend(this.parentDiv);
+    // document.getElementById("trendiiads-float-right").hidden = true;
+
+    // initial setup
+    this.createObserverForCurrentVisibleImage();
+    this.getAdTemplateHTML();
+    this.registerImageElementsToObserveVisibility();
+  }
+  checkSupportedDimensions() {
+    if (!SUPPORTED_DIMENSIONS.includes(this.AD_DIMENSION)) {
+      throw new Error(
+        "TRENDii Ad Dimensions must be from supported sizes only."
+      );
+    }
+  }
+  log(message) {
+    console.log(message);
+  }
+  createOrGetAdContainer() {
+    const trendiiAdIframe = document.getElementById(
+      this.TRENDII_AD_CONTAINER_ID
+    );
+    if (trendiiAdIframe) return trendiiAdIframe;
+    else {
+      const iframe = document.createElement("iframe") ;
+      iframe.id = this.TRENDII_AD_CONTAINER_ID;
+      iframe.title = "Trendii Ads";
+      iframe.scrolling = "no";
+      iframe.frameBorder = 0;
+      iframe.width = this.width;
+      iframe.height = this.height;
+      // iframe.sandbox = "allow-top-navigation allow-scripts allow-popups";
+      // iframe.style.display = "none";
+      // iframe.onload = function () {
+      //     // alert('myframe is loaded');
+      //     // var element = myFrame.contentWindow.document.getElementById("trendii-products-container-300X600");
+      //     // const productsContainer = document.getElementById("trendii-products-container-300X600");
+      //     // element.style.display = "none";
+      //     // to make iframe sticky
+      //     // iframe.style = "overflow: hidden; position: fixed; top: 0px; right: 0px; bottom: 0px;";
+      // };
+      return iframe;
+    }
+  }
+  appendAdIFrameToContainer(adIframe) {
+    // TO-DO: Throw error if the containerId not found
+    // append iframe to container or fixed position
+    if (this.options?.adContainerId) {
+      const adContainerEl = document.getElementById(this.options.adContainerId);
+      adContainerEl.appendChild(adIframe);
+    } else {
+      // to make iframe sticky and append to body
+      adIframe.style =
+        "overflow: hidden; z-index:9999; position: fixed; right: 0px; bottom: 0px;";
+      document.body.appendChild(adIframe);
+
+      if (this.blogContainerSelector) {
+        window.addEventListener(
+          "scroll",
+          function () {
+            // debugger;
+            var blogContainerHeight = document.querySelector(
+              this.blogContainerSelector
+            ).scrollHeight;
+            var topOffset = document.querySelector(this.blogContainerSelector)
+              .offsetTop;
+            var bottomHeight = document.querySelector(
+              this.blogContainerSelector
+            ).offsetHeight;
+
+            var bottomOffsetDiv = topOffset + blogContainerHeight;
+            let showAdBlock = true;
+            var ua = navigator.userAgent.toLowerCase();
+            var isAndroid = ua.indexOf("android") > -1; // Detect Android devices
+            var isIos = ua.indexOf("iphone") > -1; // Detect IOS devices
+            if (isAndroid || isIos) {
+              if (
+                window.pageYOffset <= topOffset ||
+                window.pageYOffset > blogContainerHeight
+              ) {
+                document.getElementById(
+                  this.TRENDII_AD_CONTAINER_ID
+                ).hidden = true;
+                showAdBlock = false;
+              }
+            } else {
+              if (
+                window.pageYOffset <= topOffset ||
+                window.pageYOffset > bottomOffsetDiv
+              ) {
+                document.getElementById(
+                  this.TRENDII_AD_CONTAINER_ID
+                ).hidden = true;
+                showAdBlock = false;
+              }
+            }
+            //   if (showAdBlock === true) {
+            //     document.querySelectorAll("img").forEach((img) => {
+            //       observer.observe(img);
+            //     });
+            //   }
+          }.bind(this)
+        );
       }
-      body {
-        font-size: 14px;
-        line-height: 18px;
-        font-family: "Nunito Sans", sans-serif;
-        -ms-overflow-style: scrollbar;
-        -webkit-font-smoothing: subpixel-antialiased;
-        margin: 0;
-        padding: 0;
+    }
+  }
+  parseHTMLStringToDocument(htmlString, feedProducts, currentImageSrc) {
+    // debugger;
+    const domParser = new DOMParser();
+    const parsedHtmlDocumentEl = domParser.parseFromString(
+      htmlString,
+      "text/html"
+    );
+    // here the container id should be dynamic for each ads sizes
+    var productsContainerEl = parsedHtmlDocumentEl.getElementById(
+      this.HTML_TEMPLATE_SLIDER_CONTAINER_ID
+    );
+    productsContainerEl.innerHTML = "";
+    this.createProductsSlider(
+      productsContainerEl,
+      feedProducts,
+      currentImageSrc
+    );
+    // debugger;
+    return parsedHtmlDocumentEl.documentElement.innerHTML;
+  }
+  updateSliderContainerWithAdProducts(
+    adSliderContainerEl,
+    feedProducts,
+    currentImageSrc
+  ) {
+    // debugger;
+    // reset the container
+    adSliderContainerEl.innerHTML = "";
+    this.createProductsSlider(
+      adSliderContainerEl,
+      feedProducts,
+      currentImageSrc
+    );
+    // debugger;
+    // return parsedHtmlDocument.documentElement.innerHTML;
+  }
+  bindAdProductsToAdIframe(currentImageSrc) {
+    const iframe = this.createOrGetAdContainer();
+    iframe.hidden = false;
+    // debugger;
+    // check if iframe consists of the ad container already
+    const adSliderContainerEl = iframe.contentWindow?.document.getElementById(
+      this.HTML_TEMPLATE_SLIDER_CONTAINER_ID
+    );
+    if (adSliderContainerEl) {
+      // only update products container
+      // this.updateSliderContainerWithAdProducts(adSliderContainerEl, this.feedProducts, currentImageSrc);
+
+      // debugger;
+      const imageData = this.feedProducts.find(
+        (x) => x.imageSource === currentImageSrc
+      );
+      const src = imageData.iframeHtmlSrc;
+      iframe.srcdoc = src;
+      // iframe.contentDocument.location.reload(true);
+    }
+    // create from scratch
+    else {
+      iframe.srcdoc = this.parseHTMLStringToDocument(
+        this.htmlString,
+        this.feedProducts,
+        currentImageSrc
+      );
+      this.appendAdIFrameToContainer(iframe);
+    }
+  }
+  getAdTemplateHTML(onSuccessCallback, onErrorCallback) {
+    const requestOptions = {
+      method: "get",
+      url: this.API_GET_TRENDII_AD_TEMPLATE,
+    };
+    axios(requestOptions)
+      .then((response) => {
+        // debugger;
+        this.htmlString = response.data;
+        // console.log(response.data);
+        if (typeof onSuccessCallback === "function")
+          onSuccessCallback(response);
+      })
+      .catch((error) => {
+        console.error(error);
+        if (typeof onErrorCallback === "function") onErrorCallback(error);
+      });
+  }
+  // to fetch the image's ad products from trendii api
+  getAdProductsByImageURL(
+    imageSource = "",
+    onSuccessCallback,
+    onErrorCallback
+  ) {
+    const requestBody = {
+      url: imageSource,
+      // url:
+      // "https://images.squarespace-cdn.com/content/v1/5d7b55a7cab21367173472ca/1617021622513-QDKPHMGC7Q77PSLTU7NO/ke17ZwdGBToddI8pDm48kMhuiFqOarpg5ZSSgOuL4KxZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZamWLI2zvYWH8K3-s_4yszcp2ryTI0HqTOaaUohrI8PIfwzeWaN1u0xgydZbMMaNw0yictQozOKVrF7K98f8aA0KMshLAGzx4R3EDFOm1kBS/20-46-1-e409ebc018a94120833d9bf6b7eb1047.jpg",
+    };
+
+    const requestOptions = {
+      // method: 'POST',
+      method: "GET",
+      url: API_GET_AD_PRODUCTS,
+      data: {
+        ...requestBody,
+      },
+    };
+    axios(requestOptions)
+      .then((response) => {
+        // console.log(response.data);
+        // this.productsFeed = response.data;
+        const result = response.data;
+        const imageSourceWithAdProducts = {
+          imageSource: imageSource,
+          // adProductsData: result.payload.list,
+          // adProductsData: result.payload.list.map((x) => {
+          //   x.image = imageSource;
+          //   return x;
+          // }),
+
+          // test data
+          adProductsData: result.result,
+          adProductsData: result.result.map((x) => {
+            // x.image = imageSource;
+            x.localImage = imageSource;
+            return x;
+          }),
+        };
+        // create an array where key is imageSource and values are adProductsData
+        this.feedProducts.push(imageSourceWithAdProducts);
+        const iframeHtmlSrc = this.parseHTMLStringToDocument(
+          this.htmlString,
+          this.feedProducts,
+          imageSource
+        );
+        imageSourceWithAdProducts.iframeHtmlSrc = iframeHtmlSrc;
+        // if the current visible image is stored and the data is fetched
+        if (
+          this.currentlyVisibleImageSrcURL === imageSource &&
+          this.htmlString
+        ) {
+          this.bindAdProductsToAdIframe(this.currentlyVisibleImageSrcURL);
+        }
+        if (typeof onSuccessCallback === "function")
+          onSuccessCallback(response);
+      })
+      .catch((error) => {
+        console.error(error);
+        if (typeof onErrorCallback === "function") onErrorCallback(error);
+      });
+  }
+  handleDOMLoaded() {
+    // debugger;
+    // TO DO throw error if image selector not present
+    this.allImageElements = document.querySelectorAll(
+      this.options.adImagesSelector
+    );
+    // debugger;
+    const initialLoadImageSource = this.allImageElements[0].src;
+    this.allImageElements.forEach((imgEl) => {
+      // debugger;
+      const imageSourceURL = imgEl.src;
+      this.intersectionObserver.observe(imgEl);
+      // fetch the ad products using api for all the products
+      this.getAdProductsByImageURL(imageSourceURL, function () {
+        // debugger;
+        // if (this.feedProducts.length === 1) {
+        //     this.bindAdProductsToAdIframe(initialLoadImageSource);
+        // }
+      });
+    });
+  }
+  registerImageElementsToObserveVisibility() {
+    document.addEventListener(
+      "DOMContentLoaded",
+      this.handleDOMLoaded.bind(this)
+    );
+  }
+  handleIntersectionEntries(entries, observer) {
+    // debugger;
+    entries.forEach((entry) => {
+      // console.log(entry);
+      // debugger;
+      // check if image el is visible in screen/window
+      if (entry.isIntersecting) {
+        const visibleImageSrc = entry.target?.currentSrc || "";
+        // console.log(visibleImageSrc);
+        this.currentlyVisibleImageSrcURL = visibleImageSrc;
+        if (this.feedProducts.length > 0) {
+          this.bindAdProductsToAdIframe(visibleImageSrc);
+        }
+        // this.getSimilarProducts(currentImageSrc, (response) => {
+        //     this.getHTMLTemplate(response.data);
+        // });
+        // debugger;
+        // if (entry.intersectionRatio >= 1.0) {
+        //     // image is fully visible in t0.75he screen
+        // }
+        // deregister intersection observer apis
+        // observer.unobserve(entry.target);
       }
-      p {
-        margin: 0;
+    });
+  }
+  createObserverForCurrentVisibleImage() {
+    // debugger;
+    /**
+     * Checking whether image is there to check the data
+     */
+    if (!!window.IntersectionObserver) {
+      const options = {
+        rootMargin: "0px 0px 0px 0px",
+        // threshold: 0.10,
+      };
+      this.intersectionObserver = new IntersectionObserver(
+        this.handleIntersectionEntries.bind(this),
+        options
+      );
+    }
+  }
+  sliderListProductCount() {
+    switch (this.AD_DIMENSION) {
+      case "160X600":
+        return 4;
+      case "300X600":
+        return 3;
+      default:
+        break;
+    }
+  }
+  createProductsSlider(productsContainerEl, feedProducts, currentImageSrc) {
+    // debugger;
+    let sliderItemListEl;
+    const currentImageData = feedProducts.find(
+      (x) => x.imageSource === currentImageSrc
+    );
+    const adProducts = currentImageData?.adProductsData;
+    const sliderListItemProductCount = this.sliderListProductCount();
+    // TO-DO: Not found any ad products for the particular image
+    if (adProducts?.length > 0) {
+      for (let index = 0; index < adProducts.length; index++) {
+        const product = adProducts[index];
+        if (index % sliderListItemProductCount === 0) {
+          // create a new list element
+          sliderItemListEl = document.createElement("LI");
+          sliderItemListEl.classList.add("splide__slide");
+        }
+        const productItemEl = this.createSliderProductItemElement(product);
+        sliderItemListEl.appendChild(productItemEl);
+        productsContainerEl.appendChild(sliderItemListEl);
       }
-      .btn {
-        background: none;
-        box-shadow: none !important;
-        outline: none !important;
-        border: 0;
-        cursor: pointer;
-      }
-      .btn.btn-slider {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 2px 4px;
-        border-radius: 50%;
-      }
-      .btn.btn-slider img {
-        display: inline-block;
-        vertical-align: top;
-        width: 8px;
-        height: 12px;
-      }
+    }
+  }
+  createSliderProductItemElement(product) {
+    const productItemRedirectContainer = document.createElement("A");
+    productItemRedirectContainer.style = "text-decoration: none;";
+    productItemRedirectContainer.href = product.url;
+    productItemRedirectContainer.target = "_blank";
 
-      .block300X600-wrapper {
-        display: block;
-        width: 300px;
-        height: 600px;
-        background: #f9f9f9;
-      }
-      .block300X600-wrapper .outer {
-        padding: 0 10px;
-      }
-      .block300X600-wrapper .brand-logo {
-        overflow: hidden;
-        padding: 14px 0;
-        text-align: center;
-        width: 280px;
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
-        background: #f32b97;
-      }
-      .block300X600-wrapper .brand-logo .logo-container {
-        display: block;
-        width: 99px;
-        height: 21px;
-        margin: 0 auto;
-        background: url("https://rahul-tatva.github.io/assets/trendii-horizontal-logo-white.svg")
-          no-repeat center center;
-        background-size: contain;
-      }
-      .block300X600-wrapper .brand-logo .brand-title {
-        display: block;
-        font-size: 12px;
-        line-height: 16px;
-        color: #fff;
-      }
+    const productItem = document.createElement("DIV");
+    productItem.classList.add("product-item");
+    productItem.style.backgroundImage = `url(${product.image || product.localImage})`;
+    // debugger;
+    // function test() {
+    //   console.log("clcick product");
+    //   window.open(product.url, "_blank");
+    // }
+    // productItem.onclick = "test();";
+    // productItem.addEventListener("click", function () {
+    //   console.log("clcick product");
+    //   debugger;
+    //   window.open(product.url, "_blank");
+    // });
 
-      .block300X600-wrapper .product-item-wrapper .slider-title {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin: 13px 0;
-      }
-      .block300X600-wrapper
-        .product-item-wrapper
-        .slider-title
-        .products-title {
-        font-size: 14px;
-        line-height: 16px;
-        text-transform: uppercase;
-        font-weight: 700;
-        color: #333333;
-        margin: 0;
-      }
+    if (product.sale) {
+      const onSaleTag = document.createElement("SPAN");
+      onSaleTag.classList.add("onsale");
+      onSaleTag.innerHTML = "ON SALE";
+      productItem.appendChild(onSaleTag);
+    }
 
-      .block300X600-wrapper .all-product {
-        display: flex;
-        justify-content: flex-start;
-        flex-wrap: wrap;
-        margin-bottom: -9px;
-        height: 507px;
-      }
-      .block300X600-wrapper .product-item {
-        position: relative;
-        cursor: pointer;
-        display: inline-block;
-        vertical-align: middle;
-        width: 133px;
-        height: 157px;
-        border-radius: 10px;
-        border: 1px solid #e3e3e3;
-        background-color: #fff;
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-size: cover;
-        -webkit-backface-visibility: hidden;
-        -moz-backface-visibility: hidden;
-        -webkit-transform: translate3d(0, 0, 0);
-        -moz-transform: translate3d(0, 0, 0);
-        margin: 0 0 10px;
-        overflow: hidden;
-      }
-      .block300X600-wrapper .splide__slide {
-        display: inline-block;
-        margin-right: 10px;
-      }
+    const productItemCardBody = document.createElement("DIV");
+    productItemCardBody.classList.add("card-body");
 
-      .block300X600-wrapper .product-item .card-body {
-        color: #fff;
-        display: block;
-        border-radius: 10px;
-        position: absolute;
-        bottom: -100%;
-        left: 0;
-        right: 0;
-        background: rgba(22, 22, 22, 0.75);
-        z-index: 1;
-        padding: 8px 10px;
-        overflow: hidden;
-        transition: all 0.3s ease;
-      }
+    const productName = document.createElement("B");
+    const productNameText = document.createTextNode(product.name);
+    productName.appendChild(productNameText);
+    productItemCardBody.appendChild(productName);
 
-      .block300X600-wrapper .product-item .card-body b {
-        display: block;
-        font-size: 13px;
-        line-height: 16px;
-        font-weight: 600;
-        max-height: 17px;
-        overflow: hidden;
-        padding-bottom: 0;
-        margin-bottom: 4px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-      }
-      .block300X600-wrapper .product-item .card-body p {
-        display: block;
-        font-size: 13px;
-        line-height: 16px;
-        font-weight: 200;
-        max-height: 17px;
-        overflow: hidden;
-        padding-bottom: 0;
-        margin-bottom: 4px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-      }
-      .block300X600-wrapper .product-item .card-body em {
-        display: block;
-        font-size: 13px;
-        line-height: 16px;
-        font-weight: 700;
-        max-height: 17px;
-        font-style: normal;
-        text-decoration: none;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-      }
+    const productCashback = document.createElement("P");
+    productCashback.innerHTML = product.name;
+    productItemCardBody.appendChild(productCashback);
 
-      .block300X600-wrapper .product-item .onsale {
-        display: block;
-        padding: 2px 4px;
-        text-transform: uppercase;
-        position: absolute;
-        top: 9px;
-        left: -1px;
-        width: 35px;
-        background: #f32b97;
-        color: #fff;
-        font-size: 8px;
-        line-height: 10px;
-        z-index: 2;
-        transition: all 0.3s ease;
-      }
-      .block300X600-wrapper .product-item .onsale:after {
-        content: "";
-        width: 0px;
-        height: 0px;
-        position: absolute;
-        left: 100%;
-        top: 0;
-        bottom: 0;
-        border-left: 0 solid transparent;
-        border-right: 7px solid #fff0;
-        border-top: 7px solid #f32b97;
-        border-bottom: 7px solid #f32b97;
-      }
-      .block300X600-wrapper .splide__slide {
-        margin-right: 5px;
-      }
+    const productPriceLink = document.createElement("EM");
+    productPriceLink.innerHTML = product.currency + product.price;
+    productItemCardBody.appendChild(productPriceLink);
 
-      .block300X600-wrapper .product-item .cashback-chip {
-        background: rgba(23, 23, 23, 0.7);
-        border-radius: 12px;
-        color: #fff;
-        font-size: 10px;
-        line-height: 15px;
-        font-weight: 300;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        padding: 0 2px;
-        position: absolute;
-        bottom: 6px;
-        left: 50%;
-        transform: translate(-50%, 0);
-        min-width: 80px;
-        text-align: center;
-        font-style: normal;
-        transition: all 0.3s ease;
-        opacity: 1;
-        visibility: visible;
-      }
-      .block300X600-wrapper .product-item:hover .onsale {
-        opacity: 0;
-        visibility: hidden;
-        left: -100%;
-      }
-      .block300X600-wrapper .product-item:hover .card-body {
-        opacity: 1;
-        visibility: visible;
-        bottom: 0;
-      }
-      .block300X600-wrapper .product-item:hover .cashback-chip {
-        opacity: 0;
-        visibility: hidden;
-        bottom: -100%;
-      }
+    productItem.appendChild(productItemCardBody);
 
-             /* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content/Box */
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
-}
-
-/* The Close Button */
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-} 
-
-
-    </style>
-  </head>
-
-  <body>
-    <!-- 300X600 Ads wrapper start  -->
-    <div class="block300X600-wrapper">
-      <div class="outer">
-        <div class="brand-logo">
-        <!-- Trigger/Open The Modal -->
-        <button id="myBtn">Open Modal</button>
-          <a
-            href="https://trendii.com/"
-            target="_"
-            title="TRENDii"
-            class="logo-container"
-          >
-          </a>
-        </div>
-
-        <div class="product-item-wrapper splide">
-          <div class="slider-title splide__arrows">
-            <button
-              class="btn btn-slider splide__arrow splide__arrow--prev"
-              title="Previous"
-            >
-              <img src="https://rahul-tatva.github.io/assets/prev.svg" alt="" />
-            </button>
-            <h4 class="products-title">PRODUCTS</h4>
-            <button
-              class="btn btn-slider splide__arrow splide__arrow--next"
-              title="Next"
-            >
-              <img src="https://rahul-tatva.github.io/assets/next.svg" alt="" />
-            </button>
-          </div>
-          <div class="all-product splide__track">
-            <ul class="splide__list" id="trendii-products-container-300X600">
-              <li class="splide__slide">
-                <div
-                  class="product-item"
-                  title="Product Name1"
-                  style="
-                    background-image: url(https://rahul-tatva.github.io/assets/1.jpg);
-                  "
-                >
-                  <span class="onsale">ON SALE</span>
-                  <div class="card-body">
-                    <b>Nike</b>
-                    <p>M2K tekno sneakers</p>
-                    <em>$ 260</em>
-                  </div>
-                  <i class="cashback-chip">2% cashback</i>
-                </div>
-
-                <div
-                  class="product-item"
-                  title="Product Name2"
-                  style="
-                    background-image: url(https://rahul-tatva.github.io/assets/2.jpg);
-                  "
-                >
-                  <div class="card-body">
-                    <b>Nike</b>
-                    <p>M2K tekno sneakers</p>
-                    <em>$ 260</em>
-                  </div>
-                  <i class="cashback-chip">2% cashback</i>
-                </div>
-
-                <div
-                  class="product-item"
-                  title="Product Name3"
-                  style="
-                    background-image: url(https://rahul-tatva.github.io/assets/3.jpg);
-                  "
-                >
-                  <div class="card-body">
-                    <b>Nike</b>
-                    <p>M2K tekno sneakers</p>
-                    <em>$ 260</em>
-                  </div>
-                  <i class="cashback-chip">2% cashback</i>
-                </div>
-              </li>
-              <li class="splide__slide">
-                <div
-                  class="product-item"
-                  title="Product Name4"
-                  style="
-                    background-image: url(https://rahul-tatva.github.io/assets/4.jpg);
-                  "
-                >
-                  <span class="onsale">ON SALE</span>
-                  <div class="card-body">
-                    <b>Nike</b>
-                    <p>M2K tekno sneakers</p>
-                    <em>$ 260</em>
-                  </div>
-                  <i class="cashback-chip">2% cashback</i>
-                </div>
-
-                <div
-                  class="product-item"
-                  title="Product Name5"
-                  style="
-                    background-image: url(https://rahul-tatva.github.io/assets/2.jpg);
-                  "
-                >
-                  <div class="card-body">
-                    <b>Nike</b>
-                    <p>M2K tekno sneakers</p>
-                    <em>$ 260</em>
-                  </div>
-                  <i class="cashback-chip">2% cashback</i>
-                </div>
-
-                <div
-                  class="product-item"
-                  title="Product Name6"
-                  style="
-                    background-image: url(https://rahul-tatva.github.io/assets/3.jpg);
-                  "
-                >
-                  <div class="card-body">
-                    <b>Nike</b>
-                    <p>M2K tekno sneakers</p>
-                    <em>$ 260</em>
-                  </div>
-                  <i class="cashback-chip">2% cashback</i>
-                </div>
-              </li>
-
-              <li class="splide__slide">
-                <div
-                  class="product-item"
-                  title="Product Name2"
-                  style="
-                    background-image: url(https://rahul-tatva.github.io/assets/2.jpg);
-                  "
-                >
-                  <div class="card-body">
-                    <b>Nike</b>
-                    <p>M2K tekno sneakers</p>
-                    <em>$ 260</em>
-                  </div>
-                  <i class="cashback-chip">2% cashback</i>
-                </div>
-
-                <div
-                  class="product-item"
-                  title="Product Name3"
-                  style="
-                    background-image: url(https://rahul-tatva.github.io/assets/3.jpg);
-                  "
-                >
-                  <div class="card-body">
-                    <b>Nike</b>
-                    <p>M2K tekno sneakers</p>
-                    <em>$ 260</em>
-                  </div>
-                  <i class="cashback-chip">2% cashback</i>
-                </div>
-
-                <div
-                  class="product-item"
-                  title="Product Name4"
-                  style="
-                    background-image: url(https://rahul-tatva.github.io/assets/4.jpg);
-                  "
-                >
-                  <span class="onsale">ON SALE</span>
-                  <div class="card-body">
-                    <b>Nike</b>
-                    <p>M2K tekno sneakers</p>
-                    <em>$ 260</em>
-                  </div>
-                  <i class="cashback-chip">2% cashback</i>
-                </div>
-              </li>
-
-              <li class="splide__slide">
-                <div
-                  class="product-item"
-                  title="Product Name2"
-                  style="
-                    background-image: url(https://rahul-tatva.github.io/assets/2.jpg);
-                  "
-                >
-                  <div class="card-body">
-                    <b>Nike</b>
-                    <p>M2K tekno sneakers</p>
-                    <em>$ 260</em>
-                  </div>
-                  <i class="cashback-chip">2% cashback</i>
-                </div>
-
-                <div
-                  class="product-item"
-                  title="Product Name3"
-                  style="
-                    background-image: url(https://rahul-tatva.github.io/assets/3.jpg);
-                  "
-                >
-                  <div class="card-body">
-                    <b>Nike</b>
-                    <p>M2K tekno sneakers</p>
-                    <em>$ 260</em>
-                  </div>
-                  <i class="cashback-chip">2% cashback</i>
-                </div>
-
-                <div
-                  class="product-item"
-                  title="Product Name4"
-                  style="
-                    background-image: url(https://rahul-tatva.github.io/assets/4.jpg);
-                  "
-                >
-                  <span class="onsale">ON SALE</span>
-                  <div class="card-body">
-                    <b>Nike</b>
-                    <p>M2K tekno sneakers</p>
-                    <em>$ 260</em>
-                  </div>
-                  <i class="cashback-chip">2% cashback</i>
-                </div>
-              </li>
-
-              <li class="splide__slide">
-                <div
-                  class="product-item"
-                  title="Product Name2"
-                  style="
-                    background-image: url(https://rahul-tatva.github.io/assets/2.jpg);
-                  "
-                >
-                  <div class="card-body">
-                    <b>Nike</b>
-                    <p>M2K tekno sneakers</p>
-                    <em>$ 260</em>
-                  </div>
-                  <i class="cashback-chip">2% cashback</i>
-                </div>
-
-                <div
-                  class="product-item"
-                  title="Product Name3"
-                  style="
-                    background-image: url(https://rahul-tatva.github.io/assets/3.jpg);
-                  "
-                >
-                  <div class="card-body">
-                    <b>Nike</b>
-                    <p>M2K tekno sneakers</p>
-                    <em>$ 260</em>
-                  </div>
-                  <i class="cashback-chip">2% cashback</i>
-                </div>
-
-                <div
-                  class="product-item"
-                  title="Product Name4"
-                  style="
-                    background-image: url(https://rahul-tatva.github.io/assets/4.jpg);
-                  "
-                >
-                  <span class="onsale">ON SALE</span>
-                  <div class="card-body">
-                    <b>Nike</b>
-                    <p>M2K tekno sneakers</p>
-                    <em>$ 260</em>
-                  </div>
-                  <i class="cashback-chip">2% cashback</i>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-      <!-- The Modal -->
-<div id="myModal" class="modal">
-  <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <p>Some text in the Modal..</p>
-  </div>
-</div>
-    <!-- 300X600 Ads wrapper end  -->
-    <script>
-      new Splide(".splide", {
-        type: "loop",
-        height: 507,
-        perPage: 2,
-        pagination: false,
-        autoHeight: true,
-        fixedWidth: 139,
-      }).mount();
-
-      
-      // Get the modal
-var modal = document.getElementById("myModal");
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on the button, open the modal
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
+    const cashbackLabel = document.createElement("I");
+    cashbackLabel.classList.add("cashback-chip");
+    cashbackLabel.innerHTML = product.cashback + " cashback";
+    productItem.appendChild(cashbackLabel);
+    productItemRedirectContainer.appendChild(productItem);
+    return productItemRedirectContainer;
+    // return productItem;
   }
 }
-    </script>
-  </body>
-</html>
