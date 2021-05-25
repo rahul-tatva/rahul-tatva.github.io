@@ -48,7 +48,7 @@ class TRENDiiAd {
     );
     if (trendiiAdIframe) return trendiiAdIframe;
     else {
-      const iframe = document.createElement("iframe") ;
+      const iframe = document.createElement("div") ;
       iframe.id = this.TRENDII_AD_CONTAINER_ID;
       iframe.title = "Trendii Ads";
       iframe.scrolling = "no";
@@ -171,7 +171,7 @@ class TRENDiiAd {
     iframe.hidden = false;
     // debugger;
     // check if iframe consists of the ad container already
-    const adSliderContainerEl = iframe.contentWindow?.document.getElementById(
+    const adSliderContainerEl = iframe?.document.getElementById(
       this.HTML_TEMPLATE_SLIDER_CONTAINER_ID
     );
     if (adSliderContainerEl) {
