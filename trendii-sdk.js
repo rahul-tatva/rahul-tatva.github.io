@@ -131,7 +131,7 @@ class TRENDiiAd {
     }
   }
   parseHTMLStringToDocument(htmlString, feedProducts, currentImageSrc) {
-    // debugger;
+     debugger;
     const domParser = new DOMParser();
     const parsedHtmlDocumentEl = domParser.parseFromString(
       htmlString,
