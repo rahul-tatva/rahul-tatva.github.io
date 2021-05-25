@@ -48,7 +48,7 @@ class TRENDiiAd {
     );
     if (trendiiAdIframe) return trendiiAdIframe;
     else {
-      const iframe = document.createElement("div") ;
+      const iframe = document.createElement("iframe") ;
       iframe.id = this.TRENDII_AD_CONTAINER_ID;
       iframe.title = "Trendii Ads";
       iframe.scrolling = "no";
@@ -131,7 +131,7 @@ class TRENDiiAd {
     }
   }
   parseHTMLStringToDocument(htmlString, feedProducts, currentImageSrc) {
-     debugger;
+    // debugger;
     const domParser = new DOMParser();
     const parsedHtmlDocumentEl = domParser.parseFromString(
       htmlString,
@@ -169,7 +169,7 @@ class TRENDiiAd {
   bindAdProductsToAdIframe(currentImageSrc) {
     const iframe = this.createOrGetAdContainer();
     iframe.hidden = false;
-     debugger;
+    // debugger;
     // check if iframe consists of the ad container already
     const adSliderContainerEl = iframe.contentWindow?.document.getElementById(
       this.HTML_TEMPLATE_SLIDER_CONTAINER_ID
