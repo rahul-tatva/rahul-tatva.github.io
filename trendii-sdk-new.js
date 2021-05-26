@@ -306,18 +306,29 @@ class TRENDiiAd {
   appendAdContainersToImages() {
     debugger;
     this.allImageElements.forEach(imageEl => {
-      const adContainer = document.createElement("DIV");
-      adContainer.classList.add("ad-container");
-      adContainer.style.background = "yellow";
-      adContainer.innerHTML = "tesetste";
+      this.adContainer = document.createElement("DIV");
+      this.adContainer.classList.add("ad-container");
+      this.adContainer.style.background = "yellow";
+      // adContainer.innerHTML = "tesetste";
       const imageSrc = imageEl.src;
-      imageEl.after(adContainer);
       debugger;
-      this.renderAdInsideTheAdContainer(imageSrc, adContainer);
+      this.renderAdInsideTheAdContainer(imageSrc, this.adContainer);
+      debugger;
+      imageEl.after(this.adContainer);
       debugger;
       // imageEl.parentNode.insertAdjacentHTML(sliderItem, imageEl.nextSibling);
       // imageEl.insertAdjacentHTML("afterend", sliderItem);
       // imageEl.parentNode.appendChild(sliderItem);
+
+      // new Splide('.splide', {
+      //   type: 'loop',
+      //   // perPage: 6,
+      //   pagination: false,
+      //   gap: 10,
+      //   autoWidth: true,
+      //   width: 400,
+      //   // fixedWidth: 200,
+      // }).mount();
     });
   }
   renderAdInsideTheAdContainer(imageSrc, adContainer) {
@@ -330,11 +341,11 @@ class TRENDiiAd {
     this.productsContainerEl.innerHTML = "";
     debugger;
     this;
-    feedSuccess(window.FEED_PRODUCTS, imageSrc, parsedHtmlDocumentEl).bind(this);
+    feedSuccess(window.FEED_PRODUCTS, imageSrc, parsedHtmlDocumentEl);
 
 
     const generatedNativeAd = parsedHtmlDocumentEl.body;
-    adContainer.appendChild(generatedNativeAd);
+    adContainer.innerHTML = generatedNativeAd.innerHTML;
   }
   getAllImagesFromDOM() {
     // TO DO throw error if image selector not present
@@ -762,9 +773,11 @@ function feedSuccess(feedResponse, imageSrc, templatesDOM) {
     if (feedResponse?.success === true) {
       debugger;
       const imageData = feedResponse.payload.find((imageData) => imageData.imageUrl === imageSrc);
-      const feedProducts = imageData.products;
-      const productsContainer = templatesDOM.getElementById(AD_PRODUCTS_CONTAINER);
-      initializeRenderingAdProductsSlider(feedProducts, productsContainer).bind(this);
+      if (imageData?.products && imageData.products.length > 0) {
+        const feedProducts = imageData.products;
+        const productsContainer = templatesDOM.getElementById(AD_PRODUCTS_CONTAINER);
+        initializeRenderingAdProductsSlider(feedProducts, productsContainer);
+      }
     } else {
       console.log("error returned");
     }
@@ -779,16 +792,6 @@ function initializeRenderingAdProductsSlider(feedProducts, productsContainer) {
   feedProducts.forEach((product) => {
     createSliderItemProduct(product, productsContainer);
   });
-
-  new Splide('.splide', {
-    type: 'loop',
-    // perPage: 6,
-    pagination: false,
-    gap: 10,
-    autoWidth: true,
-    width: 400,
-    // fixedWidth: 200,
-  }).mount();
 }
 
 function createSliderItemProduct(product, productsContainer) {
