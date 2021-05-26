@@ -276,7 +276,7 @@ class TRENDiiAd {
     //NATIVE AD CODE START
     if (this.isNativeAd) {
       // document.addEventListener("DOMContentLoaded", this.handleDOMLoaded.bind(this));
-      document.addEventListener("DOMContentLoaded", () => {
+      window.addEventListener("load", () => {
         debugger;
         this.getAllImagesFromDOM();
         const requestOptions = {
@@ -319,17 +319,16 @@ class TRENDiiAd {
       // imageEl.parentNode.insertAdjacentHTML(sliderItem, imageEl.nextSibling);
       // imageEl.insertAdjacentHTML("afterend", sliderItem);
       // imageEl.parentNode.appendChild(sliderItem);
-
-      new Splide('.splide', {
-        type: 'loop',
-        // perPage: 6,
-        pagination: false,
-        gap: 10,
-        autoWidth: true,
-        width: 400,
-        // fixedWidth: 200,
-      }).mount();
     });
+    new Splide('.splide', {
+      type: 'loop',
+      // perPage: 6,
+      pagination: false,
+      gap: 10,
+      autoWidth: true,
+      width: 400,
+      // fixedWidth: 200,
+    }).mount();
   }
   renderAdInsideTheAdContainer(imageSrc, adContainer) {
     const domParser = new DOMParser();
