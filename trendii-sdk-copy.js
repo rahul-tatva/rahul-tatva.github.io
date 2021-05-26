@@ -171,7 +171,7 @@ class TRENDiiAd {
     iframe.hidden = false;
     // debugger;
     // check if iframe consists of the ad container already
-    const adSliderContainerEl = iframe?.document.getElementById(
+    const adSliderContainerEl = iframe.contentWindow?.document.getElementById(
       this.HTML_TEMPLATE_SLIDER_CONTAINER_ID
     );
     if (adSliderContainerEl) {
