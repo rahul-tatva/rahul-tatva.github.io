@@ -279,10 +279,12 @@ class TRENDiiAd {
       window.addEventListener("load", () => {
         debugger;
         this.getAllImagesFromDOM();
+
         const requestOptions = {
           method: "GET",
           url: this.GET_NATIVE_AD_TEMPLATE,
         };
+
         axios(requestOptions)
           .then((response) => {
             debugger;
@@ -299,7 +301,10 @@ class TRENDiiAd {
       });
     }
   }
-  getAdTemplatesFromCDN() { }
+  getAllImagesFromDOM() {
+    // TO DO throw error if image selector not present
+    this.allImageElements = document.querySelectorAll(this.options.adImagesSelector);
+  };
   getProductsForAllImages() {
     this.feedProducts = window.FEED_PRODUCTS;
   }
@@ -346,10 +351,7 @@ class TRENDiiAd {
     const generatedNativeAd = parsedHtmlDocumentEl.body;
     adContainer.innerHTML = generatedNativeAd.innerHTML;
   }
-  getAllImagesFromDOM() {
-    // TO DO throw error if image selector not present
-    this.allImageElements = document.querySelectorAll(this.options.adImagesSelector);
-  };
+
   checkSupportedDimensions() {
     if (!SUPPORTED_DIMENSIONS.includes(this.AD_DIMENSION)) {
       throw new Error(
@@ -466,52 +468,6 @@ class TRENDiiAd {
     // debugger;
     return parsedHtmlDocumentEl.documentElement.innerHTML;
   }
-  updateSliderContainerWithAdProducts(
-    adSliderContainerEl,
-    feedProducts,
-    currentImageSrc
-  ) {
-    // debugger;
-    // reset the container
-    adSliderContainerEl.innerHTML = "";
-    this.createProductsSlider(
-      adSliderContainerEl,
-      feedProducts,
-      currentImageSrc
-    );
-    // debugger;
-    // return parsedHtmlDocument.documentElement.innerHTML;
-  }
-  bindAdProductsToAdIframe(currentImageSrc) {
-    const iframe = this.createOrGetAdContainerIframe();
-    iframe.hidden = false;
-    // debugger;
-    // check if iframe consists of the ad container already
-    const adSliderContainerEl = iframe.contentWindow?.document.getElementById(
-      this.HTML_TEMPLATE_SLIDER_CONTAINER_ID
-    );
-    if (adSliderContainerEl) {
-      // only update products container
-      // this.updateSliderContainerWithAdProducts(adSliderContainerEl, this.feedProducts, currentImageSrc);
-
-      // debugger;
-      const imageData = this.feedProducts.find(
-        (x) => x.imageSource === currentImageSrc
-      );
-      const src = imageData.iframeHtmlSrc;
-      iframe.srcdoc = src;
-      // iframe.contentDocument.location.reload(true);
-    }
-    // create from scratch
-    else {
-      iframe.srcdoc = this.parseHTMLStringToDocument(
-        this.htmlString,
-        this.feedProducts,
-        currentImageSrc
-      );
-      this.appendAdIFrameToContainer(iframe);
-    }
-  }
   getNativeAdTemplateHTML(onSuccessCallback, onErrorCallback) {
     const requestOptions = {
       method: "GET",
@@ -611,157 +567,6 @@ class TRENDiiAd {
         console.error(error);
         if (typeof onErrorCallback === "function") onErrorCallback(error);
       });
-  }
-  handleDOMLoaded() {
-    // debugger;
-    this.getAllImagesFromDOM();
-    // debugger;
-    // const initialLoadImageSource = this.allImageElements[0].src;
-    this.allImageElements.forEach((imgEl) => {
-      // debugger;
-      const imageSourceURL = imgEl.src;
-      this.intersectionObserver.observe(imgEl);
-      // fetch the ad products using api for all the products
-      this.getAdProductsByImageURL(imageSourceURL, function () {
-        // debugger;
-        // if (this.feedProducts.length === 1) {
-        //     this.bindAdProductsToAdIframe(initialLoadImageSource);
-        // }
-      });
-    });
-  }
-
-
-  registerImageElementsToObserveVisibility() {
-    document.addEventListener("DOMContentLoaded", this.handleDOMLoaded.bind(this));
-  }
-  handleIntersectionEntries(entries, observer) {
-    // debugger;
-    entries.forEach((entry) => {
-      // console.log(entry);
-      // debugger;
-      // check if image el is visible in screen/window
-      if (entry.isIntersecting) {
-        const visibleImageSrc = entry.target?.currentSrc || "";
-        // console.log(visibleImageSrc);
-        this.currentlyVisibleImageSrcURL = visibleImageSrc;
-        if (this.feedProducts.length > 0) {
-          this.bindAdProductsToAdIframe(visibleImageSrc);
-        }
-        // this.getSimilarProducts(currentImageSrc, (response) => {
-        //     this.getHTMLTemplate(response.data);
-        // });
-        // debugger;
-        // if (entry.intersectionRatio >= 1.0) {
-        //     // image is fully visible in t0.75he screen
-        // }
-        // deregister intersection observer apis
-        // observer.unobserve(entry.target);
-      }
-    });
-  }
-  createObserverForCurrentVisibleImage() {
-    // debugger;
-    /**
-     * Checking whether image is there to check the data
-     */
-    if (!!window.IntersectionObserver) {
-      const options = {
-        rootMargin: "0px 0px 0px 0px",
-        // threshold: 0.10,
-      };
-      this.intersectionObserver = new IntersectionObserver(
-        this.handleIntersectionEntries.bind(this),
-        options
-      );
-    }
-  }
-  sliderListProductCount() {
-    switch (this.AD_DIMENSION) {
-      case "160X600":
-        return 4;
-      case "300X600":
-        return 3;
-      default:
-        break;
-    }
-  }
-  createProductsSlider(productsContainerEl, feedProducts, currentImageSrc) {
-    // debugger;
-    let sliderItemListEl;
-    const currentImageData = feedProducts.find(
-      (x) => x.imageSource === currentImageSrc
-    );
-    const adProducts = currentImageData?.adProductsData;
-    const sliderListItemProductCount = this.sliderListProductCount();
-    // TO-DO: Not found any ad products for the particular image
-    if (adProducts?.length > 0) {
-      for (let index = 0; index < adProducts.length; index++) {
-        const product = adProducts[index];
-        if (index % sliderListItemProductCount === 0) {
-          // create a new list element
-          sliderItemListEl = document.createElement("LI");
-          sliderItemListEl.classList.add("splide__slide");
-        }
-        const productItemEl = this.createSliderProductItemElement(product);
-        sliderItemListEl.appendChild(productItemEl);
-        productsContainerEl.appendChild(sliderItemListEl);
-      }
-    }
-  }
-  createSliderProductItemElement(product) {
-    const productItemRedirectContainer = document.createElement("A");
-    productItemRedirectContainer.style = "text-decoration: none;";
-    productItemRedirectContainer.href = product.url;
-    productItemRedirectContainer.target = "_blank";
-
-    const productItem = document.createElement("DIV");
-    productItem.classList.add("product-item");
-    productItem.style.backgroundImage = `url(${product.image || product.localImage})`;
-    // debugger;
-    // function test() {
-    //   console.log("clcick product");
-    //   window.open(product.url, "_blank");
-    // }
-    // productItem.onclick = "test();";
-    // productItem.addEventListener("click", function () {
-    //   console.log("clcick product");
-    //   debugger;
-    //   window.open(product.url, "_blank");
-    // });
-
-    if (product.sale) {
-      const onSaleTag = document.createElement("SPAN");
-      onSaleTag.classList.add("onsale");
-      onSaleTag.innerHTML = "ON SALE";
-      productItem.appendChild(onSaleTag);
-    }
-
-    const productItemCardBody = document.createElement("DIV");
-    productItemCardBody.classList.add("card-body");
-
-    const productName = document.createElement("B");
-    const productNameText = document.createTextNode(product.name);
-    productName.appendChild(productNameText);
-    productItemCardBody.appendChild(productName);
-
-    const productCashback = document.createElement("P");
-    productCashback.innerHTML = product.name;
-    productItemCardBody.appendChild(productCashback);
-
-    const productPriceLink = document.createElement("EM");
-    productPriceLink.innerHTML = product.currency + product.price;
-    productItemCardBody.appendChild(productPriceLink);
-
-    productItem.appendChild(productItemCardBody);
-
-    const cashbackLabel = document.createElement("I");
-    cashbackLabel.classList.add("cashback-chip");
-    cashbackLabel.innerHTML = product.cashback + " cashback";
-    productItem.appendChild(cashbackLabel);
-    productItemRedirectContainer.appendChild(productItem);
-    return productItemRedirectContainer;
-    // return productItem;
   }
 }
 const BRAND_NAME = "TRENDii";

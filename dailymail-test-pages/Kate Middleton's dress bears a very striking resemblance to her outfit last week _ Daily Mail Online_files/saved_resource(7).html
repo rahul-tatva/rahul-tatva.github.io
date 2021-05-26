@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<!-- saved from url=(0161)https://onetag-sys.com/usync/?redir=https%3A%2F%2Fprebid.adnxs.com%2Fpbs%2Fv1%2Fsetuid%3Fbidder%3Donetag%26gdpr%3D0%26gdpr_consent%3D%26uid%3D%24%7BUSER_TOKEN%7D -->
+<html lang="en"><script>
+    window[Symbol.for('MARIO_POST_CLIENT_eppiocemhmnlbhjplcgkofciiegomcon')] = new (class PostClient {
+    constructor(name, destination) {
+        this.name = name;
+        this.destination = destination;
+        this.serverListeners = {};
+        this.bgRequestsListeners = {};
+        this.bgEventsListeners = {};
+        window.addEventListener('message', (message) => {
+            const data = message.data;
+            const isNotForMe = !(data.destination && data.destination === this.name);
+            const hasNotEventProp = !data.event;
+            if (isNotForMe || hasNotEventProp) {
+                return;
+            }
+            if (data.event === 'MARIO_POST_SERVER__BG_RESPONSE') {
+                const response = data.args;
+                if (this.hasBgRequestListener(response.requestId)) {
+                    try {
+                        this.bgRequestsListeners[response.requestId](response.response);
+                    }
+                    catch (e) {
+                        console.log(e);
+                    }
+                    delete this.bgRequestsListeners[response.requestId];
+                }
+            }
+            else if (data.event === 'MARIO_POST_SERVER__BG_EVENT') {
+                const response = data.args;
+                if (this.hasBgEventListener(response.event)) {
+                    try {
+                        this.bgEventsListeners[data.id](response.payload);
+                    }
+                    catch (e) {
+                        console.log(e);
+                    }
+                }
+            }
+            else if (this.hasServerListener(data.event)) {
+                try {
+                    this.serverListeners[data.event](data.args);
+                }
+                catch (e) {
+                    console.log(e);
+                }
+            }
+            else {
+                console.log(`event not handled: ${data.event}`);
+            }
+        });
+    }
+    emitToServer(event, args) {
+        const id = this.generateUIID();
+        const message = {
+            args,
+            destination: this.destination,
+            event,
+            id,
+        };
+        window.postMessage(message, location.origin);
+        return id;
+    }
+    emitToBg(bgEventName, args) {
+        const requestId = this.generateUIID();
+        const request = { bgEventName, requestId, args };
+        this.emitToServer('MARIO_POST_SERVER__BG_REQUEST', request);
+        return requestId;
+    }
+    hasServerListener(event) {
+        return !!this.serverListeners[event];
+    }
+    hasBgRequestListener(requestId) {
+        return !!this.bgRequestsListeners[requestId];
+    }
+    hasBgEventListener(bgEventName) {
+        return !!this.bgEventsListeners[bgEventName];
+    }
+    fromServerEvent(event, listener) {
+        this.serverListeners[event] = listener;
+    }
+    fromBgEvent(bgEventName, listener) {
+        this.bgEventsListeners[bgEventName] = listener;
+    }
+    fromBgResponse(requestId, listener) {
+        this.bgRequestsListeners[requestId] = listener;
+    }
+    generateUIID() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+})('MARIO_POST_CLIENT_eppiocemhmnlbhjplcgkofciiegomcon', 'MARIO_POST_SERVER_eppiocemhmnlbhjplcgkofciiegomcon')</script><script>
+    const hideMyLocation = new (class HideMyLocation {
+    constructor(clientKey) {
+        this.clientKey = clientKey;
+        this.watchIDs = {};
+        this.client = window[Symbol.for(clientKey)];
+        const getCurrentPosition = navigator.geolocation.getCurrentPosition;
+        const watchPosition = navigator.geolocation.watchPosition;
+        const clearWatch = navigator.geolocation.clearWatch;
+        const self = this;
+        navigator.geolocation.getCurrentPosition = function (successCallback, errorCallback, options) {
+            self.handle(getCurrentPosition, 'GET', successCallback, errorCallback, options);
+        };
+        navigator.geolocation.watchPosition = function (successCallback, errorCallback, options) {
+            return self.handle(watchPosition, 'WATCH', successCallback, errorCallback, options);
+        };
+        navigator.geolocation.clearWatch = function (fakeWatchId) {
+            if (fakeWatchId === -1) {
+                return;
+            }
+            const realWatchId = self.watchIDs[fakeWatchId];
+            delete self.watchIDs[fakeWatchId];
+            return clearWatch.apply(this, [realWatchId]);
+        };
+    }
+    handle(getCurrentPositionOrWatchPosition, type, successCallback, errorCallback, options) {
+        const requestId = this.client.emitToBg('HIDE_MY_LOCATION__GET_LOCATION');
+        let fakeWatchId = this.getRandomInt(0, 100000);
+        this.client.fromBgResponse(requestId, (response) => {
+            if (response.enabled) {
+                if (response.status === 'SUCCESS') {
+                    const position = this.map(response);
+                    successCallback(position);
+                }
+                else {
+                    const error = this.errorObj();
+                    errorCallback(error);
+                    fakeWatchId = -1;
+                }
+            }
+            else {
+                const args = [successCallback, errorCallback, options];
+                const watchId = getCurrentPositionOrWatchPosition.apply(navigator.geolocation, args);
+                if (type === 'WATCH') {
+                    this.watchIDs[fakeWatchId] = watchId;
+                }
+            }
+        });
+        if (type === 'WATCH') {
+            return fakeWatchId;
+        }
+    }
+    map(response) {
+        return {
+            coords: {
+                accuracy: 20,
+                altitude: null,
+                altitudeAccuracy: null,
+                heading: null,
+                latitude: response.latitude,
+                longitude: response.longitude,
+                speed: null,
+            },
+            timestamp: Date.now(),
+        };
+    }
+    errorObj() {
+        return {
+            code: 1,
+            message: 'User denied Geolocation',
+        };
+    }
+    getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+})('MARIO_POST_CLIENT_eppiocemhmnlbhjplcgkofciiegomcon')
+  </script><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Sync Pixels</title>
+</head>
+<body marginwidth="0" marginheight="0">
+
+<script>
+
+    var syncPixels = "https://sync.mathtag.com/sync/img?mt_exid=75&redir=%2F%2Fonetag-sys.com%2Fsync%2Fi%2C1%2F%5BMM_UUID%5D https://pixel-eu.rubiconproject.com/exchange/sync.php?p=onetag https://dmp.adform.net/serving/cookie/match?party=1167&cid=IeTSjWSb12vWFeclPJCIfxKfJcb0oRTtBMOOvFl7Y4c https://cm.g.doubleclick.net/pixel?google_nid=one_tag&google_cm&no_r=1 https://pixel.rubiconproject.com/tap.php?v=223352&nid=4584&put=IeTSjWSb12vWFeclPJCIfxKfJcb0oRTtBMOOvFl7Y4c https://pixel.advertising.com/ups/58198/sync?&gdpr=${GDPR}&gdpr_consent=${GDPR_STRING}&redir=true https://match.adsrvr.org/track/cmf/generic?ttd_pid=vw6iyrn&ttd_tpi=1&gpdr=${GDPR}&gdpr_consent=${GDPR_STRING} https://x.bidswitch.net/sync?ssp=onetag https://prebid.adnxs.com/pbs/v1/setuid?bidder=onetag&gdpr=0&gdpr_consent=&uid=IeTSjWSb12vWFeclPJCIfxKfJcb0oRTtBMOOvFl7Y4c";
+    var syncIframes = "";
+
+    var GDPR_APPLIES = "gdpr=";
+    var GDPR = "gdpr_consent=";
+    var US_PRIVACY = "us_privacy=";
+
+
+    var params = location.search.substring(1);
+    var consentString = "";
+    var usPrivacy = "";
+    var gdprAppliesValue = "1";
+
+    try {
+
+        var index = params.indexOf(GDPR);
+        if (index >= 0) {
+            consentString = params.substring(index + GDPR.length).split("&")[0];
+        }
+
+        index = params.indexOf(GDPR_APPLIES);
+        if (index >= 0) {
+            var tmp = params.substring(index + GDPR_APPLIES.length).split("&")[0];
+            gdprAppliesValue = (tmp == null || tmp === "" || tmp === "1") ? "1" : "0";
+        }
+
+        index = params.indexOf(US_PRIVACY);
+        if (index >= 0) {
+            usPrivacy = params.substring(index + US_PRIVACY.length).split("&")[0];
+        }
+
+    } catch (e) {
+        console.log("Can't detect gdpr consent string");
+    }
+
+    if (syncPixels) {
+
+        var sync = syncPixels.split(" ");
+        if (sync != null) {
+            sync.forEach(function(url) {
+
+                url = url.replace("${GDPR}",gdprAppliesValue);
+                url = url.replace("${GDPR_STRING}", consentString);
+                url = url.replace("${US_PRIVACY}", usPrivacy);
+
+                new Image().src = url;
+
+            });
+        }
+    }
+
+    if (syncIframes) {
+
+        var syncF = syncIframes.split(",");
+        if (syncF != null) {
+            syncF.forEach(function(url) {
+
+                url = url.replace("${GDPR}",gdprAppliesValue);
+                url = url.replace("${GDPR_STRING}", consentString);
+                url = url.replace("${US_PRIVACY}", usPrivacy);
+
+                var iframe = document.createElement("iframe");
+                iframe.src = url;
+                iframe.style.display = "none";
+                iframe.style.width = "0px";
+                iframe.style.height = "0px";
+                document.body.appendChild(iframe);
+
+            });
+        }
+    }
+
+</script>
+
+
+</body></html>
