@@ -274,32 +274,30 @@ class TRENDiiAd {
 
 
     //NATIVE AD CODE START
-    if (this.isNativeAd) {
-      // document.addEventListener("DOMContentLoaded", this.handleDOMLoaded.bind(this));
-      window.addEventListener("load", () => {
-        debugger;
-        this.getAllImagesFromDOM();
+    // document.addEventListener("DOMContentLoaded", this.handleDOMLoaded.bind(this));
+    window.addEventListener("load", () => {
+      debugger;
+      this.getAllImagesFromDOM();
 
-        const requestOptions = {
-          method: "GET",
-          url: this.GET_NATIVE_AD_TEMPLATE,
-        };
+      const requestOptions = {
+        method: "GET",
+        url: this.GET_NATIVE_AD_TEMPLATE,
+      };
 
-        axios(requestOptions)
-          .then((response) => {
-            debugger;
-            // debugger;
-            this.nativeAdHTMLString = response.data;
-            // console.log(response.data);
-            this.getProductsForAllImages();
-            this.appendAdContainersToImages();
-          })
-          .catch((error) => {
-            console.error(error);
-            typeof onErrorCallback === "function" && onErrorCallback(error);
-          });
-      });
-    }
+      axios(requestOptions)
+        .then((response) => {
+          debugger;
+          // debugger;
+          this.nativeAdHTMLString = response.data;
+          // console.log(response.data);
+          this.getProductsForAllImages();
+          this.appendAdContainersToImages();
+        })
+        .catch((error) => {
+          console.error(error);
+          typeof onErrorCallback === "function" && onErrorCallback(error);
+        });
+    });
   }
   getAllImagesFromDOM() {
     // TO DO throw error if image selector not present
