@@ -308,7 +308,7 @@ class TRENDiiAd {
     this.allImageElements.forEach(imageEl => {
       this.adContainer = document.createElement("DIV");
       this.adContainer.classList.add("ad-container");
-      this.adContainer.style.background = "yellow";
+      // this.adContainer.style.background = "yellow";
       // adContainer.innerHTML = "tesetste";
       const imageSrc = imageEl.src;
       debugger;
@@ -834,7 +834,9 @@ function createSliderItemProduct(product, productsContainer) {
   const productDetailsWrapper = document.createElement("DIV");
   productDetailsWrapper.classList.add("product-details-wrapper");
   productItem.appendChild(productDetailsWrapper);
-
+  productDetailsWrapper.addEventListener("click", function () {
+    window.open(product.url, "_blank");
+  });
   const productName = document.createElement("B");
   productName.classList.add("brand-name");
   productName.innerHTML = BRAND_NAME;
