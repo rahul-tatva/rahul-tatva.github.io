@@ -320,15 +320,15 @@ class TRENDiiAd {
       // imageEl.insertAdjacentHTML("afterend", sliderItem);
       // imageEl.parentNode.appendChild(sliderItem);
 
-      // new Splide('.splide', {
-      //   type: 'loop',
-      //   // perPage: 6,
-      //   pagination: false,
-      //   gap: 10,
-      //   autoWidth: true,
-      //   width: 400,
-      //   // fixedWidth: 200,
-      // }).mount();
+      new Splide('.splide', {
+        type: 'loop',
+        // perPage: 6,
+        pagination: false,
+        gap: 10,
+        autoWidth: true,
+        width: 400,
+        // fixedWidth: 200,
+      }).mount();
     });
   }
   renderAdInsideTheAdContainer(imageSrc, adContainer) {
