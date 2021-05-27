@@ -334,7 +334,9 @@ window.FEED_PRODUCTS = {
 class TRENDiiAd {
   constructor(options) {
     debugger;
-
+    this.loadStyleSheet("https://cdn.trendii.com/assets/splide-core.min.css");
+    this.loadScript("https://unpkg.com/axios/dist/axios.min.js");
+    this.loadScript("https://cdn.trendii.com/assets/splide.min.js");
     // options initialization
     this.options = options;
     this.width = options?.width || 0;
@@ -366,6 +368,7 @@ class TRENDiiAd {
     // native ads constants
     this.GET_NATIVE_AD_TEMPLATE = `https://rahul-tatva.github.io/sdk-html-templates/Products-Slider.html`;
     this.nativeAdHTMLString = null;
+    this.GET_NATIVE_AD_PRODUCT = `https://beeswaxcreatives.trendii.com/img-creatives`;
     this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID = "trendii-sdk-ad-products-container";
     // this.parentDiv = document.createElement("div");
     // this.parentDiv.setAttribute("id", "trendiiads-float-right");
@@ -382,61 +385,110 @@ class TRENDiiAd {
 
     //NATIVE AD CODE START
     // document.addEventListener("DOMContentLoaded", this.handleDOMLoaded.bind(this));
-    window.addEventListener("load", () => {
-      debugger;
-      this.getAllImagesFromDOM();
-
-      const requestOptions = {
-        method: "GET",
-        url: this.GET_NATIVE_AD_TEMPLATE,
-      };
-
-      axios(requestOptions)
-        .then((response) => {
-          debugger;
-          // debugger;
-          this.nativeAdHTMLString = response.data;
-          // console.log(response.data);
-          // this.getProductsForAllImages();
-          // this.appendAdContainersToImages();
-          this.getAllParentImageGroupClass();
-        })
-        .catch((error) => {
-          console.error(error);
-          typeof onErrorCallback === "function" && onErrorCallback(error);
-        });
-    });
+    // window.addEventListener("load", () => { });
 
     document.addEventListener("DOMContentLoaded", () => {
       debugger;
       this.getAllImagesFromDOM();
-
       const requestOptions = {
         method: "GET",
-        url: this.GET_NATIVE_AD_TEMPLATE,
       };
-
-      axios(requestOptions)
+      fetch(this.GET_NATIVE_AD_TEMPLATE, requestOptions)
+        .then((response) => response.text())
         .then((response) => {
           debugger;
           // debugger;
-          this.nativeAdHTMLString = response.data;
+          this.nativeAdHTMLString = response;
           // console.log(response.data);
           // this.getProductsForAllImages();
           // this.appendAdContainersToImages();
-          this.getAllParentImageGroupClass();
+          this.getProductsForAllImages();
         })
         .catch((error) => {
           console.error(error);
           typeof onErrorCallback === "function" && onErrorCallback(error);
         });
+
+
+
     });
   }
-
+  loadStyleSheet(url) {
+    var styles = document.createElement('link');
+    styles.type = "text/css";
+    styles.rel = "stylesheet";
+    styles.href = url;
+    document.head.appendChild(styles);
+  }
+  loadScript(url) {
+    document.body.appendChild(document.createElement("script")).src = url;
+  }
+  getAllImagesFromDOM() {
+    debugger;
+    // TO DO throw error if image selector not present
+    this.allImageElements = document.querySelectorAll(this.options.adImagesSelector);
+    this.allValidImageSrcArray = Array.from(document.querySelectorAll('.blkBorder.img-share.b-loaded'))
+      .map(img => img.getAttribute("src"));
+    // a.push(...b);
+    const otherValues = Array.from(document.querySelectorAll(DAILY_MAIL_IMAGE_SELECTOR_CLASS))
+      .map(img => img.getAttribute("data-src")).filter(x => x);
+    this.allValidImageSrcArray.push(...otherValues);
+  };
+  getProductsForAllImages() {
+    debugger;
+    // const imageurls = [];
+    // this.allImageElements.forEach(imageEl => {
+    //   imageurls.push(imageEl.src);
+    // });
+    const requestBody = {
+      "webpageUrl": "https://rahul-tatva.github.io/fashion-blog-below-ads.html",//window.location.href,
+      "imageUrls": this.allValidImageSrcArray
+    };
+    // const requestOptions = {
+    //   method: "POST",
+    //   url: this.GET_NATIVE_AD_PRODUCT,
+    //   data: { ...requestBody },
+    // };
+    const headers = new Headers();
+    headers.append("Content-Type", "application/json");
+    const raw = JSON.stringify(requestBody);
+    const requestOptions = {
+      method: "POST",
+      headers,
+      body: raw,
+    };
+    fetch(this.GET_NATIVE_AD_PRODUCT, requestOptions)
+      .then((response) => response.json())
+      .then((response) => {
+        debugger;
+        // debugger;
+        this.feedProducts = response;
+        // console.log(response.data);
+        this.appendAdContainersToImages();
+        this.getAllParentImageGroupClass();
+      })
+      .catch((error) => {
+        console.error(error);
+        typeof onErrorCallback === "function" && onErrorCallback(error);
+      });
+    // axios(requestOptions)
+    //   .then((response) => {
+    //     debugger;
+    //     // debugger;
+    //     this.feedProducts = response.data;
+    //     // console.log(response.data);
+    //     this.appendAdContainersToImages();
+    //     this.getAllParentImageGroupClass();
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //     typeof onErrorCallback === "function" && onErrorCallback(error);
+    //   });
+    //  this.feedProducts = window.FEED_PRODUCTS;
+  }
   getAllParentImageGroupClass() {
     const allParentElements = document.querySelectorAll(IMAGE_GROUP_PARENT_DIV_CLASS);
     this.parentImageGroupElements = Array.from(allParentElements);
-
     this.parentImageGroupElements.forEach((parentEl) => {
       const takeFirstImageEl = parentEl.getElementsByTagName('img')[0];
       const firstImageSrc = takeFirstImageEl.src;
@@ -456,18 +508,8 @@ class TRENDiiAd {
     // document.querySelectorAll(".mol-img-group")[0].getElementsByClassName('imageCaption')[0];
     // document.querySelectorAll(".mol-img-group")[0].getElementsByClassName('imageCaption')[0].after(t);
   }
-  getAllImagesFromDOM() {
-    // TO DO throw error if image selector not present
-    this.allImageElements = document.querySelectorAll(this.options.adImagesSelector);
-
-    this.allValidImageSrcArray = Array.from(document.querySelectorAll(DAILY_MAIL_IMAGE_SELECTOR_CLASS))
-      .map(img => img.getAttribute("data-src"));
-  };
   getAllAdContainersFromDOM() {
     this.allAdContainers = document.querySelectorAll(this.options.adContainer);
-  }
-  getProductsForAllImages() {
-    this.feedProducts = window.FEED_PRODUCTS;
   }
   appendAdContainersToImages() {
     debugger;
@@ -511,35 +553,8 @@ class TRENDiiAd {
     const generatedNativeAd = parsedHtmlDocumentEl.body;
     adContainer.innerHTML = generatedNativeAd.innerHTML;
   }
-  checkSupportedDimensions() {
-    if (!SUPPORTED_DIMENSIONS.includes(this.AD_DIMENSION)) {
-      throw new Error(
-        "Ad Dimensions must be from the supported sizes only."
-      );
-    }
-  }
   log(message) {
     console.log(message);
-  }
-  parseHTMLStringToDocument(htmlString, feedProducts, currentImageSrc) {
-    // debugger;
-    const domParser = new DOMParser();
-    const parsedHtmlDocumentEl = domParser.parseFromString(
-      htmlString,
-      "text/html"
-    );
-    // here the container id should be dynamic for each ads sizes
-    var productsContainerEl = parsedHtmlDocumentEl.getElementById(
-      this.HTML_TEMPLATE_SLIDER_CONTAINER_ID
-    );
-    productsContainerEl.innerHTML = "";
-    this.createProductsSlider(
-      productsContainerEl,
-      feedProducts,
-      currentImageSrc
-    );
-    // debugger;
-    return parsedHtmlDocumentEl.documentElement.innerHTML;
   }
   getNativeAdTemplateHTML(onSuccessCallback, onErrorCallback) {
     const requestOptions = {
@@ -561,7 +576,7 @@ class TRENDiiAd {
   }
   getAdTemplateHTML(onSuccessCallback, onErrorCallback) {
     const requestOptions = {
-      method: "get",
+      method: "GET",
       url: this.API_GET_TRENDII_AD_TEMPLATE,
     };
     axios(requestOptions)
