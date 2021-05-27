@@ -506,7 +506,7 @@ class TRENDiiAd {
         div.style.height = "100px";
         parentEl.getElementsByClassName('imageCaption')[0].after(div);
       }
-      
+
     });
     // document.querySelectorAll(".mol-img-group")[0].getElementsByTagName('img');
     // document.querySelectorAll(".mol-img-group")[0].getElementsByClassName('imageCaption')[0];
@@ -576,24 +576,6 @@ class TRENDiiAd {
       .catch((error) => {
         console.error(error);
         typeof onErrorCallback === "function" && onErrorCallback(error);
-      });
-  }
-  getAdTemplateHTML(onSuccessCallback, onErrorCallback) {
-    const requestOptions = {
-      method: "GET",
-      url: this.API_GET_TRENDII_AD_TEMPLATE,
-    };
-    axios(requestOptions)
-      .then((response) => {
-        // debugger;
-        this.htmlString = response.data;
-        // console.log(response.data);
-        if (typeof onSuccessCallback === "function")
-          onSuccessCallback(response);
-      })
-      .catch((error) => {
-        console.error(error);
-        if (typeof onErrorCallback === "function") onErrorCallback(error);
       });
   }
   generateAdsForAllProducts(feedResponse, templatesDOM) {
