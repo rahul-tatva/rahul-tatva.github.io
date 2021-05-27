@@ -9,6 +9,7 @@ const PUBLISHER_NAME = "DAILYMAIL";
 const IMAGE_TITLE_CLASS = ".image-caption";
 const DAILY_MAIL_IMAGE_SELECTOR_CLASS = ".blkBorder.img-share";
 const IMAGE_GROUP_PARENT_DIV_CLASS = ".mol-img-group";
+const DAILY_MAIL_IMAGE_CAPTION_CLASS = '.imageCaption';
 window.FEED_PRODUCTS = {
   "success": true,
   "payload": [
@@ -564,7 +565,7 @@ class TRENDiiAd {
       const div = document.createElement('div');
       div.style.background = "yellow";
       div.style.height = "100px";
-      parentEl.getElementsByClassName('imageCaption')[0].after(div);
+      parentEl.getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0].after(div);
     });
     // document.querySelectorAll(".mol-img-group")[0].getElementsByTagName('img');
     // document.querySelectorAll(".mol-img-group")[0].getElementsByClassName('imageCaption')[0];
