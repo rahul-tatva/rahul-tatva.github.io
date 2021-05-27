@@ -6,7 +6,6 @@ const SUPPORTED_DIMENSIONS = ["160X600", "300X600"];
 const AD_PRODUCTS_CONTAINER = "trendii-sdk-ad-products-container";
 const PUBLISHER_NAME = "DAILYMAIL";
 // ad by default to below this class element
-const IMAGE_TITLE_CLASS = ".image-caption";
 const DAILY_MAIL_IMAGE_SELECTOR_CLASS = ".blkBorder.img-share";
 const IMAGE_GROUP_PARENT_DIV_CLASS = ".mol-img-group";
 const DAILY_MAIL_IMAGE_CAPTION_CLASS = '.imageCaption';
@@ -535,14 +534,14 @@ class TRENDiiAd {
       console.log(parentEl.getElementsByTagName('img'));
       const takeFirstImageEl = parentEl.getElementsByTagName('img')[0];
       let imageSrcToShowAd = takeFirstImageEl.src;
-      let imageDataSrcToShowAd = takeFirstImageEl.getAnimations("data-src");
+      let imageDataSrcToShowAd = takeFirstImageEl.getAttribute("data-src");
       let findImageData = this.feedProducts.payload
         .find((imageData) => imageData.imageUrl === imageSrcToShowAd);
       if (!findImageData) {
         const takeSecondImageEl = parentEl.getElementsByTagName('img')[1];
         if (takeSecondImageEl) {
           imageSrcToShowAd = takeSecondImageEl.src;
-          imageDataSrcToShowAd = takeSecondImageEl.getAnimations("data-src");
+          imageDataSrcToShowAd = takeSecondImageEl.getAttribute("data-src");
           findImageData = this.feedProducts.payload
             .find((imageData) => imageData.imageUrl === imageSrcToShowAd);
         }
