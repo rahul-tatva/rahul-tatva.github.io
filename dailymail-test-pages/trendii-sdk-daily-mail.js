@@ -7,7 +7,7 @@ const AD_PRODUCTS_CONTAINER = "trendii-sdk-ad-products-container";
 const PUBLISHER_NAME = "DAILYMAIL";
 // ad by default to below this class element
 const IMAGE_TITLE_CLASS = ".image-caption";
-
+const DAILY_MAIL_IMAGE_SELECTOR_CLASS = ".blkBorder.img-share";
 const IMAGE_GROUP_PARENT_DIV_CLASS = ".mol-img-group";
 window.FEED_PRODUCTS = {
   "success": true,
@@ -459,6 +459,9 @@ class TRENDiiAd {
   getAllImagesFromDOM() {
     // TO DO throw error if image selector not present
     this.allImageElements = document.querySelectorAll(this.options.adImagesSelector);
+
+    this.allValidImageSrcArray = Array.from(document.querySelectorAll(DAILY_MAIL_IMAGE_SELECTOR_CLASS))
+      .map(img => img.getAttribute("data-src"));
   };
   getAllAdContainersFromDOM() {
     this.allAdContainers = document.querySelectorAll(this.options.adContainer);
