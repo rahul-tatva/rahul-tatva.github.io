@@ -435,6 +435,7 @@ class TRENDiiAd {
     const otherValues = Array.from(document.querySelectorAll(DAILY_MAIL_IMAGE_SELECTOR_CLASS))
       .map(img => img.getAttribute("data-src")).filter(x => x);
     this.allValidImageSrcArray.push(...otherValues);
+    console.log(this.allValidImageSrcArray);
   };
   getProductsForAllImages() {
     debugger;
