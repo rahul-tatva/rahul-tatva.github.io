@@ -468,13 +468,14 @@ class TRENDiiAd {
         this.feedProducts = response;
         // console.log(response.data);
         // this.appendAdContainersToImages();
-        const domParser = new DOMParser();
-        const parsedHtmlDocumentEl = domParser.parseFromString(this.nativeAdHTMLString, "text/html");
-        // here the container id should be dynamic for each ads sizes
-        this.productsContainerEl = parsedHtmlDocumentEl.getElementById(
-          this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID
-        );
-        this.productsContainerEl.innerHTML = "";
+        // const domParser = new DOMParser();
+        // const parsedHtmlDocumentEl = domParser.parseFromString(this.nativeAdHTMLString, "text/html");
+        // // here the container id should be dynamic for each ads sizes
+        // this.productsContainerEl = parsedHtmlDocumentEl.getElementById(
+        //   this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID
+        // );
+        // this.productsContainerEl.innerHTML = "";
+        this.createAdTemplatesForAllProducts();
         this.getAllParentImageGroupClass();
       })
       .catch((error) => {
@@ -497,7 +498,9 @@ class TRENDiiAd {
     //  this.feedProducts = window.FEED_PRODUCTS;
   }
   createAdTemplatesForAllProducts() {
+    debugger;
     this.feedProducts.payload.map((imageData) => {
+      debugger;
       if (imageData?.products.length > 0) {
         const ad = this.createAdsForAllProducts(imageData?.products);
         imageData.generatedAdHTML = ad;
