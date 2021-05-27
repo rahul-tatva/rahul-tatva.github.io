@@ -534,16 +534,21 @@ class TRENDiiAd {
       console.log(parentEl.getElementsByTagName('img'));
       const takeFirstImageEl = parentEl.getElementsByTagName('img')[0];
       let imageSrcToShowAd = takeFirstImageEl.src;
+      let imageDataSrcToShowAd = takeFirstImageEl.getAnimations("data-src");
       let findImageData = this.feedProducts.payload
         .find((imageData) => imageData.imageUrl === imageSrcToShowAd);
       if (!findImageData) {
         const takeSecondImageEl = parentEl.getElementsByTagName('img')[1];
         if (takeSecondImageEl) {
           imageSrcToShowAd = takeSecondImageEl.src;
+          imageDataSrcToShowAd = takeSecondImageEl.getAnimations("data-src");
           findImageData = this.feedProducts.payload
             .find((imageData) => imageData.imageUrl === imageSrcToShowAd);
         }
       }
+      console.log(imageSrcToShowAd);
+      console.log(imageDataSrcToShowAd);
+      console.log(findImageData);
       // if (findImageData?.imageUrl) {
       //   // parentEl.getElementsByClassName('imageCaption')[0].after(findImageData.generatedAd);
       //   // const div = document.createElement('div');
