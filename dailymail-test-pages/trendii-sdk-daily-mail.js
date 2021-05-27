@@ -518,7 +518,7 @@ class TRENDiiAd {
     );
     productsContainerEl.innerHTML = "";
     debugger;
-    products.forEach((product) => this.createSliderItemProduct(product, productsContainer));
+    products.forEach((product) => this.createSliderItemProduct(product, productsContainerEl));
     const resultantAdWrapper = templatesDOM.getElementById(
       this.NATIVE_AD_HTML_TEMPLATE_WRAPPER_ID
     );
