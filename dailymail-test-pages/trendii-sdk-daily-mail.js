@@ -369,6 +369,7 @@ class TRENDiiAd {
     this.GET_NATIVE_AD_TEMPLATE = `https://rahul-tatva.github.io/sdk-html-templates/Products-Slider.html`;
     this.nativeAdHTMLString = null;
     this.GET_NATIVE_AD_PRODUCT = `https://beeswaxcreatives.trendii.com/img-creatives`;
+    this.NATIVE_AD_HTML_TEMPLATE_WRAPPER_ID = "trendii-native-ad-wrapper";
     this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID = "trendii-sdk-ad-products-container";
     // this.parentDiv = document.createElement("div");
     // this.parentDiv.setAttribute("id", "trendiiads-float-right");
@@ -467,6 +468,13 @@ class TRENDiiAd {
         this.feedProducts = response;
         // console.log(response.data);
         // this.appendAdContainersToImages();
+        const domParser = new DOMParser();
+        const parsedHtmlDocumentEl = domParser.parseFromString(this.nativeAdHTMLString, "text/html");
+        // here the container id should be dynamic for each ads sizes
+        this.productsContainerEl = parsedHtmlDocumentEl.getElementById(
+          this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID
+        );
+        this.productsContainerEl.innerHTML = "";
         this.getAllParentImageGroupClass();
       })
       .catch((error) => {
@@ -487,6 +495,31 @@ class TRENDiiAd {
     //     typeof onErrorCallback === "function" && onErrorCallback(error);
     //   });
     //  this.feedProducts = window.FEED_PRODUCTS;
+  }
+  createAdTemplatesForAllProducts() {
+    this.feedProducts.payload.map((imageData) => {
+      if (imageData?.products.length > 0) {
+        const ad = this.createAdsForAllProducts(imageData?.products);
+        imageData.generatedAdHTML = ad;
+        imageData.generatedAdString = ad.innerHTML;
+      }
+    });
+  }
+  createAdsForAllProducts(products) {
+    debugger;
+    const domParser = new DOMParser();
+    const templatesDOM = domParser.parseFromString(this.nativeAdHTMLString, "text/html");
+    // here the container id should be dynamic for each ads sizes
+    let productsContainerEl = templatesDOM.getElementById(
+      this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID
+    );
+    productsContainerEl.innerHTML = "";
+    debugger;
+    products.forEach((product) => this.createSliderItemProduct(product, productsContainer));
+    const resultantAdWrapper = templatesDOM.getElementById(
+      this.NATIVE_AD_HTML_TEMPLATE_WRAPPER_ID
+    );
+    return resultantAdWrapper;
   }
   getAllParentImageGroupClass() {
     const allParentElements = document.querySelectorAll(IMAGE_GROUP_PARENT_DIV_CLASS);
