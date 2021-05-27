@@ -441,7 +441,8 @@ class TRENDiiAd {
     //   imageurls.push(imageEl.src);
     // });
     const requestBody = {
-      "webpageUrl": "https://rahul-tatva.github.io/fashion-blog-below-ads.html",//window.location.href,
+      // "webpageUrl": "https://rahul-tatva.github.io/fashion-blog-below-ads.html",//window.location.href,
+      "webpageUrl": window.location.href,
       "imageUrls": this.allValidImageSrcArray
     };
     // const requestOptions = {
