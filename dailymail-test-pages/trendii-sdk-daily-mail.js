@@ -493,8 +493,17 @@ class TRENDiiAd {
     this.parentImageGroupElements = Array.from(allParentElements);
     this.parentImageGroupElements.forEach((parentEl) => {
       const takeFirstImageEl = parentEl.getElementsByTagName('img')[0];
-      const firstImageSrc = takeFirstImageEl.src;
-      const findImageData = this.feedProducts.payload.find((imageData) => imageData.imageUrl === firstImageSrc);
+      let imageSrcToShowAd = takeFirstImageEl.src;
+      let findImageData = this.feedProducts.payload
+        .find((imageData) => imageData.imageUrl === imageSrcToShowAd);
+      if (!findImageData) {
+        const takeSecondImageEl = parentEl.getElementsByTagName('img')[1];
+        if (takeSecondImageEl) {
+          imageSrcToShowAd = takeSecondImageEl.src;
+          findImageData = this.feedProducts.payload
+            .find((imageData) => imageData.imageUrl === imageSrcToShowAd);
+        }
+      }
       if (findImageData?.imageUrl) {
         // parentEl.getElementsByClassName('imageCaption')[0].after(findImageData.generatedAd);
         // const div = document.createElement('div');
@@ -506,7 +515,6 @@ class TRENDiiAd {
         div.style.height = "100px";
         parentEl.getElementsByClassName('imageCaption')[0].after(div);
       }
-
     });
     // document.querySelectorAll(".mol-img-group")[0].getElementsByTagName('img');
     // document.querySelectorAll(".mol-img-group")[0].getElementsByClassName('imageCaption')[0];
