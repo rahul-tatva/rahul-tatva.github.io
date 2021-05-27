@@ -560,6 +560,7 @@ class TRENDiiAd {
       //   div.style.height = "100px";
       //   parentEl.getElementsByClassName('imageCaption')[0].after(div);
       // }
+      debugger;
       const div = document.createElement('div');
       div.style.background = "yellow";
       div.style.height = "100px";
