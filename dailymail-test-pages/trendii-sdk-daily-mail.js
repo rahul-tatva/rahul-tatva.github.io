@@ -543,17 +543,21 @@ class TRENDiiAd {
             .find((imageData) => imageData.imageUrl === imageSrcToShowAd);
         }
       }
-      if (findImageData?.imageUrl) {
-        // parentEl.getElementsByClassName('imageCaption')[0].after(findImageData.generatedAd);
-        // const div = document.createElement('div');
-        // div.style.background = "yellow";
-        // parentEl.getElementsByClassName('imageCaption')[0].after(div);
+      // if (findImageData?.imageUrl) {
+      //   // parentEl.getElementsByClassName('imageCaption')[0].after(findImageData.generatedAd);
+      //   // const div = document.createElement('div');
+      //   // div.style.background = "yellow";
+      //   // parentEl.getElementsByClassName('imageCaption')[0].after(div);
 
-        const div = document.createElement('div');
-        div.style.background = "yellow";
-        div.style.height = "100px";
-        parentEl.getElementsByClassName('imageCaption')[0].after(div);
-      }
+      //   const div = document.createElement('div');
+      //   div.style.background = "yellow";
+      //   div.style.height = "100px";
+      //   parentEl.getElementsByClassName('imageCaption')[0].after(div);
+      // }
+      const div = document.createElement('div');
+      div.style.background = "yellow";
+      div.style.height = "100px";
+      parentEl.getElementsByClassName('imageCaption')[0].after(div);
     });
     // document.querySelectorAll(".mol-img-group")[0].getElementsByTagName('img');
     // document.querySelectorAll(".mol-img-group")[0].getElementsByClassName('imageCaption')[0];
