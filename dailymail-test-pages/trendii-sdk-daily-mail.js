@@ -477,6 +477,7 @@ class TRENDiiAd {
         // this.productsContainerEl.innerHTML = "";
         this.createAdTemplatesForAllProducts();
         this.getAllParentImageGroupClass();
+        console.log(this.feedProducts);
       })
       .catch((error) => {
         console.error(error);
@@ -527,7 +528,9 @@ class TRENDiiAd {
   getAllParentImageGroupClass() {
     const allParentElements = document.querySelectorAll(IMAGE_GROUP_PARENT_DIV_CLASS);
     this.parentImageGroupElements = Array.from(allParentElements);
+    console.log(this.parentImageGroupElements);
     this.parentImageGroupElements.forEach((parentEl) => {
+      console.log(parentEl.getElementsByTagName('img'));
       const takeFirstImageEl = parentEl.getElementsByTagName('img')[0];
       let imageSrcToShowAd = takeFirstImageEl.src;
       let findImageData = this.feedProducts.payload
