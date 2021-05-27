@@ -466,7 +466,7 @@ class TRENDiiAd {
         // debugger;
         this.feedProducts = response;
         // console.log(response.data);
-        this.appendAdContainersToImages();
+        // this.appendAdContainersToImages();
         this.getAllParentImageGroupClass();
       })
       .catch((error) => {
@@ -494,17 +494,19 @@ class TRENDiiAd {
     this.parentImageGroupElements.forEach((parentEl) => {
       const takeFirstImageEl = parentEl.getElementsByTagName('img')[0];
       const firstImageSrc = takeFirstImageEl.src;
-      const findImageData = window.FEED_PRODUCTS.payload.find((imageData) => imageData.imageUrl === firstImageSrc);
-      // if (findImageData?.generatedAd) {
-      //   parentEl.getElementsByClassName('imageCaption')[0].after(findImageData.generatedAd);
-      //   const div = document.createElement('div');
-      //   div.style.background = "yellow";
-      //   parentEl.getElementsByClassName('imageCaption')[0].after(div);
-      // }
-      const div = document.createElement('div');
-      div.style.background = "yellow";
-      div.style.height = "100px";
-      parentEl.getElementsByClassName('imageCaption')[0].after(div);
+      const findImageData = this.feedProducts.payload.find((imageData) => imageData.imageUrl === firstImageSrc);
+      if (findImageData?.imageUrl) {
+        // parentEl.getElementsByClassName('imageCaption')[0].after(findImageData.generatedAd);
+        // const div = document.createElement('div');
+        // div.style.background = "yellow";
+        // parentEl.getElementsByClassName('imageCaption')[0].after(div);
+
+        const div = document.createElement('div');
+        div.style.background = "yellow";
+        div.style.height = "100px";
+        parentEl.getElementsByClassName('imageCaption')[0].after(div);
+      }
+      
     });
     // document.querySelectorAll(".mol-img-group")[0].getElementsByTagName('img');
     // document.querySelectorAll(".mol-img-group")[0].getElementsByClassName('imageCaption')[0];
