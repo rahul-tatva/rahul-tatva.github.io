@@ -228,7 +228,7 @@ window.FEED_PRODUCTS = {
 };
 class TRENDiiAd {
   constructor(options) {
-    debugger;
+   // debugger;
 
     // options initialization
     this.options = options;
@@ -239,7 +239,7 @@ class TRENDiiAd {
     this.adPosition = options?.adPosition || "bottom";
     this.brandName = options?.brandName || "";
     this.blogContainerSelector = options?.blogContainerSelector;
-    debugger;
+  //  debugger;
 
 
     // variable needed to store some data and info
@@ -256,7 +256,7 @@ class TRENDiiAd {
     this.HTML_TEMPLATE_SLIDER_CONTAINER_ID = `trendii-products-container-${this.AD_DIMENSION}`;
     // this.API_GET_TRENDII_AD_TEMPLATE = `http://localhost:8081/Trendii-${this.AD_DIMENSION}.html`;
     this.API_GET_TRENDII_AD_TEMPLATE = `https://rahul-tatva.github.io/Trendii-${this.AD_DIMENSION}.html`;
-
+    this.GET_NATIVE_AD_PRODUCT = `https://beeswaxcreatives.trendii.com/img-creatives`;
 
     // native ads constants
     this.GET_NATIVE_AD_TEMPLATE = `https://rahul-tatva.github.io/sdk-html-templates/Products-Slider.html`;
@@ -278,7 +278,7 @@ class TRENDiiAd {
     //NATIVE AD CODE START
     // document.addEventListener("DOMContentLoaded", this.handleDOMLoaded.bind(this));
     window.addEventListener("load", () => {
-      debugger;
+    //  debugger;
       this.getAllImagesFromDOM();
 
       const requestOptions = {
@@ -288,12 +288,11 @@ class TRENDiiAd {
 
       axios(requestOptions)
         .then((response) => {
-          debugger;
+      //    debugger;
           // debugger;
           this.nativeAdHTMLString = response.data;
           // console.log(response.data);
           this.getProductsForAllImages();
-          this.appendAdContainersToImages();
         })
         .catch((error) => {
           console.error(error);
@@ -302,6 +301,7 @@ class TRENDiiAd {
     });
   }
   getAllImagesFromDOM() {
+    debugger;
     // TO DO throw error if image selector not present
     this.allImageElements = document.querySelectorAll(this.options.adImagesSelector);
   };
@@ -309,21 +309,51 @@ class TRENDiiAd {
     this.allAdContainers = document.querySelectorAll(this.options.adContainer);
   }
   getProductsForAllImages() {
-    this.feedProducts = window.FEED_PRODUCTS;
+    debugger;
+    const imageurls=[];
+    this.allImageElements.forEach(imageEl => {
+      imageurls.push(imageEl.src); 
+    });
+    const requestBody = {
+      "webpageUrl":"https://rahul-tatva.github.io/fashion-blog-below-ads.html",//window.location.href,
+      "imageUrls": imageurls
+  };
+    const requestOptions = {
+      method: "POST",
+      url: this.GET_NATIVE_AD_PRODUCT,
+      data: {
+        ...requestBody,
+      },
+    };
+
+    axios(requestOptions)
+      .then((response) => {
+        debugger;
+        // debugger;
+        this.feedProducts = response.data;
+        // console.log(response.data);
+        this.appendAdContainersToImages();
+      })
+      .catch((error) => {
+        console.error(error);
+        typeof onErrorCallback === "function" && onErrorCallback(error);
+      });
+      
+  //  this.feedProducts = window.FEED_PRODUCTS;
   }
   appendAdContainersToImages() {
-    debugger;
+  //  debugger;
     this.allImageElements.forEach(imageEl => {
       this.adContainer = document.createElement("DIV");
       this.adContainer.classList.add("ad-container");
       // this.adContainer.style.background = "yellow";
       // adContainer.innerHTML = "tesetste";
       const imageSrc = imageEl.src;
-      debugger;
+    //  debugger;
       this.renderAdInsideTheAdContainer(imageSrc, this.adContainer);
-      debugger;
+   //   debugger;
       imageEl.after(this.adContainer);
-      debugger;
+   //   debugger;
       // imageEl.parentNode.insertAdjacentHTML(sliderItem, imageEl.nextSibling);
       // imageEl.insertAdjacentHTML("afterend", sliderItem);
       // imageEl.parentNode.appendChild(sliderItem);
@@ -346,9 +376,9 @@ class TRENDiiAd {
       this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID
     );
     this.productsContainerEl.innerHTML = "";
-    debugger;
+   // debugger;
     this;
-    this.generateAdsForAllProducts(window.FEED_PRODUCTS, imageSrc, parsedHtmlDocumentEl).bind(this);
+    this.generateAdsForAllProducts(this.feedProducts, imageSrc, parsedHtmlDocumentEl).bind(this);
 
     const generatedNativeAd = parsedHtmlDocumentEl.body;
     adContainer.innerHTML = generatedNativeAd.innerHTML;
@@ -390,7 +420,7 @@ class TRENDiiAd {
     };
     axios(requestOptions)
       .then((response) => {
-        debugger;
+      //  debugger;
         // debugger;
         this.nativeAdHTMLString = response.data;
         // console.log(response.data);
@@ -423,7 +453,7 @@ class TRENDiiAd {
     // if feed does not deliver an empty response
     if (feedResponse !== "") {
       if (feedResponse?.success === true) {
-        debugger;
+      //  debugger;
         this.feedProductsWithGeneratedAds = feedResponse.payload.map((imageData) => {
           if (imageData?.imageUrl && imageData.products.length > 0) {
             var productsContainer = templatesDOM.getElementById(AD_PRODUCTS_CONTAINER);
