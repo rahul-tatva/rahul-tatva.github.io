@@ -4,6 +4,11 @@ const API_GET_AD_PRODUCTS =
 //   "https://beeswax-creative-f6i4ayd3wa-ts.a.run.app/webImageProcess";
 const SUPPORTED_DIMENSIONS = ["160X600", "300X600"];
 const AD_PRODUCTS_CONTAINER = "trendii-sdk-ad-products-container";
+const PUBLISHER_NAME = "DAILYMAIL";
+// ad by default to below this class element
+const IMAGE_TITLE_CLASS = "image-caption";
+
+const IMAGE_GROUP_PARENT_DIV_CLASS = "mol-img-group";
 window.FEED_PRODUCTS = {
   "success": true,
   "payload": [
@@ -292,14 +297,38 @@ class TRENDiiAd {
           // debugger;
           this.nativeAdHTMLString = response.data;
           // console.log(response.data);
-          this.getProductsForAllImages();
-          this.appendAdContainersToImages();
+          // this.getProductsForAllImages();
+          // this.appendAdContainersToImages();
+          this.getAllParentImageGroupClass();
         })
         .catch((error) => {
           console.error(error);
           typeof onErrorCallback === "function" && onErrorCallback(error);
         });
     });
+  }
+
+  getAllParentImageGroupClass() {
+    const allParentElements = document.querySelectorAll(IMAGE_GROUP_PARENT_DIV_CLASS);
+    this.parentImageGroupElements = Array.from(allParentElements);
+
+    this.parentImageGroupElements.forEach((parentEl) => {
+      const takeFirstImageEl = parentEl.getElementsByClassName('img')[0];
+      const firstImageSrc = takeFirstImageEl.src;
+
+      const findImageData = window.FEED_PRODUCTS.find((imageData) => imageData.imageUrl === firstImageSrc);
+      if (findImageData?.generatedAd) {
+        parentEl.getElementsByClassName('imageCaption')[0].after(findImageData.generatedAd);
+
+
+        const div = document.createElement('div');
+        div.style.background = "yellow";
+        parentEl.getElementsByClassName('imageCaption')[0].after(div);
+      }
+    });
+    // document.querySelectorAll(".mol-img-group")[0].getElementsByTagName('img');
+    // document.querySelectorAll(".mol-img-group")[0].getElementsByClassName('imageCaption')[0];
+    // document.querySelectorAll(".mol-img-group")[0].getElementsByClassName('imageCaption')[0].after(t);
   }
   getAllImagesFromDOM() {
     // TO DO throw error if image selector not present
