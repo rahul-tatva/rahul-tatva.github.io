@@ -305,9 +305,6 @@ class TRENDiiAd {
     // TO DO throw error if image selector not present
     this.allImageElements = document.querySelectorAll(this.options.adImagesSelector);
   };
-  generateAdForTheProducts(adProducts) {
-
-  }
   getAllAdContainersFromDOM() {
     this.allAdContainers = document.querySelectorAll(this.options.adContainer);
   }
@@ -356,7 +353,6 @@ class TRENDiiAd {
     const generatedNativeAd = parsedHtmlDocumentEl.body;
     adContainer.innerHTML = generatedNativeAd.innerHTML;
   }
-
   checkSupportedDimensions() {
     if (!SUPPORTED_DIMENSIONS.includes(this.AD_DIMENSION)) {
       throw new Error(
@@ -366,92 +362,6 @@ class TRENDiiAd {
   }
   log(message) {
     console.log(message);
-  }
-  createOrGetAdContainerIframe() {
-    const trendiiAdIframe = document.getElementById(this.TRENDII_ADS_IFRAME_CONTAINER_ID);
-    if (trendiiAdIframe) return trendiiAdIframe;
-    else {
-      const iframe = document.createElement("iframe");
-      iframe.id = this.TRENDII_ADS_IFRAME_CONTAINER_ID;
-      iframe.title = "Trendii Ads";
-      iframe.scrolling = "no";
-      iframe.frameBorder = 0;
-      iframe.width = this.width;
-      iframe.height = this.height;
-      // iframe.sandbox = "allow-top-navigation allow-scripts allow-popups";
-      // iframe.style.display = "none";
-      // iframe.onload = function () {
-      //     // alert('myframe is loaded');
-      //     // var element = myFrame.contentWindow.document.getElementById("trendii-products-container-300X600");
-      //     // const productsContainer = document.getElementById("trendii-products-container-300X600");
-      //     // element.style.display = "none";
-      //     // to make iframe sticky
-      //     // iframe.style = "overflow: hidden; position: fixed; top: 0px; right: 0px; bottom: 0px;";
-      // };
-      return iframe;
-    }
-  }
-  appendAdIFrameToContainer(adIframe) {
-    // TO-DO: Throw error if the containerId not found
-    // append iframe to container or fixed position
-    if (this.options?.adContainerId) {
-      const adContainerEl = document.getElementById(this.options.adContainerId);
-      adContainerEl.appendChild(adIframe);
-    } else {
-      // to make iframe sticky and append to body
-      adIframe.style =
-        "overflow: hidden; z-index:9999; position: fixed; right: 0px; bottom: 0px;";
-      document.body.appendChild(adIframe);
-
-      if (this.blogContainerSelector) {
-        window.addEventListener(
-          "scroll",
-          function () {
-            // debugger;
-            var blogContainerHeight = document.querySelector(
-              this.blogContainerSelector
-            ).scrollHeight;
-            var topOffset = document.querySelector(this.blogContainerSelector)
-              .offsetTop;
-            var bottomHeight = document.querySelector(
-              this.blogContainerSelector
-            ).offsetHeight;
-
-            var bottomOffsetDiv = topOffset + blogContainerHeight;
-            let showAdBlock = true;
-            var ua = navigator.userAgent.toLowerCase();
-            var isAndroid = ua.indexOf("android") > -1; // Detect Android devices
-            var isIos = ua.indexOf("iphone") > -1; // Detect IOS devices
-            if (isAndroid || isIos) {
-              if (
-                window.pageYOffset <= topOffset ||
-                window.pageYOffset > blogContainerHeight
-              ) {
-                document.getElementById(
-                  this.TRENDII_AD_CONTAINER_ID
-                ).hidden = true;
-                showAdBlock = false;
-              }
-            } else {
-              if (
-                window.pageYOffset <= topOffset ||
-                window.pageYOffset > bottomOffsetDiv
-              ) {
-                document.getElementById(
-                  this.TRENDII_AD_CONTAINER_ID
-                ).hidden = true;
-                showAdBlock = false;
-              }
-            }
-            //   if (showAdBlock === true) {
-            //     document.querySelectorAll("img").forEach((img) => {
-            //       observer.observe(img);
-            //     });
-            //   }
-          }.bind(this)
-        );
-      }
-    }
   }
   parseHTMLStringToDocument(htmlString, feedProducts, currentImageSrc) {
     // debugger;
@@ -509,72 +419,6 @@ class TRENDiiAd {
         if (typeof onErrorCallback === "function") onErrorCallback(error);
       });
   }
-  // to fetch the image's ad products from trendii api
-  getAdProductsByImageURL(
-    imageSource = "",
-    onSuccessCallback,
-    onErrorCallback
-  ) {
-    const requestBody = {
-      url: imageSource,
-      // url:
-      // "https://images.squarespace-cdn.com/content/v1/5d7b55a7cab21367173472ca/1617021622513-QDKPHMGC7Q77PSLTU7NO/ke17ZwdGBToddI8pDm48kMhuiFqOarpg5ZSSgOuL4KxZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZamWLI2zvYWH8K3-s_4yszcp2ryTI0HqTOaaUohrI8PIfwzeWaN1u0xgydZbMMaNw0yictQozOKVrF7K98f8aA0KMshLAGzx4R3EDFOm1kBS/20-46-1-e409ebc018a94120833d9bf6b7eb1047.jpg",
-    };
-
-    const requestOptions = {
-      // method: 'POST',
-      method: "GET",
-      url: API_GET_AD_PRODUCTS,
-      data: {
-        ...requestBody,
-      },
-    };
-    axios(requestOptions)
-      .then((response) => {
-        // console.log(response.data);
-        // this.productsFeed = response.data;
-        const result = response.data;
-        const imageSourceWithAdProducts = {
-          imageSource: imageSource,
-          // adProductsData: result.payload.list,
-          // adProductsData: result.payload.list.map((x) => {
-          //   x.image = imageSource;
-          //   return x;
-          // }),
-
-          // test data
-          adProductsData: result.result,
-          adProductsData: result.result.map((x) => {
-            // x.image = imageSource;
-            x.localImage = imageSource;
-            return x;
-          }),
-        };
-        // create an array where key is imageSource and values are adProductsData
-        this.feedProducts.push(imageSourceWithAdProducts);
-        const iframeHtmlSrc = this.parseHTMLStringToDocument(
-          this.htmlString,
-          this.feedProducts,
-          imageSource
-        );
-        imageSourceWithAdProducts.iframeHtmlSrc = iframeHtmlSrc;
-        // if the current visible image is stored and the data is fetched
-        if (
-          this.currentlyVisibleImageSrcURL === imageSource &&
-          this.htmlString
-        ) {
-          this.bindAdProductsToAdIframe(this.currentlyVisibleImageSrcURL);
-        }
-        if (typeof onSuccessCallback === "function")
-          onSuccessCallback(response);
-      })
-      .catch((error) => {
-        console.error(error);
-        if (typeof onErrorCallback === "function") onErrorCallback(error);
-      });
-  }
-
-
   generateAdsForAllProducts(feedResponse, templatesDOM) {
     // if feed does not deliver an empty response
     if (feedResponse !== "") {
@@ -585,6 +429,7 @@ class TRENDiiAd {
             var productsContainer = templatesDOM.getElementById(AD_PRODUCTS_CONTAINER);
             imageData.products.forEach((product) => this.createSliderItemProduct(product, productsContainer));
             imageData.generatedAd = templatesDOM;
+            imageData.generatedString = templatesDOM.innwHtml;
           }
           return imageData;
         });
