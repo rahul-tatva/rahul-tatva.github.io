@@ -116,11 +116,12 @@ ul {
   vertical-align: middle;
   width: 100px;
   height: 125px;
-  border:1.5px solid #000;
+  border: 1.5px solid #000;
   background-color: #fff;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
+  overflow: hidden;
 }
 
 .block728X90-wrapper .product-item + .product-item {
