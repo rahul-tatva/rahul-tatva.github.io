@@ -643,6 +643,7 @@ class TRENDiiAd {
           if (response?.success === true) {
             debugger;
             this.feedProducts = response;
+            this.feedProducts = window.FEED_PRODUCTS;
             // console.log(response.data);
             // this.appendAdContainersToImages();
             // const domParser = new DOMParser();
