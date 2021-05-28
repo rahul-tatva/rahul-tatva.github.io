@@ -274,7 +274,7 @@
             <div class="trendii-ad-header-title">
                 Shop this look with TRENDii
             </div>
-            <div class="product-item-wrapper splide">
+            <div class="product-item-wrapper {{SLIDER_DYNAMIC_CLASS}}">
                 <div class="slider-title splide__arrows">
                     <button class="btn btn-slider splide__arrow splide__arrow--prev" style="display: none"
                         title="Previous">
@@ -403,7 +403,7 @@
             </div>
         </div>
         <script>
-            new Splide('.splide', {
+            new Splide('.{{SLIDER_DYNAMIC_CLASS}}', {
                 type: 'loop',
                 // perPage: 6,
                 pagination: false,
