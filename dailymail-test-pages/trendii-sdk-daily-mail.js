@@ -706,22 +706,26 @@ class TRENDiiAd {
   createAdTemplatesForAllProducts() {
     this.feedProducts.payload.map((imageData, index) => {
       if (imageData?.products.length > 0) {
-        const ad = this.createAdsForAllProducts(imageData?.products, index);
+        const ad = this.createAdsForAllProducts(imageData, index);
         imageData.generatedAdHTML = ad;
         imageData.generatedAdString = ad.innerHTML;
       }
     });
   }
-  createAdsForAllProducts(products, index) {
+  createAdsForAllProducts(imageData, index) {
     debugger;
-    const newDOM = this.nativeAdHTMLString.replaceAll(SLIDER_CLASS_TO_REPLACE, `splide${index}`);
+    const products = imageData.products;
+    const identifier = `splide${index}`;
+    const newDOM = this.nativeAdHTMLString.replaceAll(SLIDER_CLASS_TO_REPLACE, identifier);
     const domParser = new DOMParser();
     const templatesDOM = domParser.parseFromString(newDOM, "text/html");
     // here the container id should be dynamic for each ads sizes
     let productsContainerEl = templatesDOM.getElementById(
       this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID
     );
+    let scriptTag = templatesDOM.getElementById(`#${identifier}-script`);
     productsContainerEl.innerHTML = "";
+    imageData.scriptTag = scriptTag;
     debugger;
     products.forEach((product) => this.createSliderItemProduct(product, productsContainerEl));
     const resultantAdWrapper = templatesDOM.getElementById(
@@ -761,6 +765,19 @@ class TRENDiiAd {
         // adContainer.style.height = "100px";
         adContainer.appendChild(findImageData.generatedAdHTML);
         parentEl.getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0].after(adContainer);
+        setTimeout(() => {
+          document.body.appendChild(findImageData.scriptTag);
+          console.log("scripts append");
+          // new Splide('.splide', {
+          //   type: 'loop',
+          //   // perPage: 6,
+          //   pagination: false,
+          //   gap: 10,
+          //   autoWidth: true,
+          //   // width: 400,
+          //   // fixedWidth: 200,
+          // }).mount();
+        }, 2000);
         // const div = document.createElement('div');
         // div.style.background = "yellow";
         // parentEl.getElementsByClassName('imageCaption')[0].after(div);
@@ -772,17 +789,7 @@ class TRENDiiAd {
       // div.style.height = "100px";
       // parentEl.getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0].after(div);
       if (index === (this.parentImageGroupElements.length - 1) && isThereAnySliderAds) {
-        setTimeout(() => {
-          // new Splide('.splide', {
-          //   type: 'loop',
-          //   // perPage: 6,
-          //   pagination: false,
-          //   gap: 10,
-          //   autoWidth: true,
-          //   // width: 400,
-          //   // fixedWidth: 200,
-          // }).mount();
-        }, 5000);
+
       }
     });
     debugger;
