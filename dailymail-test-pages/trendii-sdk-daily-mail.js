@@ -727,7 +727,7 @@ class TRENDiiAd {
     const allParentElements = document.querySelectorAll(IMAGE_GROUP_PARENT_DIV_CLASS);
     this.parentImageGroupElements = Array.from(allParentElements);
     console.log(this.parentImageGroupElements);
-    this.parentImageGroupElements.forEach((parentEl) => {
+    this.parentImageGroupElements.forEach((parentEl, index) => {
       console.log(parentEl.getElementsByTagName('img'));
       const takeFirstImageEl = parentEl.getElementsByTagName('img')[0];
       let imageSrcToShowAd = takeFirstImageEl.src;
@@ -763,17 +763,22 @@ class TRENDiiAd {
       // div.style.background = "yellow";
       // div.style.height = "100px";
       // parentEl.getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0].after(div);
+      if (index === (this.parentImageGroupElements.length - 1)) {
+        setTimeout(() => {
+          new Splide('.splide', {
+            type: 'loop',
+            // perPage: 6,
+            pagination: false,
+            gap: 10,
+            autoWidth: true,
+            // width: 400,
+            // fixedWidth: 200,
+          }).mount();
+        }, 2000);
+      }
     });
     debugger;
-    new Splide('.splide', {
-      type: 'loop',
-      // perPage: 6,
-      pagination: false,
-      gap: 10,
-      autoWidth: true,
-      // width: 400,
-      // fixedWidth: 200,
-    }).mount();
+
     debugger;
     // document.querySelectorAll(".mol-img-group")[0].getElementsByTagName('img');
     // document.querySelectorAll(".mol-img-group")[0].getElementsByClassName('imageCaption')[0];
@@ -782,33 +787,33 @@ class TRENDiiAd {
   getAllAdContainersFromDOM() {
     this.allAdContainers = document.querySelectorAll(this.options.adContainer);
   }
-  appendAdContainersToImages() {
-    debugger;
-    this.allImageElements.forEach(imageEl => {
-      this.adContainer = document.createElement("DIV");
-      this.adContainer.classList.add("ad-container");
-      // this.adContainer.style.background = "yellow";
-      // adContainer.innerHTML = "tesetste";
-      const imageSrc = imageEl.src;
-      debugger;
-      this.renderAdInsideTheAdContainer(imageSrc, this.adContainer);
-      debugger;
-      imageEl.after(this.adContainer);
-      debugger;
-      // imageEl.parentNode.insertAdjacentHTML(sliderItem, imageEl.nextSibling);
-      // imageEl.insertAdjacentHTML("afterend", sliderItem);
-      // imageEl.parentNode.appendChild(sliderItem);
-    });
-    new Splide('.splide', {
-      type: 'loop',
-      // perPage: 6,
-      pagination: false,
-      gap: 10,
-      autoWidth: true,
-      // width: 400,
-      // fixedWidth: 200,
-    }).mount();
-  }
+  // appendAdContainersToImages() {
+  //   debugger;
+  //   this.allImageElements.forEach(imageEl => {
+  //     this.adContainer = document.createElement("DIV");
+  //     this.adContainer.classList.add("ad-container");
+  //     // this.adContainer.style.background = "yellow";
+  //     // adContainer.innerHTML = "tesetste";
+  //     const imageSrc = imageEl.src;
+  //     debugger;
+  //     this.renderAdInsideTheAdContainer(imageSrc, this.adContainer);
+  //     debugger;
+  //     imageEl.after(this.adContainer);
+  //     debugger;
+  //     // imageEl.parentNode.insertAdjacentHTML(sliderItem, imageEl.nextSibling);
+  //     // imageEl.insertAdjacentHTML("afterend", sliderItem);
+  //     // imageEl.parentNode.appendChild(sliderItem);
+  //   });
+  //   new Splide('.splide', {
+  //     type: 'loop',
+  //     // perPage: 6,
+  //     pagination: false,
+  //     gap: 10,
+  //     autoWidth: true,
+  //     // width: 400,
+  //     // fixedWidth: 200,
+  //   }).mount();
+  // }
   renderAdInsideTheAdContainer(imageSrc, adContainer) {
     const domParser = new DOMParser();
     const parsedHtmlDocumentEl = domParser.parseFromString(this.nativeAdHTMLString, "text/html");
