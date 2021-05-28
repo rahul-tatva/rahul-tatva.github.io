@@ -4,7 +4,7 @@ const API_GET_AD_PRODUCTS =
 //   "https://beeswax-creative-f6i4ayd3wa-ts.a.run.app/webImageProcess";
 const SUPPORTED_DIMENSIONS = ["160X600", "300X600"];
 const AD_PRODUCTS_CONTAINER = "trendii-sdk-ad-products-container";
-const PUBLISHER_NAME = "DAILYMAIL";
+const PUBLISHER_NAME = "DAILY_MAIL";
 // ad by default to below this class element
 const DAILY_MAIL_IMAGE_SELECTOR_CLASS = ".blkBorder.img-share";
 const IMAGE_GROUP_PARENT_DIV_CLASS = ".mol-img-group";
@@ -516,8 +516,6 @@ window.FEED_PRODUCTS = {
     },
   ]
 };
-
-
 class TRENDiiAd {
   constructor(options) {
     debugger;
@@ -551,16 +549,12 @@ class TRENDiiAd {
     this.GET_NATIVE_AD_TEMPLATE = `https://rahul-tatva.github.io/sdk-html-templates/Products-Slider-dynamic.html`;
     this.nativeAdHTMLString = null;
     this.GET_NATIVE_AD_PRODUCT = `https://beeswaxcreatives.trendii.com/img-creatives`;
-    this.NATIVE_AD_HTML_TEMPLATE_WRAPPER_ID = "trendii-native-ad-wrapper";
-    this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID = "trendii-sdk-ad-products-container";
-
-
+    this.HTML_TEMPLATE_AD_WRAPPER_ID = "trendii-native-ad-wrapper";
+    this.HTML_TEMPLATE_SLIDER_CONTAINER_ID = "trendii-sdk-ad-products-container";
 
     //NATIVE AD CODE START
     // document.addEventListener("DOMContentLoaded", this.handleDOMLoaded.bind(this));
     // window.addEventListener("load", () => { });
-
-
 
     // window.addEventListener("load", () => {ss
     document.addEventListener("DOMContentLoaded", () => {
@@ -573,7 +567,7 @@ class TRENDiiAd {
           debugger;
           // debugger;
           this.nativeAdHTMLString = response;
-          // console.log(response.data);
+          // this.log(response.data);
           // this.getProductsForAllImages();
           // this.appendAdContainersToImages();
           this.getProductsForAllImages(this.initializeSliderSetup());
@@ -610,7 +604,7 @@ class TRENDiiAd {
       // filter null values or undefined
       .filter(x => x);
     this.allValidImageSrcArray.push(...imagesWhichAreYetToBeLoaded);
-    console.log(this.allValidImageSrcArray);
+    this.log(this.allValidImageSrcArray);
   };
   initializeSliderSetup() {
     // new Splide('.splide', {
@@ -647,7 +641,7 @@ class TRENDiiAd {
           if (response?.success === true) {
             debugger;
             this.feedProducts = response;
-            // console.log(response.data);
+            // this.log(response.data);
             // this.appendAdContainersToImages();
             // const domParser = new DOMParser();
             // const parsedHtmlDocumentEl = domParser.parseFromString(this.nativeAdHTMLString, "text/html");
@@ -667,18 +661,18 @@ class TRENDiiAd {
             //   // width: 400,
             //   // fixedWidth: 200,
             // }).mount();
-            console.log(this.feedProducts);
+            this.log(this.feedProducts);
           }
           // else {
           //   this.feedProducts = window.FEED_PRODUCTS;
           //   this.createAdTemplatesForAllProducts();
           //   this.getAllParentImageGroupClass();
           //   onSuccessCallback();
-          //   console.log(this.feedProducts);
+          //   this.log(this.feedProducts);
           // }
         } else {
           // empty response from feed
-          console.log("empty feed response");
+          this.log("empty feed response");
         }
       })
       .catch((error) => {
@@ -689,45 +683,44 @@ class TRENDiiAd {
   createAdTemplatesForAllProducts() {
     this.feedProducts.payload.map((imageData, index) => {
       if (imageData?.products.length > 0) {
-        const ad = this.createAdsForAllProducts(imageData, index);
+        const ad = this.createAdsForAllProductsInAdvance(imageData, index);
         imageData.generatedAdHTML = ad;
         imageData.generatedAdString = ad.innerHTML;
       }
     });
   }
-  createAdsForAllProducts(imageData, index) {
+  createAdsForAllProductsInAdvance(imageData, index) {
     debugger;
     const products = imageData.products;
     const identifier = `splide${index}`;
     const newDOM = this.nativeAdHTMLString.replaceAll(SLIDER_CLASS_TO_REPLACE, identifier);
     const domParser = new DOMParser();
     const templatesDOM = domParser.parseFromString(newDOM, "text/html");
-    // here the container id should be dynamic for each ads sizes
-    let productsContainerEl = templatesDOM.getElementById(
-      this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID
-    );
-    let scriptTag = templatesDOM.getElementById(`#${identifier}-script`);
+    let productsContainerEl = templatesDOM.getElementById(this.HTML_TEMPLATE_SLIDER_CONTAINER_ID);
+    const scriptId = `${identifier}-script`;
+    let scriptTag = templatesDOM.getElementById(`#${scriptId}`);
     productsContainerEl.innerHTML = "";
     imageData.scriptTag = scriptTag;
-    debugger;
+    imageData.sliderId = identifier;
     products.forEach((product) => this.createSliderItemProduct(product, productsContainerEl));
-    const resultantAdWrapper = templatesDOM.getElementById(
-      this.NATIVE_AD_HTML_TEMPLATE_WRAPPER_ID
-    );
+    const resultantAdWrapper = templatesDOM.getElementById(this.HTML_TEMPLATE_AD_WRAPPER_ID);
     return resultantAdWrapper;
   }
   getAllParentImageGroupClass() {
     const allParentElements = document.querySelectorAll(IMAGE_GROUP_PARENT_DIV_CLASS);
     this.parentImageGroupElements = Array.from(allParentElements);
-    console.log(this.parentImageGroupElements);
+    this.log(this.parentImageGroupElements);
     let isThereAnySliderAds = false;
     this.parentImageGroupElements.forEach((parentEl, index) => {
-      console.log(parentEl.getElementsByTagName('img'));
+
+      this.log(parentEl.getElementsByTagName('img'));
+
       const takeFirstImageEl = parentEl.getElementsByTagName('img')[0];
       let imageSrcToShowAd = takeFirstImageEl.src;
       let imageDataSrcToShowAd = takeFirstImageEl.getAttribute("data-src");
       let findImageData = this.feedProducts.payload
         .find((imageData) => imageData.imageUrl === imageSrcToShowAd || imageDataSrcToShowAd);
+
       if (!findImageData) {
         const takeSecondImageEl = parentEl.getElementsByTagName('img')[1];
         if (takeSecondImageEl) {
@@ -737,20 +730,26 @@ class TRENDiiAd {
             .find((imageData) => imageData.imageUrl === imageSrcToShowAd || imageDataSrcToShowAd);
         }
       }
-      console.log(imageSrcToShowAd);
-      console.log(imageDataSrcToShowAd);
-      console.log(findImageData);
+
+      this.log(imageSrcToShowAd);
+      this.log(imageDataSrcToShowAd);
+      this.log(findImageData);
       if (findImageData?.generatedAdHTML) {
         isThereAnySliderAds = true;
         const adContainer = document.createElement('div');
         adContainer.classList.add("adContainer");
         adContainer.style.background = "yellow";
-        // adContainer.style.height = "100px";
+        adContainer.style.maxHeight = "300px";
         // adContainer.appendChild(findImageData.generatedAdHTML);
-        parentEl.getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0].after(findImageData.generatedAdHTML);
+        parentEl
+          .getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0]
+          .after(findImageData.generatedAdHTML);
+
+        const script = findImageData.scriptTag;
+        const sliderId = findImageData.sliderId;
         setTimeout(() => {
           document.body.appendChild(findImageData.scriptTag);
-          console.log("scripts append");
+          this.log("scripts append");
           // new Splide('.splide', {
           //   type: 'loop',
           //   // perPage: 6,
@@ -773,9 +772,6 @@ class TRENDiiAd {
       // parentEl.getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0].after(div);
       if (index === (this.parentImageGroupElements.length - 1) && isThereAnySliderAds) { }
     });
-    debugger;
-
-    debugger;
     // document.querySelectorAll(".mol-img-group")[0].getElementsByTagName('img');
     // document.querySelectorAll(".mol-img-group")[0].getElementsByClassName('imageCaption')[0];
     // document.querySelectorAll(".mol-img-group")[0].getElementsByClassName('imageCaption')[0].after(t);
@@ -828,24 +824,24 @@ class TRENDiiAd {
   log(message) {
     console.log(message);
   }
-  getNativeAdTemplateHTML(onSuccessCallback, onErrorCallback) {
-    const requestOptions = {
-      method: "GET",
-      url: this.GET_NATIVE_AD_TEMPLATE,
-    };
-    axios(requestOptions)
-      .then((response) => {
-        debugger;
-        // debugger;
-        this.nativeAdHTMLString = response.data;
-        // console.log(response.data);
-        typeof onSuccessCallback === "function" && onSuccessCallback(response);
-      })
-      .catch((error) => {
-        console.error(error);
-        typeof onErrorCallback === "function" && onErrorCallback(error);
-      });
-  }
+  // getNativeAdTemplateHTML(onSuccessCallback, onErrorCallback) {
+  //   const requestOptions = {
+  //     method: "GET",
+  //     url: this.GET_NATIVE_AD_TEMPLATE,
+  //   };
+  //   axios(requestOptions)
+  //     .then((response) => {
+  //       debugger;
+  //       // debugger;
+  //       this.nativeAdHTMLString = response.data;
+  //       // this.log(response.data);
+  //       typeof onSuccessCallback === "function" && onSuccessCallback(response);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //       typeof onErrorCallback === "function" && onErrorCallback(error);
+  //     });
+  // }
   createSliderItemProduct(product, productsContainer) {
     // <li class="splide__slide">
     //     <div class="product-item-container">
@@ -914,7 +910,7 @@ class TRENDiiAd {
 
 (function () {
   // var foo = 3;
-  // console.log(foo);
+  // this.log(foo);
 
 
   // native ad options to implement
