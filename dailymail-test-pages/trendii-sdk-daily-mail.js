@@ -712,9 +712,9 @@ class TRENDiiAd {
   }
   createAdsForAllProducts(products, index) {
     debugger;
-    this.nativeAdHTMLString.replaceAll(SLIDER_CLASS_TO_REPLACE, `splide${index}`);
+    const newDOM = this.nativeAdHTMLString.replaceAll(SLIDER_CLASS_TO_REPLACE, `splide${index}`);
     const domParser = new DOMParser();
-    const templatesDOM = domParser.parseFromString(this.nativeAdHTMLString, "text/html");
+    const templatesDOM = domParser.parseFromString(newDOM, "text/html");
     // here the container id should be dynamic for each ads sizes
     let productsContainerEl = templatesDOM.getElementById(
       this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID
@@ -771,15 +771,15 @@ class TRENDiiAd {
       // parentEl.getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0].after(div);
       if (index === (this.parentImageGroupElements.length - 1) && isThereAnySliderAds) {
         setTimeout(() => {
-          new Splide('.splide', {
-            type: 'loop',
-            // perPage: 6,
-            pagination: false,
-            gap: 10,
-            autoWidth: true,
-            // width: 400,
-            // fixedWidth: 200,
-          }).mount();
+          // new Splide('.splide', {
+          //   type: 'loop',
+          //   // perPage: 6,
+          //   pagination: false,
+          //   gap: 10,
+          //   autoWidth: true,
+          //   // width: 400,
+          //   // fixedWidth: 200,
+          // }).mount();
         }, 5000);
       }
     });
