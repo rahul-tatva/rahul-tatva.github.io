@@ -748,7 +748,9 @@ class TRENDiiAd {
         const script = findImageData.scriptTag;
         const sliderId = findImageData.sliderId;
         setTimeout(() => {
-          document.body.appendChild(findImageData.scriptTag);
+          const sc = document.createElement('script');
+          sc.innerHTML = findImageData.scriptTag.innerHTML;
+          document.body.appendChild(sc);
           this.log("scripts append");
           // new Splide('.splide', {
           //   type: 'loop',
