@@ -609,15 +609,15 @@ class TRENDiiAd {
     console.log(this.allValidImageSrcArray);
   };
   initializeSliderSetup() {
-    new Splide('.splide', {
-      type: 'loop',
-      // perPage: 6,
-      pagination: false,
-      gap: 10,
-      autoWidth: true,
-      // width: 400,
-      // fixedWidth: 200,
-    }).mount();
+    // new Splide('.splide', {
+    //   type: 'loop',
+    //   // perPage: 6,
+    //   pagination: false,
+    //   gap: 10,
+    //   autoWidth: true,
+    //   // width: 400,
+    //   // fixedWidth: 200,
+    // }).mount();
   }
   getProductsForAllImages(onSuccessCallback) {
     debugger;
@@ -764,6 +764,17 @@ class TRENDiiAd {
       // div.style.height = "100px";
       // parentEl.getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0].after(div);
     });
+    debugger;
+    new Splide('.splide', {
+      type: 'loop',
+      // perPage: 6,
+      pagination: false,
+      gap: 10,
+      autoWidth: true,
+      // width: 400,
+      // fixedWidth: 200,
+    }).mount();
+    debugger;
     // document.querySelectorAll(".mol-img-group")[0].getElementsByTagName('img');
     // document.querySelectorAll(".mol-img-group")[0].getElementsByClassName('imageCaption')[0];
     // document.querySelectorAll(".mol-img-group")[0].getElementsByClassName('imageCaption')[0].after(t);
