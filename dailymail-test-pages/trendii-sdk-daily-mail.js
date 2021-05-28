@@ -777,7 +777,7 @@ class TRENDiiAd {
             // width: 400,
             // fixedWidth: 200,
           }).mount();
-        }, 2000);
+        }, 5000);
       }
     });
     debugger;
