@@ -11,270 +11,21 @@
     <link rel="stylesheet" href="https://cdn.trendii.com/assets/splide-core.min.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800;900&display=swap">
-    <!-- <style>
-        * {
-            outline: none !important;
-        }
-
-        body {
-            font-size: 16px;
-            line-height: 20px;
-            font-family: 'Nunito Sans', sans-serif;
-            -ms-overflow-style: scrollbar;
-            -webkit-font-smoothing: subpixel-antialiased;
-            margin: 0;
-            padding: 0;
-        }
-
-        p,
-        ul {
-            margin: 0;
-        }
-
-        .btn {
-            background: none;
-            box-shadow: none !important;
-            outline: none !important;
-            border: 0;
-            cursor: pointer;
-        }
-
-        .btn.btn-slider {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 7px;
-            margin: 0 4px;
-            border-radius: 50%;
-        }
-
-        .btn.btn-slider img {
-            display: inline-block;
-            vertical-align: top;
-            width: 8px;
-            height: 12px;
-        }
-
-        .block728X90-wrapper {
-            display: block;
-            /* width: 728px; */
-            /* height: 90px; */
-            /* background: cornflowerblue; */
-        }
-
-        .block728X90-wrapper .outer {
-            display: flex;
-            justify-content: flex-start;
-            /* padding: 5px 0; */
-            flex-direction: column;
-        }
-
-        .block728X90-wrapper .brand-logo {
-            margin-right: 4px;
-            width: 27px;
-            min-width: 27px;
-            height: 80px;
-            border-top-right-radius: 5px;
-            border-bottom-right-radius: 5px;
-            background: #F32B97;
-        }
-
-        .block728X90-wrapper .brand-logo .logo-container {
-            display: block;
-            margin: 5px auto;
-            width: 15px;
-            height: 70px;
-            background: url("https://cdn.trendii.com/assets/trendii-verticle-logo-white.svg") no-repeat center center;
-            background-size: contain;
-        }
-
-        .block728X90-wrapper .brand-logo .brand-title {
-            display: block;
-            font-size: 12px;
-            line-height: 16px;
-            color: #FFF;
-        }
-
-        .block728X90-wrapper .product-item-wrapper {
-            /* width: calc(100% - 33px); */
-            padding: 5px 0;
-        }
-
-        .block728X90-wrapper .product-item-wrapper .slider-title {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .block728X90-wrapper .product-item-wrapper .slider-title .products-title {
-            font-size: 18px;
-            line-height: 22px;
-            text-transform: uppercase;
-            font-weight: 700;
-            color: #333333;
-            margin: 0;
-        }
-
-        .block728X90-wrapper .all-product {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-        }
-
-        .block728X90-wrapper .product-item {
-            position: relative;
-            cursor: pointer;
-            display: inline-block;
-            vertical-align: middle;
-            width: 98px;
-            height: 68px;
-            border-radius: 10px;
-            border: 1px solid #E3E3E3;
-            background-color: #FFF;
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-size: cover;
-        }
-
-        .block728X90-wrapper .product-item+.product-item {
-            margin-left: 10px;
-        }
-
-        .block728X90-wrapper .product-item:after {
-            content: "";
-            position: absolute;
-            top: -1px;
-            bottom: -1px;
-            right: -1px;
-            left: -1px;
-            background: rgba(34, 34, 34, 0.75);
-            transition: all 0.2s ease;
-            opacity: 0;
-            visibility: hidden;
-            border-radius: 10px;
-        }
-
-        .block728X90-wrapper .product-item:hover:after {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .block728X90-wrapper .product-item .product-details-wrapper,
-        .block728X90-wrapper .product-item:hover .onsale {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .block728X90-wrapper .product-item:hover .product-details-wrapper {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .block728X90-wrapper .product-item .product-details-wrapper {
-            color: #FFF;
-            z-index: 1;
-            position: relative;
-            padding: 7px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .block728X90-wrapper .product-item .product-details-wrapper b {
-            display: block;
-            font-size: 10px;
-            line-height: 12px;
-            font-weight: 600;
-            max-height: 12px;
-            overflow: hidden;
-            padding-bottom: 0;
-            margin-bottom: 2px;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-        }
-
-        .block728X90-wrapper .product-item .product-details-wrapper p {
-            display: block;
-            font-size: 10px;
-            line-height: 12px;
-            font-weight: 200;
-            max-height: 12px;
-            overflow: hidden;
-            padding-bottom: 0;
-            margin-bottom: 2px;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-        }
-
-        .block728X90-wrapper .product-item .product-details-wrapper span {
-            display: block;
-            font-size: 10px;
-            line-height: 12px;
-            font-weight: 400;
-            max-height: 12px;
-            overflow: hidden;
-            padding-bottom: 0;
-            margin-bottom: 2px;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            color: #F32B97;
-        }
-
-        .block728X90-wrapper .product-item .product-details-wrapper em {
-            display: block;
-            font-size: 12px;
-            line-height: 14px;
-            font-weight: 700;
-            max-height: 14px;
-            font-style: normal;
-            text-decoration: none;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
-        }
-
-        .block728X90-wrapper .product-item .onsale {
-            display: block;
-            padding: 2px 4px;
-            text-transform: uppercase;
-            position: absolute;
-            top: 9px;
-            left: -1px;
-            width: 35px;
-            background: #F32B97;
-            color: #FFF;
-            font-size: 8px;
-            line-height: 10px;
-            z-index: 2;
-            transition: all 0.2s ease;
-        }
-
-        .block728X90-wrapper .product-item .onsale:after {
-            content: "";
-            width: 0px;
-            height: 0px;
-            position: absolute;
-            left: 100%;
-            top: 0;
-            bottom: 0;
-            border-left: 0 solid transparent;
-            border-right: 7px solid #fff0;
-            border-top: 7px solid #f32b97;
-            border-bottom: 7px solid #f32b97;
-        }
-    </style> -->
 </head>
 
 <body>
     <!-- 728X90 Ads wrapper start  -->
     <div class="block728X90-wrapper" id="trendii-native-ad-wrapper">
-        <!-- <link rel="stylesheet" href="https://rahul-tatva.github.io/sdk-html-templates/Products-Silder.css">
-        <link rel="stylesheet" href="https://cdn.trendii.com/assets/splide-core.min.css">
+        <!-- <link rel="stylesheet" href="https://rahul-tatva.github.io/sdk-html-templates/Products-Silder.css"> -->
+        <link rel="stylesheet" href="https://rahul-tatva.github.io/sdk-html-templates/daily-mail.css">
+        <!-- <link rel="stylesheet" href="https://cdn.trendii.com/assets/splide-core.min.css">
         <script src="https://cdn.trendii.com/assets/splide.min.js"></script> -->
         <div class="outer">
             <div class="trendii-ad-header-title">
                 Shop this look with TRENDii
             </div>
-            <div class="product-item-wrapper {{SLIDER_DYNAMIC_CLASS}}">
+            <!-- <div class="product-item-wrapper {{SLIDER_DYNAMIC_CLASS}}"> -->
+            <div class="product-item-wrapper splide" id="trendiiSliderUniqueString">
                 <div class="slider-title splide__arrows">
                     <button class="btn btn-slider splide__arrow splide__arrow--prev" style="display: none"
                         title="Previous">
@@ -403,16 +154,29 @@
             </div>
         </div>
         <script>
-            new Splide('.{{SLIDER_DYNAMIC_CLASS}}', {
-                type: 'loop',
-                // perPage: 6,
-                pagination: false,
-                gap: 10,
-                autoWidth: true,
-                width: 400,
-                height: 135,
-                // fixedWidth: 200,
-            }).mount();
+            document.addEventListener("DOMContentLoaded", () => {
+                // new Splide('.{{SLIDER_DYNAMIC_CLASS}}', {
+                new Splide('#trendiiSliderUniqueString', {
+                    type: 'loop',
+                    // perPage: 6,
+                    pagination: false,
+                    gap: 10,
+                    autoWidth: true,
+                    // width: 400,
+                    // height: 135,
+                    // fixedWidth: 200,
+                }).mount();
+
+                // new Splide('.splide', {
+                //     type: 'loop',
+                //     // perPage: 6,
+                //     pagination: false,
+                //     gap: 10,
+                //     autoWidth: true,
+                //     // width: 400,
+                //     // fixedWidth: 200,
+                // }).mount();
+            });
         </script>
     </div>
     <!-- 728X90 Ads wrapper end  -->
