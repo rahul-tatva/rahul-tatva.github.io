@@ -731,9 +731,10 @@ class TRENDiiAd {
         }
       }
 
-      this.log(imageSrcToShowAd);
-      this.log(imageDataSrcToShowAd);
-      this.log(findImageData);
+      // this.log(imageSrcToShowAd);
+      // this.log(imageDataSrcToShowAd);
+      // this.log(findImageData);
+
       if (findImageData?.generatedAdHTML) {
         isThereAnySliderAds = true;
         const adContainer = document.createElement('div');
@@ -746,21 +747,26 @@ class TRENDiiAd {
           .after(findImageData.generatedAdHTML);
 
         const script = findImageData.scriptTag;
-        const sliderId = findImageData.sliderId;
+        const sliderIdSelector = `#${findImageData.sliderId}`;
         setTimeout(() => {
           const sc = document.createElement('script');
           sc.innerHTML = findImageData.scriptTag.innerHTML;
           document.body.appendChild(sc);
           this.log("scripts append");
-          // new Splide('.splide', {
-          //   type: 'loop',
-          //   // perPage: 6,
-          //   pagination: false,
-          //   gap: 10,
-          //   autoWidth: true,
-          //   // width: 400,
-          //   // fixedWidth: 200,
-          // }).mount();
+          debugger;
+          const testSlider = new Splide(sliderIdSelector, {
+            type: 'loop',
+            // perPage: 6,
+            pagination: false,
+            gap: 10,
+            autoWidth: true,
+            // width: 400,
+            // fixedWidth: 200,
+          }).mount();
+          testSlider.on('mounted', function () {
+            console.log("mounted");
+            // This will be executed.
+          });
         }, 2000);
         // const div = document.createElement('div');
         // div.style.background = "yellow";
