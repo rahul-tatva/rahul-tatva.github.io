@@ -698,7 +698,7 @@ class TRENDiiAd {
     const templatesDOM = domParser.parseFromString(newDOM, "text/html");
     let productsContainerEl = templatesDOM.getElementById(this.HTML_TEMPLATE_SLIDER_CONTAINER_ID);
     const scriptId = `${identifier}-script`;
-    let scriptTag = templatesDOM.getElementById(`#${scriptId}`);
+    let scriptTag = templatesDOM.getElementById(scriptId);
     productsContainerEl.innerHTML = "";
     imageData.scriptTag = scriptTag;
     imageData.sliderId = identifier;
