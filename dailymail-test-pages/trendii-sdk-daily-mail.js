@@ -388,3 +388,21 @@ class TRENDiiAd {
     productDetailsWrapper.appendChild(productPrice);
   }
 }
+
+(function () {
+  // var foo = 3;
+  // console.log(foo);
+
+
+  // native ad options to implement
+  const options = {
+    adImagesSelector: ".ad-image",
+    isNativeAd: true,
+    // adPosition: "bottom", // "bottom" || "left" || "right" || "top"
+    brandName: "TRENDii"
+  };
+
+  var myTrendii = new TRENDiiAd(options);
+  myTrendii.log("test log");
+})();
+
