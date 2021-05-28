@@ -137,6 +137,17 @@ class TRENDiiAd {
             // this.productsContainerEl.innerHTML = "";
             this.createAdTemplatesForAllProducts();
             this.getAllParentImageGroupClass();
+
+
+            // new Splide('.splide', {
+            //   type: 'loop',
+            //   // perPage: 6,
+            //   pagination: false,
+            //   gap: 10,
+            //   autoWidth: true,
+            //   // width: 400,
+            //   // fixedWidth: 200,
+            // }).mount();
             console.log(this.feedProducts);
           } else {
             console.log("error returned");
