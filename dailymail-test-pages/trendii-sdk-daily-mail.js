@@ -647,7 +647,6 @@ class TRENDiiAd {
           if (response?.success === true) {
             debugger;
             this.feedProducts = response;
-            this.feedProducts = window.FEED_PRODUCTS;
             // console.log(response.data);
             // this.appendAdContainersToImages();
             // const domParser = new DOMParser();
@@ -659,8 +658,6 @@ class TRENDiiAd {
             // this.productsContainerEl.innerHTML = "";
             this.createAdTemplatesForAllProducts();
             this.getAllParentImageGroupClass();
-
-
             // new Splide('.splide', {
             //   type: 'loop',
             //   // perPage: 6,
@@ -671,28 +668,14 @@ class TRENDiiAd {
             //   // fixedWidth: 200,
             // }).mount();
             console.log(this.feedProducts);
-          } else {
-
-            console.log("error returned");
-
-            debugger;
-            this.feedProducts = window.FEED_PRODUCTS;
-            // console.log(response.data);
-            // this.appendAdContainersToImages();
-            // const domParser = new DOMParser();
-            // const parsedHtmlDocumentEl = domParser.parseFromString(this.nativeAdHTMLString, "text/html");
-            // // here the container id should be dynamic for each ads sizes
-            // this.productsContainerEl = parsedHtmlDocumentEl.getElementById(
-            //   this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID
-            // );
-            // this.productsContainerEl.innerHTML = "";
-            this.createAdTemplatesForAllProducts();
-            this.getAllParentImageGroupClass();
-            onSuccessCallback();
-
-
-            console.log(this.feedProducts);
           }
+          // else {
+          //   this.feedProducts = window.FEED_PRODUCTS;
+          //   this.createAdTemplatesForAllProducts();
+          //   this.getAllParentImageGroupClass();
+          //   onSuccessCallback();
+          //   console.log(this.feedProducts);
+          // }
         } else {
           // empty response from feed
           console.log("empty feed response");
