@@ -771,9 +771,7 @@ class TRENDiiAd {
       // div.style.background = "yellow";
       // div.style.height = "100px";
       // parentEl.getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0].after(div);
-      if (index === (this.parentImageGroupElements.length - 1) && isThereAnySliderAds) {
-
-      }
+      if (index === (this.parentImageGroupElements.length - 1) && isThereAnySliderAds) { }
     });
     debugger;
 
@@ -812,21 +810,21 @@ class TRENDiiAd {
   //     // fixedWidth: 200,
   //   }).mount();
   // }
-  renderAdInsideTheAdContainer(imageSrc, adContainer) {
-    const domParser = new DOMParser();
-    const parsedHtmlDocumentEl = domParser.parseFromString(this.nativeAdHTMLString, "text/html");
-    // here the container id should be dynamic for each ads sizes
-    this.productsContainerEl = parsedHtmlDocumentEl.getElementById(
-      this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID
-    );
-    this.productsContainerEl.innerHTML = "";
-    debugger;
-    this;
-    this.generateAdsForAllProducts(window.FEED_PRODUCTS, imageSrc, parsedHtmlDocumentEl).bind(this);
+  // renderAdInsideTheAdContainer(imageSrc, adContainer) {
+  //   const domParser = new DOMParser();
+  //   const parsedHtmlDocumentEl = domParser.parseFromString(this.nativeAdHTMLString, "text/html");
+  //   // here the container id should be dynamic for each ads sizes
+  //   this.productsContainerEl = parsedHtmlDocumentEl.getElementById(
+  //     this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID
+  //   );
+  //   this.productsContainerEl.innerHTML = "";
+  //   debugger;
+  //   this;
+  //   this.generateAdsForAllProducts(window.FEED_PRODUCTS, imageSrc, parsedHtmlDocumentEl).bind(this);
 
-    const generatedNativeAd = parsedHtmlDocumentEl.body;
-    adContainer.innerHTML = generatedNativeAd.innerHTML;
-  }
+  //   const generatedNativeAd = parsedHtmlDocumentEl.body;
+  //   adContainer.innerHTML = generatedNativeAd.innerHTML;
+  // }
   log(message) {
     console.log(message);
   }
@@ -848,7 +846,6 @@ class TRENDiiAd {
         typeof onErrorCallback === "function" && onErrorCallback(error);
       });
   }
-
   createSliderItemProduct(product, productsContainer) {
     // <li class="splide__slide">
     //     <div class="product-item-container">
