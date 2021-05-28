@@ -727,6 +727,7 @@ class TRENDiiAd {
     const allParentElements = document.querySelectorAll(IMAGE_GROUP_PARENT_DIV_CLASS);
     this.parentImageGroupElements = Array.from(allParentElements);
     console.log(this.parentImageGroupElements);
+    let isThereAnySliderAds = false;
     this.parentImageGroupElements.forEach((parentEl, index) => {
       console.log(parentEl.getElementsByTagName('img'));
       const takeFirstImageEl = parentEl.getElementsByTagName('img')[0];
@@ -747,6 +748,7 @@ class TRENDiiAd {
       console.log(imageDataSrcToShowAd);
       console.log(findImageData);
       if (findImageData?.generatedAdHTML) {
+        isThereAnySliderAds = true;
         const adContainer = document.createElement('div');
         adContainer.classList.add("adContainer");
         adContainer.style.background = "yellow";
@@ -763,7 +765,7 @@ class TRENDiiAd {
       // div.style.background = "yellow";
       // div.style.height = "100px";
       // parentEl.getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0].after(div);
-      if (index === (this.parentImageGroupElements.length - 1)) {
+      if (index === (this.parentImageGroupElements.length - 1) && isThereAnySliderAds) {
         setTimeout(() => {
           new Splide('.splide', {
             type: 'loop',
