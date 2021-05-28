@@ -598,9 +598,9 @@ class TRENDiiAd {
     // TO DO throw error if image selector not present
     this.allImageElements = document.querySelectorAll(this.options.adImagesSelector);
     this.allValidImageSrcArray = [];
-    //  const alreadyLoadedImagesArray= Array.from(document.querySelectorAll('.blkBorder.img-share.b-loaded'))
-    //   .map(img => img.getAttribute("src"));
-    // this.allValidImageSrcArray.push(...alreadyLoadedImagesArray);
+    const alreadyLoadedImagesArray = Array.from(document.querySelectorAll('.blkBorder.img-share.b-loaded'))
+      .map(img => img.getAttribute("src"));
+    this.allValidImageSrcArray.push(...alreadyLoadedImagesArray);
     const imagesWhichAreYetToBeLoaded = Array.from(document.querySelectorAll(DAILY_MAIL_IMAGE_SELECTOR_CLASS))
       .map(img => img.getAttribute("data-src"))
       // filter null values or undefined
