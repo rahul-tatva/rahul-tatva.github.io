@@ -746,8 +746,8 @@ class TRENDiiAd {
         adContainer.classList.add("adContainer");
         adContainer.style.background = "yellow";
         // adContainer.style.height = "100px";
-        adContainer.appendChild(findImageData.generatedAdHTML);
-        parentEl.getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0].after(adContainer);
+        // adContainer.appendChild(findImageData.generatedAdHTML);
+        parentEl.getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0].after(findImageData.generatedAdHTML);
         setTimeout(() => {
           document.body.appendChild(findImageData.scriptTag);
           console.log("scripts append");
