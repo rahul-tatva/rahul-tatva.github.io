@@ -35,7 +35,7 @@ class TRENDiiAd {
     this.allImageElements;
     this.currentlyVisibleImageSrcURL = null;
     this.intersectionObserver;
-    this.feedProductsWithGeneratedAds = [];
+    // this.feedProductsWithGeneratedAds = [];
 
     // native ads constants
     this.GET_NATIVE_AD_TEMPLATE = `https://rahul-tatva.github.io/sdk-html-templates/Products-Slider.html`;
@@ -56,9 +56,7 @@ class TRENDiiAd {
     document.addEventListener("DOMContentLoaded", () => {
       debugger;
       this.getAllImagesFromDOM();
-      const requestOptions = {
-        method: "GET",
-      };
+      const requestOptions = { method: "GET" };
       fetch(this.GET_NATIVE_AD_TEMPLATE, requestOptions)
         .then((response) => response.text())
         .then((response) => {
@@ -74,9 +72,6 @@ class TRENDiiAd {
           console.error(error);
           typeof onErrorCallback === "function" && onErrorCallback(error);
         });
-
-
-
     });
   }
   loadStyleSheet(url) {
@@ -89,35 +84,31 @@ class TRENDiiAd {
   loadScript(url) {
     document.body.appendChild(document.createElement("script")).src = url;
   }
+  loadScriptIntoHead(url) {
+    document.head.appendChild(document.createElement("script")).src = url;
+  }
   getAllImagesFromDOM() {
     debugger;
     // TO DO throw error if image selector not present
     this.allImageElements = document.querySelectorAll(this.options.adImagesSelector);
     this.allValidImageSrcArray = [];
-    // this.allValidImageSrcArray = Array.from(document.querySelectorAll('.blkBorder.img-share.b-loaded'))
+    //  const alreadyLoadedImagesArray= Array.from(document.querySelectorAll('.blkBorder.img-share.b-loaded'))
     //   .map(img => img.getAttribute("src"));
-    // a.push(...b);
-    const otherValues = Array.from(document.querySelectorAll(DAILY_MAIL_IMAGE_SELECTOR_CLASS))
-      .map(img => img.getAttribute("data-src")).filter(x => x);
-    this.allValidImageSrcArray.push(...otherValues);
+    // this.allValidImageSrcArray.push(...alreadyLoadedImagesArray);
+    const imagesWhichAreYetToBeLoaded = Array.from(document.querySelectorAll(DAILY_MAIL_IMAGE_SELECTOR_CLASS))
+      .map(img => img.getAttribute("data-src"))
+      // filter null values or undefined
+      .filter(x => x);
+    this.allValidImageSrcArray.push(...imagesWhichAreYetToBeLoaded);
     console.log(this.allValidImageSrcArray);
   };
   getProductsForAllImages() {
     debugger;
-    // const imageurls = [];
-    // this.allImageElements.forEach(imageEl => {
-    //   imageurls.push(imageEl.src);
-    // });
     const requestBody = {
       // "webpageUrl": "https://rahul-tatva.github.io/fashion-blog-below-ads.html",//window.location.href,
       "webpageUrl": window.location.href,
       "imageUrls": this.allValidImageSrcArray
     };
-    // const requestOptions = {
-    //   method: "POST",
-    //   url: this.GET_NATIVE_AD_PRODUCT,
-    //   data: { ...requestBody },
-    // };
     const headers = new Headers();
     headers.append("Content-Type", "application/json");
     const raw = JSON.stringify(requestBody);
@@ -130,44 +121,38 @@ class TRENDiiAd {
       .then((response) => response.json())
       .then((response) => {
         debugger;
-        // debugger;
-        this.feedProducts = response;
-        // console.log(response.data);
-        // this.appendAdContainersToImages();
-        // const domParser = new DOMParser();
-        // const parsedHtmlDocumentEl = domParser.parseFromString(this.nativeAdHTMLString, "text/html");
-        // // here the container id should be dynamic for each ads sizes
-        // this.productsContainerEl = parsedHtmlDocumentEl.getElementById(
-        //   this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID
-        // );
-        // this.productsContainerEl.innerHTML = "";
-        this.createAdTemplatesForAllProducts();
-        this.getAllParentImageGroupClass();
-        console.log(this.feedProducts);
+        // if feed does not deliver an empty response
+        if (response !== "") {
+          if (response?.success === true) {
+            debugger;
+            this.feedProducts = response;
+            // console.log(response.data);
+            // this.appendAdContainersToImages();
+            // const domParser = new DOMParser();
+            // const parsedHtmlDocumentEl = domParser.parseFromString(this.nativeAdHTMLString, "text/html");
+            // // here the container id should be dynamic for each ads sizes
+            // this.productsContainerEl = parsedHtmlDocumentEl.getElementById(
+            //   this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID
+            // );
+            // this.productsContainerEl.innerHTML = "";
+            this.createAdTemplatesForAllProducts();
+            this.getAllParentImageGroupClass();
+            console.log(this.feedProducts);
+          } else {
+            console.log("error returned");
+          }
+        } else {
+          // empty response from feed
+          console.log("empty feed response");
+        }
       })
       .catch((error) => {
         console.error(error);
         typeof onErrorCallback === "function" && onErrorCallback(error);
       });
-    // axios(requestOptions)
-    //   .then((response) => {
-    //     debugger;
-    //     // debugger;
-    //     this.feedProducts = response.data;
-    //     // console.log(response.data);
-    //     this.appendAdContainersToImages();
-    //     this.getAllParentImageGroupClass();
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //     typeof onErrorCallback === "function" && onErrorCallback(error);
-    //   });
-    //  this.feedProducts = window.FEED_PRODUCTS;
   }
   createAdTemplatesForAllProducts() {
-    debugger;
     this.feedProducts.payload.map((imageData) => {
-      debugger;
       if (imageData?.products.length > 0) {
         const ad = this.createAdsForAllProducts(imageData?.products);
         imageData.generatedAdHTML = ad;
@@ -301,28 +286,7 @@ class TRENDiiAd {
         typeof onErrorCallback === "function" && onErrorCallback(error);
       });
   }
-  generateAdsForAllProducts(feedResponse, templatesDOM) {
-    // if feed does not deliver an empty response
-    if (feedResponse !== "") {
-      if (feedResponse?.success === true) {
-        debugger;
-        this.feedProductsWithGeneratedAds = feedResponse.payload.map((imageData) => {
-          if (imageData?.imageUrl && imageData.products.length > 0) {
-            var productsContainer = templatesDOM.getElementById(AD_PRODUCTS_CONTAINER);
-            imageData.products.forEach((product) => this.createSliderItemProduct(product, productsContainer));
-            imageData.generatedAd = templatesDOM;
-            imageData.generatedString = templatesDOM.innwHtml;
-          }
-          return imageData;
-        });
-      } else {
-        console.log("error returned");
-      }
-    } else {
-      // empty response from feed
-      console.log("empty feed response");
-    }
-  }
+
   createSliderItemProduct(product, productsContainer) {
     // <li class="splide__slide">
     //     <div class="product-item-container">
