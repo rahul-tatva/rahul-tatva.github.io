@@ -9,6 +9,8 @@ const PUBLISHER_NAME = "DAILYMAIL";
 const DAILY_MAIL_IMAGE_SELECTOR_CLASS = ".blkBorder.img-share";
 const IMAGE_GROUP_PARENT_DIV_CLASS = ".mol-img-group";
 const DAILY_MAIL_IMAGE_CAPTION_CLASS = 'imageCaption';
+const SLIDER_CLASS_TO_REPLACE = "trendiiSliderUniqueString";
+const SCRIPT_ID_TO_REPLACE = "trendiiSliderUniqueString-script";
 window.FEED_PRODUCTS = {
   "success": true,
   "payload": [
@@ -515,11 +517,13 @@ window.FEED_PRODUCTS = {
   ]
 };
 
+
 class TRENDiiAd {
   constructor(options) {
     debugger;
     this.loadStyleSheet("https://cdn.trendii.com/assets/splide-core.min.css");
-    this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/daily-mail.css");
+    // this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/daily-mail.css");
+    this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/Products-Silder.css");
     this.loadScript("https://unpkg.com/axios/dist/axios.min.js");
     this.loadScript("https://cdn.trendii.com/assets/splide.min.js");
     // <link rel="stylesheet" href="./sdk-html-templates/daily-mail.css"></link>
@@ -544,7 +548,7 @@ class TRENDiiAd {
     // this.feedProductsWithGeneratedAds = [];
 
     // native ads constants
-    this.GET_NATIVE_AD_TEMPLATE = `https://rahul-tatva.github.io/sdk-html-templates/Products-Slider.html`;
+    this.GET_NATIVE_AD_TEMPLATE = `https://rahul-tatva.github.io/sdk-html-templates/Products-Slider-dynamic.html`;
     this.nativeAdHTMLString = null;
     this.GET_NATIVE_AD_PRODUCT = `https://beeswaxcreatives.trendii.com/img-creatives`;
     this.NATIVE_AD_HTML_TEMPLATE_WRAPPER_ID = "trendii-native-ad-wrapper";
@@ -598,9 +602,9 @@ class TRENDiiAd {
     // TO DO throw error if image selector not present
     this.allImageElements = document.querySelectorAll(this.options.adImagesSelector);
     this.allValidImageSrcArray = [];
-    //  const alreadyLoadedImagesArray= Array.from(document.querySelectorAll('.blkBorder.img-share.b-loaded'))
-    //   .map(img => img.getAttribute("src"));
-    // this.allValidImageSrcArray.push(...alreadyLoadedImagesArray);
+    const alreadyLoadedImagesArray = Array.from(document.querySelectorAll('.blkBorder.img-share.b-loaded'))
+      .map(img => img.getAttribute("src"));
+    this.allValidImageSrcArray.push(...alreadyLoadedImagesArray);
     const imagesWhichAreYetToBeLoaded = Array.from(document.querySelectorAll(DAILY_MAIL_IMAGE_SELECTOR_CLASS))
       .map(img => img.getAttribute("data-src"))
       // filter null values or undefined
@@ -683,18 +687,19 @@ class TRENDiiAd {
       });
   }
   createAdTemplatesForAllProducts() {
-    this.feedProducts.payload.map((imageData) => {
+    this.feedProducts.payload.map((imageData, index) => {
       if (imageData?.products.length > 0) {
-        const ad = this.createAdsForAllProducts(imageData?.products);
+        const ad = this.createAdsForAllProducts(imageData?.products, index);
         imageData.generatedAdHTML = ad;
         imageData.generatedAdString = ad.innerHTML;
       }
     });
   }
-  createAdsForAllProducts(products) {
+  createAdsForAllProducts(products, index) {
     debugger;
+    const newDOM = this.nativeAdHTMLString.replaceAll(SLIDER_CLASS_TO_REPLACE, `splide${index}`);
     const domParser = new DOMParser();
-    const templatesDOM = domParser.parseFromString(this.nativeAdHTMLString, "text/html");
+    const templatesDOM = domParser.parseFromString(newDOM, "text/html");
     // here the container id should be dynamic for each ads sizes
     let productsContainerEl = templatesDOM.getElementById(
       this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID
@@ -751,15 +756,15 @@ class TRENDiiAd {
       // parentEl.getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0].after(div);
       if (index === (this.parentImageGroupElements.length - 1) && isThereAnySliderAds) {
         setTimeout(() => {
-          new Splide('.splide', {
-            type: 'loop',
-            // perPage: 6,
-            pagination: false,
-            gap: 10,
-            autoWidth: true,
-            // width: 400,
-            // fixedWidth: 200,
-          }).mount();
+          // new Splide('.splide', {
+          //   type: 'loop',
+          //   // perPage: 6,
+          //   pagination: false,
+          //   gap: 10,
+          //   autoWidth: true,
+          //   // width: 400,
+          //   // fixedWidth: 200,
+          // }).mount();
         }, 5000);
       }
     });

@@ -50,10 +50,10 @@ ul {
 }
 
 .block728X90-wrapper .outer {
-  display: flex;
-  justify-content: flex-start;
+  /* display: flex; */
+  /* justify-content: flex-start; */
   /* padding: 5px 0; */
-  flex-direction: column;
+  /* flex-direction: column; */
 }
 
 .block728X90-wrapper .brand-logo {
