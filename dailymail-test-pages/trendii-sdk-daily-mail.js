@@ -8,7 +8,7 @@ const PUBLISHER_NAME = "DAILYMAIL";
 // ad by default to below this class element
 const DAILY_MAIL_IMAGE_SELECTOR_CLASS = ".blkBorder.img-share";
 const IMAGE_GROUP_PARENT_DIV_CLASS = ".mol-img-group";
-const DAILY_MAIL_IMAGE_CAPTION_CLASS = '.imageCaption';
+const DAILY_MAIL_IMAGE_CAPTION_CLASS = 'imageCaption';
 class TRENDiiAd {
   constructor(options) {
     debugger;
