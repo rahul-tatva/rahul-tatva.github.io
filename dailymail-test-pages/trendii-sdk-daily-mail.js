@@ -520,7 +520,7 @@ class TRENDiiAd {
   constructor(options) {
     debugger;
     this.loadStyleSheet("https://cdn.trendii.com/assets/splide-core.min.css");
-    // this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/daily-mail.css");
+    this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/daily-mail.css");
     // this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/Products-Silder.css");
     this.loadScript("https://unpkg.com/axios/dist/axios.min.js");
     this.loadScript("https://cdn.trendii.com/assets/splide.min.js");
@@ -904,10 +904,10 @@ class TRENDiiAd {
     productNameP.innerHTML = product.name;
     productDetailsWrapper.appendChild(productNameP);
 
-    const productCashbackPercentage = document.createElement("SPAN");
-    productCashbackPercentage.classList.add("product-cashback-chip");
-    productCashbackPercentage.innerHTML = "4%" + " Cashback";
-    productDetailsWrapper.appendChild(productCashbackPercentage);
+    // const productCashbackPercentage = document.createElement("SPAN");
+    // productCashbackPercentage.classList.add("product-cashback-chip");
+    // productCashbackPercentage.innerHTML = "4%" + " Cashback";
+    // productDetailsWrapper.appendChild(productCashbackPercentage);
 
     const productPrice = document.createElement("EM");
     productPrice.classList.add("product-price");
