@@ -199,22 +199,22 @@ class TRENDiiAd {
       console.log(imageSrcToShowAd);
       console.log(imageDataSrcToShowAd);
       console.log(findImageData);
-      // if (findImageData?.imageUrl) {
-      //   // parentEl.getElementsByClassName('imageCaption')[0].after(findImageData.generatedAd);
-      //   // const div = document.createElement('div');
-      //   // div.style.background = "yellow";
-      //   // parentEl.getElementsByClassName('imageCaption')[0].after(div);
-
-      //   const div = document.createElement('div');
-      //   div.style.background = "yellow";
-      //   div.style.height = "100px";
-      //   parentEl.getElementsByClassName('imageCaption')[0].after(div);
-      // }
-      debugger;
-      const div = document.createElement('div');
-      div.style.background = "yellow";
-      div.style.height = "100px";
-      parentEl.getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0].after(div);
+      if (findImageData?.generatedAdHTML) {
+        const div = document.createElement('div');
+        div.style.background = "yellow";
+        // div.style.height = "100px";
+        div.appendChild(findImageData.generatedAd);
+        parentEl.getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0].after(div);
+        // const div = document.createElement('div');
+        // div.style.background = "yellow";
+        // parentEl.getElementsByClassName('imageCaption')[0].after(div);
+        // parentEl.getElementsByClassName('imageCaption')[0].after(div);
+      } 
+      // debugger;
+      // const div = document.createElement('div');
+      // div.style.background = "yellow";
+      // div.style.height = "100px";
+      // parentEl.getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0].after(div);
     });
     // document.querySelectorAll(".mol-img-group")[0].getElementsByTagName('img');
     // document.querySelectorAll(".mol-img-group")[0].getElementsByClassName('imageCaption')[0];
