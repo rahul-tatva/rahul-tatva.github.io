@@ -201,14 +201,14 @@ class TRENDiiAd {
       let imageSrcToShowAd = takeFirstImageEl.src;
       let imageDataSrcToShowAd = takeFirstImageEl.getAttribute("data-src");
       let findImageData = this.feedProducts.payload
-        .find((imageData) => imageData.imageUrl === imageSrcToShowAd);
+        .find((imageData) => imageData.imageUrl === imageSrcToShowAd || imageDataSrcToShowAd);
       if (!findImageData) {
         const takeSecondImageEl = parentEl.getElementsByTagName('img')[1];
         if (takeSecondImageEl) {
           imageSrcToShowAd = takeSecondImageEl.src;
           imageDataSrcToShowAd = takeSecondImageEl.getAttribute("data-src");
           findImageData = this.feedProducts.payload
-            .find((imageData) => imageData.imageUrl === imageSrcToShowAd);
+            .find((imageData) => imageData.imageUrl === imageSrcToShowAd || imageDataSrcToShowAd);
         }
       }
       console.log(imageSrcToShowAd);
