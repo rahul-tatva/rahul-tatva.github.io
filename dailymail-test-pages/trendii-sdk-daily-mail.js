@@ -488,7 +488,7 @@ class TRENDiiAd {
           // console.log(response.data);
           // this.getProductsForAllImages();
           // this.appendAdContainersToImages();
-          this.getProductsForAllImages();
+          this.getProductsForAllImages(this.initializeSliderSetup());
         })
         .catch((error) => {
           console.error(error);
@@ -524,7 +524,18 @@ class TRENDiiAd {
     this.allValidImageSrcArray.push(...imagesWhichAreYetToBeLoaded);
     console.log(this.allValidImageSrcArray);
   };
-  getProductsForAllImages() {
+  initializeSliderSetup() {
+    new Splide('.splide', {
+      type: 'loop',
+      // perPage: 6,
+      pagination: false,
+      gap: 10,
+      autoWidth: true,
+      // width: 400,
+      // fixedWidth: 200,
+    }).mount();
+  }
+  getProductsForAllImages(onSuccessCallback) {
     debugger;
     const requestBody = {
       // "webpageUrl": "https://rahul-tatva.github.io/fashion-blog-below-ads.html",//window.location.href,
@@ -588,19 +599,10 @@ class TRENDiiAd {
             // this.productsContainerEl.innerHTML = "";
             this.createAdTemplatesForAllProducts();
             this.getAllParentImageGroupClass();
+            onSuccessCallback();
 
 
-            new Splide('.splide', {
-              type: 'loop',
-              // perPage: 6,
-              pagination: false,
-              gap: 10,
-              autoWidth: true,
-              // width: 400,
-              // fixedWidth: 200,
-            }).mount();
             console.log(this.feedProducts);
-
           }
         } else {
           // empty response from feed
