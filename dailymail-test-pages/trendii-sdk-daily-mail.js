@@ -465,7 +465,7 @@ class TRENDiiAd {
         const div = document.createElement('div');
         div.style.background = "yellow";
         // div.style.height = "100px";
-        div.appendChild(findImageData.generatedAd);
+        div.appendChild(findImageData.generatedAdHTML);
         parentEl.getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0].after(div);
         // const div = document.createElement('div');
         // div.style.background = "yellow";
