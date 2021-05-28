@@ -9,6 +9,7 @@ const PUBLISHER_NAME = "DAILYMAIL";
 const DAILY_MAIL_IMAGE_SELECTOR_CLASS = ".blkBorder.img-share";
 const IMAGE_GROUP_PARENT_DIV_CLASS = ".mol-img-group";
 const DAILY_MAIL_IMAGE_CAPTION_CLASS = 'imageCaption';
+const SLIDER_CLASS_TO_REPLACE = "{{SLIDER_DYNAMIC_CLASS}}";
 window.FEED_PRODUCTS = {
   "success": true,
   "payload": [
@@ -544,7 +545,7 @@ class TRENDiiAd {
     // this.feedProductsWithGeneratedAds = [];
 
     // native ads constants
-    this.GET_NATIVE_AD_TEMPLATE = `https://rahul-tatva.github.io/sdk-html-templates/Products-Slider.html`;
+    this.GET_NATIVE_AD_TEMPLATE = `https://rahul-tatva.github.io/sdk-html-templates/Products-Slider-dynamic.html`;
     this.nativeAdHTMLString = null;
     this.GET_NATIVE_AD_PRODUCT = `https://beeswaxcreatives.trendii.com/img-creatives`;
     this.NATIVE_AD_HTML_TEMPLATE_WRAPPER_ID = "trendii-native-ad-wrapper";
@@ -700,16 +701,17 @@ class TRENDiiAd {
       });
   }
   createAdTemplatesForAllProducts() {
-    this.feedProducts.payload.map((imageData) => {
+    this.feedProducts.payload.map((imageData, index) => {
       if (imageData?.products.length > 0) {
-        const ad = this.createAdsForAllProducts(imageData?.products);
+        const ad = this.createAdsForAllProducts(imageData?.products, index);
         imageData.generatedAdHTML = ad;
         imageData.generatedAdString = ad.innerHTML;
       }
     });
   }
-  createAdsForAllProducts(products) {
+  createAdsForAllProducts(products, index) {
     debugger;
+    this.nativeAdHTMLString.replaceAll(SLIDER_CLASS_TO_REPLACE, `splide${index}`);
     const domParser = new DOMParser();
     const templatesDOM = domParser.parseFromString(this.nativeAdHTMLString, "text/html");
     // here the container id should be dynamic for each ads sizes
