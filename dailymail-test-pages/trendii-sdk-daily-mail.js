@@ -711,50 +711,49 @@ class TRENDiiAd {
     const allParentElements = document.querySelectorAll(IMAGE_GROUP_PARENT_DIV_CLASS);
     this.parentImageGroupElements = Array.from(allParentElements);
     this.log(this.parentImageGroupElements);
-    let isThereAnySliderAds = false;
+    // let isThereAnySliderAds = false;
+    let foundImageData = null;
     this.parentImageGroupElements.forEach((parentEl, index) => {
 
       this.log(parentEl.getElementsByTagName('img'));
+      const allImagesPresentInTheSameGroup = Array.from(parentEl.getElementsByTagName('img'));
+      debugger;
 
-      const takeFirstImageEl = parentEl.getElementsByTagName('img')[0];
-      let imageSrcToShowAd = takeFirstImageEl.src;
-      let imageDataSrcToShowAd = takeFirstImageEl.getAttribute("data-src");
-      let findImageData = this.feedProducts.payload
-        .find((imageData) => imageData.imageUrl === imageSrcToShowAd || imageDataSrcToShowAd);
-
-      if (!findImageData) {
-        const takeSecondImageEl = parentEl.getElementsByTagName('img')[1];
-        if (takeSecondImageEl) {
-          imageSrcToShowAd = takeSecondImageEl.src;
-          imageDataSrcToShowAd = takeSecondImageEl.getAttribute("data-src");
-          findImageData = this.feedProducts.payload
-            .find((imageData) => imageData.imageUrl === imageSrcToShowAd || imageDataSrcToShowAd);
-        }
+      for (let i = 0; i < allImagesPresentInTheSameGroup.length; i++) {
+        const currentImageEle = allImagesPresentInTheSameGroup[i];
+        const imageSrcToShowAd = currentImageEle.src;
+        const imageDataSrcToShowAd = currentImageEle.getAttribute("data-src");
+        foundImageData = this.feedProducts.payload
+          .find((imageData) => imageData.imageUrl === imageSrcToShowAd || imageDataSrcToShowAd);
+        if (foundImageData?.generatedAdHTML) { break; }
       }
-
+      // const currentImageEle = parentEl.getElementsByTagName('img')[0];
       // this.log(imageSrcToShowAd);
       // this.log(imageDataSrcToShowAd);
       // this.log(findImageData);
 
-      if (findImageData?.generatedAdHTML) {
-        isThereAnySliderAds = true;
+      if (foundImageData?.generatedAdHTML) {
+        // isThereAnySliderAds = true;
         const adContainer = document.createElement('div');
         adContainer.classList.add("adContainer");
         adContainer.style.background = "yellow";
         adContainer.style.maxHeight = "300px";
         // adContainer.appendChild(findImageData.generatedAdHTML);
+
+        // append the found ad just after the image caption
         parentEl
           .getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0]
-          .after(findImageData.generatedAdHTML);
+          .after(foundImageData.generatedAdHTML);
 
-        const script = findImageData.scriptTag;
-        const sliderIdSelector = `#${findImageData.sliderId}`;
+        // const script = foundImageData.scriptTag;
+        const sliderIdSelector = `#${foundImageData.sliderId}`;
         setTimeout(() => {
-          const sc = document.createElement('script');
-          sc.innerHTML = findImageData.scriptTag.innerHTML;
-          document.body.appendChild(sc);
+          // const sc = document.createElement('script');
+          // sc.innerHTML = foundImageData.scriptTag.innerHTML;
+          // document.body.appendChild(sc);
           this.log("scripts append");
           debugger;
+          // setup the splid lib to initialize the slider
           const testSlider = new Splide(sliderIdSelector, {
             type: 'loop',
             // perPage: 6,
@@ -779,7 +778,7 @@ class TRENDiiAd {
       // div.style.background = "yellow";
       // div.style.height = "100px";
       // parentEl.getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0].after(div);
-      if (index === (this.parentImageGroupElements.length - 1) && isThereAnySliderAds) { }
+      // if (index === (this.parentImageGroupElements.length - 1) && isThereAnySliderAds) { }
     });
     // document.querySelectorAll(".mol-img-group")[0].getElementsByTagName('img');
     // document.querySelectorAll(".mol-img-group")[0].getElementsByClassName('imageCaption')[0];
@@ -920,7 +919,6 @@ class TRENDiiAd {
 (function () {
   // var foo = 3;
   // this.log(foo);
-
 
   // native ad options to implement
   const options = {
