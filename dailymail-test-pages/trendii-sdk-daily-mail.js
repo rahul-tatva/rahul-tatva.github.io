@@ -744,7 +744,8 @@ class TRENDiiAd {
         parentEl
           .getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0]
           .after(foundImageData.generatedAdHTML);
-
+        parentEl
+          .after(foundImageData.generatedAdHTML);
         // const script = foundImageData.scriptTag;
         const sliderIdSelector = `#${foundImageData.sliderId}`;
         setTimeout(() => {
