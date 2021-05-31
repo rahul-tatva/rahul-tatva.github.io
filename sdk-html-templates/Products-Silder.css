@@ -249,3 +249,9 @@ ul {
   border-top: 7px solid #f32b97;
   border-bottom: 7px solid #f32b97;
 }
+@media (hover: none) {
+  .block728X90-wrapper .product-item:hover:after {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
