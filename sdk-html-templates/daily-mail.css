@@ -263,7 +263,7 @@ ul {
 }
 
 .block728X90-wrapper .product-item:hover .product-details-wrapper {
-  opacity: 0;
+  opacity: 1;
   visibility: hidden;
 }
 }
