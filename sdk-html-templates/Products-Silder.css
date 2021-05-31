@@ -256,7 +256,7 @@ ul {
   }
   .block728X90-wrapper .product-item .product-details-wrapper,
 .block728X90-wrapper .product-item:hover .onsale {
-  opacity: 1;
+  opacity: 1; 
   visibility: visible;
 }
 
