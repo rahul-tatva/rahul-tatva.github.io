@@ -249,9 +249,19 @@ ul {
   border-top: 7px solid #f32b97;
   border-bottom: 7px solid #f32b97;
 }
-@media (hover: none) {
+@media (max-width:767px) {
   .block728X90-wrapper .product-item:hover:after {
     opacity: 0;
     visibility: hidden;
   }
+  .block728X90-wrapper .product-item .product-details-wrapper,
+.block728X90-wrapper .product-item:hover .onsale {
+  opacity: 1;
+  visibility: visible;
+}
+
+.block728X90-wrapper .product-item:hover .product-details-wrapper {
+  opacity: 0;
+  visibility: hidden;
+}
 }
