@@ -156,18 +156,22 @@ ul {
 .block728X90-wrapper .product-item:hover .product-details-wrapper {
   opacity: 1;
   visibility: visible;
+  bottom: 0;
 }
 
 .block728X90-wrapper .product-item .product-details-wrapper {
   color: #fff;
   z-index: 1;
   position: absolute;
-  bottom: 0;
+  bottom: -100%;
+  left: 0;
+  right: 0;
   width: 100%;
   padding: 7px;
   overflow: hidden;
   transition: all 0.3s ease;
   background: rgb(197 98 165 / 80%);
+  display: block;
 }
 
 .block728X90-wrapper .product-item .product-details-wrapper b {
@@ -251,22 +255,23 @@ ul {
   border-top: 7px solid #c562a5;
   border-bottom: 7px solid #c562a5;
 }
-@media (max-width:767px) {
+@media (max-width: 767px) {
   .block728X90-wrapper .product-item:hover:after {
-    opacity: 0!important;
-    visibility: hidden!important;
+    opacity: 0 !important;
+    visibility: hidden !important;
   }
 
-.block728X90-wrapper .product-item:hover .onsale {
-  opacity: 1!important; 
-  visibility: visible!important;
-}
-.block728X90-wrapper .product-item .product-details-wrapper{
-  opacity: 0!important;
-  visibility: hidden!important; 
-}
-.block728X90-wrapper .product-item:hover .product-details-wrapper {
-  opacity: 1!important;
-  visibility: hidden!important;
-}
+  .block728X90-wrapper .product-item:hover .onsale {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  .block728X90-wrapper .product-item .product-details-wrapper {
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
+  .block728X90-wrapper .product-item:hover .product-details-wrapper {
+    opacity: 1 !important;
+    visibility: hidden !important;
+    bottom: 0;
+  }
 }
