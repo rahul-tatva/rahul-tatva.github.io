@@ -519,11 +519,11 @@ window.FEED_PRODUCTS = {
 class TRENDiiAd {
   constructor(options) {
     debugger;
+    this.loadScript("https://cdn.trendii.com/assets/splide.min.js");
     this.loadStyleSheet("https://cdn.trendii.com/assets/splide-core.min.css");
     this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/daily-mail.css");
     // this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/Products-Silder.css");
-    this.loadScript("https://unpkg.com/axios/dist/axios.min.js");
-    this.loadScript("https://cdn.trendii.com/assets/splide.min.js");
+    // this.loadScript("https://unpkg.com/axios/dist/axios.min.js");
     // <link rel="stylesheet" href="./sdk-html-templates/daily-mail.css"></link>
     // options initialization
     this.options = options;
@@ -536,7 +536,6 @@ class TRENDiiAd {
     this.blogContainerSelector = options?.blogContainerSelector;
     debugger;
 
-
     // variable needed to store some data and info
     this.feedProducts = [];
     this.htmlString;
@@ -546,9 +545,9 @@ class TRENDiiAd {
     // this.feedProductsWithGeneratedAds = [];
 
     // native ads constants
-    this.GET_NATIVE_AD_TEMPLATE = `https://rahul-tatva.github.io/sdk-html-templates/Products-Slider-dynamic.html`;
-    this.nativeAdHTMLString = null;
-    this.GET_NATIVE_AD_PRODUCT = `https://beeswaxcreatives.trendii.com/img-creatives`;
+    this.API_GET_NATIVE_AD_TEMPLATE = `https://rahul-tatva.github.io/sdk-html-templates/Products-Slider-dynamic.html`;
+    this.nativeAdTemplateHTMLString = null;
+    this.API_GET_NATIVE_AD_PRODUCT = `https://beeswaxcreatives.trendii.com/img-creatives`;
     this.HTML_TEMPLATE_AD_WRAPPER_ID = "trendii-native-ad-wrapper";
     this.HTML_TEMPLATE_SLIDER_CONTAINER_ID = "trendii-sdk-ad-products-container";
 
@@ -559,18 +558,18 @@ class TRENDiiAd {
     // window.addEventListener("load", () => {ss
     document.addEventListener("DOMContentLoaded", () => {
       debugger;
-      this.getAllImagesFromDOM();
+      this.getAllDailyMailBlogImagesFromDOM();
       const requestOptions = { method: "GET" };
-      fetch(this.GET_NATIVE_AD_TEMPLATE, requestOptions)
+      fetch(this.API_GET_NATIVE_AD_TEMPLATE, requestOptions)
         .then((response) => response.text())
         .then((response) => {
           debugger;
           // debugger;
-          this.nativeAdHTMLString = response;
+          this.nativeAdTemplateHTMLString = response;
           // this.log(response.data);
           // this.getProductsForAllImages();
           // this.appendAdContainersToImages();
-          this.getProductsForAllImages(this.initializeSliderSetup());
+          this.getProductsForAllImages();
         })
         .catch((error) => {
           console.error(error);
@@ -591,7 +590,7 @@ class TRENDiiAd {
   loadScriptIntoHead(url) {
     document.head.appendChild(document.createElement("script")).src = url;
   }
-  getAllImagesFromDOM() {
+  getAllDailyMailBlogImagesFromDOM() {
     debugger;
     // TO DO throw error if image selector not present
     this.allImageElements = document.querySelectorAll(this.options.adImagesSelector);
@@ -599,6 +598,8 @@ class TRENDiiAd {
     const alreadyLoadedImagesArray = Array.from(document.querySelectorAll('.blkBorder.img-share.b-loaded'))
       .map(img => img.getAttribute("src"));
     this.allValidImageSrcArray.push(...alreadyLoadedImagesArray);
+
+    // async loadable images
     const imagesWhichAreYetToBeLoaded = Array.from(document.querySelectorAll(DAILY_MAIL_IMAGE_SELECTOR_CLASS))
       .map(img => img.getAttribute("data-src"))
       // filter null values or undefined
@@ -632,7 +633,7 @@ class TRENDiiAd {
       headers,
       body: raw,
     };
-    fetch(this.GET_NATIVE_AD_PRODUCT, requestOptions)
+    fetch(this.API_GET_NATIVE_AD_PRODUCT, requestOptions)
       .then((response) => response.json())
       .then((response) => {
         debugger;
@@ -693,7 +694,7 @@ class TRENDiiAd {
     debugger;
     const products = imageData.products;
     const identifier = `splide${index}`;
-    const newDOM = this.nativeAdHTMLString.replaceAll(SLIDER_CLASS_TO_REPLACE, identifier);
+    const newDOM = this.nativeAdTemplateHTMLString.replaceAll(SLIDER_CLASS_TO_REPLACE, identifier);
     const domParser = new DOMParser();
     const templatesDOM = domParser.parseFromString(newDOM, "text/html");
     let productsContainerEl = templatesDOM.getElementById(this.HTML_TEMPLATE_SLIDER_CONTAINER_ID);
