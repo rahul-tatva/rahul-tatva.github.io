@@ -787,69 +787,9 @@ class TRENDiiAd {
   getAllAdContainersFromDOM() {
     this.allAdContainers = document.querySelectorAll(this.options.adContainer);
   }
-  // appendAdContainersToImages() {
-  //   debugger;
-  //   this.allImageElements.forEach(imageEl => {
-  //     this.adContainer = document.createElement("DIV");
-  //     this.adContainer.classList.add("ad-container");
-  //     // this.adContainer.style.background = "yellow";
-  //     // adContainer.innerHTML = "tesetste";
-  //     const imageSrc = imageEl.src;
-  //     debugger;
-  //     this.renderAdInsideTheAdContainer(imageSrc, this.adContainer);
-  //     debugger;
-  //     imageEl.after(this.adContainer);
-  //     debugger;
-  //     // imageEl.parentNode.insertAdjacentHTML(sliderItem, imageEl.nextSibling);
-  //     // imageEl.insertAdjacentHTML("afterend", sliderItem);
-  //     // imageEl.parentNode.appendChild(sliderItem);
-  //   });
-  //   new Splide('.splide', {
-  //     type: 'loop',
-  //     // perPage: 6,
-  //     pagination: false,
-  //     gap: 10,
-  //     autoWidth: true,
-  //     // width: 400,
-  //     // fixedWidth: 200,
-  //   }).mount();
-  // }
-  // renderAdInsideTheAdContainer(imageSrc, adContainer) {
-  //   const domParser = new DOMParser();
-  //   const parsedHtmlDocumentEl = domParser.parseFromString(this.nativeAdHTMLString, "text/html");
-  //   // here the container id should be dynamic for each ads sizes
-  //   this.productsContainerEl = parsedHtmlDocumentEl.getElementById(
-  //     this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID
-  //   );
-  //   this.productsContainerEl.innerHTML = "";
-  //   debugger;
-  //   this;
-  //   this.generateAdsForAllProducts(window.FEED_PRODUCTS, imageSrc, parsedHtmlDocumentEl).bind(this);
-
-  //   const generatedNativeAd = parsedHtmlDocumentEl.body;
-  //   adContainer.innerHTML = generatedNativeAd.innerHTML;
-  // }
   log(message) {
     console.log(message);
   }
-  // getNativeAdTemplateHTML(onSuccessCallback, onErrorCallback) {
-  //   const requestOptions = {
-  //     method: "GET",
-  //     url: this.GET_NATIVE_AD_TEMPLATE,
-  //   };
-  //   axios(requestOptions)
-  //     .then((response) => {
-  //       debugger;
-  //       // debugger;
-  //       this.nativeAdHTMLString = response.data;
-  //       // this.log(response.data);
-  //       typeof onSuccessCallback === "function" && onSuccessCallback(response);
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //       typeof onErrorCallback === "function" && onErrorCallback(error);
-  //     });
-  // }
   createSliderItemProduct(product, productsContainer) {
     // <li class="splide__slide">
     //     <div class="product-item-container">
