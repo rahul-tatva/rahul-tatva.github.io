@@ -256,12 +256,15 @@ ul {
     opacity: 0;
     visibility: hidden;
   }
-  .block728X90-wrapper .product-item .product-details-wrapper,
+
 .block728X90-wrapper .product-item:hover .onsale {
   opacity: 1; 
   visibility: visible;
 }
-
+.block728X90-wrapper .product-item .product-details-wrapper{
+  opacity: 0;
+  visibility: hidden; 
+}
 .block728X90-wrapper .product-item:hover .product-details-wrapper {
   opacity: 1;
   visibility: hidden;
