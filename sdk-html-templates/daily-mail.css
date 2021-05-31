@@ -253,20 +253,20 @@ ul {
 }
 @media (max-width:767px) {
   .block728X90-wrapper .product-item:hover:after {
-    opacity: 0;
-    visibility: hidden;
+    opacity: 0!important;
+    visibility: hidden!important;
   }
 
 .block728X90-wrapper .product-item:hover .onsale {
-  opacity: 1; 
-  visibility: visible;
+  opacity: 1!important; 
+  visibility: visible!important;
 }
 .block728X90-wrapper .product-item .product-details-wrapper{
-  opacity: 0;
-  visibility: hidden; 
+  opacity: 0!important;
+  visibility: hidden!important; 
 }
 .block728X90-wrapper .product-item:hover .product-details-wrapper {
-  opacity: 1;
-  visibility: hidden;
+  opacity: 1!important;
+  visibility: hidden!important;
 }
 }
