@@ -80,51 +80,46 @@ class TRENDiiAd {
       document.body.appendChild(adIframe);
 
       if (this.blogContainerSelector) {
-        window.addEventListener(
-          "scroll",
-          function () {
-            // debugger;
-            var blogContainerHeight = document.querySelector(
-              this.blogContainerSelector
-            ).scrollHeight;
-            var topOffset = document.querySelector(this.blogContainerSelector)
-              .offsetTop;
-            var bottomHeight = document.querySelector(
-              this.blogContainerSelector
-            ).offsetHeight;
+        window.addEventListener("scroll", function () {
+          // debugger;
+          var blogContainerHeight = document
+            .querySelector(this.blogContainerSelector)
+            .scrollHeight;
+          var topOffset = document
+            .querySelector(this.blogContainerSelector)
+            .offsetTop;
+          var bottomHeight = document
+            .querySelector(this.blogContainerSelector)
+            .offsetHeight;
 
-            var bottomOffsetDiv = topOffset + blogContainerHeight;
-            let showAdBlock = true;
-            var ua = navigator.userAgent.toLowerCase();
-            var isAndroid = ua.indexOf("android") > -1; // Detect Android devices
-            var isIos = ua.indexOf("iphone") > -1; // Detect IOS devices
-            if (isAndroid || isIos) {
-              if (
-                window.pageYOffset <= topOffset ||
-                window.pageYOffset > blogContainerHeight
-              ) {
-                document.getElementById(
-                  this.TRENDII_AD_CONTAINER_ID
-                ).hidden = true;
-                showAdBlock = false;
-              }
-            } else {
-              if (
-                window.pageYOffset <= topOffset ||
-                window.pageYOffset > bottomOffsetDiv
-              ) {
-                document.getElementById(
-                  this.TRENDII_AD_CONTAINER_ID
-                ).hidden = true;
-                showAdBlock = false;
-              }
+          var bottomOffsetDiv = topOffset + blogContainerHeight;
+          let showAdBlock = true;
+          var ua = navigator.userAgent.toLowerCase();
+          var isAndroid = ua.indexOf("android") > -1; // Detect Android devices
+          var isIos = ua.indexOf("iphone") > -1; // Detect IOS devices
+          if (isAndroid || isIos) {
+            if (
+              window.pageYOffset <= topOffset ||
+              window.pageYOffset > blogContainerHeight
+            ) {
+              document.getElementById(this.TRENDII_AD_CONTAINER_ID).hidden = true;
+              showAdBlock = false;
             }
-            //   if (showAdBlock === true) {
-            //     document.querySelectorAll("img").forEach((img) => {
-            //       observer.observe(img);
-            //     });
-            //   }
-          }.bind(this)
+          } else {
+            if (
+              window.pageYOffset <= topOffset ||
+              window.pageYOffset > bottomOffsetDiv
+            ) {
+              document.getElementById(this.TRENDII_AD_CONTAINER_ID).hidden = true;
+              showAdBlock = false;
+            }
+          }
+          //   if (showAdBlock === true) {
+          //     document.querySelectorAll("img").forEach((img) => {
+          //       observer.observe(img);
+          //     });
+          //   }
+        }.bind(this)
         );
       }
     }
