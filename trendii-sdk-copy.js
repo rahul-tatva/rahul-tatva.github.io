@@ -256,8 +256,8 @@ class TRENDiiAd {
 
           // test data
           adProductsData: result.result,
-          adProductsData: result.result.map((x) => {
-            // x.image = imageSource;
+          adProductsData: result.payload.map((x) => {
+            x.image = imageSource;
             x.localImage = imageSource;
             return x;
           }),
@@ -277,8 +277,7 @@ class TRENDiiAd {
         ) {
           this.bindAdProductsToAdIframe(this.currentlyVisibleImageSrcURL);
         }
-        if (typeof onSuccessCallback === "function")
-          onSuccessCallback(response);
+        if (typeof onSuccessCallback === "function") onSuccessCallback(response);
       })
       .catch((error) => {
         console.error(error);
