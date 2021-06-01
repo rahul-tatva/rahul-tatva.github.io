@@ -239,10 +239,10 @@ class TRENDiiAd {
           imageSource: imageSource,
           adProductsData: result.payload[0].products,
           // testing data
-          adProductsData: result.payload[0].products.map((x) => {
-            x.image = imageSource;
-            return x;
-          }),
+          // adProductsData: result.payload[0].products.map((x) => {
+          //   x.image = imageSource;
+          //   return x;
+          // }),
 
           // test data
           // adProductsData: result.result,
