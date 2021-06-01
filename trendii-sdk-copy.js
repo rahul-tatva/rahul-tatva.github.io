@@ -237,12 +237,12 @@ class TRENDiiAd {
         const result = response.data;
         const imageSourceWithAdProducts = {
           imageSource: imageSource,
-          adProductsData: result.payload,
+          adProductsData: result.payload.products,
           // testing data
-          // adProductsData: result.payload.map((x) => {
-          //   x.image = imageSource;
-          //   return x;
-          // }),
+          adProductsData: result.payload.products.map((x) => {
+            x.image = imageSource;
+            return x;
+          }),
 
           // test data
           // adProductsData: result.result,
@@ -355,7 +355,7 @@ class TRENDiiAd {
     const currentImageData = feedProducts.find(
       (x) => x.imageSource === currentImageSrc
     );
-    const adProducts = currentImageData?.adProductsData.products;
+    const adProducts = currentImageData?.adProductsData;
     const sliderListItemProductCount = this.sliderListProductCount();
     // TO-DO: Not found any ad products for the particular image
     if (adProducts?.length > 0) {
