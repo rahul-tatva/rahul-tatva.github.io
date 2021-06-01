@@ -70,59 +70,57 @@ class TRENDiiAd {
     // TO-DO: Throw error if the containerId not found
     // append iframe to container or fixed position
     if (this.options?.adContainerId) {
-      const adContainerEl = document.getElementById(this.options.adContainerId);
-      adContainerEl.appendChild(adIframe);
+      const existingAdContainerEl = document.getElementById(this.options.adContainerId);
+      existingAdContainerEl.appendChild(adIframe);
     } else {
       // to make iframe sticky and append to body
-      adIframe.style =
-        "overflow: hidden; z-index:9999; position: fixed; right: 0px; bottom: 0px;";
+      adIframe.style = "overflow: hidden; z-index:9999; position: fixed; right: 0px; bottom: 0px;";
       document.body.appendChild(adIframe);
+    }
+    if (this.blogContainerSelector) {
+      window.addEventListener("scroll", function () {
+        // // debugger;
+        var blogContainerHeight = document
+          .querySelector(this.blogContainerSelector)
+          .scrollHeight;
+        var topOffset = document
+          .querySelector(this.blogContainerSelector)
+          .offsetTop;
+        var bottomHeight = document
+          .querySelector(this.blogContainerSelector)
+          .offsetHeight;
 
-      if (this.blogContainerSelector) {
-        window.addEventListener("scroll", function () {
-          // // debugger;
-          var blogContainerHeight = document
-            .querySelector(this.blogContainerSelector)
-            .scrollHeight;
-          var topOffset = document
-            .querySelector(this.blogContainerSelector)
-            .offsetTop;
-          var bottomHeight = document
-            .querySelector(this.blogContainerSelector)
-            .offsetHeight;
-
-          var bottomOffsetDiv = topOffset + blogContainerHeight;
-          let showAdBlock = true;
-          var ua = navigator.userAgent.toLowerCase();
-          var isAndroid = ua.indexOf("android") > -1; // Detect Android devices
-          var isIos = ua.indexOf("iphone") > -1; // Detect IOS devices
-          if (isAndroid || isIos) {
-            if (
-              window.pageYOffset <= topOffset ||
-              window.pageYOffset > blogContainerHeight
-            ) {
-              document.getElementById(STICKY_AD_CONTAINER_ID).hidden = true;
-              document.getElementById(this.TRENDII_AD_CONTAINER_ID).hidden = true;
-              showAdBlock = false;
-            }
-          } else {
-            if (
-              window.pageYOffset <= topOffset ||
-              window.pageYOffset > bottomOffsetDiv
-            ) {
-              document.getElementById(STICKY_AD_CONTAINER_ID).hidden = true;
-              document.getElementById(this.TRENDII_AD_CONTAINER_ID).hidden = true;
-              showAdBlock = false;
-            }
+        var bottomOffsetDiv = topOffset + blogContainerHeight;
+        let showAdBlock = true;
+        var ua = navigator.userAgent.toLowerCase();
+        var isAndroid = ua.indexOf("android") > -1; // Detect Android devices
+        var isIos = ua.indexOf("iphone") > -1; // Detect IOS devices
+        if (isAndroid || isIos) {
+          if (
+            window.pageYOffset <= topOffset ||
+            window.pageYOffset > blogContainerHeight
+          ) {
+            document.getElementById(STICKY_AD_CONTAINER_ID).hidden = true;
+            document.getElementById(this.TRENDII_AD_CONTAINER_ID).hidden = true;
+            showAdBlock = false;
           }
-          //   if (showAdBlock === true) {
-          //     document.querySelectorAll("img").forEach((img) => {
-          //       observer.observe(img);
-          //     });
-          //   }
-        }.bind(this)
-        );
-      }
+        } else {
+          if (
+            window.pageYOffset <= topOffset ||
+            window.pageYOffset > bottomOffsetDiv
+          ) {
+            document.getElementById(STICKY_AD_CONTAINER_ID).hidden = true;
+            document.getElementById(this.TRENDII_AD_CONTAINER_ID).hidden = true;
+            showAdBlock = false;
+          }
+        }
+        //   if (showAdBlock === true) {
+        //     document.querySelectorAll("img").forEach((img) => {
+        //       observer.observe(img);
+        //     });
+        //   }
+      }.bind(this)
+      );
     }
   }
   parseHTMLStringToDocument(htmlString, feedProducts, currentImageSrc) {
@@ -170,9 +168,8 @@ class TRENDiiAd {
       // this.updateSliderContainerWithAdProducts(adSliderContainerEl, this.feedProducts, currentImageSrc);
 
       // // debugger;
-      const imageData = this.feedProducts.find(
-        (x) => x.imageSource === currentImageSrc
-      );
+      const imageData = this.feedProducts
+        .find((x) => x.imageSource === currentImageSrc);
       const src = imageData.iframeHtmlSrc;
       iframe.srcdoc = src;
       // iframe.contentDocument.location.reload(true);
