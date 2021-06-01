@@ -3,6 +3,7 @@ const API_GET_AD_PRODUCTS =
 // const API_GET_AD_PRODUCTS =
 //   "https://beeswax-creative-f6i4ayd3wa-ts.a.run.app/webImageProcess";
 const SUPPORTED_DIMENSIONS = ["160X600", "300X600"];
+const BRAND_NAME = "TRENDii";
 class TRENDiiAd {
   constructor(options) {
     this.options = options;
@@ -374,6 +375,9 @@ class TRENDiiAd {
     }
   }
   createSliderProductItemElement(product) {
+
+    // to handle the slider cloning system we need anchor tag elements as the 
+    // products redirection links
     const productItemRedirectContainer = document.createElement("A");
     productItemRedirectContainer.style = "text-decoration: none;";
     productItemRedirectContainer.href = product.url;
@@ -405,7 +409,7 @@ class TRENDiiAd {
     productItemCardBody.classList.add("card-body");
 
     const productName = document.createElement("B");
-    const productNameText = document.createTextNode(product.name);
+    const productNameText = document.createTextNode(BRAND_NAME);
     productName.appendChild(productNameText);
     productItemCardBody.appendChild(productName);
 
@@ -423,7 +427,7 @@ class TRENDiiAd {
     // cashbackLabel.classList.add("cashback-chip");
     // cashbackLabel.innerHTML = product.cashback + " cashback";
     // productItem.appendChild(cashbackLabel);
-    
+
     productItemRedirectContainer.appendChild(productItem);
     return productItemRedirectContainer;
     // return productItem;
