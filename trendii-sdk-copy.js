@@ -100,7 +100,7 @@ class TRENDiiAd {
             window.pageYOffset <= topOffset ||
             window.pageYOffset > blogContainerHeight
           ) {
-            document.getElementById(STICKY_AD_CONTAINER_ID).hidden = true;
+            // document.getElementById(STICKY_AD_CONTAINER_ID).hidden = true;
             document.getElementById(this.TRENDII_AD_CONTAINER_ID).hidden = true;
             showAdBlock = false;
           }
@@ -109,7 +109,7 @@ class TRENDiiAd {
             window.pageYOffset <= topOffset ||
             window.pageYOffset > bottomOffsetDiv
           ) {
-            document.getElementById(STICKY_AD_CONTAINER_ID).hidden = true;
+            // document.getElementById(STICKY_AD_CONTAINER_ID).hidden = true;
             document.getElementById(this.TRENDII_AD_CONTAINER_ID).hidden = true;
             showAdBlock = false;
           }
