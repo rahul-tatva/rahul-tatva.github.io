@@ -134,30 +134,26 @@ class TRENDiiAd {
       this.HTML_TEMPLATE_SLIDER_CONTAINER_ID
     );
     productsContainerEl.innerHTML = "";
-    this.createProductsSlider(
-      productsContainerEl,
-      feedProducts,
-      currentImageSrc
-    );
+    this.createProductsSlider(productsContainerEl, feedProducts, currentImageSrc);
     // debugger;
     return parsedHtmlDocumentEl.documentElement.innerHTML;
   }
-  updateSliderContainerWithAdProducts(
-    adSliderContainerEl,
-    feedProducts,
-    currentImageSrc
-  ) {
-    // debugger;
-    // reset the container
-    adSliderContainerEl.innerHTML = "";
-    this.createProductsSlider(
-      adSliderContainerEl,
-      feedProducts,
-      currentImageSrc
-    );
-    // debugger;
-    // return parsedHtmlDocument.documentElement.innerHTML;
-  }
+  // updateSliderContainerWithAdProducts(
+  //   adSliderContainerEl,
+  //   feedProducts,
+  //   currentImageSrc
+  // ) {
+  //   // debugger;
+  //   // reset the container
+  //   adSliderContainerEl.innerHTML = "";
+  //   this.createProductsSlider(
+  //     adSliderContainerEl,
+  //     feedProducts,
+  //     currentImageSrc
+  //   );
+  //   // debugger;
+  //   // return parsedHtmlDocument.documentElement.innerHTML;
+  // }
   bindAdProductsToAdIframe(currentImageSrc) {
     const iframe = this.createOrGetAdContainer();
     iframe.hidden = false;
@@ -359,7 +355,7 @@ class TRENDiiAd {
     const currentImageData = feedProducts.find(
       (x) => x.imageSource === currentImageSrc
     );
-    const adProducts = currentImageData?.adProductsData;
+    const adProducts = currentImageData?.adProductsData.products;
     const sliderListItemProductCount = this.sliderListProductCount();
     // TO-DO: Not found any ad products for the particular image
     if (adProducts?.length > 0) {
