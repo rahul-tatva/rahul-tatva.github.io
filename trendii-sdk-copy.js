@@ -10,7 +10,7 @@ class TRENDiiAd {
     this.width = options?.width;
     this.height = options?.height;
     this.blogContainerSelector = options?.blogContainerSelector;
-    // debugger;
+    // // debugger;
     this.feedProducts = [];
     this.htmlString;
     this.allImageElements;
@@ -79,7 +79,7 @@ class TRENDiiAd {
 
       if (this.blogContainerSelector) {
         window.addEventListener("scroll", function () {
-          // debugger;
+          // // debugger;
           var blogContainerHeight = document
             .querySelector(this.blogContainerSelector)
             .scrollHeight;
@@ -123,7 +123,7 @@ class TRENDiiAd {
     }
   }
   parseHTMLStringToDocument(htmlString, feedProducts, currentImageSrc) {
-    // debugger;
+    // // debugger;
     const domParser = new DOMParser();
     const parsedHtmlDocumentEl = domParser.parseFromString(
       htmlString,
@@ -135,7 +135,7 @@ class TRENDiiAd {
     );
     productsContainerEl.innerHTML = "";
     this.createProductsSlider(productsContainerEl, feedProducts, currentImageSrc);
-    // debugger;
+    // // debugger;
     return parsedHtmlDocumentEl.documentElement.innerHTML;
   }
   // updateSliderContainerWithAdProducts(
@@ -143,7 +143,7 @@ class TRENDiiAd {
   //   feedProducts,
   //   currentImageSrc
   // ) {
-  //   // debugger;
+  //   // // debugger;
   //   // reset the container
   //   adSliderContainerEl.innerHTML = "";
   //   this.createProductsSlider(
@@ -151,13 +151,13 @@ class TRENDiiAd {
   //     feedProducts,
   //     currentImageSrc
   //   );
-  //   // debugger;
+  //   // // debugger;
   //   // return parsedHtmlDocument.documentElement.innerHTML;
   // }
   bindAdProductsToAdIframe(currentImageSrc) {
     const iframe = this.createOrGetAdContainer();
     iframe.hidden = false;
-    // debugger;
+    // // debugger;
     // check if iframe consists of the ad container already
     const adSliderContainerEl = iframe.contentWindow?.document.getElementById(
       this.HTML_TEMPLATE_SLIDER_CONTAINER_ID
@@ -166,7 +166,7 @@ class TRENDiiAd {
       // only update products container
       // this.updateSliderContainerWithAdProducts(adSliderContainerEl, this.feedProducts, currentImageSrc);
 
-      // debugger;
+      // // debugger;
       const imageData = this.feedProducts.find(
         (x) => x.imageSource === currentImageSrc
       );
@@ -191,7 +191,7 @@ class TRENDiiAd {
     };
     axios(requestOptions)
       .then((response) => {
-        // debugger;
+        // // debugger;
         this.htmlString = response.data;
         // console.log(response.data);
         if (typeof onSuccessCallback === "function") onSuccessCallback(response);
@@ -227,11 +227,11 @@ class TRENDiiAd {
       url: API_GET_AD_PRODUCTS,
       data: { ...requestBody },
     };
-    debugger;
+    // debugger;
 
     axios(requestOptions)
       .then((response) => {
-        debugger;
+        // debugger;
         // console.log(response.data);
         // this.productsFeed = response.data;
         const result = response.data;
@@ -275,20 +275,20 @@ class TRENDiiAd {
       });
   }
   handleDOMLoaded() {
-    // debugger;
+    // // debugger;
     // TO DO throw error if image selector not present
     this.allImageElements = document.querySelectorAll(
       this.options.adImagesSelector
     );
-    // debugger;
+    // // debugger;
     const initialLoadImageSource = this.allImageElements[0].src;
     this.allImageElements.forEach((imgEl) => {
-      // debugger;
+      // // debugger;
       const imageSourceURL = imgEl.src;
       this.intersectionObserver.observe(imgEl);
       // fetch the ad products using api for all the products
       this.getAdProductsByImageURL(imageSourceURL, function () {
-        // debugger;
+        // // debugger;
         // if (this.feedProducts.length === 1) {
         //     this.bindAdProductsToAdIframe(initialLoadImageSource);
         // }
@@ -299,10 +299,10 @@ class TRENDiiAd {
     document.addEventListener("DOMContentLoaded", this.handleDOMLoaded.bind(this));
   }
   handleIntersectionEntries(entries, observer) {
-    // debugger;
+    // // debugger;
     entries.forEach((entry) => {
       // console.log(entry);
-      // debugger;
+      // // debugger;
       // check if image el is visible in screen/window
       if (entry.isIntersecting) {
         const visibleImageSrc = entry.target?.currentSrc || "";
@@ -314,7 +314,7 @@ class TRENDiiAd {
         // this.getSimilarProducts(currentImageSrc, (response) => {
         //     this.getHTMLTemplate(response.data);
         // });
-        // debugger;
+        // // debugger;
         // if (entry.intersectionRatio >= 1.0) {
         //     // image is fully visible in t0.75he screen
         // }
@@ -324,7 +324,7 @@ class TRENDiiAd {
     });
   }
   createObserverForCurrentVisibleImage() {
-    // debugger;
+    // // debugger;
     /**
      * Checking whether image is there to check the data
      */
@@ -350,7 +350,7 @@ class TRENDiiAd {
     }
   }
   createProductsSlider(productsContainerEl, feedProducts, currentImageSrc) {
-    // debugger;
+    // // debugger;
     let sliderItemListEl;
     const currentImageData = feedProducts.find(
       (x) => x.imageSource === currentImageSrc
@@ -385,7 +385,7 @@ class TRENDiiAd {
     productItem.classList.add("product-item");
     console.log(product.image);
     productItem.style.backgroundImage = `url(${product.image})`;
-    // debugger;
+    // // debugger;
     // function test() {
     //   console.log("clcick product");
     //   window.open(product.url, "_blank");
@@ -393,7 +393,7 @@ class TRENDiiAd {
     // productItem.onclick = "test();";
     // productItem.addEventListener("click", function () {
     //   console.log("clcick product");
-    //   debugger;
+    //   // debugger;
     //   window.open(product.url, "_blank");
     // });
 
