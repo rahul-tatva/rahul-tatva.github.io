@@ -35,9 +35,7 @@ class TRENDiiAd {
   }
   checkSupportedDimensions() {
     if (!SUPPORTED_DIMENSIONS.includes(this.AD_DIMENSION)) {
-      throw new Error(
-        "TRENDii Ad Dimensions must be from supported sizes only."
-      );
+      throw new Error("TRENDii Ad Dimensions must be from supported sizes only.");
     }
   }
   log(message) {
@@ -199,7 +197,7 @@ class TRENDiiAd {
   }
   getAdTemplateHTML(onSuccessCallback, onErrorCallback) {
     const requestOptions = {
-      method: "get",
+      method: "GET",
       url: this.API_GET_TRENDII_AD_TEMPLATE,
     };
     axios(requestOptions)
@@ -240,8 +238,11 @@ class TRENDiiAd {
       url: API_GET_AD_PRODUCTS,
       data: { ...requestBody },
     };
+    debugger;
+
     axios(requestOptions)
       .then((response) => {
+        debugger;
         // console.log(response.data);
         // this.productsFeed = response.data;
         const result = response.data;
