@@ -265,7 +265,6 @@ ul {
 @media (max-width: 767px) {
   .block728X90-wrapper .product-details-wrapper-mobile {
     z-index: 1;
-    position: absolute;
     width: 100px;
     padding:5px 0;
     overflow: hidden;
