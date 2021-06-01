@@ -1,7 +1,7 @@
-const API_GET_AD_PRODUCTS =
-  "https://flashtalking-sandbox-f6i4ayd3wa-ts.a.run.app/?site=16230&banner=300x600&p1=12345&p2=12345&p3=12345";
 // const API_GET_AD_PRODUCTS =
-//   "https://beeswax-creative-f6i4ayd3wa-ts.a.run.app/webImageProcess";
+//   "https://flashtalking-sandbox-f6i4ayd3wa-ts.a.run.app/?site=16230&banner=300x600&p1=12345&p2=12345&p3=12345";
+const API_GET_AD_PRODUCTS =
+  "https://beeswaxcreatives.trendii.com/img-creatives";
 const SUPPORTED_DIMENSIONS = ["160X600", "300X600"];
 const BRAND_NAME = "TRENDii";
 class TRENDiiAd {
@@ -220,15 +220,23 @@ class TRENDiiAd {
     onSuccessCallback,
     onErrorCallback
   ) {
+    // const requestBody = {
+    //   url: imageSource,
+    //   // url:
+    //   // "https://images.squarespace-cdn.com/content/v1/5d7b55a7cab21367173472ca/1617021622513-QDKPHMGC7Q77PSLTU7NO/ke17ZwdGBToddI8pDm48kMhuiFqOarpg5ZSSgOuL4KxZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZamWLI2zvYWH8K3-s_4yszcp2ryTI0HqTOaaUohrI8PIfwzeWaN1u0xgydZbMMaNw0yictQozOKVrF7K98f8aA0KMshLAGzx4R3EDFOm1kBS/20-46-1-e409ebc018a94120833d9bf6b7eb1047.jpg",
+    //   // webpageUrl: "https://rahul-tatva.github.io/fashion-blog-below-ads.html",
+    // };
+
     const requestBody = {
-      url: imageSource,
-      // url:
-      // "https://images.squarespace-cdn.com/content/v1/5d7b55a7cab21367173472ca/1617021622513-QDKPHMGC7Q77PSLTU7NO/ke17ZwdGBToddI8pDm48kMhuiFqOarpg5ZSSgOuL4KxZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZamWLI2zvYWH8K3-s_4yszcp2ryTI0HqTOaaUohrI8PIfwzeWaN1u0xgydZbMMaNw0yictQozOKVrF7K98f8aA0KMshLAGzx4R3EDFOm1kBS/20-46-1-e409ebc018a94120833d9bf6b7eb1047.jpg",
+      // "webpageUrl": "https://rahul-tatva.github.io/fashion-blog-below-ads.html",//window.location.href,
+      webpageUrl: window.location.href,
+      imageUrls: [imageSource]
     };
 
+
     const requestOptions = {
-      // method: 'POST',
-      method: "GET",
+      method: 'POST',
+      // method: "GET",
       url: API_GET_AD_PRODUCTS,
       data: { ...requestBody },
     };
