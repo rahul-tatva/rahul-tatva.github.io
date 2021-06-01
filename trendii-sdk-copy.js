@@ -387,6 +387,7 @@ class TRENDiiAd {
 
     const productItem = document.createElement("DIV");
     productItem.classList.add("product-item");
+    console.log(product.image);
     productItem.style.backgroundImage = `url(${product.image})`;
     // debugger;
     // function test() {
