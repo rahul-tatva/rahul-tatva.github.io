@@ -852,7 +852,11 @@ class TRENDiiAd {
     productNameP.classList.add("product-name");
     productNameP.innerHTML = product.name;
     productDetailsWrapper.appendChild(productNameP);
-    productDetailsWrapperMobile.appendChild(productNameP);
+
+    const productNamePMobile = document.createElement("P");
+    productNamePMobile.classList.add("product-name");
+    productNamePMobile.innerHTML = product.name;
+    productDetailsWrapperMobile.appendChild(productNamePMobile);
 
     // const productCashbackPercentage = document.createElement("SPAN");
     // productCashbackPercentage.classList.add("product-cashback-chip");
@@ -863,7 +867,11 @@ class TRENDiiAd {
     productPrice.classList.add("product-price");
     productPrice.innerHTML = product.currency + product.price;
     productDetailsWrapper.appendChild(productPrice);
-    productDetailsWrapperMobile.appendChild(productPrice);
+
+    const productPriceMobile = document.createElement("EM");
+    productPriceMobile.classList.add("product-price");
+    productPriceMobile.innerHTML = product.currency + product.price;
+    productDetailsWrapperMobile.appendChild(productPriceMobile);
 
   
   }
