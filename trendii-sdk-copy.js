@@ -4,6 +4,7 @@ const API_GET_AD_PRODUCTS =
   "https://beeswaxcreatives.trendii.com/img-creatives";
 const SUPPORTED_DIMENSIONS = ["160X600", "300X600"];
 const BRAND_NAME = "TRENDii";
+const STICKY_AD_CONTAINER_ID = "trendii-ad-container-sticky";
 class TRENDiiAd {
   constructor(options) {
     this.options = options;
@@ -100,6 +101,7 @@ class TRENDiiAd {
               window.pageYOffset <= topOffset ||
               window.pageYOffset > blogContainerHeight
             ) {
+              document.getElementById(STICKY_AD_CONTAINER_ID).hidden = true;
               document.getElementById(this.TRENDII_AD_CONTAINER_ID).hidden = true;
               showAdBlock = false;
             }
@@ -108,6 +110,7 @@ class TRENDiiAd {
               window.pageYOffset <= topOffset ||
               window.pageYOffset > bottomOffsetDiv
             ) {
+              document.getElementById(STICKY_AD_CONTAINER_ID).hidden = true;
               document.getElementById(this.TRENDII_AD_CONTAINER_ID).hidden = true;
               showAdBlock = false;
             }
@@ -352,9 +355,8 @@ class TRENDiiAd {
   createProductsSlider(productsContainerEl, feedProducts, currentImageSrc) {
     // // debugger;
     let sliderItemListEl;
-    const currentImageData = feedProducts.find(
-      (x) => x.imageSource === currentImageSrc
-    );
+    const currentImageData = feedProducts
+      .find((x) => x.imageSource === currentImageSrc);
     const adProducts = currentImageData?.adProductsData;
     const sliderListItemProductCount = this.sliderListProductCount();
     // TO-DO: Not found any ad products for the particular image
