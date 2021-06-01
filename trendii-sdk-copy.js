@@ -206,8 +206,7 @@ class TRENDiiAd {
         // debugger;
         this.htmlString = response.data;
         // console.log(response.data);
-        if (typeof onSuccessCallback === "function")
-          onSuccessCallback(response);
+        if (typeof onSuccessCallback === "function") onSuccessCallback(response);
       })
       .catch((error) => {
         console.error(error);
