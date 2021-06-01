@@ -835,6 +835,14 @@ class TRENDiiAd {
     productDetailsWrapper.addEventListener("click", function () {
       window.open(product.url, "_blank");
     });
+
+    const productDetailsWrapperMobile = document.createElement("DIV");
+    productDetailsWrapperMobile.classList.add("product-details-wrapper-mobile");
+    productItemContainer.appendChild(productDetailsWrapperMobile);
+    productDetailsWrapperMobile.addEventListener("click", function () {
+      window.open(product.url, "_blank");
+    });
+
     const productName = document.createElement("B");
     productName.classList.add("brand-name");
     productName.innerHTML = this.brandName;
@@ -844,6 +852,7 @@ class TRENDiiAd {
     productNameP.classList.add("product-name");
     productNameP.innerHTML = product.name;
     productDetailsWrapper.appendChild(productNameP);
+    productDetailsWrapperMobile.appendChild(productNameP);
 
     // const productCashbackPercentage = document.createElement("SPAN");
     // productCashbackPercentage.classList.add("product-cashback-chip");
@@ -854,6 +863,9 @@ class TRENDiiAd {
     productPrice.classList.add("product-price");
     productPrice.innerHTML = product.currency + product.price;
     productDetailsWrapper.appendChild(productPrice);
+    productDetailsWrapperMobile.appendChild(productPrice);
+
+  
   }
 }
 
