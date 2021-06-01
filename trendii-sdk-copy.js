@@ -244,10 +244,11 @@ class TRENDiiAd {
         const imageSourceWithAdProducts = {
           imageSource: imageSource,
           adProductsData: result.payload,
-          adProductsData: result.payload.map((x) => {
-            x.image = imageSource;
-            return x;
-          }),
+          // testing data
+          // adProductsData: result.payload.map((x) => {
+          //   x.image = imageSource;
+          //   return x;
+          // }),
 
           // test data
           // adProductsData: result.result,
