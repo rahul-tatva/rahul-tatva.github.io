@@ -518,7 +518,7 @@ window.FEED_PRODUCTS = {
 };
 class TRENDiiAd {
   constructor(options) {
-    debugger;
+    //debugger;
     this.loadScript("https://cdn.trendii.com/assets/splide.min.js");
     this.loadStyleSheet("https://cdn.trendii.com/assets/splide-core.min.css");
     this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/daily-mail.css");
@@ -534,7 +534,7 @@ class TRENDiiAd {
     this.adPosition = options?.adPosition || "bottom";
     this.brandName = options?.brandName || "";
     this.blogContainerSelector = options?.blogContainerSelector;
-    debugger;
+    //debugger;
 
     // variable needed to store some data and info
     this.feedProducts = [];
@@ -557,14 +557,14 @@ class TRENDiiAd {
 
     // window.addEventListener("load", () => {ss
     document.addEventListener("DOMContentLoaded", () => {
-      debugger;
+      //debugger;
       this.getAllDailyMailBlogImagesFromDOM();
       const requestOptions = { method: "GET" };
       fetch(this.API_GET_NATIVE_AD_TEMPLATE, requestOptions)
         .then((response) => response.text())
         .then((response) => {
-          debugger;
-          // debugger;
+          //debugger;
+          // //debugger;
           this.nativeAdTemplateHTMLString = response;
           // this.log(response.data);
           // this.getProductsForAllImages();
@@ -591,7 +591,7 @@ class TRENDiiAd {
     document.head.appendChild(document.createElement("script")).src = url;
   }
   getAllDailyMailBlogImagesFromDOM() {
-    debugger;
+    //debugger;
     // TO DO throw error if image selector not present
     this.allImageElements = document.querySelectorAll(this.options.adImagesSelector);
     this.allValidImageSrcArray = [];
@@ -619,7 +619,7 @@ class TRENDiiAd {
     // }).mount();
   }
   getProductsForAllImages(onSuccessCallback) {
-    debugger;
+    //debugger;
     const requestBody = {
       // "webpageUrl": "https://rahul-tatva.github.io/fashion-blog-below-ads.html",//window.location.href,
       "webpageUrl": window.location.href,
@@ -636,11 +636,11 @@ class TRENDiiAd {
     fetch(this.API_GET_NATIVE_AD_PRODUCT, requestOptions)
       .then((response) => response.json())
       .then((response) => {
-        debugger;
+        //debugger;
         // if feed does not deliver an empty response
         if (response !== "") {
           if (response?.success === true) {
-            debugger;
+            //debugger;
             this.feedProducts = response;
             // this.log(response.data);
             // this.appendAdContainersToImages();
@@ -691,7 +691,7 @@ class TRENDiiAd {
     });
   }
   createAdsForAllProductsInAdvance(imageData, index) {
-    debugger;
+    //debugger;
     const products = imageData.products;
     const identifier = `splide${index}`;
     const newDOM = this.nativeAdTemplateHTMLString.replaceAll(SLIDER_CLASS_TO_REPLACE, identifier);
@@ -717,7 +717,7 @@ class TRENDiiAd {
 
       this.log(parentEl.getElementsByTagName('img'));
       const allImagesPresentInTheSameGroup = Array.from(parentEl.getElementsByTagName('img'));
-      debugger;
+      //debugger;
 
       for (let i = 0; i < allImagesPresentInTheSameGroup.length; i++) {
         const currentImageEle = allImagesPresentInTheSameGroup[i];
@@ -744,8 +744,8 @@ class TRENDiiAd {
         parentEl
           .getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0]
           .after(foundImageData.generatedAdHTML);
-        parentEl
-          .after(foundImageData.generatedAdHTML);
+        // parentEl
+        //   .after(foundImageData.generatedAdHTML);
         // const script = foundImageData.scriptTag;
         const sliderIdSelector = `#${foundImageData.sliderId}`;
         setTimeout(() => {
@@ -753,7 +753,7 @@ class TRENDiiAd {
           // sc.innerHTML = foundImageData.scriptTag.innerHTML;
           // document.body.appendChild(sc);
           this.log("scripts append");
-          debugger;
+          //debugger;
           // setup the splid lib to initialize the slider
           const testSlider = new Splide(sliderIdSelector, {
             type: 'loop',
@@ -774,7 +774,7 @@ class TRENDiiAd {
         // parentEl.getElementsByClassName('imageCaption')[0].after(div);
         // parentEl.getElementsByClassName('imageCaption')[0].after(div);
       }
-      // debugger;
+      // //debugger;
       // const div = document.createElement('div');
       // div.style.background = "yellow";
       // div.style.height = "100px";
