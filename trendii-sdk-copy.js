@@ -42,9 +42,7 @@ class TRENDiiAd {
     console.log(message);
   }
   createOrGetAdContainer() {
-    const trendiiAdIframe = document.getElementById(
-      this.TRENDII_AD_CONTAINER_ID
-    );
+    const trendiiAdIframe = document.getElementById(this.TRENDII_AD_CONTAINER_ID);
     if (trendiiAdIframe) return trendiiAdIframe;
     else {
       const iframe = document.createElement("iframe");
