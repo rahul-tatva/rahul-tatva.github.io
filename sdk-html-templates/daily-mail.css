@@ -267,6 +267,10 @@ ul {
     width: 85px;
     height: 101px; 
   }
+  .block728X90-wrapper .product-item .onsale{
+    width: 26px;
+    font-size: 6px;
+  }
   .block728X90-wrapper .product-details-wrapper-mobile {
     z-index: 1;
     width: 85px;
