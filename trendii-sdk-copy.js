@@ -229,9 +229,7 @@ class TRENDiiAd {
       // method: 'POST',
       method: "GET",
       url: API_GET_AD_PRODUCTS,
-      data: {
-        ...requestBody,
-      },
+      data: { ...requestBody },
     };
     axios(requestOptions)
       .then((response) => {
@@ -299,10 +297,7 @@ class TRENDiiAd {
     });
   }
   registerImageElementsToObserveVisibility() {
-    document.addEventListener(
-      "DOMContentLoaded",
-      this.handleDOMLoaded.bind(this)
-    );
+    document.addEventListener("DOMContentLoaded", this.handleDOMLoaded.bind(this));
   }
   handleIntersectionEntries(entries, observer) {
     // debugger;
@@ -424,10 +419,11 @@ class TRENDiiAd {
 
     productItem.appendChild(productItemCardBody);
 
-    const cashbackLabel = document.createElement("I");
-    cashbackLabel.classList.add("cashback-chip");
-    cashbackLabel.innerHTML = product.cashback + " cashback";
-    productItem.appendChild(cashbackLabel);
+    // const cashbackLabel = document.createElement("I");
+    // cashbackLabel.classList.add("cashback-chip");
+    // cashbackLabel.innerHTML = product.cashback + " cashback";
+    // productItem.appendChild(cashbackLabel);
+    
     productItemRedirectContainer.appendChild(productItem);
     return productItemRedirectContainer;
     // return productItem;
