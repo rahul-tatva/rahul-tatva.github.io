@@ -34,50 +34,6 @@ class TRENDiiAd {
     this.createObserverForCurrentVisibleImage();
     this.getAdTemplateHTML();
     this.registerImageElementsToObserveVisibility();
-  }
-  checkSupportedDimensions() {
-    if (!SUPPORTED_DIMENSIONS.includes(this.AD_DIMENSION)) {
-      throw new Error("TRENDii Ad Dimensions must be from supported sizes only.");
-    }
-  }
-  log(message) {
-    console.log(message);
-  }
-  createOrGetAdContainer() {
-    const trendiiAdIframe = document.getElementById(this.TRENDII_AD_CONTAINER_ID);
-    if (trendiiAdIframe) return trendiiAdIframe;
-    else {
-      const iframe = document.createElement("iframe");
-      iframe.id = this.TRENDII_AD_CONTAINER_ID;
-      iframe.title = "Trendii Ads";
-      iframe.scrolling = "no";
-      iframe.frameBorder = 0;
-      iframe.width = this.width;
-      iframe.height = this.height;
-      // iframe.sandbox = "allow-top-navigation allow-scripts allow-popups";
-      // iframe.style.display = "none";
-      // iframe.onload = function () {
-      //     // alert('myframe is loaded');
-      //     // var element = myFrame.contentWindow.document.getElementById("trendii-products-container-300X600");
-      //     // const productsContainer = document.getElementById("trendii-products-container-300X600");
-      //     // element.style.display = "none";
-      //     // to make iframe sticky
-      //     // iframe.style = "overflow: hidden; position: fixed; top: 0px; right: 0px; bottom: 0px;";
-      // };
-      return iframe;
-    }
-  }
-  appendAdIFrameToContainer(adIframe) {
-    // TO-DO: Throw error if the containerId not found
-    // append iframe to container or fixed position
-    if (this.options?.adContainerId) {
-      const existingAdContainerEl = document.getElementById(this.options.adContainerId);
-      existingAdContainerEl.appendChild(adIframe);
-    } else {
-      // to make iframe sticky and append to body
-      adIframe.style = "overflow: hidden; z-index:9999; position: fixed; right: 0px; bottom: 0px;";
-      document.body.appendChild(adIframe);
-    }
     if (this.blogContainerSelector) {
       window.addEventListener("scroll", function () {
         // // debugger;
@@ -121,8 +77,51 @@ class TRENDiiAd {
         //       observer.observe(img);
         //     });
         //   }
-      }.bind(this)
-      );
+      }.bind(this));
+    }
+  }
+  checkSupportedDimensions() {
+    if (!SUPPORTED_DIMENSIONS.includes(this.AD_DIMENSION)) {
+      throw new Error("TRENDii Ad Dimensions must be from supported sizes only.");
+    }
+  }
+  log(message) {
+    console.log(message);
+  }
+  createOrGetAdContainer() {
+    const trendiiAdIframe = document.getElementById(this.TRENDII_AD_CONTAINER_ID);
+    if (trendiiAdIframe) return trendiiAdIframe;
+    else {
+      const iframe = document.createElement("iframe");
+      iframe.id = this.TRENDII_AD_CONTAINER_ID;
+      iframe.title = "Trendii Ads";
+      iframe.scrolling = "no";
+      iframe.frameBorder = 0;
+      iframe.width = this.width;
+      iframe.height = this.height;
+      // iframe.sandbox = "allow-top-navigation allow-scripts allow-popups";
+      // iframe.style.display = "none";
+      // iframe.onload = function () {
+      //     // alert('myframe is loaded');
+      //     // var element = myFrame.contentWindow.document.getElementById("trendii-products-container-300X600");
+      //     // const productsContainer = document.getElementById("trendii-products-container-300X600");
+      //     // element.style.display = "none";
+      //     // to make iframe sticky
+      //     // iframe.style = "overflow: hidden; position: fixed; top: 0px; right: 0px; bottom: 0px;";
+      // };
+      return iframe;
+    }
+  }
+  appendAdIFrameToContainer(adIframe) {
+    // TO-DO: Throw error if the containerId not found
+    // append iframe to container or fixed position
+    if (this.options?.adContainerId) {
+      const existingAdContainerEl = document.getElementById(this.options.adContainerId);
+      existingAdContainerEl.appendChild(adIframe);
+    } else {
+      // to make iframe sticky and append to body
+      adIframe.style = "overflow: hidden; z-index:9999; position: fixed; right: 0px; bottom: 0px;";
+      document.body.appendChild(adIframe);
     }
   }
   parseHTMLStringToDocument(htmlString, feedProducts, currentImageSrc) {
