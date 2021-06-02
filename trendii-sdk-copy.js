@@ -11,6 +11,7 @@ class TRENDiiAd {
     this.width = options?.width;
     this.height = options?.height;
     this.blogContainerSelector = options?.blogContainerSelector;
+    this.showAdBlock = true;
     // // debugger;
     this.feedProducts = [];
     this.htmlString;
@@ -48,7 +49,6 @@ class TRENDiiAd {
           .offsetHeight;
 
         var bottomOffsetDiv = topOffset + blogContainerHeight;
-        this.showAdBlock = true;
         var ua = navigator.userAgent.toLowerCase();
         var isAndroid = ua.indexOf("android") > -1; // Detect Android devices
         var isIos = ua.indexOf("iphone") > -1; // Detect IOS devices
@@ -75,6 +75,13 @@ class TRENDiiAd {
             if (adContainer) {
               adContainer.hidden = true;
               this.showAdBlock = false;
+            }
+          }
+          else {
+            const adContainer = document.getElementById(this.TRENDII_AD_CONTAINER_ID);
+            if (adContainer) {
+              adContainer.hidden = false;
+              this.showAdBlock = true;
             }
           }
         }
