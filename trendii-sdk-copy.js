@@ -58,8 +58,11 @@ class TRENDiiAd {
             window.pageYOffset > blogContainerHeight
           ) {
             // document.getElementById(STICKY_AD_CONTAINER_ID).hidden = true;
-            document.getElementById(this.TRENDII_AD_CONTAINER_ID).hidden = true;
-            showAdBlock = false;
+            const adContainer = document.getElementById(this.TRENDII_AD_CONTAINER_ID);
+            if (adContainer) {
+              adContainer.hidden = true;
+              showAdBlock = false;
+            }
           }
         } else {
           console.log(window.pageYOffset);
@@ -68,8 +71,11 @@ class TRENDiiAd {
           if (window.pageYOffset <= (finalTopLimit) || window.pageYOffset > (finalBottomLimit)
           ) {
             // document.getElementById(STICKY_AD_CONTAINER_ID).hidden = true;
-            document.getElementById(this.TRENDII_AD_CONTAINER_ID).hidden = true;
-            showAdBlock = false;
+            const adContainer = document.getElementById(this.TRENDII_AD_CONTAINER_ID);
+            if (adContainer) {
+              adContainer.hidden = true;
+              showAdBlock = false;
+            }
           }
         }
         //   if (showAdBlock === true) {
