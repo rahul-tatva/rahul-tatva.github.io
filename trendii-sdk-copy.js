@@ -171,7 +171,7 @@ class TRENDiiAd {
   // }
   bindAdProductsToAdIframe(currentImageSrc) {
     const iframe = this.createOrGetAdContainer();
-    iframe.hidden = this.showAdBlock;
+    // iframe.hidden = this.showAdBlock;
     // // debugger;
     // check if iframe consists of the ad container already
     const adSliderContainerEl = iframe.contentWindow?.document.getElementById(
