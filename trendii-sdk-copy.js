@@ -48,7 +48,7 @@ class TRENDiiAd {
           .offsetHeight;
 
         var bottomOffsetDiv = topOffset + blogContainerHeight;
-        let showAdBlock = true;
+        this.showAdBlock = true;
         var ua = navigator.userAgent.toLowerCase();
         var isAndroid = ua.indexOf("android") > -1; // Detect Android devices
         var isIos = ua.indexOf("iphone") > -1; // Detect IOS devices
@@ -61,7 +61,7 @@ class TRENDiiAd {
             const adContainer = document.getElementById(this.TRENDII_AD_CONTAINER_ID);
             if (adContainer) {
               adContainer.hidden = true;
-              showAdBlock = false;
+              this.showAdBlock = false;
             }
           }
         } else {
@@ -74,7 +74,7 @@ class TRENDiiAd {
             const adContainer = document.getElementById(this.TRENDII_AD_CONTAINER_ID);
             if (adContainer) {
               adContainer.hidden = true;
-              showAdBlock = false;
+              this.showAdBlock = false;
             }
           }
         }
@@ -164,7 +164,7 @@ class TRENDiiAd {
   // }
   bindAdProductsToAdIframe(currentImageSrc) {
     const iframe = this.createOrGetAdContainer();
-    iframe.hidden = false;
+    iframe.hidden = this.showAdBlock;
     // // debugger;
     // check if iframe consists of the ad container already
     const adSliderContainerEl = iframe.contentWindow?.document.getElementById(
