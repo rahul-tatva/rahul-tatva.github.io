@@ -112,8 +112,8 @@ class TRENDiiAd {
       iframe.frameBorder = 0;
       iframe.width = this.width;
       iframe.height = this.height;
-      iframe.sandbox = "allow-top-navigation allow-scripts allow-popups";
-      // iframe.sandbox = "allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation";
+      // iframe.sandbox = "allow-top-navigation allow-scripts allow-popups";
+      iframe.sandbox = "allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation";
       // iframe.style.display = "none";
       // iframe.onload = function () {
       //     // alert('myframe is loaded');
