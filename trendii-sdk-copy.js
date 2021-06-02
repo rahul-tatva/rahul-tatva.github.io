@@ -108,7 +108,7 @@ class TRENDiiAd {
         } else {
           if (
             (window.pageYOffset) <= (topOffset - this.height) ||
-            window.pageYOffset > bottomOffsetDiv
+            window.pageYOffset > (bottomOffsetDiv - this.height)
           ) {
             // document.getElementById(STICKY_AD_CONTAINER_ID).hidden = true;
             document.getElementById(this.TRENDII_AD_CONTAINER_ID).hidden = true;

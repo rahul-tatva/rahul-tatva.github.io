@@ -127,7 +127,9 @@ ul {
   background-size: cover;
   overflow: hidden;
 }
-
+.block728X90-wrapper .product-item:hover {
+  border: 1px solid rgb(197 98 165 / 80%);
+}
 .block728X90-wrapper .product-item + .product-item {
   margin-left: 10px;
 }
@@ -263,18 +265,18 @@ ul {
   display: none;
 }
 @media (max-width: 767px) {
-  .block728X90-wrapper .product-item{
+  .block728X90-wrapper .product-item {
     width: 85px;
-    height: 101px; 
+    height: 101px;
   }
-  .block728X90-wrapper .product-item .onsale{
+  .block728X90-wrapper .product-item .onsale {
     width: 26px;
     font-size: 6px;
   }
   .block728X90-wrapper .product-details-wrapper-mobile {
     z-index: 1;
     width: 85px;
-    padding:5px 0;
+    padding: 5px 0;
     overflow: hidden;
     display: block;
   }
