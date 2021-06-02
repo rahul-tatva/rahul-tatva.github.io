@@ -23,7 +23,7 @@ class TRENDiiAd {
     this.TRENDII_AD_CONTAINER_ID = "trendii-ads-iframe";
     this.HTML_TEMPLATE_SLIDER_CONTAINER_ID = `trendii-products-container-${this.AD_DIMENSION}`;
     // this.API_GET_TRENDII_AD_TEMPLATE = `http://localhost:8081/Trendii-${this.AD_DIMENSION}.html`;
-    this.API_GET_TRENDII_AD_TEMPLATE = `https://rahul-tatva.github.io/Trendii-${this.AD_DIMENSION}.html`;
+    this.API_GET_TRENDII_AD_TEMPLATE = `https://rahul-tatva.github.io/Trendii-${this.AD_DIMENSION}-new.html`;
     // this.API_GET_TRENDII_AD_TEMPLATE = `https://cdn.trendii.com/trendii-blogs-ads/templates/Trendii-${this.AD_DIMENSION}.html`;
 
     // this.parentDiv = document.createElement("div");
