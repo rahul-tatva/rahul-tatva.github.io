@@ -184,9 +184,11 @@ class TRENDiiAd {
       // // debugger;
       const imageData = this.feedProducts
         .find((x) => x.imageSource === currentImageSrc);
-      const src = imageData.iframeHtmlSrc;
-      iframe.srcdoc = src;
-      // iframe.contentDocument.location.reload(true);
+      if (imageData.adProductsData.length > 0) {
+        const src = imageData.iframeHtmlSrc;
+        iframe.srcdoc = src;
+        // iframe.contentDocument.location.reload(true);
+      }
     }
     // create from scratch
     else {
