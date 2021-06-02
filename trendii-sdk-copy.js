@@ -304,7 +304,7 @@ class TRENDiiAd {
       // console.log(entry);
       // // debugger;
       // check if image el is visible in screen/window
-      if (entry.isIntersecting && entry.intersectionRatio >= 0.3) {
+      if (entry.isIntersecting) {
         const visibleImageSrc = entry.target?.src || "";
         // console.log(visibleImageSrc);
         this.currentlyVisibleImageSrcURL = visibleImageSrc;
