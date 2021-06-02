@@ -474,7 +474,7 @@ function initializeRenderingProductsBasedOnCount(feedProducts, productsContainer
       productItemRedirectContainer.style = "text-decoration: none;";
       productItemRedirectContainer.href = product.url;
       productItemRedirectContainer.target = "_blank";
-      productsContainer.appendChild(oneProductWrapper);
+      productsContainer.appendChild(productItemRedirectContainer);
 
       const oneProductWrapper = document.createElement("DIV");
       oneProductWrapper.classList.add("one-product-wrapper");
