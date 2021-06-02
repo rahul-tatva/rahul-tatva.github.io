@@ -470,9 +470,15 @@ function initializeRenderingProductsBasedOnCount(feedProducts, productsContainer
       // </div>
       const product = feedProducts[0];
 
+      const productItemRedirectContainer = document.createElement("A");
+      productItemRedirectContainer.style = "text-decoration: none;";
+      productItemRedirectContainer.href = product.url;
+      productItemRedirectContainer.target = "_blank";
+      productsContainer.appendChild(oneProductWrapper);
+
       const oneProductWrapper = document.createElement("DIV");
       oneProductWrapper.classList.add("one-product-wrapper");
-      productsContainer.appendChild(oneProductWrapper);
+      productItemRedirectContainer.appendChild(oneProductWrapper);
 
       const productItemContainer = document.createElement("DIV");
       productItemContainer.classList.add("product-item-container");
