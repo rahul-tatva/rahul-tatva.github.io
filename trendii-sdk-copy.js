@@ -5,8 +5,24 @@ const API_GET_AD_PRODUCTS =
 const SUPPORTED_DIMENSIONS = ["160X600", "300X600"];
 const BRAND_NAME = "TRENDii";
 const STICKY_AD_CONTAINER_ID = "trendii-ad-container-sticky";
+
+
+const AD_PRODUCTS_CONTAINER = "trendii-sdk-ad-products-container";
+const PUBLISHER_NAME = "DAILY_MAIL";
+// ad by default to below this class element
+const DAILY_MAIL_IMAGE_SELECTOR_CLASS = ".blkBorder.img-share";
+const IMAGE_GROUP_PARENT_DIV_CLASS = ".mol-img-group";
+const DAILY_MAIL_IMAGE_CAPTION_CLASS = 'imageCaption';
+const SLIDER_CLASS_TO_REPLACE = "trendiiSliderUniqueString";
+const SCRIPT_ID_TO_REPLACE = "trendiiSliderUniqueString-script";
 class TRENDiiAd {
   constructor(options) {
+    this.loadScript("https://cdn.trendii.com/assets/splide.min.js");
+    this.loadStyleSheet("https://cdn.trendii.com/assets/splide-core.min.css");
+    // this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/daily-mail.css");
+    this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/Products-Silder.css");
+
+
     this.options = options;
     this.width = options?.width;
     this.height = options?.height;
@@ -92,6 +108,221 @@ class TRENDiiAd {
         //   }
       }.bind(this));
     }
+
+    // native ads constants
+    this.API_GET_NATIVE_AD_TEMPLATE = `https://rahul-tatva.github.io/sdk-html-templates/Products-Slider-dynamic.html`;
+    this.nativeAdTemplateHTMLString = null;
+    this.API_GET_NATIVE_AD_PRODUCT = `https://beeswaxcreatives.trendii.com/img-creatives`;
+    this.HTML_TEMPLATE_AD_WRAPPER_ID = "trendii-native-ad-wrapper";
+    this.HTML_TEMPLATE_SLIDER_CONTAINER_ID = "trendii-sdk-ad-products-container";
+
+    document.addEventListener("DOMContentLoaded", () => {
+      //debugger;
+      this.getAllDailyMailBlogImagesFromDOM();
+      const requestOptions = { method: "GET" };
+      fetch(this.API_GET_NATIVE_AD_TEMPLATE, requestOptions)
+        .then((response) => response.text())
+        .then((response) => {
+          //debugger;
+          // //debugger;
+          this.nativeAdTemplateHTMLString = response;
+          // this.log(response.data);
+          // this.getProductsForAllImages();
+          // this.appendAdContainersToImages();
+          this.getProductsForAllImages();
+        })
+        .catch((error) => {
+          console.error(error);
+          typeof onErrorCallback === "function" && onErrorCallback(error);
+        });
+    });
+  }
+  loadStyleSheet(url) {
+    var styles = document.createElement('link');
+    styles.type = "text/css";
+    styles.rel = "stylesheet";
+    styles.href = url;
+    document.head.appendChild(styles);
+  }
+  loadScript(url) {
+    document.body.appendChild(document.createElement("script")).src = url;
+  }
+  loadScriptIntoHead(url) {
+    document.head.appendChild(document.createElement("script")).src = url;
+  }
+  getProductsForAllImages(onSuccessCallback) {
+    //debugger;
+    const requestBody = {
+      // "webpageUrl": "https://rahul-tatva.github.io/fashion-blog-below-ads.html",
+      //window.location.href,
+      "webpageUrl": window.location.href,
+      "imageUrls": this.allValidImageSrcArray
+    };
+    const headers = new Headers();
+    headers.append("Content-Type", "application/json");
+    const raw = JSON.stringify(requestBody);
+    const requestOptions = {
+      method: "POST",
+      headers,
+      body: raw,
+    };
+    fetch(this.API_GET_NATIVE_AD_PRODUCT, requestOptions)
+      .then((response) => response.json())
+      .then((response) => {
+        //debugger;
+        // if feed does not deliver an empty response
+        if (response !== "") {
+          if (response?.success === true) {
+            //debugger;
+            this.feedProducts = response;
+            // this.log(response.data);
+            // this.appendAdContainersToImages();
+            // const domParser = new DOMParser();
+            // const parsedHtmlDocumentEl = domParser.parseFromString(this.nativeAdHTMLString, "text/html");
+            // // here the container id should be dynamic for each ads sizes
+            // this.productsContainerEl = parsedHtmlDocumentEl.getElementById(
+            //   this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID
+            // );
+            // this.productsContainerEl.innerHTML = "";
+            this.createAdTemplatesForAllProducts();
+            this.getAllParentImageGroupClass();
+            // new Splide('.splide', {
+            //   type: 'loop',
+            //   // perPage: 6,
+            //   pagination: false,
+            //   gap: 10,
+            //   autoWidth: true,
+            //   // width: 400,
+            //   // fixedWidth: 200,
+            // }).mount();
+            this.log(this.feedProducts);
+          }
+          // else {
+          //   this.feedProducts = window.FEED_PRODUCTS;
+          //   this.createAdTemplatesForAllProducts();
+          //   this.getAllParentImageGroupClass();
+          //   onSuccessCallback();
+          //   this.log(this.feedProducts);
+          // }
+        } else {
+          // empty response from feed
+          this.log("empty feed response");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        typeof onErrorCallback === "function" && onErrorCallback(error);
+      });
+  }
+  getAllParentImageGroupClass() {
+    const allParentElements = document.querySelectorAll(IMAGE_GROUP_PARENT_DIV_CLASS);
+    this.parentImageGroupElements = Array.from(allParentElements);
+    this.log(this.parentImageGroupElements);
+    // let isThereAnySliderAds = false;
+    let foundImageData = null;
+    this.parentImageGroupElements.forEach((parentEl, index) => {
+
+      this.log(parentEl.getElementsByTagName('img'));
+      const allImagesPresentInTheSameGroup = Array.from(parentEl.getElementsByTagName('img'));
+      //debugger;
+
+      for (let i = 0; i < allImagesPresentInTheSameGroup.length; i++) {
+        const currentImageEle = allImagesPresentInTheSameGroup[i];
+        const imageSrcToShowAd = currentImageEle.src;
+        const imageDataSrcToShowAd = currentImageEle.getAttribute("data-src");
+        foundImageData = this.feedProducts.payload
+          .find((imageData) => imageData.imageUrl === imageSrcToShowAd || imageDataSrcToShowAd);
+        if (foundImageData?.generatedAdHTML) { break; }
+      }
+      // const currentImageEle = parentEl.getElementsByTagName('img')[0];
+      // this.log(imageSrcToShowAd);
+      // this.log(imageDataSrcToShowAd);
+      // this.log(findImageData);
+
+      if (foundImageData?.generatedAdHTML) {
+        // isThereAnySliderAds = true;
+        const adContainer = document.createElement('div');
+        adContainer.classList.add("adContainer");
+        adContainer.style.background = "yellow";
+        adContainer.style.maxHeight = "300px";
+        // adContainer.appendChild(findImageData.generatedAdHTML);
+
+        // append the found ad just after the image caption
+        parentEl
+          .getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0]
+          .after(foundImageData.generatedAdHTML);
+        // parentEl
+        //   .after(foundImageData.generatedAdHTML);
+        // const script = foundImageData.scriptTag;
+        const sliderIdSelector = `#${foundImageData.sliderId}`;
+        setTimeout(() => {
+          // const sc = document.createElement('script');
+          // sc.innerHTML = foundImageData.scriptTag.innerHTML;
+          // document.body.appendChild(sc);
+          this.log("scripts append");
+          //debugger;
+          // setup the splid lib to initialize the slider
+          const testSlider = new Splide(sliderIdSelector, {
+            type: 'loop',
+            // perPage: 6,
+            pagination: false,
+            gap: 10,
+            autoWidth: true,
+            // width: 400,
+            // fixedWidth: 200,
+          }).mount();
+          testSlider.on('mounted', function () {
+            console.log("mounted");
+            // This will be executed.
+          });
+        }, 2000);
+        // const div = document.createElement('div');
+        // div.style.background = "yellow";
+        // parentEl.getElementsByClassName('imageCaption')[0].after(div);
+        // parentEl.getElementsByClassName('imageCaption')[0].after(div);
+      }
+      // //debugger;
+      // const div = document.createElement('div');
+      // div.style.background = "yellow";
+      // div.style.height = "100px";
+      // parentEl.getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0].after(div);
+      // if (index === (this.parentImageGroupElements.length - 1) && isThereAnySliderAds) { }
+    });
+    // document.querySelectorAll(".mol-img-group")[0].getElementsByTagName('img');
+    // document.querySelectorAll(".mol-img-group")[0].getElementsByClassName('imageCaption')[0];
+    // document.querySelectorAll(".mol-img-group")[0].getElementsByClassName('imageCaption')[0].after(t);
+  }
+  createAdTemplatesForAllProducts() {
+    this.feedProducts.payload.map((imageData, index) => {
+      if (imageData?.products.length > 0) {
+        const ad = this.createAdsForAllProductsInAdvance(imageData, index);
+        imageData.generatedAdHTML = ad;
+        imageData.generatedAdString = ad.innerHTML;
+      }
+    });
+  }
+  createAdsForAllProductsInAdvance(imageData, index) {
+    //debugger;
+    const products = imageData.products;
+    const identifier = `splide${index}`;
+    const newDOM = this.nativeAdTemplateHTMLString.replaceAll(SLIDER_CLASS_TO_REPLACE, identifier);
+    const domParser = new DOMParser();
+    const templatesDOM = domParser.parseFromString(newDOM, "text/html");
+    let productsContainerEl = templatesDOM.getElementById(this.HTML_TEMPLATE_SLIDER_CONTAINER_ID);
+    const scriptId = `${identifier}-script`;
+    let scriptTag = templatesDOM.getElementById(scriptId);
+    productsContainerEl.innerHTML = "";
+    imageData.scriptTag = scriptTag;
+    imageData.sliderId = identifier;
+    products.forEach((product) => this.createSliderItemProduct(product, productsContainerEl));
+    const resultantAdWrapper = templatesDOM.getElementById(this.HTML_TEMPLATE_AD_WRAPPER_ID);
+    return resultantAdWrapper;
+  }
+  getAllImageFromTheDOM() {
+    this.allValidImageSrcArray = [];
+    const alreadyLoadedImagesArray = Array.from(document.querySelectorAll(this.options.adImagesSelector))
+      .map(img => img.getAttribute("src"));
+    this.allValidImageSrcArray.push(...alreadyLoadedImagesArray);
   }
   checkSupportedDimensions() {
     if (!SUPPORTED_DIMENSIONS.includes(this.AD_DIMENSION)) {
@@ -294,9 +525,7 @@ class TRENDiiAd {
   handleDOMLoaded() {
     // // debugger;
     // TO DO throw error if image selector not present
-    this.allImageElements = document.querySelectorAll(
-      this.options.adImagesSelector
-    );
+    this.allImageElements = document.querySelectorAll(this.options.adImagesSelector);
     // // debugger;
     const initialLoadImageSource = this.allImageElements[0].src;
     this.allImageElements.forEach((imgEl) => {
@@ -447,6 +676,88 @@ class TRENDiiAd {
     productItemRedirectContainer.appendChild(productItem);
     return productItemRedirectContainer;
     // return productItem;
+  }
+  createSliderItemProduct(product, productsContainer) {
+    // <li class="splide__slide">
+    //     <div class="product-item-container">
+    //         <div class="product-item"
+    //             style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
+    //             <span class="onsale">ON SALE</span>
+    //             <div class="product-details-wrapper">
+    //                 <b class="brand-name">TRENDii</b>
+    //                 <p class="product-name">M2K tekno sneakers</p>
+    //                 <span class="product-cashback-chip">2% Cashback</span>
+    //                 <em class="product-price">$260</em>
+    //             </div>
+    //         </div>
+    //     </div>
+    // </li>
+    const sliderItem = document.createElement("LI");
+    sliderItem.classList.add("splide__slide");
+    productsContainer.appendChild(sliderItem);
+
+    const productItemContainer = document.createElement("DIV");
+    productItemContainer.classList.add("product-item-container");
+    productItemContainer.addEventListener("click", function () {
+      window.open(product.url, "_blank");
+    });
+    sliderItem.appendChild(productItemContainer);
+
+    const productItem = document.createElement("DIV");
+    productItem.classList.add("product-item");
+    productItem.style.backgroundImage = `url(${product.image})`;
+    productItemContainer.appendChild(productItem);
+
+    if (product.sale) {
+      const onSaleTag = document.createElement("SPAN");
+      onSaleTag.classList.add("onsale");
+      onSaleTag.innerHTML = "ON SALE";
+      productItem.appendChild(onSaleTag);
+    }
+
+    const productDetailsWrapper = document.createElement("DIV");
+    productDetailsWrapper.classList.add("product-details-wrapper");
+    productItem.appendChild(productDetailsWrapper);
+    productDetailsWrapper.addEventListener("click", function () {
+      window.open(product.url, "_blank");
+    });
+
+    const productDetailsWrapperMobile = document.createElement("DIV");
+    productDetailsWrapperMobile.classList.add("product-details-wrapper-mobile");
+    productItemContainer.appendChild(productDetailsWrapperMobile);
+    productDetailsWrapperMobile.addEventListener("click", function () {
+      window.open(product.url, "_blank");
+    });
+
+    const productName = document.createElement("B");
+    productName.classList.add("brand-name");
+    productName.innerHTML = this.brandName;
+    productDetailsWrapper.appendChild(productName);
+
+    const productNameP = document.createElement("P");
+    productNameP.classList.add("product-name");
+    productNameP.innerHTML = product.name;
+    productDetailsWrapper.appendChild(productNameP);
+
+    const productNamePMobile = document.createElement("P");
+    productNamePMobile.classList.add("product-name");
+    productNamePMobile.innerHTML = product.name;
+    productDetailsWrapperMobile.appendChild(productNamePMobile);
+
+    // const productCashbackPercentage = document.createElement("SPAN");
+    // productCashbackPercentage.classList.add("product-cashback-chip");
+    // productCashbackPercentage.innerHTML = "4%" + " Cashback";
+    // productDetailsWrapper.appendChild(productCashbackPercentage);
+
+    const productPrice = document.createElement("EM");
+    productPrice.classList.add("product-price");
+    productPrice.innerHTML = product.currency + product.price;
+    productDetailsWrapper.appendChild(productPrice);
+
+    const productPriceMobile = document.createElement("EM");
+    productPriceMobile.classList.add("product-price");
+    productPriceMobile.innerHTML = product.currency + product.price;
+    productDetailsWrapperMobile.appendChild(productPriceMobile);
   }
 }
 function initializeRenderingProductsBasedOnCount(feedProducts, productsContainer) {
