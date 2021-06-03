@@ -10,8 +10,8 @@ const STICKY_AD_CONTAINER_ID = "trendii-ad-container-sticky";
 const AD_PRODUCTS_CONTAINER = "trendii-sdk-ad-products-container";
 const PUBLISHER_NAME = "DAILY_MAIL";
 // ad by default to below this class element
-const DAILY_MAIL_IMAGE_SELECTOR_CLASS = ".blkBorder.img-share";
-const IMAGE_GROUP_PARENT_DIV_CLASS = ".mol-img-group";
+const BLOG_MAIN_IMAGES_SELECTOR_CLASS = ".thumb-image";
+const IMAGE_GROUP_PARENT_DIV_CLASS = ".image-block";
 const DAILY_MAIL_IMAGE_CAPTION_CLASS = 'imageCaption';
 const SLIDER_CLASS_TO_REPLACE = "trendiiSliderUniqueString";
 const SCRIPT_ID_TO_REPLACE = "trendiiSliderUniqueString-script";
@@ -189,7 +189,7 @@ class TRENDiiAd {
             // );
             // this.productsContainerEl.innerHTML = "";
             this.createAdTemplatesForAllProducts();
-            this.getAllParentImageGroupClass();
+            if (Boolean(this.adCreated)) this.getAllParentImageGroupClass();
             // new Splide('.splide', {
             //   type: 'loop',
             //   // perPage: 6,
@@ -248,13 +248,14 @@ class TRENDiiAd {
         const adContainer = document.createElement('div');
         adContainer.classList.add("adContainer");
         adContainer.style.background = "yellow";
-        adContainer.style.maxHeight = "300px";
+        adContainer.style.height = "200px";
         // adContainer.appendChild(findImageData.generatedAdHTML);
 
         // append the found ad just after the image caption
         parentEl
-          .getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0]
-          .after(foundImageData.generatedAdHTML);
+          // .getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0]
+          // .after(foundImageData.generatedAdHTML);
+          .after(adContainer);
         // parentEl
         //   .after(foundImageData.generatedAdHTML);
         // const script = foundImageData.scriptTag;
@@ -299,6 +300,7 @@ class TRENDiiAd {
   createAdTemplatesForAllProducts() {
     this.feedProducts.payload.map((imageData, index) => {
       if (imageData?.products.length > 0) {
+        this.adCreated = true;
         const ad = this.createAdsForAllProductsInAdvance(imageData, index);
         imageData.generatedAdHTML = ad;
         imageData.generatedAdString = ad.innerHTML;
