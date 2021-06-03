@@ -253,6 +253,7 @@ class TRENDiiAd {
 
         // append the found ad just after the image caption
         parentEl
+          .getElementsByClassName(BLOG_MAIN_IMAGES_SELECTOR_CLASS)[0]
           // .getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0]
           // .after(foundImageData.generatedAdHTML);
           .after(adContainer);
