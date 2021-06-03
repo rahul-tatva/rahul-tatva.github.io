@@ -156,6 +156,7 @@ class TRENDiiAd {
       // "webpageUrl": "https://rahul-tatva.github.io/fashion-blog-below-ads.html",
       //window.location.href,
       "webpageUrl": window.location.href,
+      "publisher_id": 1,
       "imageUrls": this.allValidImageSrcArray
     };
     const headers = new Headers();
