@@ -11,6 +11,7 @@ const AD_PRODUCTS_CONTAINER = "trendii-sdk-ad-products-container";
 const PUBLISHER_NAME = "DAILY_MAIL";
 // ad by default to below this class element
 const BLOG_MAIN_IMAGES_SELECTOR_CLASS = ".thumb-image";
+const BLOG_MAIN_IMAGES_SELECTOR_CLASS_NAME = "thumb-image";
 const IMAGE_GROUP_PARENT_DIV_CLASS = ".image-block";
 const DAILY_MAIL_IMAGE_CAPTION_CLASS = 'imageCaption';
 const SLIDER_CLASS_TO_REPLACE = "trendiiSliderUniqueString";
@@ -253,7 +254,7 @@ class TRENDiiAd {
 
         // append the found ad just after the image caption
         parentEl
-          .getElementsByClassName(BLOG_MAIN_IMAGES_SELECTOR_CLASS)[0]
+          .getElementsByClassName(BLOG_MAIN_IMAGES_SELECTOR_CLASS_NAME)[0]
           // .getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0]
           // .after(foundImageData.generatedAdHTML);
           .after(adContainer);
