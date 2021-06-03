@@ -254,9 +254,9 @@ class TRENDiiAd {
 
         // append the found ad just after the image caption
         parentEl
-          .getElementsByClassName(BLOG_MAIN_IMAGES_SELECTOR_CLASS_NAME)[0];
-        // .getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0]
-        .after(foundImageData.generatedAdHTML);
+          .getElementsByClassName(BLOG_MAIN_IMAGES_SELECTOR_CLASS_NAME)[0]
+          // .getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0]
+          .after(foundImageData.generatedAdHTML);
         // .after(adContainer);
         // parentEl
         //   .after(foundImageData.generatedAdHTML);
@@ -282,7 +282,7 @@ class TRENDiiAd {
             console.log("mounted");
             // This will be executed.
           });
-        }, 2000);
+        }, 3000);
         // const div = document.createElement('div');
         // div.style.background = "yellow";
         // parentEl.getElementsByClassName('imageCaption')[0].after(div);
