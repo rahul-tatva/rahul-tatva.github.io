@@ -471,6 +471,7 @@ function initializeRenderingProductsBasedOnCount(feedProducts, productsContainer
       const product = feedProducts[0];
 
       const productItemRedirectContainer = document.createElement("A");
+      productItemRedirectContainer.classList.add("product-redirection-link");
       productItemRedirectContainer.style = "text-decoration: none;";
       productItemRedirectContainer.href = product.url;
       productItemRedirectContainer.target = "_blank";
