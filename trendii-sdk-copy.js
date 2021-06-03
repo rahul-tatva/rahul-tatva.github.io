@@ -449,9 +449,6 @@ class TRENDiiAd {
     // return productItem;
   }
 }
-
-
-
 function initializeRenderingProductsBasedOnCount(feedProducts, productsContainer) {
   switch (feedProducts.length) {
     case 1: {
