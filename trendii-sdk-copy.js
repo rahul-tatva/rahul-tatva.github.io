@@ -157,6 +157,9 @@ class TRENDiiAd {
       //window.location.href,
       "webpageUrl": window.location.href,
       "publisher_id": 1,
+      "publisher_name": "Trendii Blog",
+      "domain": "blog.trendii.com",
+      "active": true,
       "imageUrls": this.allValidImageSrcArray
     };
     const headers = new Headers();
@@ -466,6 +469,10 @@ class TRENDiiAd {
     const requestBody = {
       // "webpageUrl": "https://rahul-tatva.github.io/fashion-blog-below-ads.html",//window.location.href,
       webpageUrl: window.location.href,
+      publisher_id: 1,
+      publisher_name: "Trendii Blog",
+      domain: "blog.trendii.com",
+      active: true,
       imageUrls: [imageSource]
     };
 
