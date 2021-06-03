@@ -570,12 +570,19 @@ function initializeRenderingProductsBasedOnCount(feedProducts, productsContainer
         col.classList.add("col");
         row.appendChild(col);
 
+        const productItemRedirectContainer = document.createElement("A");
+        productItemRedirectContainer.classList.add("product-redirection-link");
+        productItemRedirectContainer.style = "text-decoration: none;";
+        productItemRedirectContainer.href = product.url;
+        productItemRedirectContainer.target = "_blank";
+        col.appendChild(productItemRedirectContainer);
+
         const productItemContainer = document.createElement("DIV");
         productItemContainer.classList.add("product-item-container");
         productItemContainer.addEventListener("click", function () {
           window.open(product.url, "_blank");
         });
-        col.appendChild(productItemContainer);
+        productItemRedirectContainer.appendChild(productItemContainer);
 
         const productItem = document.createElement("DIV");
         productItem.classList.add("product-item");
@@ -679,9 +686,16 @@ function initializeRenderingProductsBasedOnCount(feedProducts, productsContainer
         col.classList.add("col");
         row.appendChild(col);
 
+        const productItemRedirectContainer = document.createElement("A");
+        productItemRedirectContainer.classList.add("product-redirection-link");
+        productItemRedirectContainer.style = "text-decoration: none;";
+        productItemRedirectContainer.href = product.url;
+        productItemRedirectContainer.target = "_blank";
+        col.appendChild(productItemRedirectContainer);
+
         const productItemContainer = document.createElement("DIV");
         productItemContainer.classList.add("product-item-container");
-        col.appendChild(productItemContainer);
+        productItemRedirectContainer.appendChild(productItemContainer);
 
         const largeItemContainer = document.createElement("DIV");
         largeItemContainer.classList.add("large-item-container");
@@ -800,12 +814,19 @@ function initializeRenderingProductsBasedOnCount(feedProducts, productsContainer
           col.classList.add("col-6");
           row.appendChild(col);
 
+          const productItemRedirectContainer = document.createElement("A");
+          productItemRedirectContainer.classList.add("product-redirection-link");
+          productItemRedirectContainer.style = "text-decoration: none;";
+          productItemRedirectContainer.href = product.url;
+          productItemRedirectContainer.target = "_blank";
+          col.appendChild(productItemRedirectContainer);
+
           const productItemContainer = document.createElement("DIV");
           productItemContainer.classList.add("product-item-container");
           productItemContainer.addEventListener("click", function () {
             window.open(product.url, "_blank");
           });
-          col.appendChild(productItemContainer);
+          productItemRedirectContainer.appendChild(productItemContainer);
 
           const productItem = document.createElement("DIV");
           productItem.classList.add("product-item");
@@ -932,12 +953,19 @@ function initializeRenderingProductsBasedOnCount(feedProducts, productsContainer
       col.classList.add("col");
       row.appendChild(col);
 
+      const productItemRedirectContainer = document.createElement("A");
+      productItemRedirectContainer.classList.add("product-redirection-link");
+      productItemRedirectContainer.style = "text-decoration: none;";
+      productItemRedirectContainer.href = product.url;
+      productItemRedirectContainer.target = "_blank";
+      col.appendChild(productItemRedirectContainer);
+
       const productItemContainer = document.createElement("DIV");
       productItemContainer.classList.add("product-item-container");
       productItemContainer.addEventListener("click", function () {
         window.open(product.url, "_blank");
       });
-      col.appendChild(productItemContainer);
+      productItemRedirectContainer.appendChild(productItemContainer);
 
       const productItem = document.createElement("DIV");
       productItem.classList.add("product-item");
@@ -984,12 +1012,19 @@ function initializeRenderingProductsBasedOnCount(feedProducts, productsContainer
           col.classList.add("col-6");
           row.appendChild(col);
 
+          const productItemRedirectContainer = document.createElement("A");
+          productItemRedirectContainer.classList.add("product-redirection-link");
+          productItemRedirectContainer.style = "text-decoration: none;";
+          productItemRedirectContainer.href = product.url;
+          productItemRedirectContainer.target = "_blank";
+          col.appendChild(productItemRedirectContainer);
+
           const productItemContainer = document.createElement("DIV");
           productItemContainer.classList.add("product-item-container");
           productItemContainer.addEventListener("click", function () {
             window.open(product.url, "_blank");
           });
-          col.appendChild(productItemContainer);
+          productItemRedirectContainer.appendChild(productItemContainer);
 
           const productItem = document.createElement("DIV");
           productItem.classList.add("product-item");
@@ -1136,6 +1171,7 @@ function initializeRenderingProductsBasedOnCount(feedProducts, productsContainer
           row.appendChild(col);
 
           const productItemRedirectContainer = document.createElement("A");
+          productItemRedirectContainer.classList.add("product-redirection-link");
           productItemRedirectContainer.style = "text-decoration: none;";
           productItemRedirectContainer.href = product.url;
           productItemRedirectContainer.target = "_blank";
