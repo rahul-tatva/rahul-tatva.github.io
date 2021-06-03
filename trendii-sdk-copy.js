@@ -118,7 +118,7 @@ class TRENDiiAd {
 
     document.addEventListener("DOMContentLoaded", () => {
       //debugger;
-      this.getAllDailyMailBlogImagesFromDOM();
+      this.getAllImageFromTheDOM();
       const requestOptions = { method: "GET" };
       fetch(this.API_GET_NATIVE_AD_TEMPLATE, requestOptions)
         .then((response) => response.text())
