@@ -277,7 +277,8 @@ class TRENDiiAd {
             pagination: false,
             gap: 10,
             autoWidth: true,
-            height: 125,
+            // height: 125,
+            autoHeight: true,
             // width: 400,
             // fixedWidth: 200,
           }).mount();
