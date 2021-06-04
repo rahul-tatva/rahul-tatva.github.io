@@ -623,10 +623,10 @@ class TRENDiiAd {
         break;
     }
   }
-  createProductsSlider(productsContainerEl, feedProducts, currentImageSrc) {
+  createProductsSlider(productsContainerEl, sliderRenderingProducts, currentImageSrc) {
     // // debugger;
     let sliderItemListEl;
-    const currentImageData = feedProducts
+    const currentImageData = sliderRenderingProducts
       .find((x) => x.imageSource === currentImageSrc);
     const adProducts = currentImageData?.adProductsData.slice(0, 6);
     // const sliderListItemProductCount = this.sliderListProductCount();
@@ -795,8 +795,8 @@ class TRENDiiAd {
     // productDetailsWrapperMobile.appendChild(productPriceMobile);
   }
 }
-function initializeRenderingProductsBasedOnCount(feedProducts, productsContainer) {
-  switch (feedProducts.length) {
+function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsContainer) {
+  switch (adRenderingProducts.length) {
     case 1: {
       // <div class="one-product-wrapper">
       //     <div class="product-item-container">
@@ -811,7 +811,7 @@ function initializeRenderingProductsBasedOnCount(feedProducts, productsContainer
       //         </div>
       //     </div>
       // </div>
-      const product = feedProducts[0];
+      const product = adRenderingProducts[0];
 
       const productItemRedirectContainer = document.createElement("A");
       productItemRedirectContainer.classList.add("product-redirection-link");
@@ -903,7 +903,7 @@ function initializeRenderingProductsBasedOnCount(feedProducts, productsContainer
       productsContainer.appendChild(twoProductWrapper);
 
       for (let i = 0; i <= 1; i++) {
-        const product = feedProducts[i];
+        const product = adRenderingProducts[i];
 
         const row = document.createElement("DIV");
         row.classList.add("row");
@@ -1020,7 +1020,7 @@ function initializeRenderingProductsBasedOnCount(feedProducts, productsContainer
       productsContainer.appendChild(threeProductWrapper);
 
       for (let i = 0; i <= 2; i++) {
-        const product = feedProducts[i];
+        const product = adRenderingProducts[i];
 
         const row = document.createElement("DIV");
         row.classList.add("row");
@@ -1152,7 +1152,7 @@ function initializeRenderingProductsBasedOnCount(feedProducts, productsContainer
         fourProductWrapper.appendChild(row);
 
         for (let i = 1; i <= 2; i++) {
-          const product = feedProducts[countIndex];
+          const product = adRenderingProducts[countIndex];
 
           const col = document.createElement("DIV");
           col.classList.add("col-6");
@@ -1287,7 +1287,7 @@ function initializeRenderingProductsBasedOnCount(feedProducts, productsContainer
       fiveProductWrapper.classList.add("five-product-wrapper");
       productsContainer.appendChild(fiveProductWrapper);
 
-      const product = feedProducts[0];
+      const product = adRenderingProducts[0];
 
       const row = document.createElement("DIV");
       row.classList.add("row");
@@ -1350,7 +1350,7 @@ function initializeRenderingProductsBasedOnCount(feedProducts, productsContainer
         fiveProductWrapper.appendChild(row);
 
         for (let i = 1; i <= 2; i++) {
-          const product = feedProducts[countIndex];
+          const product = adRenderingProducts[countIndex];
 
           const col = document.createElement("DIV");
           col.classList.add("col-6");
@@ -1508,7 +1508,7 @@ function initializeRenderingProductsBasedOnCount(feedProducts, productsContainer
         sixProductWrapper.appendChild(row);
 
         for (let i = 1; i <= 2; i++) {
-          const product = feedProducts[countIndex];
+          const product = adRenderingProducts[countIndex];
 
           const col = document.createElement("DIV");
           col.classList.add("col-6");
