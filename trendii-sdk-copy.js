@@ -323,7 +323,9 @@ class TRENDiiAd {
     const domParser = new DOMParser();
     const templatesDOM = domParser.parseFromString(newDOM, "text/html");
     let productsContainerEl = templatesDOM.getElementById(this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID);
-    productsContainerEl.style.display = "none";
+    // productsContainerEl.style.display = "none";
+    // productsContainerEl.style.visibility = "hidden";
+
     const scriptId = `${identifier}-script`;
     let scriptTag = templatesDOM.getElementById(scriptId);
     productsContainerEl.innerHTML = "";
