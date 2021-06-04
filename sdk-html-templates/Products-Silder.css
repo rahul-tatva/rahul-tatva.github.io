@@ -108,9 +108,9 @@ ul {
 }
 
 .block728X90-wrapper .all-product {
-  display: flex;
+  /* display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: center; */
 }
 
 .block728X90-wrapper .product-item {
