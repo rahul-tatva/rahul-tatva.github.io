@@ -550,23 +550,23 @@ class TRENDiiAd {
       });
     });
 
-    this.getAllImageFromTheDOM();
-    const requestOptions = { method: "GET" };
-    fetch(this.API_GET_NATIVE_AD_TEMPLATE, requestOptions)
-      .then((response) => response.text())
-      .then((response) => {
-        //debugger;
-        // //debugger;
-        this.nativeAdTemplateHTMLString = response;
-        // this.log(response.data);
-        // this.getProductsForAllImages();
-        // this.appendAdContainersToImages();
-        this.getProductsForAllImages();
-      })
-      .catch((error) => {
-        console.error(error);
-        typeof onErrorCallback === "function" && onErrorCallback(error);
-      });
+    // this.getAllImageFromTheDOM();
+    // const requestOptions = { method: "GET" };
+    // fetch(this.API_GET_NATIVE_AD_TEMPLATE, requestOptions)
+    //   .then((response) => response.text())
+    //   .then((response) => {
+    //     //debugger;
+    //     // //debugger;
+    //     this.nativeAdTemplateHTMLString = response;
+    //     // this.log(response.data);
+    //     // this.getProductsForAllImages();
+    //     // this.appendAdContainersToImages();
+    //     this.getProductsForAllImages();
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //     typeof onErrorCallback === "function" && onErrorCallback(error);
+    //   });
   }
   registerImageElementsToObserveVisibility() {
     document.addEventListener("DOMContentLoaded", this.handleDOMLoaded.bind(this));
