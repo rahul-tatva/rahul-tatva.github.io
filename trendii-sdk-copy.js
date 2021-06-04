@@ -115,7 +115,7 @@ class TRENDiiAd {
     this.nativeAdTemplateHTMLString = null;
     this.API_GET_NATIVE_AD_PRODUCT = `https://beeswaxcreatives.trendii.com/img-creatives`;
     this.HTML_TEMPLATE_AD_WRAPPER_ID = "trendii-native-ad-wrapper";
-    this.HTML_TEMPLATE_SLIDER_CONTAINER_ID = "trendii-sdk-ad-products-container";
+    this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID = "trendii-sdk-ad-products-container";
 
     // document.addEventListener("DOMContentLoaded", () => {
     //   //debugger;
@@ -316,7 +316,7 @@ class TRENDiiAd {
     const newDOM = this.nativeAdTemplateHTMLString.replaceAll(SLIDER_CLASS_TO_REPLACE, identifier);
     const domParser = new DOMParser();
     const templatesDOM = domParser.parseFromString(newDOM, "text/html");
-    let productsContainerEl = templatesDOM.getElementById(this.HTML_TEMPLATE_SLIDER_CONTAINER_ID);
+    let productsContainerEl = templatesDOM.getElementById(this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID);
     const scriptId = `${identifier}-script`;
     let scriptTag = templatesDOM.getElementById(scriptId);
     productsContainerEl.innerHTML = "";
@@ -380,10 +380,7 @@ class TRENDiiAd {
   parseHTMLStringToDocument(htmlString, feedProducts, currentImageSrc) {
     // // debugger;
     const domParser = new DOMParser();
-    const parsedHtmlDocumentEl = domParser.parseFromString(
-      htmlString,
-      "text/html"
-    );
+    const parsedHtmlDocumentEl = domParser.parseFromString(htmlString, "text/html");
     // here the container id should be dynamic for each ads sizes
     var productsContainerEl = parsedHtmlDocumentEl.getElementById(
       this.HTML_TEMPLATE_SLIDER_CONTAINER_ID
