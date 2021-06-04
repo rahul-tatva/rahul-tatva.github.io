@@ -31,6 +31,7 @@ class TRENDiiAd {
     this.showAdBlock = true;
     // // debugger;
     this.feedProducts = [];
+    this.nativeAdFeedProducts = [];
     this.htmlString;
     this.allImageElements;
     this.currentlyVisibleImageSrcURL = null;
@@ -179,7 +180,7 @@ class TRENDiiAd {
         if (response !== "") {
           if (response?.success === true) {
             //debugger;
-            this.feedProducts = response;
+            this.nativeAdFeedProducts = response;
             // this.log(response.data);
             // this.appendAdContainersToImages();
             // const domParser = new DOMParser();
@@ -200,7 +201,7 @@ class TRENDiiAd {
             //   // width: 400,
             //   // fixedWidth: 200,
             // }).mount();
-            this.log(this.feedProducts);
+            this.log(this.nativeAdFeedProducts);
           }
           // else {
           //   this.feedProducts = window.FEED_PRODUCTS;
@@ -235,7 +236,7 @@ class TRENDiiAd {
         const currentImageEle = allImagesPresentInTheSameGroup[i];
         const imageSrcToShowAd = currentImageEle.src;
         const imageDataSrcToShowAd = currentImageEle.getAttribute("data-src");
-        foundImageData = this.feedProducts.payload
+        foundImageData = this.nativeAdFeedProducts.payload
           .find((imageData) => imageData.imageUrl === imageSrcToShowAd || imageDataSrcToShowAd);
         if (foundImageData?.generatedAdHTML) { break; }
       }
@@ -300,7 +301,7 @@ class TRENDiiAd {
     // document.querySelectorAll(".mol-img-group")[0].getElementsByClassName('imageCaption')[0].after(t);
   }
   createAdTemplatesForAllProducts() {
-    this.feedProducts.payload.map((imageData, index) => {
+    this.nativeAdFeedProducts.payload.map((imageData, index) => {
       if (imageData?.products.length > 0) {
         this.adCreated = true;
         const ad = this.createAdsForAllProductsInAdvance(imageData, index);
