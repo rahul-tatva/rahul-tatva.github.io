@@ -277,6 +277,7 @@ class TRENDiiAd {
             pagination: false,
             gap: 10,
             autoWidth: true,
+            height: 125,
             // width: 400,
             // fixedWidth: 200,
           }).mount();
@@ -284,7 +285,7 @@ class TRENDiiAd {
             console.log("mounted");
             // This will be executed.
           });
-        }, 3000);
+        }, 10000);
         // const div = document.createElement('div');
         // div.style.background = "yellow";
         // parentEl.getElementsByClassName('imageCaption')[0].after(div);
