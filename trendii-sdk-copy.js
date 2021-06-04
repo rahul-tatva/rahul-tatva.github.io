@@ -581,7 +581,8 @@ class TRENDiiAd {
         const visibleImageSrc = entry.target?.src || "";
         // console.log(visibleImageSrc);
         this.currentlyVisibleImageSrcURL = visibleImageSrc;
-        if (this.feedProducts.length > 0) {
+        // just to check that the ads is not rendered before the products are fetched
+        if (this.feedProducts.payload.length > 0) {
           this.bindAdProductsToAdIframe(visibleImageSrc);
         }
         // this.getSimilarProducts(currentImageSrc, (response) => {
