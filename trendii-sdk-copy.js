@@ -269,6 +269,8 @@ class TRENDiiAd {
           // sc.innerHTML = foundImageData.scriptTag.innerHTML;
           // document.body.appendChild(sc);
           this.log("scripts append");
+          const adProductsSliderContainer = document.getElementById(foundImageData.sliderId);
+          adProductsSliderContainer.style.display = "block";
           //debugger;
           // setup the splid lib to initialize the slider
           const testSlider = new Splide(sliderIdSelector, {
