@@ -691,18 +691,18 @@ class TRENDiiAd {
   }
   createSliderItemProduct(product, productsContainer) {
     // <li class="splide__slide">
-    //     <div class="product-item-container">
-    //         <div class="product-item"
-    //             style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
-    //             <span class="onsale">ON SALE</span>
-    //             <div class="product-details-wrapper">
-    //                 <b class="brand-name">TRENDii</b>
-    //                 <p class="product-name">M2K tekno sneakers</p>
-    //                 <span class="product-cashback-chip">2% Cashback</span>
-    //                 <em class="product-price">$260</em>
-    //             </div>
-    //         </div>
+    //   <div class="product-item-container">
+    //     <div class="product-item"
+    //       style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
+    //       <span class="onsale">ON SALE</span>
+    //       <div class="product-details-wrapper">
+    //         <b class="brand-name">TRENDii</b>
+    //         <p class="product-name">M2K tekno sneakers</p>
+    //         <span class="product-cashback-chip">2% Cashback</span>
+    //         <em class="product-price">$260</em>
+    //       </div>
     //     </div>
+    //   </div>
     // </li>
     const sliderItem = document.createElement("LI");
     sliderItem.classList.add("splide__slide");
@@ -743,7 +743,7 @@ class TRENDiiAd {
 
     const productName = document.createElement("B");
     productName.classList.add("brand-name");
-    productName.innerHTML = this.brandName;
+    productName.innerHTML = BRAND_NAME;
     productDetailsWrapper.appendChild(productName);
 
     const productNameP = document.createElement("P");
