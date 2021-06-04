@@ -226,12 +226,12 @@ ul {
 
 .block728X90-wrapper .product-item .onsale {
   display: block;
-  padding: 2px 4px;
+  padding: 2px 3px;
   text-transform: uppercase;
   position: absolute;
   top: 9px;
   left: 0px;
-  width: 40px;
+  width: 48px;
   background: #f32b97;
   color: #fff;
   font-size: 9px;
