@@ -84,7 +84,7 @@ class TRENDiiAd {
             }
           }
         } else {
-          console.log(window.pageYOffset);
+          // console.log(window.pageYOffset);
           const finalTopLimit = topOffset - this.height;
           const finalBottomLimit = bottomOffsetDiv - (window.innerHeight / 2);
           if (window.pageYOffset <= (finalTopLimit) || window.pageYOffset > (finalBottomLimit)
