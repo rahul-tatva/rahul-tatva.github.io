@@ -324,7 +324,7 @@ class TRENDiiAd {
     const templatesDOM = domParser.parseFromString(newDOM, "text/html");
 
     // to resolve the issue for the slider getting too much height while rendering
-    const adProductsSliderContainer = templatesDOM.getElementById(foundImageData.sliderId);
+    const adProductsSliderContainer = templatesDOM.getElementById(identifier);
     adProductsSliderContainer.style.display = "none";
 
     let productsContainerEl = templatesDOM.getElementById(this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID);
