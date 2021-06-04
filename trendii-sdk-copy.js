@@ -378,7 +378,7 @@ class TRENDiiAd {
       document.body.appendChild(adIframe);
     }
   }
-  parseHTMLStringToDocument(htmlString, feedProducts, currentImageSrc) {
+  parseHTMLStringToDocument(htmlString, productsArray, currentImageSrc) {
     // // debugger;
     const domParser = new DOMParser();
     const parsedHtmlDocumentEl = domParser.parseFromString(htmlString, "text/html");
@@ -387,7 +387,7 @@ class TRENDiiAd {
       this.HTML_TEMPLATE_SLIDER_CONTAINER_ID
     );
     productsContainerEl.innerHTML = "";
-    this.createProductsSlider(productsContainerEl, feedProducts, currentImageSrc);
+    this.createProductsSlider(productsContainerEl, productsArray, currentImageSrc);
     // // debugger;
     return parsedHtmlDocumentEl.documentElement.innerHTML;
   }
@@ -512,11 +512,7 @@ class TRENDiiAd {
         };
         // create an array where key is imageSource and values are adProductsData
         this.feedProducts.push(imageSourceWithAdProducts);
-        const iframeHtmlSrc = this.parseHTMLStringToDocument(
-          this.htmlString,
-          this.feedProducts,
-          imageSource
-        );
+        const iframeHtmlSrc = this.parseHTMLStringToDocument(this.htmlString, this.feedProducts, imageSource);
         imageSourceWithAdProducts.iframeHtmlSrc = iframeHtmlSrc;
         // if the current visible image is stored and the data is fetched
         if (
@@ -583,7 +579,7 @@ class TRENDiiAd {
         // console.log(visibleImageSrc);
         this.currentlyVisibleImageSrcURL = visibleImageSrc;
         // just to check that the ads is not rendered before the products are fetched
-        if (this.feedProducts.payload.length > 0) {
+        if (this.feedProducts.length > 0) {
           this.bindAdProductsToAdIframe(visibleImageSrc);
         }
         // this.getSimilarProducts(currentImageSrc, (response) => {
