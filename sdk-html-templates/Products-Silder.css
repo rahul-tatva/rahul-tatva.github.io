@@ -253,3 +253,10 @@ ul {
   border-top: 7px solid #f32b97;
   border-bottom: 7px solid #f32b97;
 }
+
+@media (max-width: 480px) {
+  .trendii-ad-container-sticky {
+    display: none;
+    /* visibility: hidden; */
+  }
+}
