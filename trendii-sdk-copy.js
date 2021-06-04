@@ -117,26 +117,26 @@ class TRENDiiAd {
     this.HTML_TEMPLATE_AD_WRAPPER_ID = "trendii-native-ad-wrapper";
     this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID = "trendii-sdk-ad-products-container";
 
-    document.addEventListener("DOMContentLoaded", () => {
-      //debugger;
-      this.getAllImageFromTheDOM();
-      const requestOptions = { method: "GET" };
-      fetch(this.API_GET_NATIVE_AD_TEMPLATE, requestOptions)
-        .then((response) => response.text())
-        .then((response) => {
-          //debugger;
-          // //debugger;
-          this.nativeAdTemplateHTMLString = response;
-          // this.log(response.data);
-          // this.getProductsForAllImages();
-          // this.appendAdContainersToImages();
-          this.getProductsForAllImages();
-        })
-        .catch((error) => {
-          console.error(error);
-          typeof onErrorCallback === "function" && onErrorCallback(error);
-        });
-    });
+    // document.addEventListener("DOMContentLoaded", () => {
+    //   //debugger;
+    //   this.getAllImageFromTheDOM();
+    //   const requestOptions = { method: "GET" };
+    //   fetch(this.API_GET_NATIVE_AD_TEMPLATE, requestOptions)
+    //     .then((response) => response.text())
+    //     .then((response) => {
+    //       //debugger;
+    //       // //debugger;
+    //       this.nativeAdTemplateHTMLString = response;
+    //       // this.log(response.data);
+    //       // this.getProductsForAllImages();
+    //       // this.appendAdContainersToImages();
+    //       this.getProductsForAllImages();
+    //     })
+    //     .catch((error) => {
+    //       console.error(error);
+    //       typeof onErrorCallback === "function" && onErrorCallback(error);
+    //     });
+    // });
   }
   loadStyleSheet(url) {
     var styles = document.createElement('link');
@@ -549,6 +549,24 @@ class TRENDiiAd {
         // }
       });
     });
+
+    this.getAllImageFromTheDOM();
+    const requestOptions = { method: "GET" };
+    fetch(this.API_GET_NATIVE_AD_TEMPLATE, requestOptions)
+      .then((response) => response.text())
+      .then((response) => {
+        //debugger;
+        // //debugger;
+        this.nativeAdTemplateHTMLString = response;
+        // this.log(response.data);
+        // this.getProductsForAllImages();
+        // this.appendAdContainersToImages();
+        this.getProductsForAllImages();
+      })
+      .catch((error) => {
+        console.error(error);
+        typeof onErrorCallback === "function" && onErrorCallback(error);
+      });
   }
   registerImageElementsToObserveVisibility() {
     document.addEventListener("DOMContentLoaded", this.handleDOMLoaded.bind(this));
