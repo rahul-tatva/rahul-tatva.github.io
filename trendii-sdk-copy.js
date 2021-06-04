@@ -289,7 +289,7 @@ class TRENDiiAd {
             console.log("mounted");
             // This will be executed.
           });
-        }, 10000);
+        }, 2000);
         // const div = document.createElement('div');
         // div.style.background = "yellow";
         // parentEl.getElementsByClassName('imageCaption')[0].after(div);
