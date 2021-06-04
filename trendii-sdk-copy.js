@@ -708,12 +708,19 @@ class TRENDiiAd {
     sliderItem.classList.add("splide__slide");
     productsContainer.appendChild(sliderItem);
 
+    const productItemRedirectContainer = document.createElement("A");
+    productItemRedirectContainer.classList.add("product-redirection-link");
+    productItemRedirectContainer.style = "text-decoration: none;";
+    productItemRedirectContainer.href = product.url;
+    productItemRedirectContainer.target = "_blank";
+    sliderItem.appendChild(productItemRedirectContainer);
+
     const productItemContainer = document.createElement("DIV");
     productItemContainer.classList.add("product-item-container");
     productItemContainer.addEventListener("click", function () {
       window.open(product.url, "_blank");
     });
-    sliderItem.appendChild(productItemContainer);
+    productItemRedirectContainer.appendChild(productItemContainer);
 
     const productItem = document.createElement("DIV");
     productItem.classList.add("product-item");
