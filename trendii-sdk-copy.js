@@ -531,39 +531,39 @@ class TRENDiiAd {
   handleDOMLoaded() {
     // // debugger;
     // TO DO throw error if image selector not present
-    this.allImageElements = document.querySelectorAll(this.options.adImagesSelector);
-    // // debugger;
-    const initialLoadImageSource = this.allImageElements[0].src;
-    this.allImageElements.forEach((imgEl) => {
-      // // debugger;
-      const imageSourceURL = imgEl.src;
-      this.intersectionObserver.observe(imgEl);
-      // fetch the ad products using api for all the products
-      this.getAdProductsByImageURL(imageSourceURL, function () {
-        // // debugger;
-        // if (this.feedProducts.length === 1) {
-        //     this.bindAdProductsToAdIframe(initialLoadImageSource);
-        // }
-      });
-    });
-
-    // this.getAllImageFromTheDOM();
-    // const requestOptions = { method: "GET" };
-    // fetch(this.API_GET_NATIVE_AD_TEMPLATE, requestOptions)
-    //   .then((response) => response.text())
-    //   .then((response) => {
-    //     //debugger;
-    //     // //debugger;
-    //     this.nativeAdTemplateHTMLString = response;
-    //     // this.log(response.data);
-    //     // this.getProductsForAllImages();
-    //     // this.appendAdContainersToImages();
-    //     this.getProductsForAllImages();
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //     typeof onErrorCallback === "function" && onErrorCallback(error);
+    // this.allImageElements = document.querySelectorAll(this.options.adImagesSelector);
+    // // // debugger;
+    // const initialLoadImageSource = this.allImageElements[0].src;
+    // this.allImageElements.forEach((imgEl) => {
+    //   // // debugger;
+    //   const imageSourceURL = imgEl.src;
+    //   this.intersectionObserver.observe(imgEl);
+    //   // fetch the ad products using api for all the products
+    //   this.getAdProductsByImageURL(imageSourceURL, function () {
+    //     // // debugger;
+    //     // if (this.feedProducts.length === 1) {
+    //     //     this.bindAdProductsToAdIframe(initialLoadImageSource);
+    //     // }
     //   });
+    // });
+
+    this.getAllImageFromTheDOM();
+    const requestOptions = { method: "GET" };
+    fetch(this.API_GET_NATIVE_AD_TEMPLATE, requestOptions)
+      .then((response) => response.text())
+      .then((response) => {
+        //debugger;
+        // //debugger;
+        this.nativeAdTemplateHTMLString = response;
+        // this.log(response.data);
+        // this.getProductsForAllImages();
+        // this.appendAdContainersToImages();
+        this.getProductsForAllImages();
+      })
+      .catch((error) => {
+        console.error(error);
+        typeof onErrorCallback === "function" && onErrorCallback(error);
+      });
   }
   registerImageElementsToObserveVisibility() {
     document.addEventListener("DOMContentLoaded", this.handleDOMLoaded.bind(this));
