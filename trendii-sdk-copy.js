@@ -158,7 +158,7 @@ class TRENDiiAd {
       // "webpageUrl": "https://rahul-tatva.github.io/fashion-blog-below-ads.html",
       //window.location.href,
       "webpageUrl": window.location.href,
-      "publisher_id": 1,
+      "publisherId": 1,
       "publisher_name": "Trendii Blog",
       "domain": "blog.trendii.com",
       "active": true,
@@ -471,7 +471,7 @@ class TRENDiiAd {
     const requestBody = {
       // "webpageUrl": "https://rahul-tatva.github.io/fashion-blog-below-ads.html",//window.location.href,
       webpageUrl: window.location.href,
-      publisher_id: 1,
+      publisherId: 1,
       publisher_name: "Trendii Blog",
       domain: "blog.trendii.com",
       active: true,
