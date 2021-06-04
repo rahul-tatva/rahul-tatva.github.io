@@ -4,7 +4,8 @@ const API_GET_AD_PRODUCTS =
   "https://beeswaxcreatives.trendii.com/img-creatives";
 const SUPPORTED_DIMENSIONS = ["160X600", "300X600"];
 const BRAND_NAME = "TRENDii";
-const STICKY_AD_CONTAINER_ID = "trendii-ad-container-sticky";
+// const STICKY_AD_CONTAINER_ID = "trendii-ad-container-sticky";
+const STICKY_AD_CONTAINER_ID = "trendiiads-float-right";
 
 
 const AD_PRODUCTS_CONTAINER = "trendii-sdk-ad-products-container";
