@@ -29,8 +29,8 @@ ul {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 7px;
-  margin: 0 4px;
+  /* padding: 7px;
+  margin: 0 4px; */
   border-radius: 50%;
 }
 
