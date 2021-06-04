@@ -263,13 +263,14 @@ class TRENDiiAd {
         // parentEl
         //   .after(foundImageData.generatedAdHTML);
         // const script = foundImageData.scriptTag;
-        const sliderIdSelector = `#${foundImageData.sliderId}`;
+        const identifier = foundImageData.sliderId;
+        const sliderIdSelector = `#${identifier}`;
         setTimeout(() => {
           // const sc = document.createElement('script');
           // sc.innerHTML = foundImageData.scriptTag.innerHTML;
           // document.body.appendChild(sc);
           this.log("scripts append");
-          const adProductsSliderContainer = document.getElementById(foundImageData.sliderId);
+          const adProductsSliderContainer = document.getElementById(identifier);
           adProductsSliderContainer.style.display = "block";
           //debugger;
           // setup the splid lib to initialize the slider
