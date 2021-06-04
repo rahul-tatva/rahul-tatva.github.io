@@ -531,21 +531,21 @@ class TRENDiiAd {
   handleDOMLoaded() {
     // // debugger;
     // TO DO throw error if image selector not present
-    // this.allImageElements = document.querySelectorAll(this.options.adImagesSelector);
-    // // // debugger;
-    // const initialLoadImageSource = this.allImageElements[0].src;
-    // this.allImageElements.forEach((imgEl) => {
-    //   // // debugger;
-    //   const imageSourceURL = imgEl.src;
-    //   this.intersectionObserver.observe(imgEl);
-    //   // fetch the ad products using api for all the products
-    //   this.getAdProductsByImageURL(imageSourceURL, function () {
-    //     // // debugger;
-    //     // if (this.feedProducts.length === 1) {
-    //     //     this.bindAdProductsToAdIframe(initialLoadImageSource);
-    //     // }
-    //   });
-    // });
+    this.allImageElements = document.querySelectorAll(this.options.adImagesSelector);
+    // // debugger;
+    const initialLoadImageSource = this.allImageElements[0].src;
+    this.allImageElements.forEach((imgEl) => {
+      // // debugger;
+      const imageSourceURL = imgEl.src;
+      this.intersectionObserver.observe(imgEl);
+      // fetch the ad products using api for all the products
+      this.getAdProductsByImageURL(imageSourceURL, function () {
+        // // debugger;
+        // if (this.feedProducts.length === 1) {
+        //     this.bindAdProductsToAdIframe(initialLoadImageSource);
+        // }
+      });
+    });
 
     this.getAllImageFromTheDOM();
     const requestOptions = { method: "GET" };
