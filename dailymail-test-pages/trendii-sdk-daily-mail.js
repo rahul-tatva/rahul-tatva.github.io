@@ -762,9 +762,9 @@ class TRENDiiAd {
         foundImageElement.after(adContainerMobile);
 
         // append the found ad just after the image caption
-        parentEl
-          .getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0]
-          .after(foundImageData.generatedAdHTML);
+        // parentEl
+        //   .getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0]
+        //   .after(foundImageData.generatedAdHTML);
         // parentEl
         //   .after(foundImageData.generatedAdHTML);
         // const script = foundImageData.scriptTag;
