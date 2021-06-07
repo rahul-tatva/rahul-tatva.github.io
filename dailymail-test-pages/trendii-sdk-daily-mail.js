@@ -770,7 +770,7 @@ class TRENDiiAd {
         // const script = foundImageData.scriptTag;
         const identifier = foundImageData.sliderId;
         const sliderIdSelector = `#${identifier}`;
-
+        console.log(identifier);
 
         // const sc = document.createElement('script');
         // sc.innerHTML = foundImageData.scriptTag.innerHTML;
