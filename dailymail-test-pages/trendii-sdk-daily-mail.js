@@ -755,28 +755,34 @@ class TRENDiiAd {
         // parentEl
         //   .after(foundImageData.generatedAdHTML);
         // const script = foundImageData.scriptTag;
-        const sliderIdSelector = `#${foundImageData.sliderId}`;
-        setTimeout(() => {
-          // const sc = document.createElement('script');
-          // sc.innerHTML = foundImageData.scriptTag.innerHTML;
-          // document.body.appendChild(sc);
-          this.log("scripts append");
-          //debugger;
-          // setup the splid lib to initialize the slider
-          const testSlider = new Splide(sliderIdSelector, {
-            type: 'loop',
-            // perPage: 6,
-            pagination: false,
-            gap: 10,
-            autoWidth: true,
-            // width: 400,
-            // fixedWidth: 200,
-          }).mount();
-          testSlider.on('mounted', function () {
-            console.log("mounted");
-            // This will be executed.
-          });
-        }, 2000);
+        const identifier = foundImageData.sliderId;
+        const sliderIdSelector = `#${identifier}`;
+
+
+        // const sc = document.createElement('script');
+        // sc.innerHTML = foundImageData.scriptTag.innerHTML;
+        // document.body.appendChild(sc);
+        //debugger;
+        // setup the splid lib to initialize the slider
+        const testSlider = new Splide(identifier, {
+          type: 'loop',
+          // perPage: 6,
+          pagination: false,
+          gap: 10,
+          autoWidth: true,
+          autoHeight: true,
+          // width: 400,
+          // fixedWidth: 200,
+        }).mount();
+        testSlider.on('mounted', function () {
+          console.log("mounted");
+          // This will be executed.
+        });
+        this.log("scripts append");
+
+        setTimeout(() => { }, 2000);
+
+
         // const div = document.createElement('div');
         // div.style.background = "yellow";
         // parentEl.getElementsByClassName('imageCaption')[0].after(div);
