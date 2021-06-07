@@ -754,7 +754,8 @@ class TRENDiiAd {
 
         const adContainerMobile = document.createElement('div');
         adContainerMobile.classList.add("ads-inside-the-images");
-        adContainerMobile.style.background = "yellow";
+        // adContainerMobile.style.background = "yellow";
+        // adContainerMobile.style.height = "max-content";
 
 
         adContainerMobile.appendChild(foundImageData.generatedAdHTML);
