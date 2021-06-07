@@ -623,7 +623,15 @@ class TRENDiiAd {
     const requestBody = {
       // "webpageUrl": "https://rahul-tatva.github.io/fashion-blog-below-ads.html",//window.location.href,
       "webpageUrl": window.location.href,
-      "imageUrls": this.allValidImageSrcArray
+      "imageUrls": this.allValidImageSrcArray,
+      // "publisher_id": 2,
+      // "publisher_name": "DailyMail",
+      // "domain": "dailymail.co.uk",
+      // "active": true,
+      "publisherId": 1,
+      "publisher_name": "Trendii Blog",
+      "domain": "blog.trendii.com",
+      "active": true,
     };
     const headers = new Headers();
     headers.append("Content-Type", "application/json");
@@ -873,7 +881,7 @@ class TRENDiiAd {
     productPriceMobile.innerHTML = product.currency + product.price;
     productDetailsWrapperMobile.appendChild(productPriceMobile);
 
-  
+
   }
 }
 
