@@ -264,6 +264,17 @@ ul {
 .block728X90-wrapper .product-details-wrapper-mobile {
   display: none;
 }
+
+.block728X90-wrapper .ads-inside-the-images {
+    background: yellow;
+    height: 100px;
+    position: absolute;
+    left: 0;
+    bottom: 0px;
+    right: 0;
+    z-index: 9999;
+}
+
 @media (max-width: 767px) {
   .block728X90-wrapper .product-item {
     width: 85px;

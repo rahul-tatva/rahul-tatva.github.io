@@ -721,6 +721,7 @@ class TRENDiiAd {
     this.log(this.parentImageGroupElements);
     // let isThereAnySliderAds = false;
     let foundImageData = null;
+    let foundImageElement = null;
     this.parentImageGroupElements.forEach((parentEl, index) => {
 
       this.log(parentEl.getElementsByTagName('img'));
@@ -733,7 +734,10 @@ class TRENDiiAd {
         const imageDataSrcToShowAd = currentImageEle.getAttribute("data-src");
         foundImageData = this.feedProducts.payload
           .find((imageData) => imageData.imageUrl === imageSrcToShowAd || imageDataSrcToShowAd);
-        if (foundImageData?.generatedAdHTML) { break; }
+        if (foundImageData?.generatedAdHTML) {
+          foundImageElement = currentImageEle;
+          break;
+        }
       }
       // const currentImageEle = parentEl.getElementsByTagName('img')[0];
       // this.log(imageSrcToShowAd);
@@ -747,6 +751,12 @@ class TRENDiiAd {
         adContainer.style.background = "yellow";
         adContainer.style.maxHeight = "300px";
         // adContainer.appendChild(findImageData.generatedAdHTML);
+
+        const adContainerMobile = document.createElement('div');
+        adContainerMobile.classList.add("ads-inside-the-images");
+        adContainerMobile.style.background = "yellow";
+
+        foundImageElement.after(adContainerMobile);
 
         // append the found ad just after the image caption
         parentEl
