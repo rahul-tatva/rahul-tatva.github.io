@@ -265,8 +265,8 @@ ul {
   display: none;
 }
 
-.block728X90-wrapper .ads-inside-the-images {
-    background: yellow;
+.ads-inside-the-images {
+    background: #ffff00;
     height: 100px;
     position: absolute;
     left: 0;
