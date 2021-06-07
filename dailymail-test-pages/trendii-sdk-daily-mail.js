@@ -756,6 +756,8 @@ class TRENDiiAd {
         adContainerMobile.classList.add("ads-inside-the-images");
         adContainerMobile.style.background = "yellow";
 
+
+        adContainerMobile.appendChild(foundImageData.generatedAdHTML);
         foundImageElement.after(adContainerMobile);
 
         // append the found ad just after the image caption
