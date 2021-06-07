@@ -764,7 +764,7 @@ class TRENDiiAd {
         // document.body.appendChild(sc);
         //debugger;
         // setup the splid lib to initialize the slider
-        const testSlider = new Splide(identifier, {
+        const testSlider = new Splide(sliderIdSelector, {
           type: 'loop',
           // perPage: 6,
           pagination: false,
