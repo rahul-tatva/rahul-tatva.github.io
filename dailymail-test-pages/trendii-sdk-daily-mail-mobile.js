@@ -18,7 +18,8 @@ const MOBILE_IMAGE_GROUP_PARENT_TAG = "figure";
 const DAILY_MAIL_IMAGE_CAPTION_CLASS = 'imageCaption';
 const DAILY_MAIL_MOBILE_IMAGE_CAPTION_TAG = 'figcaption';
 
-const SLIDER_CLASS_TO_REPLACE = "trendiiSliderUniqueString";
+const RETAILER_NAME_TO_REPLACE_WITH = "{{RETAILER_NAME}}";
+const SLIDER_CLASS_TO_REPLACE_WITH = "trendiiSliderUniqueString";
 const SCRIPT_ID_TO_REPLACE = "trendiiSliderUniqueString-script";
 window.FEED_PRODUCTS = {
   "success": true,
@@ -645,7 +646,7 @@ class TRENDiiAd {
   getProductsForAllImages(onSuccessCallback) {
     //debugger;
     const requestBody = {
-      // "webpageUrl": "https://rahul-tatva.github.io/fashion-blog-below-ads.html",//window.location.href,
+      // "webpageUrl": "https://rahul-tatva.github.io/fashion-blog-below-ads.html",
       "webpageUrl": window.location.href,
       "imageUrls": this.allValidImageSrcArray,
       // "publisher_id": 2,
@@ -682,15 +683,6 @@ class TRENDiiAd {
             // this.productsContainerEl.innerHTML = "";
             this.createAdTemplatesForAllProducts();
             this.getAllParentImageGroupClass();
-            // new Splide('.splide', {
-            //   type: 'loop',
-            //   // perPage: 6,
-            //   pagination: false,
-            //   gap: 10,
-            //   autoWidth: true,
-            //   // width: 400,
-            //   // fixedWidth: 200,
-            // }).mount();
             this.log(this.feedProducts);
           }
           // else {
@@ -722,8 +714,10 @@ class TRENDiiAd {
   createAdsForAllProductsInAdvance(imageData, index) {
     //debugger;
     const products = imageData.products;
+    const advertiserName = imageData.advertiserName;
     const identifier = `splide${index}`;
-    const newDOM = this.nativeAdTemplateHTMLString.replaceAll(SLIDER_CLASS_TO_REPLACE, identifier);
+    const newDOM = this.nativeAdTemplateHTMLString.replaceAll(SLIDER_CLASS_TO_REPLACE_WITH, identifier);
+    newDOM.replaceAll(RETAILER_NAME_TO_REPLACE_WITH, advertiserName);
     const domParser = new DOMParser();
     const templatesDOM = domParser.parseFromString(newDOM, "text/html");
 
