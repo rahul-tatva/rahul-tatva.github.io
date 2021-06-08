@@ -8,11 +8,16 @@ const PUBLISHER_NAME = "DAILY_MAIL";
 // ad by default to below this class element
 const DAILY_MAIL_IMAGE_SELECTOR_CLASS = ".blkBorder.img-share";
 const DAILY_MAIL_LOADED_IMAGE_SELECTOR_CLASS = ".blkBorder.img-share.b-loaded";
+
 const DAILY_MAIL_MOBILE_IMAGE_SELECTOR_CLASS = ".img-share";
+const DAILY_MAIL_MOBILE_LOADED_IMAGE_SELECTOR_CLASS = ".img-share.b-loaded";
+
 const IMAGE_GROUP_PARENT_DIV_CLASS = ".mol-img-group";
 const MOBILE_IMAGE_GROUP_PARENT_TAG = "figure";
+
 const DAILY_MAIL_IMAGE_CAPTION_CLASS = 'imageCaption';
 const DAILY_MAIL_MOBILE_IMAGE_CAPTION_TAG = 'figcaption';
+
 const SLIDER_CLASS_TO_REPLACE = "trendiiSliderUniqueString";
 const SCRIPT_ID_TO_REPLACE = "trendiiSliderUniqueString-script";
 window.FEED_PRODUCTS = {
@@ -599,16 +604,31 @@ class TRENDiiAd {
     // TO DO throw error if image selector not present
     this.allImageElements = document.querySelectorAll(this.options.adImagesSelector);
     this.allValidImageSrcArray = [];
-    const alreadyLoadedImagesArray = Array.from(document.querySelectorAll(DAILY_MAIL_LOADED_IMAGE_SELECTOR_CLASS))
-      .map(img => img.getAttribute("src"));
-    this.allValidImageSrcArray.push(...alreadyLoadedImagesArray);
+    if (window.innerWidth <= 480) {
 
-    // async loadable images
-    const imagesWhichAreYetToBeLoaded = Array.from(document.querySelectorAll(DAILY_MAIL_IMAGE_SELECTOR_CLASS))
-      .map(img => img.getAttribute("data-src"))
-      // filter null values or undefined
-      .filter(x => x);
-    this.allValidImageSrcArray.push(...imagesWhichAreYetToBeLoaded);
+      const alreadyLoadedImagesArray = Array.from(document.querySelectorAll(DAILY_MAIL_MOBILE_LOADED_IMAGE_SELECTOR_CLASS))
+        .map(img => img.getAttribute("src"));
+      this.allValidImageSrcArray.push(...alreadyLoadedImagesArray);
+
+      // async loadable images
+      const imagesWhichAreYetToBeLoaded = Array.from(document.querySelectorAll(DAILY_MAIL_MOBILE_IMAGE_SELECTOR_CLASS))
+        .map(img => img.getAttribute("data-src"))
+        // filter null values or undefined
+        .filter(x => x);
+      this.allValidImageSrcArray.push(...imagesWhichAreYetToBeLoaded);
+    } else {
+      const alreadyLoadedImagesArray = Array.from(document.querySelectorAll(DAILY_MAIL_LOADED_IMAGE_SELECTOR_CLASS))
+        .map(img => img.getAttribute("src"));
+      this.allValidImageSrcArray.push(...alreadyLoadedImagesArray);
+
+      // async loadable images
+      const imagesWhichAreYetToBeLoaded = Array.from(document.querySelectorAll(DAILY_MAIL_IMAGE_SELECTOR_CLASS))
+        .map(img => img.getAttribute("data-src"))
+        // filter null values or undefined
+        .filter(x => x);
+      this.allValidImageSrcArray.push(...imagesWhichAreYetToBeLoaded);
+    }
+
     this.log(this.allValidImageSrcArray);
   };
   initializeSliderSetup() {
