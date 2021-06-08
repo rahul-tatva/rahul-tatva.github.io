@@ -726,6 +726,11 @@ class TRENDiiAd {
     const newDOM = this.nativeAdTemplateHTMLString.replaceAll(SLIDER_CLASS_TO_REPLACE, identifier);
     const domParser = new DOMParser();
     const templatesDOM = domParser.parseFromString(newDOM, "text/html");
+
+    // to resolve the issue for the slider getting too much height while rendering
+    const adProductsSliderContainer = templatesDOM.getElementById(identifier);
+    adProductsSliderContainer.style.display = "none";
+    
     let productsContainerEl = templatesDOM.getElementById(this.HTML_TEMPLATE_SLIDER_CONTAINER_ID);
     const scriptId = `${identifier}-script`;
     let scriptTag = templatesDOM.getElementById(scriptId);
@@ -811,6 +816,8 @@ class TRENDiiAd {
           // width: 400,
           // fixedWidth: 200,
         }).mount();
+        const adProductsSliderContainer = document.getElementById(identifier);
+        adProductsSliderContainer.style.display = "block";
         testSlider.on('mounted', function () {
           console.log("mounted");
           // This will be executed.
