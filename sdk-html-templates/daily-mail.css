@@ -113,6 +113,11 @@ ul {
   align-items: center;
 }
 
+.block728X90-wrapper .product-redirection-link {
+  text-decoration: none;
+  color: unset;
+}
+
 .block728X90-wrapper .product-item {
   position: relative;
   cursor: pointer;
