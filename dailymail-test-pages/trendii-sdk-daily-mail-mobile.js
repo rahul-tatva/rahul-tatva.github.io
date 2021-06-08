@@ -730,7 +730,7 @@ class TRENDiiAd {
     // to resolve the issue for the slider getting too much height while rendering
     const adProductsSliderContainer = templatesDOM.getElementById(identifier);
     adProductsSliderContainer.style.display = "none";
-    
+
     let productsContainerEl = templatesDOM.getElementById(this.HTML_TEMPLATE_SLIDER_CONTAINER_ID);
     const scriptId = `${identifier}-script`;
     let scriptTag = templatesDOM.getElementById(scriptId);
@@ -791,9 +791,14 @@ class TRENDiiAd {
         // foundImageElement.after(adContainerMobile);
 
         // append the found ad just after the image caption
-        parentEl
-          .getElementsByTagName(DAILY_MAIL_MOBILE_IMAGE_CAPTION_TAG)[0]
-          .after(foundImageData.generatedAdHTML);
+        const titleOfImageGroup = parentEl
+          .getElementsByTagName(DAILY_MAIL_MOBILE_IMAGE_CAPTION_TAG)[0];
+        if (titleOfImageGroup) {
+          titleOfImageGroup.after(foundImageData.generatedAdHTML);
+        } else {
+          parentEl.appendChild(foundImageData.generatedAdHTML);
+        }
+
         // parentEl
         //   .after(foundImageData.generatedAdHTML);
         // const script = foundImageData.scriptTag;
