@@ -530,8 +530,8 @@ class TRENDiiAd {
     //debugger;
     this.loadScript("https://cdn.trendii.com/assets/splide.min.js");
     this.loadStyleSheet("https://cdn.trendii.com/assets/splide-core.min.css");
-    this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/daily-mail.css");
-    // this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/Products-Silder.css");
+    this.loadStyleSheet("https://cdn.trendii.com/sdk-html-templates/daily-mail.css");
+    // this.loadStyleSheet("https://cdn.trendii.com/sdk-html-templates/Products-Silder.css");
     // this.loadScript("https://unpkg.com/axios/dist/axios.min.js");
     // <link rel="stylesheet" href="./sdk-html-templates/daily-mail.css"></link>
     // options initialization
@@ -554,7 +554,7 @@ class TRENDiiAd {
     // this.feedProductsWithGeneratedAds = [];
 
     // native ads constants
-    this.API_GET_NATIVE_AD_TEMPLATE = `https://rahul-tatva.github.io/sdk-html-templates/Products-Slider-dynamic.html`;
+    this.API_GET_NATIVE_AD_TEMPLATE = `https://cdn.trendii.com/sdk-html-templates/Products-Slider-dynamic.html`;
     this.nativeAdTemplateHTMLString = null;
     this.API_GET_NATIVE_AD_PRODUCT = `https://beeswaxcreatives.trendii.com/img-creatives`;
     this.HTML_TEMPLATE_AD_WRAPPER_ID = "trendii-native-ad-wrapper";
