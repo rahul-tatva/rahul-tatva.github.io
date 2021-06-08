@@ -790,7 +790,7 @@ class TRENDiiAd {
 
         // append the found ad just after the image caption
         parentEl
-          .getElementsByTagName(DAILY_MAIL_MOBILE_IMAGE_CAPTION_TAG)
+          .getElementsByTagName(DAILY_MAIL_MOBILE_IMAGE_CAPTION_TAG)[0]
           .after(foundImageData.generatedAdHTML);
         // parentEl
         //   .after(foundImageData.generatedAdHTML);
