@@ -10,7 +10,7 @@ const DAILY_MAIL_IMAGE_SELECTOR_CLASS = ".blkBorder.img-share";
 const DAILY_MAIL_LOADED_IMAGE_SELECTOR_CLASS = ".blkBorder.img-share.b-loaded";
 const DAILY_MAIL_MOBILE_IMAGE_SELECTOR_CLASS = ".img-share";
 const IMAGE_GROUP_PARENT_DIV_CLASS = ".mol-img-group";
-const MOBILE_IMAGE_GROUP_PARENT_DIV_TAG = "figure";
+const MOBILE_IMAGE_GROUP_PARENT_TAG = "figure";
 const DAILY_MAIL_IMAGE_CAPTION_CLASS = 'imageCaption';
 const DAILY_MAIL_MOBILE_IMAGE_CAPTION_TAG = 'figcaption';
 const SLIDER_CLASS_TO_REPLACE = "trendiiSliderUniqueString";
@@ -720,7 +720,12 @@ class TRENDiiAd {
     return resultantAdWrapper;
   }
   getAllParentImageGroupClass() {
-    const allParentElements = document.querySelectorAll(IMAGE_GROUP_PARENT_DIV_CLASS);
+    let allParentElements;
+    if (window.innerWidth <= 480) {
+      allParentElements = document.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG);
+    } else {
+      allParentElements = document.querySelectorAll(IMAGE_GROUP_PARENT_DIV_CLASS);
+    }
     this.parentImageGroupElements = Array.from(allParentElements);
     this.log(this.parentImageGroupElements);
     // let isThereAnySliderAds = false;
@@ -760,15 +765,13 @@ class TRENDiiAd {
         adContainerMobile.classList.add("ads-inside-the-images");
         // adContainerMobile.style.background = "yellow";
         // adContainerMobile.style.height = "max-content";
-
-
-        adContainerMobile.appendChild(foundImageData.generatedAdHTML);
-        foundImageElement.after(adContainerMobile);
+        // adContainerMobile.appendChild(foundImageData.generatedAdHTML);
+        // foundImageElement.after(adContainerMobile);
 
         // append the found ad just after the image caption
-        // parentEl
-        //   .getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0]
-        //   .after(foundImageData.generatedAdHTML);
+        parentEl
+          .getElementsByTagName(DAILY_MAIL_MOBILE_IMAGE_CAPTION_TAG)
+          .after(foundImageData.generatedAdHTML);
         // parentEl
         //   .after(foundImageData.generatedAdHTML);
         // const script = foundImageData.scriptTag;
@@ -795,10 +798,9 @@ class TRENDiiAd {
           console.log("mounted");
           // This will be executed.
         });
-        this.log("scripts append");
+        this.log("slider appended");
 
-        setTimeout(() => { }, 2000);
-
+        // setTimeout(() => { }, 2000);
 
         // const div = document.createElement('div');
         // div.style.background = "yellow";
