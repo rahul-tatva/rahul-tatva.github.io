@@ -716,8 +716,10 @@ class TRENDiiAd {
     const products = imageData.products;
     const advertiserName = imageData.advertiserName;
     const identifier = `splide${index}`;
-    const newDOM = this.nativeAdTemplateHTMLString.replaceAll(SLIDER_CLASS_TO_REPLACE_WITH, identifier);
-    newDOM.replaceAll(RETAILER_NAME_TO_REPLACE_WITH, advertiserName);
+    const newDOM = this.nativeAdTemplateHTMLString
+      .replaceAll(SLIDER_CLASS_TO_REPLACE_WITH, identifier)
+      .replaceAll(RETAILER_NAME_TO_REPLACE_WITH, advertiserName);
+
     const domParser = new DOMParser();
     const templatesDOM = domParser.parseFromString(newDOM, "text/html");
 
