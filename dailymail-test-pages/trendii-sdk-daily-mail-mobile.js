@@ -1169,11 +1169,12 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
 
         const row = document.createElement("DIV");
         row.classList.add("row");
+        row.classList.add("row-cols-2");
         row.classList.add("secondary-product-row");
         twoProductWrapper.appendChild(row);
 
         const col = document.createElement("DIV");
-        col.classList.add("col");
+        col.classList.add("col-6");
         row.appendChild(col);
 
         const productItemRedirectContainer = document.createElement("A");
