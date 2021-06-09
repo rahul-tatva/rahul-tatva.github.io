@@ -735,7 +735,8 @@ class TRENDiiAd {
     const imageUrl = imageData.imageUrl;
     const BRAND_NAME = imageData.advertiserName;
     // to test 1-2 products case
-    const products = imageData.products.splice(0, (index % 2 === 0 ? 2 : 1));;
+    // const products = imageData.products.splice(0, (index % 2 === 0 ? 2 : 1));
+    const products = imageData.products;
     const advertiserName = imageData.advertiserName;
     const identifier = `splide${index}`;
     imageData.sliderId = identifier;
