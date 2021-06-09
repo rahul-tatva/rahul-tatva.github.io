@@ -776,6 +776,7 @@ class TRENDiiAd {
     switch (products.length) {
       case 1:
       case 2: {
+        imageData.isSliderTemplate = false;
         // const newDOM = this.nativeAdSimpleTemplateHTMLString
         //   .replaceAll(SLIDER_CLASS_TO_REPLACE_WITH, identifier);
 
@@ -798,6 +799,7 @@ class TRENDiiAd {
         break;
 
       default: {
+        imageData.isSliderTemplate = true;
         const newDOM = this.nativeAdSliderTemplateHTMLString
           .replaceAll(SLIDER_CLASS_TO_REPLACE_WITH, identifier);
         // .replaceAll(RETAILER_NAME_TO_REPLACE_WITH, advertiserName);
@@ -908,30 +910,33 @@ class TRENDiiAd {
         // document.body.appendChild(sc);
         //debugger;
         // setup the splid lib to initialize the slider
-        const testSlider = new Splide(sliderIdSelector, {
-          type: 'loop',
-          // perPage: 6,
-          pagination: false,
-          gap: 10,
-          autoWidth: true,
-          autoHeight: true,
-          // width: 400,
-          // fixedWidth: 200,
-        }).mount();
-        const adProductsSliderContainer = document.getElementById(identifier);
-        adProductsSliderContainer.style.display = "block";
-        testSlider.on('mounted', function () {
-          console.log("mounted");
-          // This will be executed.
-        });
-        this.log("slider appended");
 
-        // setTimeout(() => { }, 2000);
+        if (foundImageData.isSliderTemplate) {
+          const testSlider = new Splide(sliderIdSelector, {
+            type: 'loop',
+            // perPage: 6,
+            pagination: false,
+            gap: 10,
+            autoWidth: true,
+            autoHeight: true,
+            // width: 400,
+            // fixedWidth: 200,
+          }).mount();
+          const adProductsSliderContainer = document.getElementById(identifier);
+          adProductsSliderContainer.style.display = "block";
+          testSlider.on('mounted', function () {
+            console.log("mounted");
+            // This will be executed.
+          });
+          this.log("slider appended");
 
-        // const div = document.createElement('div');
-        // div.style.background = "yellow";
-        // parentEl.getElementsByClassName('imageCaption')[0].after(div);
-        // parentEl.getElementsByClassName('imageCaption')[0].after(div);
+          // setTimeout(() => { }, 2000);
+
+          // const div = document.createElement('div');
+          // div.style.background = "yellow";
+          // parentEl.getElementsByClassName('imageCaption')[0].after(div);
+          // parentEl.getElementsByClassName('imageCaption')[0].after(div);
+        }
       }
       // //debugger;
       // const div = document.createElement('div');
