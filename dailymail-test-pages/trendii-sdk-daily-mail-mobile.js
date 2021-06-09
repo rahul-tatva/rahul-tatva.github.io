@@ -728,7 +728,8 @@ class TRENDiiAd {
   createAdsForAllProductsInAdvance(imageData, index) {
     //debugger;
     const imageUrl = imageData.imageUrl;
-    const products = imageData.products;
+    // to test 1-2 products case
+    const products = imageData.products.splice(0, (index % 2 === 0 ? 2 : 1));;
     const advertiserName = imageData.advertiserName;
     const identifier = `splide${index}`;
     imageData.sliderId = identifier;
@@ -766,7 +767,6 @@ class TRENDiiAd {
     // const scriptId = `${identifier}-script`;
     // let scriptTag = templatesDOM.getElementById(scriptId);
     // imageData.scriptTag = scriptTag;
-    products.splice(0, (products.length % 2 === 0 ? 2 : 1));
     switch (products.length) {
       case 1:
       case 2: {
