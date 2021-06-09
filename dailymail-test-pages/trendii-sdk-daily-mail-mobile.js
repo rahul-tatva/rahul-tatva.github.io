@@ -727,9 +727,9 @@ class TRENDiiAd {
     const templatesDOM = domParser.parseFromString(newDOM, "text/html");
 
     const retailerLogoEl = templatesDOM.getElementById(RETAILER_LOGO_ID);
-    adProductsSliderContainer.title = advertiserName;
+    retailerLogoEl.title = advertiserName;
     const logoUrl = `${TRENDII_NATIVE_ADS_CDN}/${advertiserName.toLowerCase()}.png`;
-    adProductsSliderContainer.style.background = `url(${logoUrl}) no-repeat center center;`;
+    retailerLogoEl.style.background = `url(${logoUrl}) no-repeat center center;`;
 
     // to resolve the issue for the slider getting too much height while rendering
     const adProductsSliderContainer = templatesDOM.getElementById(identifier);
