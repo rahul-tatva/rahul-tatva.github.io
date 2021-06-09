@@ -95,6 +95,7 @@ ul {
 
 .block728X90-slider-wrapper .trendii-ad-header-title {
   font-weight: 700;
+  margin: 5px 0;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -111,7 +112,10 @@ ul {
   align-items: flex-start;
 }
 
-.block728X90-slider-wrapper .product-item-wrapper .slider-title .products-title {
+.block728X90-slider-wrapper
+  .product-item-wrapper
+  .slider-title
+  .products-title {
   font-size: 18px;
   line-height: 22px;
   text-transform: uppercase;
