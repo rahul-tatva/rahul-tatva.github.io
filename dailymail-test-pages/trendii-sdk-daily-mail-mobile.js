@@ -1103,11 +1103,6 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
       productDetailsWrapper.classList.add("product-details-wrapper");
       productItemContainer.appendChild(productDetailsWrapper);
 
-      const brandName = document.createElement("B");
-      brandName.classList.add("brand-name");
-      brandName.innerHTML = BRAND_NAME;
-      productDetailsWrapper.appendChild(brandName);
-
       const productName = document.createElement("P");
       productName.classList.add("product-name");
       productName.innerHTML = product.name;
@@ -1198,11 +1193,6 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
         const productDetailsWrapper = document.createElement("DIV");
         productDetailsWrapper.classList.add("product-details-wrapper");
         productItemContainer.appendChild(productDetailsWrapper);
-
-        const brandName = document.createElement("B");
-        brandName.classList.add("brand-name");
-        brandName.innerHTML = BRAND_NAME;
-        productDetailsWrapper.appendChild(brandName);
 
         const productName = document.createElement("P");
         productName.classList.add("product-name");
