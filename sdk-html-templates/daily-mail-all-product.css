@@ -75,11 +75,11 @@ ul {
 
   /* display: block; */
   /* margin: 5px auto; */
-  margin: 0 5px;
-  min-width: 40px;
-  width: 50px;
-  min-height: 40px;
-  max-height: 30px;
+  margin: 0px 8px;
+  /* max-width: 80px; */
+  width: auto;
+  /* min-height: 10px; */
+  max-height: 13px;
   /* background: url(https://cdn.trendii.com/native-ads-sdk/assets/trendii.png)
     no-repeat center center; */
   /* background-size: contain; */
