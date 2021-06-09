@@ -535,6 +535,8 @@ class TRENDiiAd {
     this.loadScript("https://cdn.trendii.com/assets/splide.min.js");
     this.loadStyleSheet("https://cdn.trendii.com/assets/splide-core.min.css");
     this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/daily-mail.css");
+    this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/daily-mail-all-product.css");
+
     // this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/Products-Silder.css");
     // this.loadScript("https://unpkg.com/axios/dist/axios.min.js");
     // <link rel="stylesheet" href="./sdk-html-templates/daily-mail.css"></link>
