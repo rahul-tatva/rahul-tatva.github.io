@@ -403,6 +403,7 @@ ul {
 .block728X90-wrapper .two-product-wrapper .row {
   width: 100%;
   margin-left: unset;
+  display: flex;
 }
 
 .block728X90-wrapper .two-product-wrapper .row .col-6 {
