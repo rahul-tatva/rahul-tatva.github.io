@@ -780,6 +780,8 @@ class TRENDiiAd {
         const productsContainerEl = simpleTemplateDOM.getElementById(
           this.HTML_TEMPLATE_SIMPLE_CONTAINER_ID
         );
+        productsContainerEl.innerHTML = "";
+
         // const logo = document.getElementById("logo");
         // logo.addEventListener("click", function () {
         //   window.open(feedProducts[0].url, "_blank");
