@@ -766,7 +766,7 @@ class TRENDiiAd {
     // const scriptId = `${identifier}-script`;
     // let scriptTag = templatesDOM.getElementById(scriptId);
     // imageData.scriptTag = scriptTag;
-
+    products.splice(0, (products.length % 2 === 0 ? 2 : 1));
     switch (products.length) {
       case 1:
       case 2: {
