@@ -563,7 +563,7 @@ class TRENDiiAd {
     this.HTML_TEMPLATE_SIMPLE_CONTAINER_ID = "trendii-products-container-728X90";
     this.nativeAdSimpleTemplateHTMLString = null;
 
-    this.nativeAdTemplateHTMLString = null;
+    this.nativeAdSliderTemplateHTMLString = null;
     this.API_GET_NATIVE_AD_PRODUCT = `https://beeswaxcreatives.trendii.com/img-creatives`;
     this.HTML_TEMPLATE_AD_WRAPPER_ID = "trendii-native-ad-wrapper";
     this.HTML_TEMPLATE_SLIDER_CONTAINER_ID = "trendii-sdk-ad-products-container";
@@ -582,26 +582,27 @@ class TRENDiiAd {
         fetch(this.API_GET_NATIVE_AD_SLIDER_TEMPLATE).then((response) => response.text()),
         fetch(this.API_GET_NATIVE_AD_SIMPLE_TEMPLATE).then((response) => response.text()),
       ]).then(allResponses => {
-        const response1 = allResponses[0];
-        const response2 = allResponses[1];
+        this.nativeAdSliderTemplateHTMLString = allResponses[0];
+        this.nativeAdSimpleTemplateHTMLString = allResponses[1];
         // const response3 = allResponses[2];
+        this.getProductsForAllImages();
       });
 
-      fetch(this.API_GET_NATIVE_AD_SLIDER_TEMPLATE, requestOptions)
-        .then((response) => response.text())
-        .then((response) => {
-          //debugger;
-          // //debugger;
-          this.nativeAdTemplateHTMLString = response;
-          // this.log(response.data);
-          // this.getProductsForAllImages();
-          // this.appendAdContainersToImages();
-          this.getProductsForAllImages();
-        })
-        .catch((error) => {
-          console.error(error);
-          typeof onErrorCallback === "function" && onErrorCallback(error);
-        });
+      // fetch(this.API_GET_NATIVE_AD_SLIDER_TEMPLATE, requestOptions)
+      //   .then((response) => response.text())
+      //   .then((response) => {
+      //     //debugger;
+      //     // //debugger;
+      //     this.nativeAdSliderTemplateHTMLString = response;
+      //     // this.log(response.data);
+      //     // this.getProductsForAllImages();
+      //     // this.appendAdContainersToImages();
+      //     this.getProductsForAllImages();
+      //   })
+      //   .catch((error) => {
+      //     console.error(error);
+      //     typeof onErrorCallback === "function" && onErrorCallback(error);
+      //   });
     });
   }
   loadStyleSheet(url) {
@@ -666,10 +667,6 @@ class TRENDiiAd {
       // "webpageUrl": "https://rahul-tatva.github.io/fashion-blog-below-ads.html",
       "webpageUrl": window.location.href,
       "imageUrls": this.allValidImageSrcArray,
-      // "publisher_id": 2,
-      // "publisher_name": "DailyMail",
-      // "domain": "dailymail.co.uk",
-      // "active": true,
       "publisherId": 1,
     };
     const headers = new Headers();
@@ -736,20 +733,20 @@ class TRENDiiAd {
     const identifier = `splide${index}`;
     imageData.sliderId = identifier;
 
-    const newDOM = this.nativeAdTemplateHTMLString
-      .replaceAll(SLIDER_CLASS_TO_REPLACE_WITH, identifier)
-      .replaceAll(RETAILER_NAME_TO_REPLACE_WITH, advertiserName);
+    // const newDOM = this.nativeAdSliderTemplateHTMLString
+    //   .replaceAll(SLIDER_CLASS_TO_REPLACE_WITH, identifier);
+    // // .replaceAll(RETAILER_NAME_TO_REPLACE_WITH, advertiserName);
 
-    const domParser = new DOMParser();
-    const templatesDOM = domParser.parseFromString(newDOM, "text/html");
+    // const domParser = new DOMParser();
+    // const templatesDOM = domParser.parseFromString(newDOM, "text/html");
 
-    const logoUrl = `${TRENDII_NATIVE_ADS_CDN}/${advertiserName.toLowerCase()}.png`;
 
-    const retailerLogoEl = templatesDOM.getElementById(RETAILER_LOGO_ID);
-    retailerLogoEl.title = advertiserName;
-
-    // when the logo is used as the image tag
-    retailerLogoEl.src = logoUrl;
+    // dynamic logo for the advertiser
+    // const logoUrl = `${TRENDII_NATIVE_ADS_CDN}/${advertiserName.toLowerCase()}.png`;
+    // const retailerLogoEl = templatesDOM.getElementById(RETAILER_LOGO_ID);
+    // retailerLogoEl.title = advertiserName;
+    // // when the logo is used as the image tag
+    // retailerLogoEl.src = logoUrl;
 
 
     // when the logo is used as the div tag
@@ -758,13 +755,13 @@ class TRENDiiAd {
     // retailerLogoEl.style.background = newBackgroundStyle;
     // retailerLogoEl.style.backgroundSize = "contain";
 
-
     // to resolve the issue for the slider getting too much height while rendering
-    const adProductsSliderContainer = templatesDOM.getElementById(identifier);
-    adProductsSliderContainer.style.display = "none";
+    // const adProductsSliderContainer = templatesDOM.getElementById(identifier);
+    // adProductsSliderContainer.style.display = "none";
 
-    let productsContainerEl = templatesDOM.getElementById(this.HTML_TEMPLATE_SLIDER_CONTAINER_ID);
-    productsContainerEl.innerHTML = "";
+
+    // let productsContainerEl = templatesDOM.getElementById(this.HTML_TEMPLATE_SLIDER_CONTAINER_ID);
+    // productsContainerEl.innerHTML = "";
 
     // const scriptId = `${identifier}-script`;
     // let scriptTag = templatesDOM.getElementById(scriptId);
@@ -772,22 +769,64 @@ class TRENDiiAd {
 
     switch (products.length) {
       case 1:
+      case 2: {
+        // const newDOM = this.nativeAdSimpleTemplateHTMLString
+        //   .replaceAll(SLIDER_CLASS_TO_REPLACE_WITH, identifier);
+
+        const domParser = new DOMParser();
+        const simpleTemplateDOM = domParser.parseFromString(this.nativeAdSimpleTemplateHTMLString, "text/html");
+
+        const productsContainerEl = simpleTemplateDOM.getElementById(
+          this.HTML_TEMPLATE_SIMPLE_CONTAINER_ID
+        );
+        // const logo = document.getElementById("logo");
+        // logo.addEventListener("click", function () {
+        //   window.open(feedProducts[0].url, "_blank");
+        // });
         initializeRenderingProductsBasedOnCount(products, productsContainerEl);
-        break;
-      case 2:
-        initializeRenderingProductsBasedOnCount(products, productsContainerEl);
+      }
         break;
 
-      default:
+      default: {
+        const newDOM = this.nativeAdSliderTemplateHTMLString
+          .replaceAll(SLIDER_CLASS_TO_REPLACE_WITH, identifier);
+        // .replaceAll(RETAILER_NAME_TO_REPLACE_WITH, advertiserName);
+
+        const domParser = new DOMParser();
+        const templatesDOM = domParser.parseFromString(newDOM, "text/html");
+
+
+        // dynamic logo for the advertiser
+        const logoUrl = `${TRENDII_NATIVE_ADS_CDN}/${advertiserName.toLowerCase()}.png`;
+        const retailerLogoEl = templatesDOM.getElementById(RETAILER_LOGO_ID);
+        retailerLogoEl.title = advertiserName;
+        // when the logo is used as the image tag
+        retailerLogoEl.src = logoUrl;
+
+
+        // when the logo is used as the div tag
+        // const newBackgroundStyle = 'url("' + logoUrl + '") no-repeat center center';
+        // // retailerLogoEl.style.background = `url("${logoUrl}") no-repeat center center;`;
+        // retailerLogoEl.style.background = newBackgroundStyle;
+        // retailerLogoEl.style.backgroundSize = "contain";
+
+        // to resolve the issue for the slider getting too much height while rendering
+        const adProductsSliderContainer = templatesDOM.getElementById(identifier);
+        adProductsSliderContainer.style.display = "none";
+
+
+        let productsContainerEl = templatesDOM.getElementById(this.HTML_TEMPLATE_SLIDER_CONTAINER_ID);
+        productsContainerEl.innerHTML = "";
+
+
+
         // create slider html template and append to the container
         products.forEach((product) => this.createSliderItemProduct(product, productsContainerEl));
-        break;
+        const resultantAdWrapper = templatesDOM.getElementById(this.HTML_TEMPLATE_AD_WRAPPER_ID);
+        return resultantAdWrapper;
+      }
+      // break;
     }
-
-
-
-    const resultantAdWrapper = templatesDOM.getElementById(this.HTML_TEMPLATE_AD_WRAPPER_ID);
-    return resultantAdWrapper;
   }
   getAllParentImageGroupClass() {
     let allParentElements;
