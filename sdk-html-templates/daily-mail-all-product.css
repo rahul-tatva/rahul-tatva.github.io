@@ -85,6 +85,11 @@ ul {
   /* background-size: contain; */
 }
 
+.block728X90-wrapper .product-redirection-link {
+  text-decoration: none;
+  color: unset;
+}
+
 .block728X90-wrapper .trendii-ad-header-title {
   font-weight: 700;
   display: flex;
