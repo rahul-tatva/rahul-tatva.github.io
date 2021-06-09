@@ -81,8 +81,8 @@ ul {
   min-width: 80px;
   min-height: 20px;
   max-height: 30px;
-  background: url(https://cdn.trendii.com/native-ads-sdk/assets/trendii.png)
-    no-repeat center center;
+  /* background: url(https://cdn.trendii.com/native-ads-sdk/assets/trendii.png)
+    no-repeat center center; */
   background-size: contain;
 }
 
