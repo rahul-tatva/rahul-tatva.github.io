@@ -728,6 +728,7 @@ class TRENDiiAd {
   createAdsForAllProductsInAdvance(imageData, index) {
     //debugger;
     const imageUrl = imageData.imageUrl;
+    const BRAND_NAME = imageData.advertiserName;
     // to test 1-2 products case
     const products = imageData.products.splice(0, (index % 2 === 0 ? 2 : 1));;
     const advertiserName = imageData.advertiserName;
