@@ -1168,7 +1168,7 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
       twoProductWrapper.appendChild(row);
 
       for (let i = 0; i <= 1; i++) {
-        const product = feedProducts[i];
+        const product = adRenderingProducts[i];
 
         const col = document.createElement("DIV");
         col.classList.add("col-6");
