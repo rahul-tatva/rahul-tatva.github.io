@@ -78,13 +78,12 @@ ul {
 .block728X90-wrapper .brand-logo .logo-container {
   /* display: block; */
   /* margin: 5px auto; */
-  margin: 0px 5px;
-  min-width: 40px;
-  width: 50px;
-  min-height: 40px;
-  max-height: 30px;
-  /* background: url(https://cdn.trendii.com/native-ads-sdk/assets/trendii.png)
-    no-repeat center center; */
+  margin: 0px 8px;
+  /* max-width: 80px; */
+  width: auto;
+  /* min-height: 10px; */
+  max-height: 13px;
+  /* background: url(https://cdn.trendii.com/native-ads-sdk/assets/levis.png) no-repeat center center; */
   /* background-size: contain; */
 }
 
