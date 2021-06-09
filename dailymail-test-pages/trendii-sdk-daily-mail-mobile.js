@@ -732,7 +732,7 @@ class TRENDiiAd {
     const newBackgroundStyle = 'url("' + logoUrl + '") no-repeat center center';
     // retailerLogoEl.style.background = `url("${logoUrl}") no-repeat center center;`;
     retailerLogoEl.style.background = newBackgroundStyle;
-
+    retailerLogoEl.style.backgroundSize = "contain";
     // to resolve the issue for the slider getting too much height while rendering
     const adProductsSliderContainer = templatesDOM.getElementById(identifier);
     adProductsSliderContainer.style.display = "none";
