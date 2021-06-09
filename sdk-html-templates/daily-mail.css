@@ -98,7 +98,7 @@ ul {
   margin: 5px 0;
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: baseline;
 }
 
 .block728X90-slider-wrapper .product-item-wrapper {

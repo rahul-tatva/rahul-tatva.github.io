@@ -46,7 +46,7 @@ ul {
   /* width: 728px; */
   /* height: 90px; */
   background: #f9f9f9;
-  background: cornflowerblue;
+  /* background: cornflowerblue; */
 }
 
 .block728X90-wrapper .outer {
@@ -95,7 +95,7 @@ ul {
   margin: 5px 0;
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: baseline;
 }
 
 /* one product wrapper styles */
