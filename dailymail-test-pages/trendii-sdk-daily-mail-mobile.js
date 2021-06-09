@@ -558,7 +558,11 @@ class TRENDiiAd {
     // this.feedProductsWithGeneratedAds = [];
 
     // native ads constants
-    this.API_GET_NATIVE_AD_TEMPLATE = `https://rahul-tatva.github.io/sdk-html-templates/Products-Slider-dynamic.html`;
+    this.API_GET_NATIVE_AD_SLIDER_TEMPLATE = `https://rahul-tatva.github.io/sdk-html-templates/Products-Slider-dynamic.html`;
+    this.API_GET_NATIVE_AD_SIMPLE_TEMPLATE = `https://rahul-tatva.github.io/sdk-html-templates/Products-728X90-all-product-dynamic.html`;
+    this.HTML_TEMPLATE_SIMPLE_CONTAINER_ID = "trendii-products-container-728X90";
+    this.nativeAdSimpleTemplateHTMLString = null;
+
     this.nativeAdTemplateHTMLString = null;
     this.API_GET_NATIVE_AD_PRODUCT = `https://beeswaxcreatives.trendii.com/img-creatives`;
     this.HTML_TEMPLATE_AD_WRAPPER_ID = "trendii-native-ad-wrapper";
@@ -573,7 +577,17 @@ class TRENDiiAd {
       //debugger;
       this.getAllDailyMailBlogImagesFromDOM();
       const requestOptions = { method: "GET" };
-      fetch(this.API_GET_NATIVE_AD_TEMPLATE, requestOptions)
+
+      Promise.all([
+        fetch(this.API_GET_NATIVE_AD_SLIDER_TEMPLATE),
+        fetch(this.API_GET_NATIVE_AD_SIMPLE_TEMPLATE),
+      ]).then(allResponses => {
+        const response1 = allResponses[0];
+        const response2 = allResponses[1];
+        // const response3 = allResponses[2];
+      });
+
+      fetch(this.API_GET_NATIVE_AD_SLIDER_TEMPLATE, requestOptions)
         .then((response) => response.text())
         .then((response) => {
           //debugger;
@@ -708,24 +722,26 @@ class TRENDiiAd {
   createAdTemplatesForAllProducts() {
     this.feedProducts.payload.map((imageData, index) => {
       if (imageData?.products.length > 0) {
-        const ad = this.createAdsForAllProductsInAdvance(imageData, index);
-        imageData.generatedAdHTML = ad;
-        imageData.generatedAdString = ad.innerHTML;
+        const generatedAd = this.createAdsForAllProductsInAdvance(imageData, index);
+        imageData.generatedAdHTML = generatedAd;
+        // imageData.generatedAdString = generatedAd.innerHTML;
       }
     });
   }
   createAdsForAllProductsInAdvance(imageData, index) {
     //debugger;
+    const imageUrl = imageData.imageUrl;
     const products = imageData.products;
     const advertiserName = imageData.advertiserName;
     const identifier = `splide${index}`;
+    imageData.sliderId = identifier;
+
     const newDOM = this.nativeAdTemplateHTMLString
       .replaceAll(SLIDER_CLASS_TO_REPLACE_WITH, identifier)
       .replaceAll(RETAILER_NAME_TO_REPLACE_WITH, advertiserName);
 
     const domParser = new DOMParser();
     const templatesDOM = domParser.parseFromString(newDOM, "text/html");
-
 
     const logoUrl = `${TRENDII_NATIVE_ADS_CDN}/${advertiserName.toLowerCase()}.png`;
 
@@ -748,12 +764,28 @@ class TRENDiiAd {
     adProductsSliderContainer.style.display = "none";
 
     let productsContainerEl = templatesDOM.getElementById(this.HTML_TEMPLATE_SLIDER_CONTAINER_ID);
-    const scriptId = `${identifier}-script`;
-    let scriptTag = templatesDOM.getElementById(scriptId);
     productsContainerEl.innerHTML = "";
-    imageData.scriptTag = scriptTag;
-    imageData.sliderId = identifier;
-    products.forEach((product) => this.createSliderItemProduct(product, productsContainerEl));
+
+    // const scriptId = `${identifier}-script`;
+    // let scriptTag = templatesDOM.getElementById(scriptId);
+    // imageData.scriptTag = scriptTag;
+
+    switch (products.length) {
+      case 1:
+        initializeRenderingProductsBasedOnCount(products, productsContainerEl);
+        break;
+      case 2:
+        initializeRenderingProductsBasedOnCount(products, productsContainerEl);
+        break;
+
+      default:
+        // create slider html template and append to the container
+        products.forEach((product) => this.createSliderItemProduct(product, productsContainerEl));
+        break;
+    }
+
+
+
     const resultantAdWrapper = templatesDOM.getElementById(this.HTML_TEMPLATE_AD_WRAPPER_ID);
     return resultantAdWrapper;
   }
@@ -976,3 +1008,777 @@ class TRENDiiAd {
   myTrendii.log("test log");
 })();
 
+function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsContainer) {
+  switch (adRenderingProducts.length) {
+    case 1: {
+      // <div class="one-product-wrapper">
+      //     <div class="product-item-container">
+      //         <div class="product-item main-item"
+      //             style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
+      //         </div>
+      //         <div class="product-details-wrapper">
+      //             <b class="brand-name">MARCO POLO</b>
+      //             <p class="product-name">M2K tekno sneakers sneakers sn eakers sneake rssneakerstekno tekno
+      //                     tekno</p>
+      //             <em class="product-price">$260</em>
+      //         </div>
+      //     </div>
+      // </div>
+      const product = adRenderingProducts[0];
+
+      const productItemRedirectContainer = document.createElement("A");
+      productItemRedirectContainer.classList.add("product-redirection-link");
+      productItemRedirectContainer.style = "text-decoration: none;";
+      productItemRedirectContainer.href = product.url;
+      productItemRedirectContainer.target = "_blank";
+      productsContainer.appendChild(productItemRedirectContainer);
+
+      const oneProductWrapper = document.createElement("DIV");
+      oneProductWrapper.classList.add("one-product-wrapper");
+      productItemRedirectContainer.appendChild(oneProductWrapper);
+
+      const productItemContainer = document.createElement("DIV");
+      productItemContainer.classList.add("product-item-container");
+      productItemContainer.addEventListener("click", function () {
+        window.open(product.url, "_blank");
+      });
+      oneProductWrapper.appendChild(productItemContainer);
+
+      const productItem = document.createElement("DIV");
+      productItem.classList.add("product-item");
+      productItem.classList.add("main-item");
+      productItem.style.backgroundImage = `url(${product.image})`;
+      productItemContainer.appendChild(productItem);
+
+      if (product.sale) {
+        const onSaleTag = document.createElement('SPAN');
+        onSaleTag.classList.add("onsale");
+        onSaleTag.innerHTML = "ON SALE";
+        productItem.appendChild(onSaleTag);
+      }
+
+      const productDetailsWrapper = document.createElement("DIV");
+      productDetailsWrapper.classList.add("product-details-wrapper");
+      productItemContainer.appendChild(productDetailsWrapper);
+
+      const brandName = document.createElement("B");
+      brandName.classList.add("brand-name");
+      brandName.innerHTML = BRAND_NAME;
+      productDetailsWrapper.appendChild(brandName);
+
+      const productName = document.createElement("P");
+      productName.classList.add("product-name");
+      productName.innerHTML = product.name;
+      productDetailsWrapper.appendChild(productName);
+
+      const productPrice = document.createElement("EM");
+      productPrice.classList.add("product-price");
+      productPrice.innerHTML = product.currency + product.price;
+      productDetailsWrapper.appendChild(productPrice);
+      break;
+    }
+    case 2: {
+      // <div class="two-product-wrapper">
+      //     <div class="row secondary-product-row">
+      //         <div class="col">
+      //             <div class="product-item-container">
+      //                 <div class="product-item"
+      //                     style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
+      //                     <span class="onsale">ON SALE</span>
+      //                 </div>
+      //                 <div class="product-details-wrapper">
+      //                     <b class="brand-name">MARCO POLO</b>
+      //                     <p class="product-name">M2K tekno sneakers tekno te kn ekno ekno ekno v ekno ot ekno
+      //                             v</p>
+      //                     <em class="product-price">$260</em>
+      //                 </div>
+      //             </div>
+      //         </div>
+      //     </div>
+      //     <div class="row secondary-product-row">
+      //         <div class="col">
+      //             <div class="product-item-container">
+      //                 <div class="product-item"
+      //                     style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
+      //                     <span class="onsale">ON SALE</span>
+      //                 </div>
+      //                 <div class="product-details-wrapper">
+      //                     <b class="brand-name">MARCO POLO</b>
+      //                     <p class="product-name">M2K tekno sneakers tekno tekno v tekno tekno tekno</p>
+      //                     <em class="product-price">$260</em>
+      //                 </div>
+      //             </div>
+      //         </div>
+      //     </div>
+      // </div>
+      const twoProductWrapper = document.createElement("DIV");
+      twoProductWrapper.classList.add("two-product-wrapper");
+      productsContainer.appendChild(twoProductWrapper);
+
+      for (let i = 0; i <= 1; i++) {
+        const product = adRenderingProducts[i];
+
+        const row = document.createElement("DIV");
+        row.classList.add("row");
+        row.classList.add("secondary-product-row");
+        twoProductWrapper.appendChild(row);
+
+        const col = document.createElement("DIV");
+        col.classList.add("col");
+        row.appendChild(col);
+
+        const productItemRedirectContainer = document.createElement("A");
+        productItemRedirectContainer.classList.add("product-redirection-link");
+        productItemRedirectContainer.style = "text-decoration: none;";
+        productItemRedirectContainer.href = product.url;
+        productItemRedirectContainer.target = "_blank";
+        col.appendChild(productItemRedirectContainer);
+
+        const productItemContainer = document.createElement("DIV");
+        productItemContainer.classList.add("product-item-container");
+        productItemContainer.addEventListener("click", function () {
+          window.open(product.url, "_blank");
+        });
+        productItemRedirectContainer.appendChild(productItemContainer);
+
+        const productItem = document.createElement("DIV");
+        productItem.classList.add("product-item");
+        productItem.style.backgroundImage = `url(${product.image})`;
+        productItemContainer.appendChild(productItem);
+
+        if (product.sale) {
+          const onSaleTag = document.createElement('SPAN');
+          onSaleTag.classList.add("onsale");
+          onSaleTag.innerHTML = "ON SALE";
+          productItem.appendChild(onSaleTag);
+        }
+
+        const productDetailsWrapper = document.createElement("DIV");
+        productDetailsWrapper.classList.add("product-details-wrapper");
+        productItemContainer.appendChild(productDetailsWrapper);
+
+        const brandName = document.createElement("B");
+        brandName.classList.add("brand-name");
+        brandName.innerHTML = BRAND_NAME;
+        productDetailsWrapper.appendChild(brandName);
+
+        const productName = document.createElement("P");
+        productName.classList.add("product-name");
+        productName.innerHTML = product.name;
+        productDetailsWrapper.appendChild(productName);
+
+        const productPrice = document.createElement("EM");
+        productPrice.classList.add("product-price");
+        productPrice.innerHTML = product.currency + product.price;
+        productDetailsWrapper.appendChild(productPrice);
+      }
+      break;
+    }
+    case 3: {
+      // <div class="three-product-wrapper">
+      //     <div class="row">
+      //         <div class="col">
+      //             <div class="product-item-container">
+      //                 <div class="large-item-container">
+      //                     <div class="product-item"
+      //                         style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
+      //                         <span class="onsale">ON SALE</span>
+      //                     </div>
+      //                     <div class="product-details-wrapper">
+      //                         <b class="brand-name">MARCO POLO</b>
+      //                         <p class="product-name">M2K tekno sneakers tekno tekno tekno tekno tekno v</p>
+      //                         <em class="product-price">$260</em>
+      //                     </div>
+      //                 </div>
+      //             </div>
+      //         </div>
+      //     </div>
+      //     <div class="row">
+      //         <div class="col">
+      //             <div class="product-item-container">
+      //                 <div class="large-item-container">
+      //                     <div class="product-item"
+      //                         style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
+      //                         <span class="onsale">ON SALE</span>
+      //                     </div>
+      //                     <div class="product-details-wrapper">
+      //                         <b class="brand-name">MARCO POLO</b>
+      //                         <p class="product-name">M2K tekno sneakers tekno tekno tekno tekno tekno v</p>
+      //                         <em class="product-price">$260</em>
+      //                     </div>
+      //                 </div>
+      //             </div>
+      //         </div>
+      //     </div>
+      //     <div class="row">
+      //         <div class="col">
+      //             <div class="product-item-container">
+      //                 <div class="large-item-container">
+      //                     <div class="product-item"
+      //                         style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
+      //                         <span class="onsale">ON SALE</span>
+      //                     </div>
+      //                     <div class="product-details-wrapper">
+      //                         <b class="brand-name">MARCO POLO</b>
+      //                         <p class="product-name">M2K tekno sneakers tekno tekno tekno tekno tekno v</p>
+      //                         <em class="product-price">$260</em>
+      //                     </div>
+      //                 </div>
+      //             </div>
+      //         </div>
+      //     </div>
+      // </div>
+      const threeProductWrapper = document.createElement("DIV");
+      threeProductWrapper.classList.add("three-product-wrapper");
+      productsContainer.appendChild(threeProductWrapper);
+
+      for (let i = 0; i <= 2; i++) {
+        const product = adRenderingProducts[i];
+
+        const row = document.createElement("DIV");
+        row.classList.add("row");
+        threeProductWrapper.appendChild(row);
+
+        const col = document.createElement("DIV");
+        col.classList.add("col");
+        row.appendChild(col);
+
+        const productItemRedirectContainer = document.createElement("A");
+        productItemRedirectContainer.classList.add("product-redirection-link");
+        productItemRedirectContainer.style = "text-decoration: none;";
+        productItemRedirectContainer.href = product.url;
+        productItemRedirectContainer.target = "_blank";
+        col.appendChild(productItemRedirectContainer);
+
+        const productItemContainer = document.createElement("DIV");
+        productItemContainer.classList.add("product-item-container");
+        productItemRedirectContainer.appendChild(productItemContainer);
+
+        const largeItemContainer = document.createElement("DIV");
+        largeItemContainer.classList.add("large-item-container");
+        largeItemContainer.addEventListener("click", function () {
+          window.open(product.url, "_blank");
+        });
+        productItemContainer.appendChild(largeItemContainer);
+
+        const productItem = document.createElement("DIV");
+        productItem.classList.add("product-item");
+        productItem.style.backgroundImage = `url(${product.image})`;
+        largeItemContainer.appendChild(productItem);
+
+        if (product.sale) {
+          const onSaleTag = document.createElement('SPAN');
+          onSaleTag.classList.add("onsale");
+          onSaleTag.innerHTML = "ON SALE";
+          productItem.appendChild(onSaleTag);
+        }
+
+        const productDetailsWrapper = document.createElement("DIV");
+        productDetailsWrapper.classList.add("product-details-wrapper");
+        largeItemContainer.appendChild(productDetailsWrapper);
+
+        const brandName = document.createElement("B");
+        brandName.classList.add("brand-name");
+        brandName.innerHTML = BRAND_NAME;
+        productDetailsWrapper.appendChild(brandName);
+
+        const productName = document.createElement("P");
+        productName.classList.add("product-name");
+        productName.innerHTML = product.name;
+        productDetailsWrapper.appendChild(productName);
+
+        const productPrice = document.createElement("EM");
+        productPrice.classList.add("product-price");
+        productPrice.innerHTML = product.currency + product.price;
+        productDetailsWrapper.appendChild(productPrice);
+      }
+      break;
+    }
+    case 4: {
+      // <div class="four-product-wrapper">
+      //     <div class="row secondary-product-row">
+      //         <div class="col-6">
+      //             <div class="product-item-container">
+      //                 <div class="product-item"
+      //                     style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
+      //                     <span class="onsale">ON SALE</span>
+      //                 </div>
+      //                 <div class="product-details-wrapper">
+      //                     <b class="brand-name">MARCO POLO</b>
+      //                     <p class="product-name">M2K tekno sneakers tekno te kn otekno v</p>
+      //                     <em class="product-price">$260</em>
+      //                 </div>
+      //             </div>
+      //         </div>
+      //         <div class="col-6">
+      //             <div class="product-item-container">
+      //                 <div class="product-item"
+      //                     style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
+      //                     <span class="onsale">ON SALE</span>
+      //                 </div>
+      //                 <div class="product-details-wrapper">
+      //                     <b class="brand-name">MARCO POLO</b>
+      //                     <p class="product-name">M2K tekno sneakers tekno tekno tekno</p>
+      //                     <em class="product-price">$260</em>
+      //                 </div>
+      //             </div>
+      //         </div>
+      //     </div>
+      //     <div class="row secondary-product-row">
+      //         <div class="col-6">
+      //             <div class="product-item-container">
+      //                 <div class="product-item"
+      //                     style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
+      //                     <span class="onsale">ON SALE</span>
+      //                 </div>
+      //                 <div class="product-details-wrapper">
+      //                     <b class="brand-name">MARCO POLO</b>
+      //                     <p class="product-name">M2K tekno sneakers tekno teknotekno v</p>
+      //                     <em class="product-price">$260</em>
+      //                 </div>
+      //             </div>
+      //         </div>
+      //         <div class="col-6">
+      //             <div class="product-item-container">
+      //                 <div class="product-item"
+      //                     style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
+      //                     <span class="onsale">ON SALE</span>
+      //                 </div>
+      //                 <div class="product-details-wrapper">
+      //                     <b class="brand-name">MARCO POLO</b>
+      //                     <p class="product-name">M2K tekno sneakers tekno tekno tekno</p>
+      //                     <em class="product-price">$260</em>
+      //                 </div>
+      //             </div>
+      //         </div>
+      //     </div>
+      // </div>
+      const fourProductWrapper = document.createElement("DIV");
+      fourProductWrapper.classList.add("four-product-wrapper");
+      productsContainer.appendChild(fourProductWrapper);
+
+      let countIndex = 0;
+      for (let i = 1; i <= 2; i++) {
+        const row = document.createElement("DIV");
+        row.classList.add("row");
+        row.classList.add("secondary-product-row");
+        fourProductWrapper.appendChild(row);
+
+        for (let i = 1; i <= 2; i++) {
+          const product = adRenderingProducts[countIndex];
+
+          const col = document.createElement("DIV");
+          col.classList.add("col-6");
+          row.appendChild(col);
+
+          const productItemRedirectContainer = document.createElement("A");
+          productItemRedirectContainer.classList.add("product-redirection-link");
+          productItemRedirectContainer.style = "text-decoration: none;";
+          productItemRedirectContainer.href = product.url;
+          productItemRedirectContainer.target = "_blank";
+          col.appendChild(productItemRedirectContainer);
+
+          const productItemContainer = document.createElement("DIV");
+          productItemContainer.classList.add("product-item-container");
+          productItemContainer.addEventListener("click", function () {
+            window.open(product.url, "_blank");
+          });
+          productItemRedirectContainer.appendChild(productItemContainer);
+
+          const productItem = document.createElement("DIV");
+          productItem.classList.add("product-item");
+          productItem.style.backgroundImage = `url(${product.image})`;
+          productItemContainer.appendChild(productItem);
+
+          // sale lable
+          if (product.sale) {
+            const onSaleTag = document.createElement('SPAN');
+            onSaleTag.classList.add("onsale");
+            onSaleTag.innerHTML = "ON SALE";
+            productItem.appendChild(onSaleTag);
+          }
+
+          const productDetailsWrapper = document.createElement("DIV");
+          productDetailsWrapper.classList.add("product-details-wrapper");
+          productItemContainer.appendChild(productDetailsWrapper);
+
+          const brandName = document.createElement("B");
+          brandName.classList.add("brand-name");
+          brandName.innerHTML = BRAND_NAME;
+          productDetailsWrapper.appendChild(brandName);
+
+          const productName = document.createElement("P");
+          productName.classList.add("product-name");
+          productName.innerHTML = product.name;
+          productDetailsWrapper.appendChild(productName);
+
+          const productPrice = document.createElement("EM");
+          productPrice.classList.add("product-price");
+          productPrice.innerHTML = product.currency + product.price;
+          productDetailsWrapper.appendChild(productPrice);
+
+          countIndex++;
+        }
+      }
+      break;
+    }
+    case 5: {
+      // <div class="five-product-wrapper">
+      //     <div class="row">
+      //         <div class="col">
+      //             <div class="product-item-container">
+      //                 <div class="product-item"
+      //                     style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
+      //                     <span class="onsale">ON SALE</span>
+      //                     <div class="product-details-wrapper">
+      //                         <b>Nike</b>
+      //                         <p>M2K tekno sneakers</p>
+      //                         <em>$ 260</em>
+      //                     </div>
+      //                 </div>
+      //             </div>
+      //         </div>
+      //     </div>
+      //     <div class="row secondary-product-row">
+      //         <div class="col-6">
+      //             <div class="product-item-container">
+      //                 <div class="product-item"
+      //                     style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
+      //                     <span class="onsale">ON SALE</span>
+      //                     <div class="product-details-wrapper">
+      //                         <b>Nike</b>
+      //                         <p>M2K tekno sneakers</p>
+      //                         <em>$ 260</em>
+      //                     </div>
+      //                 </div>
+      //             </div>
+      //         </div>
+      //         <div class="col-6">
+      //             <div class="product-item-container">
+      //                 <div class="product-item"
+      //                     style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
+      //                     <span class="onsale">ON SALE</span>
+      //                     <div class="product-details-wrapper">
+      //                         <b>Nike</b>
+      //                         <p>M2K tekno sneakers</p>
+      //                         <em>$ 260</em>
+      //                     </div>
+      //                 </div>
+      //             </div>
+      //         </div>
+      //     </div>
+      //     <div class="row secondary-product-row">
+      //         <div class="col-6">
+      //             <div class="product-item-container">
+      //                 <div class="product-item"
+      //                     style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
+      //                     <span class="onsale">ON SALE</span>
+      //                     <div class="product-details-wrapper">
+      //                         <b>Nike</b>
+      //                         <p>M2K tekno sneakers</p>
+      //                         <em>$ 260</em>
+      //                     </div>
+      //                 </div>
+      //             </div>
+      //         </div>
+      //         <div class="col-6">
+      //             <div class="product-item-container">
+      //                 <div class="product-item"
+      //                     style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
+      //                     <span class="onsale">ON SALE</span>
+      //                     <div class="product-details-wrapper">
+      //                         <b>Nike</b>
+      //                         <p>M2K tekno sneakers</p>
+      //                         <em>$ 260</em>
+      //                     </div>
+      //                 </div>
+      //             </div>
+      //         </div>
+      //     </div>
+      // </div>
+      const fiveProductWrapper = document.createElement("DIV");
+      fiveProductWrapper.classList.add("five-product-wrapper");
+      productsContainer.appendChild(fiveProductWrapper);
+
+      const product = adRenderingProducts[0];
+
+      const row = document.createElement("DIV");
+      row.classList.add("row");
+      fiveProductWrapper.appendChild(row);
+
+      const col = document.createElement("DIV");
+      col.classList.add("col");
+      row.appendChild(col);
+
+      const productItemRedirectContainer = document.createElement("A");
+      productItemRedirectContainer.classList.add("product-redirection-link");
+      productItemRedirectContainer.style = "text-decoration: none;";
+      productItemRedirectContainer.href = product.url;
+      productItemRedirectContainer.target = "_blank";
+      col.appendChild(productItemRedirectContainer);
+
+      const productItemContainer = document.createElement("DIV");
+      productItemContainer.classList.add("product-item-container");
+      productItemContainer.addEventListener("click", function () {
+        window.open(product.url, "_blank");
+      });
+      productItemRedirectContainer.appendChild(productItemContainer);
+
+      const productItem = document.createElement("DIV");
+      productItem.classList.add("product-item");
+      productItem.style.backgroundImage = `url(${product.image})`;
+      productItemContainer.appendChild(productItem);
+
+      if (product.sale) {
+        const onSaleTag = document.createElement('SPAN');
+        onSaleTag.classList.add("onsale");
+        onSaleTag.innerHTML = "ON SALE";
+        productItem.appendChild(onSaleTag);
+      }
+
+      const productDetailsWrapper = document.createElement("DIV");
+      productDetailsWrapper.classList.add("product-details-wrapper");
+      productItem.appendChild(productDetailsWrapper);
+
+      const brandName = document.createElement("B");
+      brandName.classList.add("brand-name");
+      brandName.innerHTML = BRAND_NAME;
+      productDetailsWrapper.appendChild(brandName);
+
+      const productName = document.createElement("P");
+      productName.classList.add("product-name");
+      productName.innerHTML = product.name;
+      productDetailsWrapper.appendChild(productName);
+
+      const productPrice = document.createElement("EM");
+      productPrice.classList.add("product-price");
+      productPrice.innerHTML = product.currency + product.price;
+      productDetailsWrapper.appendChild(productPrice);
+
+      let countIndex = 1;
+      for (let i = 1; i <= 2; i++) {
+        const row = document.createElement("DIV");
+        row.classList.add("row");
+        row.classList.add("secondary-product-row");
+        fiveProductWrapper.appendChild(row);
+
+        for (let i = 1; i <= 2; i++) {
+          const product = adRenderingProducts[countIndex];
+
+          const col = document.createElement("DIV");
+          col.classList.add("col-6");
+          row.appendChild(col);
+
+          const productItemRedirectContainer = document.createElement("A");
+          productItemRedirectContainer.classList.add("product-redirection-link");
+          productItemRedirectContainer.style = "text-decoration: none;";
+          productItemRedirectContainer.href = product.url;
+          productItemRedirectContainer.target = "_blank";
+          col.appendChild(productItemRedirectContainer);
+
+          const productItemContainer = document.createElement("DIV");
+          productItemContainer.classList.add("product-item-container");
+          productItemContainer.addEventListener("click", function () {
+            window.open(product.url, "_blank");
+          });
+          productItemRedirectContainer.appendChild(productItemContainer);
+
+          const productItem = document.createElement("DIV");
+          productItem.classList.add("product-item");
+          productItem.style.backgroundImage = `url(${product.image})`;
+          productItemContainer.appendChild(productItem);
+
+          if (product.sale) {
+            const onSaleTag = document.createElement('SPAN');
+            onSaleTag.classList.add("onsale");
+            onSaleTag.innerHTML = "ON SALE";
+            productItem.appendChild(onSaleTag);
+          }
+
+          const productDetailsWrapper = document.createElement("DIV");
+          productDetailsWrapper.classList.add("product-details-wrapper");
+          productItem.appendChild(productDetailsWrapper);
+
+          const brandName = document.createElement("B");
+          brandName.classList.add("brand-name");
+          brandName.innerHTML = BRAND_NAME;
+          productDetailsWrapper.appendChild(brandName);
+
+          const productName = document.createElement("P");
+          productName.classList.add("product-name");
+          productName.innerHTML = product.name;
+          productDetailsWrapper.appendChild(productName);
+
+          const productPrice = document.createElement("EM");
+          productPrice.classList.add("product-price");
+          productPrice.innerHTML = product.currency + product.price;
+          productDetailsWrapper.appendChild(productPrice);
+
+          countIndex++;
+        }
+      }
+
+      break;
+    }
+    case 6: {
+      // <div class="six-product-wrapper">
+      //     <div class="row secondary-product-row">
+      //         <div class="col-6">
+      //             <div class="product-item-container">
+      //                 <div class="product-item"
+      //                     style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
+      //                     <span class="onsale">ON SALE</span>
+      //                     <div class="product-details-wrapper">
+      //                         <b>Nike</b>
+      //                         <p>M2K tekno sneakers</p>
+      //                         <em>$ 260</em>
+      //                     </div>
+      //                 </div>
+      //             </div>
+      //         </div>
+      //         <div class="col-6">
+      //             <div class="product-item-container">
+      //                 <div class="product-item"
+      //                     style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
+      //                     <span class="onsale">ON SALE</span>
+      //                     <div class="product-details-wrapper">
+      //                         <b>Nike</b>
+      //                         <p>M2K tekno sneakers</p>
+      //                         <em>$ 260</em>
+      //                     </div>
+      //                 </div>
+      //             </div>
+      //         </div>
+      //     </div>
+      //     <div class="row secondary-product-row">
+      //         <div class="col-6">
+      //             <div class="product-item-container">
+      //                 <div class="product-item"
+      //                     style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
+      //                     <span class="onsale">ON SALE</span>
+      //                     <div class="product-details-wrapper">
+      //                         <b>Nike</b>
+      //                         <p>M2K tekno sneakers</p>
+      //                         <em>$ 260</em>
+      //                     </div>
+      //                 </div>
+      //             </div>
+      //         </div>
+      //         <div class="col-6">
+      //             <div class="product-item-container">
+      //                 <div class="product-item"
+      //                     style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
+      //                     <span class="onsale">ON SALE</span>
+      //                     <div class="product-details-wrapper">
+      //                         <b>Nike</b>
+      //                         <p>M2K tekno sneakers</p>
+      //                         <em>$ 260</em>
+      //                     </div>
+      //                 </div>
+      //             </div>
+      //         </div>
+      //     </div>
+      //     <div class="row secondary-product-row">
+      //         <div class="col-6">
+      //             <div class="product-item-container">
+      //                 <div class="product-item"
+      //                     style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
+      //                     <span class="onsale">ON SALE</span>
+      //                     <div class="product-details-wrapper">
+      //                         <b>Nike</b>
+      //                         <p>M2K tekno sneakers</p>
+      //                         <em>$ 260</em>
+      //                     </div>
+      //                 </div>
+      //             </div>
+      //         </div>
+      //         <div class="col-6">
+      //             <div class="product-item-container">
+      //                 <div class="product-item"
+      //                     style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
+      //                     <span class="onsale">ON SALE</span>
+      //                     <div class="product-details-wrapper">
+      //                         <b>Nike</b>
+      //                         <p>M2K tekno sneakers</p>
+      //                         <em>$ 260</em>
+      //                     </div>
+      //                 </div>
+      //             </div>
+      //         </div>
+      //     </div>
+      // </div>
+
+      const sixProductWrapper = document.createElement("DIV");
+      sixProductWrapper.classList.add("six-product-wrapper");
+      productsContainer.appendChild(sixProductWrapper);
+
+      let countIndex = 0;
+      for (let index = 1; index <= 3; index++) {
+
+        const row = document.createElement("DIV");
+        row.classList.add("row");
+        row.classList.add("secondary-product-row");
+        sixProductWrapper.appendChild(row);
+
+        for (let i = 1; i <= 2; i++) {
+          const product = adRenderingProducts[countIndex];
+
+          const col = document.createElement("DIV");
+          col.classList.add("col-6");
+          row.appendChild(col);
+
+          const productItemRedirectContainer = document.createElement("A");
+          productItemRedirectContainer.classList.add("product-redirection-link");
+          productItemRedirectContainer.style = "text-decoration: none;";
+          productItemRedirectContainer.href = product.url;
+          productItemRedirectContainer.target = "_blank";
+          col.appendChild(productItemRedirectContainer);
+
+          const productItemContainer = document.createElement("DIV");
+          productItemContainer.classList.add("product-item-container");
+          productItemContainer.addEventListener("click", function () {
+            window.open(product.url, "_blank");
+          });
+          productItemRedirectContainer.appendChild(productItemContainer);
+
+          const productItem = document.createElement("DIV");
+          productItem.classList.add("product-item");
+          productItem.style.backgroundImage = `url(${product.image})`;
+          productItemContainer.appendChild(productItem);
+
+          if (product.sale) {
+            const onSaleTag = document.createElement('SPAN');
+            onSaleTag.classList.add("onsale");
+            onSaleTag.innerHTML = "ON SALE";
+            productItem.appendChild(onSaleTag);
+          }
+
+          const productDetailsWrapper = document.createElement("DIV");
+          productDetailsWrapper.classList.add("product-details-wrapper");
+          productItem.appendChild(productDetailsWrapper);
+
+          const brandName = document.createElement("B");
+          brandName.classList.add("brand-name");
+          brandName.innerHTML = BRAND_NAME;
+          productDetailsWrapper.appendChild(brandName);
+
+          const productName = document.createElement("P");
+          productName.classList.add("product-name");
+          productName.innerHTML = product.name;
+          productDetailsWrapper.appendChild(productName);
+
+          const productPrice = document.createElement("EM");
+          productPrice.classList.add("product-price");
+          productPrice.innerHTML = product.currency + product.price;
+          productDetailsWrapper.appendChild(productPrice);
+
+          countIndex++;
+        }
+      }
+      break;
+    }
+    default: {
+      break;
+    }
+  }
+}

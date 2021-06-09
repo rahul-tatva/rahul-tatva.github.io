@@ -32,7 +32,6 @@ ul {
   /* padding: 7px;
   margin: 0 4px; */
   /* border-radius: 50%; */
-
   position: relative;
   top: 39px;
   padding: 0;
@@ -293,6 +292,8 @@ ul {
   opacity: 0.5;
   z-index: 9999;
 }
+
+/* MEDIA QUERIES STARTS HERE */
 
 @media (min-width: 768px) {
   .block728X90-wrapper .product-item:hover {
