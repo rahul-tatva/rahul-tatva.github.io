@@ -2,9 +2,12 @@ const API_GET_AD_PRODUCTS =
   "https://flashtalking-sandbox-f6i4ayd3wa-ts.a.run.app/?site=16230&banner=300x600&p1=12345&p2=12345&p3=12345";
 // const API_GET_AD_PRODUCTS =
 //   "https://beeswax-creative-f6i4ayd3wa-ts.a.run.app/webImageProcess";
+const TRENDII_NATIVE_ADS_CDN = "https://cdn.trendii.com/native-ads-sdk/assets";
 const SUPPORTED_DIMENSIONS = ["160X600", "300X600"];
 const AD_PRODUCTS_CONTAINER = "trendii-sdk-ad-products-container";
 const PUBLISHER_NAME = "DAILY_MAIL";
+const RETAILER_LOGO_ID = "retailer-logo";
+
 // ad by default to below this class element
 const DAILY_MAIL_IMAGE_SELECTOR_CLASS = ".blkBorder.img-share";
 const DAILY_MAIL_LOADED_IMAGE_SELECTOR_CLASS = ".blkBorder.img-share.b-loaded";
@@ -722,6 +725,11 @@ class TRENDiiAd {
 
     const domParser = new DOMParser();
     const templatesDOM = domParser.parseFromString(newDOM, "text/html");
+
+    const retailerLogoEl = templatesDOM.getElementById(RETAILER_LOGO_ID);
+    adProductsSliderContainer.title = advertiserName;
+    const logoUrl = `${TRENDII_NATIVE_ADS_CDN}/${advertiserName.toLowerCase()}.png`;
+    adProductsSliderContainer.style.background = `url(${logoUrl}) no-repeat center center;`;
 
     // to resolve the issue for the slider getting too much height while rendering
     const adProductsSliderContainer = templatesDOM.getElementById(identifier);

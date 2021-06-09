@@ -65,21 +65,23 @@ ul {
 }
 
 .block728X90-wrapper .brand-logo {
-  margin-right: 4px;
-  width: 27px;
-  min-width: 27px;
-  height: 80px;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  background: #f32b97;
+  /* margin-right: 4px; */
+  /* width: 27px; */
+  /* min-width: 27px; */
+  /* display: inline-block; */
+  /* height: 80px; */
+  /* border-top-right-radius: 5px; */
+  /* border-bottom-right-radius: 5px; */
+  /* background: #f32b97; */
 }
 
 .block728X90-wrapper .brand-logo .logo-container {
-  display: block;
-  margin: 5px auto;
-  width: 15px;
-  height: 70px;
-  background: url("https://cdn.trendii.com/assets/trendii-verticle-logo-white.svg")
+  /* display: block; */
+  /* margin: 5px auto; */
+  min-width: 80px;
+  min-height: 20px;
+  max-height: 30px;
+  background: url(https://cdn.trendii.com/native-ads-sdk/assets/trendii.png)
     no-repeat center center;
   background-size: contain;
 }
@@ -93,6 +95,9 @@ ul {
 
 .block728X90-wrapper .trendii-ad-header-title {
   font-weight: 700;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .block728X90-wrapper .product-item-wrapper {
