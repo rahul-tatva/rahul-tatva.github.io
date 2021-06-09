@@ -72,25 +72,40 @@
 		}
 
 		.block728X90-wrapper .brand-logo {
-			width: 27px;
+			/* width: 27px;
 			min-width: 27px;
 			height: 80px;
 			border-top-right-radius: 5px;
 			border-bottom-right-radius: 5px;
-			background: #232323;
+			background: #232323; */
 		}
 
 		.block728X90-wrapper .brand-logo .logo-container {
-			display: block;
+			/* display: block;
 			margin: 5px auto;
 			width: 15px;
-			height: 70px;
-			background: url(https://cdn.trendii.com/assets/MarcoPolo/marco-polo-logo-w-v.png) no-repeat center center;
+			height: 30px; */
+			background: url(https://cdn.trendii.com/native-ads-sdk/assets/levis.png) no-repeat center center;
 			background-size: contain;
+
+
+			/* display: block; */
+			/* margin: 5px auto; */
+			margin: 0px 5px;
+			min-width: 40px;
+			width: 50px;
+			min-height: 40px;
+			max-height: 30px;
+			/* background: url(https://cdn.trendii.com/native-ads-sdk/assets/trendii.png)
+    no-repeat center center; */
+			/* background-size: contain; */
 		}
 
 		.block728X90-wrapper .trendii-ad-header-title {
 			font-weight: 700;
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
 		}
 
 
@@ -130,11 +145,10 @@
 			position: relative;
 			cursor: pointer;
 			display: block;
-			vertical-align: middle;
-			border-radius: 8px;
-			width: 98px;
-			height: 72px;
+			width: 100px;
+			height: 125px;
 			float: left;
+			box-sizing: border-box;
 			/* border: 1px solid #E3E3E3; */
 			background-color: #fff;
 			background-repeat: no-repeat;
@@ -256,11 +270,10 @@
 			position: relative;
 			cursor: pointer;
 			display: block;
-			vertical-align: middle;
-			border-radius: 8px;
-			width: 98px;
-			height: 72px;
+			width: 100px;
+			height: 125px;
 			float: left;
+			box-sizing: border-box;
 			/* border: 1px solid #E3E3E3; */
 			background-color: #fff;
 			background-repeat: no-repeat;
@@ -352,7 +365,7 @@
 			width: 100%;
 			flex-direction: row;
 			align-content: center;
-			justify-content: space-between;
+			justify-content: flex-start;
 			align-items: center;
 		}
 
@@ -360,12 +373,10 @@
 			position: relative;
 			cursor: pointer;
 			display: block;
-			vertical-align: middle;
-			border-radius: 8px;
-			width: 98px;
-			height: 72px;
+			width: 100px;
+			height: 125px;
 			float: left;
-			/* border: 1px solid #E3E3E3; */
+			box-sizing: border-box;
 			background-color: #fff;
 			background-repeat: no-repeat;
 			background-position: center center;
@@ -472,11 +483,10 @@
 			position: relative;
 			cursor: pointer;
 			display: block;
-			vertical-align: middle;
-			border-radius: 8px;
-			width: 98px;
-			height: 72px;
+			width: 100px;
+			height: 125px;
 			float: left;
+			box-sizing: border-box;
 			/* border: 1px solid #E3E3E3; */
 			background-color: #fff;
 			background-repeat: no-repeat;
@@ -862,7 +872,10 @@
 	<div class="block728X90-wrapper">
 		<div class="outer">
 			<div class="trendii-ad-header-title">
-				Shop the look with {{RETAILER_NAME}}
+				Shop the look with
+				<div class="brand-logo">
+					<div id="retailer-logo" title="TRENDii" class="logo-container"></div>
+				</div>
 			</div>
 			<div class="product-item-wrapper" id="trendii-products-container-728X90">
 				<div class="one-product-wrapper">
@@ -908,7 +921,10 @@
 	<div class="block728X90-wrapper">
 		<div class="outer">
 			<div class="trendii-ad-header-title">
-				Shop the look with {{RETAILER_NAME}}
+				Shop the look with
+				<div class="brand-logo">
+					<div id="retailer-logo" title="TRENDii" class="logo-container"></div>
+				</div>
 			</div>
 			<div class="product-item-wrapper" id="trendii-products-container-728X90">
 				<div class="two-product-wrapper">
@@ -953,7 +969,10 @@
 		<div class="outer">
 
 			<div class="trendii-ad-header-title">
-				Shop the look with {{RETAILER_NAME}}
+				Shop the look with
+				<div class="brand-logo">
+					<div id="retailer-logo" title="TRENDii" class="logo-container"></div>
+				</div>
 			</div>
 
 
@@ -1014,7 +1033,10 @@
 	<div class="block728X90-wrapper">
 		<div class="outer">
 			<div class="trendii-ad-header-title">
-				Shop the look with {{RETAILER_NAME}}
+				Shop the look with
+				<div class="brand-logo">
+					<div id="retailer-logo" title="TRENDii" class="logo-container"></div>
+				</div>
 			</div>
 
 			<div class="product-item-wrapper" id="trendii-products-container-728X90">
@@ -1080,7 +1102,10 @@
 		<div class="outer">
 
 			<div class="trendii-ad-header-title">
-				Shop the look with {{RETAILER_NAME}}
+				Shop the look with
+				<div class="brand-logo">
+					<div id="retailer-logo" title="TRENDii" class="logo-container"></div>
+				</div>
 			</div>
 			<div class="product-item-wrapper" id="trendii-products-container-728X90">
 				<div class="five-product-wrapper">
@@ -1161,7 +1186,10 @@
 	<div class="block728X90-wrapper">
 		<div class="outer">
 			<div class="trendii-ad-header-title">
-				Shop the look with {{RETAILER_NAME}}
+				Shop the look with
+				<div class="brand-logo">
+					<div id="retailer-logo" title="TRENDii" class="logo-container"></div>
+				</div>
 			</div>
 
 			<div class="product-item-wrapper" id="trendii-products-container-728X90">
