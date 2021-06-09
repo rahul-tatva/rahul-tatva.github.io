@@ -1102,6 +1102,7 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
       //     </div>
       //   </div>
       // </div>
+      /*
       const product = adRenderingProducts[0];
 
       const productItemRedirectContainer = document.createElement("A");
@@ -1148,7 +1149,7 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
       productPrice.classList.add("product-price");
       productPrice.innerHTML = product.currency + product.price;
       productDetailsWrapper.appendChild(productPrice);
-
+      */
 
 
       // <div class="one-product-wrapper">
