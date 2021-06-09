@@ -69,13 +69,13 @@ ul {
 			margin: 5px auto;
 			width: 15px;
 			height: 30px; */
-  background: url(https://cdn.trendii.com/native-ads-sdk/assets/levis.png)
+  /* background: url(https://cdn.trendii.com/native-ads-sdk/assets/levis.png)
     no-repeat center center;
-  background-size: contain;
+  background-size: contain; */
 
   /* display: block; */
   /* margin: 5px auto; */
-  margin: 0px 5px;
+  margin: 0 5px;
   min-width: 40px;
   width: 50px;
   min-height: 40px;

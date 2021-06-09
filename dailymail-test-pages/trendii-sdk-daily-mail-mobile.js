@@ -783,6 +783,13 @@ class TRENDiiAd {
         const domParser = new DOMParser();
         const simpleTemplateDOM = domParser.parseFromString(this.nativeAdSimpleTemplateHTMLString, "text/html");
 
+        // dynamic logo for the advertiser
+        const logoUrl = `${TRENDII_NATIVE_ADS_CDN}/${advertiserName.toLowerCase()}.png`;
+        const retailerLogoEl = simpleTemplateDOM.getElementById(RETAILER_LOGO_ID);
+        retailerLogoEl.title = advertiserName;
+        // when the logo is used as the image tag
+        retailerLogoEl.src = logoUrl;
+
         const productsContainerEl = simpleTemplateDOM.getElementById(
           this.HTML_TEMPLATE_SIMPLE_CONTAINER_ID
         );
