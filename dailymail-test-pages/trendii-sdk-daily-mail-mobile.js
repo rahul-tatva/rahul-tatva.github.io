@@ -579,8 +579,8 @@ class TRENDiiAd {
       const requestOptions = { method: "GET" };
 
       Promise.all([
-        fetch(this.API_GET_NATIVE_AD_SLIDER_TEMPLATE),
-        fetch(this.API_GET_NATIVE_AD_SIMPLE_TEMPLATE),
+        fetch(this.API_GET_NATIVE_AD_SLIDER_TEMPLATE).then((response) => response.text()),
+        fetch(this.API_GET_NATIVE_AD_SIMPLE_TEMPLATE).then((response) => response.text()),
       ]).then(allResponses => {
         const response1 = allResponses[0];
         const response2 = allResponses[1];
