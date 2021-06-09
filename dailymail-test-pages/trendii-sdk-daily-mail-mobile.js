@@ -784,7 +784,7 @@ class TRENDiiAd {
         //   window.open(feedProducts[0].url, "_blank");
         // });
         initializeRenderingProductsBasedOnCount(products, productsContainerEl);
-        const resultantAdWrapper = templatesDOM.getElementById(this.HTML_TEMPLATE_AD_WRAPPER_ID);
+        const resultantAdWrapper = simpleTemplateDOM.getElementById(this.HTML_TEMPLATE_AD_WRAPPER_ID);
         return resultantAdWrapper;
       }
         break;
