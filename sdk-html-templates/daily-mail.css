@@ -255,7 +255,7 @@ ul {
   text-transform: uppercase;
   position: absolute;
   top: 9px;
-  left: -1px;
+  left: 0px;
   width: 30px;
   background: #c562a5;
   color: #fff;
@@ -305,8 +305,9 @@ ul {
     height: 100px;
   }
   .block728X90-wrapper .product-item .onsale {
-    width: 26px;
+    width: 32px;
     font-size: 6px;
+    padding: 2px 2px;
   }
   .block728X90-wrapper .product-details-wrapper-mobile {
     z-index: 1;
