@@ -18,14 +18,14 @@
     <div class="block728X90-wrapper" id="trendii-native-ad-wrapper">
         <link rel="stylesheet" href="./daily-mail.css">
         <!-- <link rel="stylesheet" href="https://rahul-tatva.github.io/sdk-html-templates/daily-mail.css"> -->
-        <!-- <link rel="stylesheet" href="https://rahul-tatva.github.io/sdk-html-templates/Products-Silder.css"> -->
         <!-- <link rel="stylesheet" href="https://cdn.trendii.com/assets/splide-core.min.css">
         <script src="https://cdn.trendii.com/assets/splide.min.js"></script> -->
         <div class="outer">
             <div class="trendii-ad-header-title">
-                Shop this look with TRENDii
+                Shop the look with {{RETAILER_NAME}}
             </div>
-            <div class="product-item-wrapper splide" id="trendiiSlider">
+            <!-- <div class="product-item-wrapper {{SLIDER_DYNAMIC_CLASS}}"> -->
+            <div class="product-item-wrapper splide" id="trendiiSliderUniqueString">
                 <div class="slider-title splide__arrows">
                     <button class="btn btn-slider splide__arrow splide__arrow--prev" style="display: none"
                         title="Previous">
@@ -48,7 +48,7 @@
                                 </div>
                             </li>
                             <li class="splide__slide">
-                                <div class="product-item-container">
+                                <!-- <div class="product-item-container">
                                     <div class="product-item"
                                         style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
                                         <span class="onsale">ON SALE</span>
@@ -59,6 +59,22 @@
                                             <em class="product-price">$260</em>
                                         </div>
                                     </div>
+                                </div> -->
+                                <div class="product-item-container">
+                                    <div class="product-item"
+                                        style="background-image: url(https://cdn.trendii.com/assets/1.jpg);">
+                                        <span class="onsale">ON SALE</span>
+                                        <div class="product-details-wrapper">
+                                            <b class="brand-name">TRENDii</b>
+                                            <p class="product-name">Relaxed Stripe Dress</p>
+                                            <span class="product-cashback-chip">2% Cashback</span>
+                                            <em class="product-price">$119.00</em>
+                                        </div>
+                                    </div>
+                                    <div class="product-details-wrapper-mobile">
+                                        <p class="product-name">Relaxed Stripe Dress</p>
+                                        <em class="product-price">$119.00</em>
+                                    </div>
                                 </div>
                             </li>
                             <li class="splide__slide">
@@ -68,8 +84,8 @@
                                         <span class="onsale">ON SALE</span>
                                         <div class="product-details-wrapper">
                                             <b class="brand-name">TRENDii</b>
-                                            <p class="product-name">M2K tekno sneakers sneakers sneakers sneakers</p>
-                                            <span class="product-cashback-chip">2% Cashback Cashback vCashback</span>
+                                            <p class="product-name">M2K tekno sneakers</p>
+                                            <span class="product-cashback-chip">2% Cashback</span>
                                             <em class="product-price">$260</em>
                                         </div>
                                     </div>
@@ -148,28 +164,41 @@
                         </ul>
                     </div>
                     <button class="btn btn-slider splide__arrow splide__arrow--next" title="Next">
-                        <img src="https://cdn.trendii.com/assets/next.svg" alt="">
+                        <img src="https://cdn.trendii.com/assets/arrow_pink.svg" alt="next-icon">
+                        <!-- <img src="https://cdn.trendii.com/assets/arrow.svg" alt="next-icon"> -->
                     </button>
                 </div>
             </div>
         </div>
-        <script>
-            const testSlider = new Splide('#trendiiSlider', {
-                type: 'loop',
-                // perPage: 6,
-                pagination: false,
-                gap: 10,
-                autoWidth: true,
-                // width: 400,
-                // fixedWidth: 200,
-            }).mount();
-            testSlider.on('mounted', function () {
-                console.log("mounted");
-                // This will be executed.
+        <script id="trendiiSliderUniqueString-script">
+            document.addEventListener("DOMContentLoaded", () => {
+                console.log("trendiiSliderUniqueString");
+                // new Splide('.{{SLIDER_DYNAMIC_CLASS}}', {
+                new Splide('#trendiiSliderUniqueString', {
+                    type: 'loop',
+                    // perPage: 6,
+                    pagination: false,
+                    gap: 10,
+                    autoWidth: true,
+                    // width: 400,
+                    // height: 135,
+                    // fixedWidth: 200,
+                }).mount();
+
+                // new Splide('.splide', {
+                //     type: 'loop',
+                //     // perPage: 6,
+                //     pagination: false,
+                //     gap: 10,
+                //     autoWidth: true,
+                //     // width: 400,
+                //     // fixedWidth: 200,
+                // }).mount();
             });
         </script>
     </div>
     <!-- 728X90 Ads wrapper end  -->
+
     <!-- <script src="./response.js"></script>
     <script src="./Products-Slider.js"></script> -->
 </body>
