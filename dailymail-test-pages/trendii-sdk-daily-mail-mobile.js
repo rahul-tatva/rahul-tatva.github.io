@@ -533,6 +533,9 @@ class TRENDiiAd {
   constructor(options) {
     //debugger;
     this.loadScript("https://cdn.trendii.com/assets/splide.min.js");
+    // this.loadScript("https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js");
+
+    this.loadStyleSheet("https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css");
     this.loadStyleSheet("https://cdn.trendii.com/assets/splide-core.min.css");
     this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/daily-mail.css");
     this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/daily-mail-all-product.css");
