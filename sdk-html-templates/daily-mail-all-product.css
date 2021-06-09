@@ -116,7 +116,6 @@ ul {
   display: block;
   width: 100px;
   height: 125px;
-
   box-sizing: border-box;
   border: 1px solid #000;
   background-color: #fff;
@@ -193,6 +192,44 @@ ul {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+}
+
+.block728X90-wrapper
+  .one-product-wrapper
+  .product-item-container
+  .product-item-image
+  .onsale {
+  display: block;
+  padding: 2px 4px;
+  text-transform: uppercase;
+  position: absolute;
+  top: 9px;
+  left: 0px;
+  width: 30px;
+  background: #c562a5;
+  color: #fff;
+  font-size: 7px;
+  line-height: 10px;
+  z-index: 2;
+  transition: all 0.2s ease;
+}
+
+.block728X90-wrapper
+  .one-product-wrapper
+  .product-item-container
+  .product-item-image
+  .onsale:after {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  bottom: 0;
+  border-left: 0 solid transparent;
+  border-right: 7px solid #fff0;
+  border-top: 7px solid #c562a5;
+  border-bottom: 7px solid #c562a5;
 }
 
 .block728X90-wrapper .one-product-wrapper .product-price-wrapper {
@@ -316,6 +353,44 @@ ul {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+}
+
+.block728X90-wrapper
+  .two-product-wrapper
+  .product-item-container
+  .product-item-image
+  .onsale {
+  display: block;
+  padding: 2px 4px;
+  text-transform: uppercase;
+  position: absolute;
+  top: 9px;
+  left: 0px;
+  width: 30px;
+  background: #c562a5;
+  color: #fff;
+  font-size: 7px;
+  line-height: 10px;
+  z-index: 2;
+  transition: all 0.2s ease;
+}
+
+.block728X90-wrapper
+  .two-product-wrapper
+  .product-item-container
+  .product-item-image
+  .onsale:after {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  bottom: 0;
+  border-left: 0 solid transparent;
+  border-right: 7px solid #fff0;
+  border-top: 7px solid #c562a5;
+  border-bottom: 7px solid #c562a5;
 }
 
 .block728X90-wrapper .two-product-wrapper .product-buy-link {
@@ -775,7 +850,7 @@ ul {
 		background-size: cover; */
 /* } */
 
-*/ .block728X90-wrapper .six-product-wrapper .row {
+.block728X90-wrapper .six-product-wrapper .row {
   margin-left: unset;
   margin: unset;
 }
@@ -927,7 +1002,16 @@ ul {
     height: 100px;
   }
 
-  .block728X90-wrapper .product-item .onsale {
+  .block728X90-wrapper
+    .one-product-wrapper
+    .product-item-container
+    .product-item-image
+    .onsale,
+  .block728X90-wrapper
+    .two-product-wrapper
+    .product-item-container
+    .product-item-image
+    .onsale {
     width: 32px;
     font-size: 6px;
     padding: 2px 2px;
