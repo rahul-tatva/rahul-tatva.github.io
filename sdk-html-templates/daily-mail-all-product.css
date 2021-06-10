@@ -213,7 +213,7 @@ ul {
   top: 9px;
   left: 0;
   width: 30px;
-  background: #c562a5;
+  background: rgb(197 98 165 / 80%);
   color: #fff;
   font-size: 7px;
   line-height: 10px;
@@ -235,8 +235,8 @@ ul {
   bottom: 0;
   border-left: 0 solid transparent;
   border-right: 7px solid #fff0;
-  border-top: 7px solid #c562a5;
-  border-bottom: 7px solid #c562a5;
+  border-top: 7px solid rgb(197 98 165 / 80%);
+  border-bottom: 7px solid rgb(197 98 165 / 80%);
 }
 
 .block728X90-wrapper .one-product-wrapper .product-price-wrapper {
@@ -376,7 +376,7 @@ ul {
   top: 9px;
   left: 0;
   width: 30px;
-  background: #c562a5;
+  background: rgb(197 98 165 / 80%);
   color: #fff;
   font-size: 7px;
   line-height: 10px;
@@ -433,7 +433,7 @@ ul {
   width: 100%;
   flex-direction: row;
   align-content: center;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -459,7 +459,7 @@ ul {
   top: 9px;
   left: 0px;
   width: 40px;
-  background: #c562a5;
+  background: rgb(197 98 165 / 80%);
   color: #fff;
   font-size: 7px;
   line-height: 10px;
@@ -477,8 +477,9 @@ ul {
   bottom: 0;
   border-left: 0 solid transparent;
   border-right: 7px solid #fff0;
-  border-top: 7px solid #c562a5;
-  border-bottom: 7px solid #c562a5;
+  border-top: 7px solid rgb(197 98 165 / 80%);
+  /* border-bottom: 7px solid #c562a5; */
+  border-bottom: 7px solid rgb(197 98 165 / 80%);
 }
 
 .block728X90-wrapper
@@ -597,7 +598,7 @@ ul {
   flex-direction: row;
   align-content: center;
   align-items: center;
-  justify-content: space-around;
+  justify-content: flex-start;
 }
 
 .block728X90-wrapper .four-product-wrapper .product-item .product-item-image {
@@ -622,7 +623,7 @@ ul {
   top: 9px;
   left: 0px;
   width: 40px;
-  background: #c562a5;
+  background: rgb(197 98 165 / 80%);
   color: #fff;
   font-size: 7px;
   line-height: 10px;
@@ -640,8 +641,8 @@ ul {
   bottom: 0;
   border-left: 0 solid transparent;
   border-right: 7px solid #fff0;
-  border-top: 7px solid #c562a5;
-  border-bottom: 7px solid #c562a5;
+  border-top: 7px solid rgb(197 98 165 / 80%);
+  border-bottom: 7px solid rgb(197 98 165 / 80%);
 }
 
 .block728X90-wrapper
@@ -1115,7 +1116,7 @@ ul {
     padding: 5px 0;
     overflow: hidden;
     display: block;
-    margin: auto;
+    /* margin: auto; */
   }
   .block728X90-wrapper
     .three-product-wrapper
@@ -1158,5 +1159,6 @@ ul {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    color: rgb(197 98 165 / 100%);
   }
 }
