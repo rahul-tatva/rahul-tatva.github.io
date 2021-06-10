@@ -64,6 +64,7 @@ ul {
 }
 
 .block728X90-slider-wrapper .brand-logo {
+  display: flex;
   /* margin-right: 4px; */
   /* width: 27px; */
   /* min-width: 27px; */
