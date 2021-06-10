@@ -433,7 +433,7 @@ ul {
   width: 100%;
   flex-direction: row;
   align-content: center;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
 }
 
@@ -1115,6 +1115,7 @@ ul {
     padding: 5px 0;
     overflow: hidden;
     display: block;
+    margin: auto;
   }
   .block728X90-wrapper
     .three-product-wrapper
