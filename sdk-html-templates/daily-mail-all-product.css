@@ -563,6 +563,7 @@ ul {
 .block728X90-wrapper .three-product-wrapper .row {
   width: 100%;
   margin-left: unset;
+  display: flex;
 }
 
 .block728X90-wrapper .three-product-wrapper .row .col {
@@ -719,6 +720,7 @@ ul {
 .block728X90-wrapper .four-product-wrapper .row {
   width: 100%;
   margin-left: unset;
+  display: flex;
 }
 
 .block728X90-wrapper .four-product-wrapper .row .col {
