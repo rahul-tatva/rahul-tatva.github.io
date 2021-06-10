@@ -207,7 +207,7 @@ ul {
   .product-item-container
   .product-item-image
   .onsale {
-  display: block;
+  display: inline-block;
   padding: 2px 4px;
   text-transform: uppercase;
   position: absolute;
@@ -370,7 +370,7 @@ ul {
   .product-item-container
   .product-item-image
   .onsale {
-  display: block;
+  display: inline-block;
   padding: 2px 4px;
   text-transform: uppercase;
   position: absolute;
@@ -453,7 +453,7 @@ ul {
 }
 
 .block728X90-wrapper .three-product-wrapper .product-item-image .onsale {
-  display: block;
+  display: inline-block;
   padding: 2px 4px;
   text-transform: uppercase;
   position: absolute;
@@ -618,7 +618,7 @@ ul {
 }
 
 .block728X90-wrapper .four-product-wrapper .product-item-image .onsale {
-  display: block;
+  display: inline-block;
   padding: 2px 4px;
   text-transform: uppercase;
   position: absolute;
