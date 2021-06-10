@@ -532,13 +532,13 @@ window.FEED_PRODUCTS = {
 class TRENDiiAd {
   constructor(options) {
     //debugger;
-    this.loadScript("https://cdn.trendii.com/assets/splide.min.js");
+    this.loadScriptIntoHead("https://cdn.trendii.com/assets/splide.min.js");
     // this.loadScript("https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js");
 
-    this.loadStyleSheet("https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css");
-    this.loadStyleSheet("https://cdn.trendii.com/assets/splide-core.min.css");
-    this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/daily-mail.css");
-    this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/daily-mail-all-product.css");
+    this.loadStyleSheetIntoHead("https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css");
+    this.loadStyleSheetIntoHead("https://cdn.trendii.com/assets/splide-core.min.css");
+    this.loadStyleSheetIntoHead("https://rahul-tatva.github.io/sdk-html-templates/daily-mail.css");
+    this.loadStyleSheetIntoHead("https://rahul-tatva.github.io/sdk-html-templates/daily-mail-all-product.css");
     console.log("sdk constructor initialized");
     // this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/Products-Silder.css");
     // this.loadScript("https://unpkg.com/axios/dist/axios.min.js");
@@ -629,7 +629,7 @@ class TRENDiiAd {
       //   });
     });
   }
-  loadStyleSheet(url) {
+  loadStyleSheetIntoHead(url) {
     var styles = document.createElement('link');
     styles.type = "text/css";
     styles.rel = "stylesheet";
