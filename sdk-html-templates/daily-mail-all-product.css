@@ -52,7 +52,7 @@ ul {
 .block728X90-wrapper .outer {
   /* display: flex; */
   /* justify-content: flex-start; */
-  padding: 5px 0;
+  padding: 5px 0 0 0;
 }
 
 .block728X90-wrapper .brand-logo {
@@ -92,7 +92,7 @@ ul {
 
 .block728X90-wrapper .trendii-ad-header-title {
   font-weight: 700;
-  margin: 5px 0;
+  /* margin: 5px 0; */
   display: flex;
   justify-content: flex-start;
   align-items: baseline;
@@ -212,8 +212,8 @@ ul {
   position: absolute;
   top: 9px;
   left: 0;
-  width: 30px;
-  background: #c562a5;
+  width: 40px;
+  background: rgb(197 98 165 / 80%);
   color: #fff;
   font-size: 7px;
   line-height: 10px;
@@ -235,8 +235,8 @@ ul {
   bottom: 0;
   border-left: 0 solid transparent;
   border-right: 7px solid #fff0;
-  border-top: 7px solid #c562a5;
-  border-bottom: 7px solid #c562a5;
+  border-top: 7px solid rgb(197 98 165 / 80%);
+  border-bottom: 7px solid rgb(197 98 165 / 80%);
 }
 
 .block728X90-wrapper .one-product-wrapper .product-price-wrapper {
@@ -375,8 +375,8 @@ ul {
   position: absolute;
   top: 9px;
   left: 0;
-  width: 30px;
-  background: #c562a5;
+  width: 40px;
+  background: rgb(197 98 165 / 80%);
   color: #fff;
   font-size: 7px;
   line-height: 10px;
@@ -398,8 +398,8 @@ ul {
   bottom: 0;
   border-left: 0 solid transparent;
   border-right: 7px solid #fff0;
-  border-top: 7px solid #c562a5;
-  border-bottom: 7px solid #c562a5;
+  border-top: 7px solid rgb(197 98 165 / 80%);
+  border-bottom: 7px solid rgb(197 98 165 / 80%);
 }
 
 .block728X90-wrapper .two-product-wrapper .product-buy-link {
@@ -459,7 +459,7 @@ ul {
   top: 9px;
   left: 0px;
   width: 40px;
-  background: #c562a5;
+  background: rgb(197 98 165 / 80%);
   color: #fff;
   font-size: 7px;
   line-height: 10px;
@@ -477,8 +477,9 @@ ul {
   bottom: 0;
   border-left: 0 solid transparent;
   border-right: 7px solid #fff0;
-  border-top: 7px solid #c562a5;
-  border-bottom: 7px solid #c562a5;
+  border-top: 7px solid rgb(197 98 165 / 80%);
+  /* border-bottom: 7px solid #c562a5; */
+  border-bottom: 7px solid rgb(197 98 165 / 80%);
 }
 
 .block728X90-wrapper
@@ -562,6 +563,7 @@ ul {
 .block728X90-wrapper .three-product-wrapper .row {
   width: 100%;
   margin-left: unset;
+  display: flex;
 }
 
 .block728X90-wrapper .three-product-wrapper .row .col {
@@ -597,7 +599,7 @@ ul {
   flex-direction: row;
   align-content: center;
   align-items: center;
-  justify-content: space-around;
+  justify-content: flex-start;
 }
 
 .block728X90-wrapper .four-product-wrapper .product-item .product-item-image {
@@ -622,7 +624,7 @@ ul {
   top: 9px;
   left: 0px;
   width: 40px;
-  background: #c562a5;
+  background: rgb(197 98 165 / 80%);
   color: #fff;
   font-size: 7px;
   line-height: 10px;
@@ -640,8 +642,8 @@ ul {
   bottom: 0;
   border-left: 0 solid transparent;
   border-right: 7px solid #fff0;
-  border-top: 7px solid #c562a5;
-  border-bottom: 7px solid #c562a5;
+  border-top: 7px solid rgb(197 98 165 / 80%);
+  border-bottom: 7px solid rgb(197 98 165 / 80%);
 }
 
 .block728X90-wrapper
@@ -718,6 +720,7 @@ ul {
 .block728X90-wrapper .four-product-wrapper .row {
   width: 100%;
   margin-left: unset;
+  display: flex;
 }
 
 .block728X90-wrapper .four-product-wrapper .row .col {
@@ -1115,6 +1118,7 @@ ul {
     padding: 5px 0;
     overflow: hidden;
     display: block;
+    /* margin: auto; */
   }
   .block728X90-wrapper
     .three-product-wrapper
@@ -1157,5 +1161,6 @@ ul {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    color: rgb(197 98 165 / 100%);
   }
 }
