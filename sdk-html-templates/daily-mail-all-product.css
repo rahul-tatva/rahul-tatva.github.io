@@ -43,6 +43,7 @@ ul {
 
 .block728X90-wrapper {
   display: block;
+  padding: 0 12px;
   /* width: 728px; */
   /* height: 90px; */
   /* background: #f9f9f9; */
@@ -50,9 +51,7 @@ ul {
 }
 
 .block728X90-wrapper .outer {
-  /* display: flex; */
-  /* justify-content: flex-start; */
-  padding: 5px 0 0 0;
+  margin: 10px 0;
 }
 
 .block728X90-wrapper .brand-logo {
@@ -92,10 +91,11 @@ ul {
 
 .block728X90-wrapper .trendii-ad-header-title {
   font-weight: 700;
-  margin-bottom: 5px;
+  /* margin: 5px 0; */
   display: flex;
   justify-content: flex-start;
   align-items: baseline;
+  margin-bottom: 8px;
 }
 
 /* one product wrapper styles */
@@ -255,8 +255,8 @@ ul {
 }
 
 .block728X90-wrapper .one-product-wrapper .row {
-  width: 100%;
-  margin-left: unset;
+  /* width: 100%; */
+  /* margin-left: unset; */
 }
 
 .block728X90-wrapper .one-product-wrapper .row .col {
@@ -410,15 +410,15 @@ ul {
 }
 
 .block728X90-wrapper .two-product-wrapper .row {
-  width: 100%;
-  margin-left: unset;
+  /* width: 100%; */
+  /* margin-left: unset; */
   display: flex;
 }
 
 .block728X90-wrapper .two-product-wrapper .row .col-6 {
   /* padding: unset; */
-  margin: unset;
-  padding: 0 0 0 10px;
+  /* margin: unset; */
+  /* padding: 0 0 0 10px; */
   /* background-color: chartreuse; */
   /* text-align: center; */
 }
@@ -561,15 +561,15 @@ ul {
 }
 
 .block728X90-wrapper .three-product-wrapper .row {
-  width: 100%;
-  margin-left: unset;
+  /* width: 100%; */
+  /* margin-left: unset; */
   display: flex;
 }
 
 .block728X90-wrapper .three-product-wrapper .row .col {
   /* padding: unset; */
-  margin: unset;
-  padding: 0 4px;
+  /* margin: unset; */
+  /* padding: 0 4px; */
   /* background-color: chartreuse; */
   /* text-align: center; */
 }
@@ -718,15 +718,15 @@ ul {
 }
 
 .block728X90-wrapper .four-product-wrapper .row {
-  width: 100%;
-  margin-left: unset;
+  /* width: 100%; */
+  /* margin-left: unset; */
   display: flex;
 }
 
 .block728X90-wrapper .four-product-wrapper .row .col {
   /* padding: unset; */
-  margin: unset;
-  padding: 0 0 0 5px;
+  /* margin: unset; */
+  /* padding: 0 0 0 5px; */
   /* background-color: chartreuse; */
   /* text-align: center; */
 }
