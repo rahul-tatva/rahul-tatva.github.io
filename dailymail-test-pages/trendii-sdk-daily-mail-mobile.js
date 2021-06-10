@@ -577,7 +577,24 @@ class TRENDiiAd {
     // document.addEventListener("DOMContentLoaded", this.handleDOMLoaded.bind(this));
     // window.addEventListener("load", () => { });
 
-    // window.addEventListener("load", () => {ss
+    window.addEventListener("load", () => {
+      console.log("DOM is ready");
+      //debugger;
+      this.getAllDailyMailBlogImagesFromDOM();
+      const requestOptions = { method: "GET" };
+
+      Promise.all([
+        fetch(this.API_GET_NATIVE_AD_SLIDER_TEMPLATE).then((response) => response.text()),
+        fetch(this.API_GET_NATIVE_AD_SIMPLE_TEMPLATE).then((response) => response.text()),
+      ]).then(allResponses => {
+        this.nativeAdSliderTemplateHTMLString = allResponses[0];
+        this.nativeAdSimpleTemplateHTMLString = allResponses[1];
+        // const response3 = allResponses[2];
+        console.log("templates are ready");
+        this.getProductsForAllImages();
+      });
+    });
+
     document.addEventListener("DOMContentLoaded", () => {
       console.log("DOM is ready");
       //debugger;
