@@ -539,7 +539,7 @@ class TRENDiiAd {
     this.loadStyleSheet("https://cdn.trendii.com/assets/splide-core.min.css");
     this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/daily-mail.css");
     this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/daily-mail-all-product.css");
-
+    console.log("sdk constructor initialized");
     // this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/Products-Silder.css");
     // this.loadScript("https://unpkg.com/axios/dist/axios.min.js");
     // <link rel="stylesheet" href="./sdk-html-templates/daily-mail.css"></link>
@@ -579,6 +579,7 @@ class TRENDiiAd {
 
     // window.addEventListener("load", () => {ss
     document.addEventListener("DOMContentLoaded", () => {
+      console.log("DOM is ready");
       //debugger;
       this.getAllDailyMailBlogImagesFromDOM();
       const requestOptions = { method: "GET" };
@@ -590,6 +591,7 @@ class TRENDiiAd {
         this.nativeAdSliderTemplateHTMLString = allResponses[0];
         this.nativeAdSimpleTemplateHTMLString = allResponses[1];
         // const response3 = allResponses[2];
+        console.log("templates are ready");
         this.getProductsForAllImages();
       });
 
