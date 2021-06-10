@@ -1095,8 +1095,9 @@ ul {
     .product-item-container
     .product-item-image
     .onsale {
-    width: 32px;
+    width: auto;
     font-size: 6px;
+    min-width: 32px;
     padding: 2px 2px;
   }
   .block728X90-wrapper .one-product-wrapper .product-details-wrapper,
