@@ -55,6 +55,7 @@ ul {
 }
 
 .block728X90-wrapper .brand-logo {
+  display: flex;
   /* width: 27px;
 			min-width: 27px;
 			height: 80px;
