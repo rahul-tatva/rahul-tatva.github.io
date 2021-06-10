@@ -1,0 +1,173 @@
+
+<!-- saved from url=(1742)https://sg-match.taboola.com/sync?dast=V7MokCFgO_UbrNY6SBpAS_UbrNY6SBpAUAAAAGBvQHHLSYbBY0ynLDGE5Gi8lqNlnsVrPRZDIazYbAQYvJZkGjLDeM4WS0mKxmi8VuN5ysJqPdZAofxnKZDGqB2m9xml1uicvs973VDqfdrfGbXW-7GwID0XQ6fK57ve73u4scTrPz7XCa7Rq_XfX1i26fo993cVr_Csvp6TG73MrZbLlbbfaa0uXpMZ2dn7eWYXnZ3UKG62V5y8wOz9HleYv-dpfJrbB43prT5Wl4mdway9_wFrKcPqPp89Z8LC-X3Wn32YWmt9kOAAAAAA8ASssrED-AAAARAAAAABIAAAAAFAEV_xYCFwAAAAAYAAWiDRoAYhwF4jc9TP4AAHggAwEAeDAIAQAACBABAAAAGAEAAAAgARhQOyoBqCi7NQEACMijl6CQPwEAAAAAAAAAYPn___-PAdDj_5UByDjs6wF48AF4ICq4KGIEAAAA4DB2pnk0qRMqiyoAAIJ0K4ArAICAvPqdcLgwAACAATF_IyYfbwuayLEFelj8frPDrvG7XQYAAAAAAAAAYPZ_9o8WhBvFniYU6YGr9gsIALD2CwgAwKZuAmNvA3AiFxiIptPhc93rdb_fXeRwmp1vh9Ns1_jtqq9fdPsc_b6L0_pXWE5Pj9nlVs5my91qs9eULk-P6ez8vLUMy8vuFjJcL8tbZnZ4ji7PW_S3u0xuhcXz1pwuT8PL5NZY_oa3kOX0GU2ft-ZjebnsTrvPLjS9zaYzkOFgtdmtboAmi9kBAAAA3P3____j-Rsx-Xhb0ETqgdhmNJvNTK7ZzGFcbZwzj2M2Wg43xsVuuRgZNsbttblpKTiYuuD3hbTf4jS73BKX2e97qx1Ou1vjN7vedoP4oGFYTgbB_ChaMtkNh6vZbLkZLVaj0XIyWOxPAHcDpGjRZrgbroaTwWYxmiw3y9FwsMAAmyBFiwaT1Wg0WUyGq9FkNVsudrsNTsRiNtxMVsvJYrWZjGaLwXA5QorW7HaLwXI2GC1Go8lutFmNZkOEEcvIOLLZXG6VcbRaixYLw1rhXHncouHE5rA5BqOJabgWvT6m33AyGw4GWxQMkNuL4CKdiBxOs_PtcJrdkr_vIpZoThbpRHbZ1zaj2Wxmcs1mDuNq45x5HLPRcrgxLnbLxciwMe4rlpFxZLO53CrjaLUWLRaGtcK58rhFw4nNYXMMRhPTcC16fUy_4WQ2HAz2jdlks1nMlqPFvjGbbDaL3WCx2HfoDN_V52y0Rbvnjs-w_GZrm5n5IHEZbN61-nQWFoUHZzRcdPp042NnZzTuhFmvQeEZ204P3bWjFg4_4mT2plDEEsHpIp2IXsbTRSyRPC3SiWCwm7lWJo9vMHGMJjaLZ7RcmWwek2U43Cwnu8VELFGaLtKJXnT7HP2-i9P6V1hOT4_Z5VbOZsvdarPXnC5Pj-ns_Ly1DsvL7hY6XC_LW2Z2eI4uz1v0t7tMboXF89acLk_Dy-TWWP6Gt9Dl9BlNn7fmY3m57E67zy40vc0W9R8bYjRXLueKwWauWI1WCQAAAAAAAABgCXPmTQAAAABOA5lshovVcgEejPZ0fy4NcDwsSs13R7aYoQGnKy6LGz9uIIfT7Hw7nGa35O-7MsCD0R3zZs8EsVarZQ0AADCADQAAEMCtm7fAUUkO!&excid=22&docw=0&cijs=1&nlb=true -->
+<html><script>
+    window[Symbol.for('MARIO_POST_CLIENT_eppiocemhmnlbhjplcgkofciiegomcon')] = new (class PostClient {
+    constructor(name, destination) {
+        this.name = name;
+        this.destination = destination;
+        this.serverListeners = {};
+        this.bgRequestsListeners = {};
+        this.bgEventsListeners = {};
+        window.addEventListener('message', (message) => {
+            const data = message.data;
+            const isNotForMe = !(data.destination && data.destination === this.name);
+            const hasNotEventProp = !data.event;
+            if (isNotForMe || hasNotEventProp) {
+                return;
+            }
+            if (data.event === 'MARIO_POST_SERVER__BG_RESPONSE') {
+                const response = data.args;
+                if (this.hasBgRequestListener(response.requestId)) {
+                    try {
+                        this.bgRequestsListeners[response.requestId](response.response);
+                    }
+                    catch (e) {
+                        console.log(e);
+                    }
+                    delete this.bgRequestsListeners[response.requestId];
+                }
+            }
+            else if (data.event === 'MARIO_POST_SERVER__BG_EVENT') {
+                const response = data.args;
+                if (this.hasBgEventListener(response.event)) {
+                    try {
+                        this.bgEventsListeners[data.id](response.payload);
+                    }
+                    catch (e) {
+                        console.log(e);
+                    }
+                }
+            }
+            else if (this.hasServerListener(data.event)) {
+                try {
+                    this.serverListeners[data.event](data.args);
+                }
+                catch (e) {
+                    console.log(e);
+                }
+            }
+            else {
+                console.log(`event not handled: ${data.event}`);
+            }
+        });
+    }
+    emitToServer(event, args) {
+        const id = this.generateUIID();
+        const message = {
+            args,
+            destination: this.destination,
+            event,
+            id,
+        };
+        window.postMessage(message, location.origin);
+        return id;
+    }
+    emitToBg(bgEventName, args) {
+        const requestId = this.generateUIID();
+        const request = { bgEventName, requestId, args };
+        this.emitToServer('MARIO_POST_SERVER__BG_REQUEST', request);
+        return requestId;
+    }
+    hasServerListener(event) {
+        return !!this.serverListeners[event];
+    }
+    hasBgRequestListener(requestId) {
+        return !!this.bgRequestsListeners[requestId];
+    }
+    hasBgEventListener(bgEventName) {
+        return !!this.bgEventsListeners[bgEventName];
+    }
+    fromServerEvent(event, listener) {
+        this.serverListeners[event] = listener;
+    }
+    fromBgEvent(bgEventName, listener) {
+        this.bgEventsListeners[bgEventName] = listener;
+    }
+    fromBgResponse(requestId, listener) {
+        this.bgRequestsListeners[requestId] = listener;
+    }
+    generateUIID() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+})('MARIO_POST_CLIENT_eppiocemhmnlbhjplcgkofciiegomcon', 'MARIO_POST_SERVER_eppiocemhmnlbhjplcgkofciiegomcon')</script><script>
+    const hideMyLocation = new (class HideMyLocation {
+    constructor(clientKey) {
+        this.clientKey = clientKey;
+        this.watchIDs = {};
+        this.client = window[Symbol.for(clientKey)];
+        const getCurrentPosition = navigator.geolocation.getCurrentPosition;
+        const watchPosition = navigator.geolocation.watchPosition;
+        const clearWatch = navigator.geolocation.clearWatch;
+        const self = this;
+        navigator.geolocation.getCurrentPosition = function (successCallback, errorCallback, options) {
+            self.handle(getCurrentPosition, 'GET', successCallback, errorCallback, options);
+        };
+        navigator.geolocation.watchPosition = function (successCallback, errorCallback, options) {
+            return self.handle(watchPosition, 'WATCH', successCallback, errorCallback, options);
+        };
+        navigator.geolocation.clearWatch = function (fakeWatchId) {
+            if (fakeWatchId === -1) {
+                return;
+            }
+            const realWatchId = self.watchIDs[fakeWatchId];
+            delete self.watchIDs[fakeWatchId];
+            return clearWatch.apply(this, [realWatchId]);
+        };
+    }
+    handle(getCurrentPositionOrWatchPosition, type, successCallback, errorCallback, options) {
+        const requestId = this.client.emitToBg('HIDE_MY_LOCATION__GET_LOCATION');
+        let fakeWatchId = this.getRandomInt(0, 100000);
+        this.client.fromBgResponse(requestId, (response) => {
+            if (response.enabled) {
+                if (response.status === 'SUCCESS') {
+                    const position = this.map(response);
+                    successCallback(position);
+                }
+                else {
+                    const error = this.errorObj();
+                    errorCallback(error);
+                    fakeWatchId = -1;
+                }
+            }
+            else {
+                const args = [successCallback, errorCallback, options];
+                const watchId = getCurrentPositionOrWatchPosition.apply(navigator.geolocation, args);
+                if (type === 'WATCH') {
+                    this.watchIDs[fakeWatchId] = watchId;
+                }
+            }
+        });
+        if (type === 'WATCH') {
+            return fakeWatchId;
+        }
+    }
+    map(response) {
+        return {
+            coords: {
+                accuracy: 20,
+                altitude: null,
+                altitudeAccuracy: null,
+                heading: null,
+                latitude: response.latitude,
+                longitude: response.longitude,
+                speed: null,
+            },
+            timestamp: Date.now(),
+        };
+    }
+    errorObj() {
+        return {
+            code: 1,
+            message: 'User denied Geolocation',
+        };
+    }
+    getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+})('MARIO_POST_CLIENT_eppiocemhmnlbhjplcgkofciiegomcon')
+  </script><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"></head><body><script type="text/javascript" src="https://pixel.advertising.com/ups/58166/sync?gdpr=1&amp;uid=&amp;_origin=1&amp;us_privacy=1---&amp;redir=true"></script><img width="0" height="0" src="./sync"><iframe id="multisync-iframe" height="0" width="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="./multi-sync(3).html" style="border: 0px; display: none; "></iframe><script type="text/javascript" src="./rtset(1)"></script><iframe width="0" height="0" src="./cm(3).html"></iframe></body></html>
