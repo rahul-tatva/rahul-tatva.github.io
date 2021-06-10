@@ -738,8 +738,8 @@ class TRENDiiAd {
     // to test 1-2-3-4 products case
     // const products = imageData.products.splice(0, (index % 2 === 0 ? 2 : 1));
     // for 3 and 4 products
-    const products = imageData.products.splice(0, (index % 2 === 0 ? 3 : 4));
-    // const products = imageData.products;
+    // const products = imageData.products.splice(0, (index % 2 === 0 ? 3 : 4));
+    const products = imageData.products;
     const advertiserName = imageData.advertiserName;
     const identifier = `splide${index}`;
     imageData.sliderId = identifier;
