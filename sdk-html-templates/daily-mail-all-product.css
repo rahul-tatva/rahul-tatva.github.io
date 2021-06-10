@@ -92,7 +92,7 @@ ul {
 
 .block728X90-wrapper .trendii-ad-header-title {
   font-weight: 700;
-  margin: 5px 0;
+  /* margin: 5px 0; */
   display: flex;
   justify-content: flex-start;
   align-items: baseline;
