@@ -597,6 +597,7 @@ class TRENDiiAd {
 
     document.addEventListener("DOMContentLoaded", () => {
       console.log("DOM is ready");
+      this.createObserverForCurrentVisibleImage();
       //debugger;
       this.getAllDailyMailBlogImagesFromDOM();
       const requestOptions = { method: "GET" };
@@ -610,6 +611,17 @@ class TRENDiiAd {
         // const response3 = allResponses[2];
         console.log("templates are ready");
         this.getProductsForAllImages();
+        let allParentElements;
+        if (window.innerWidth <= 480) {
+          allParentElements = Array.from(document.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG));
+        } else {
+          allParentElements = Array.from(document.querySelectorAll(IMAGE_GROUP_PARENT_DIV_CLASS));
+        }
+
+        allParentElements.forEach((parentEl) => {
+          // // debugger;
+          this.intersectionObserver.observe(parentEl);
+        });
       });
 
       // fetch(this.API_GET_NATIVE_AD_SLIDER_TEMPLATE, requestOptions)
@@ -635,6 +647,40 @@ class TRENDiiAd {
     styles.rel = "stylesheet";
     styles.href = url;
     document.head.appendChild(styles);
+  }
+  createObserverForCurrentVisibleImage() {
+    // // debugger;
+    /**
+     * Checking whether image is there to check the data
+     */
+    if (!!window.IntersectionObserver) {
+      const options = {
+        rootMargin: "0px 0px 0px 0px",
+        threshold: 0.2,
+      };
+      this.intersectionObserver = new IntersectionObserver(
+        this.handleIntersectionEntries.bind(this),
+        options
+      );
+    }
+  }
+  handleIntersectionEntries(entries, observer) {
+    // // debugger;
+    entries.forEach((entry) => {
+      // console.log(entry);
+      // // debugger;
+      // check if image el is visible in screen/window
+      // if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+      if (entry.isIntersecting) {
+        const visibleParentEl = entry.target;
+        console.log(visibleImageSrc);
+        // this.currentlyVisibleImageSrcURL = visibleImageSrc;
+        // just to check that the ads is not rendered before the products are fetched
+
+        // deregister intersection observer apis
+        // observer.unobserve(entry.target);
+      }
+    });
   }
   loadScript(url) {
     document.body.appendChild(document.createElement("script")).src = url;
