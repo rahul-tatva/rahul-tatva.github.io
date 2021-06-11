@@ -1101,7 +1101,7 @@ class TRENDiiAd {
   };
 
   var myTrendii = new TRENDiiAd(options);
-  myTrendii.log("test log");
+  myTrendii.log("initialize new instance");
 })();
 
 function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsContainer) {
