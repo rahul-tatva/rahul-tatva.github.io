@@ -2,6 +2,7 @@ const API_GET_AD_PRODUCTS =
   "https://flashtalking-sandbox-f6i4ayd3wa-ts.a.run.app/?site=16230&banner=300x600&p1=12345&p2=12345&p3=12345";
 // const API_GET_AD_PRODUCTS =
 //   "https://beeswax-creative-f6i4ayd3wa-ts.a.run.app/webImageProcess";
+const MOBILE_WIDTH = 480;
 const TRENDII_NATIVE_ADS_CDN = "https://cdn.trendii.com/native-ads-sdk/assets";
 const SUPPORTED_DIMENSIONS = ["160X600", "300X600"];
 const AD_PRODUCTS_CONTAINER = "trendii-sdk-ad-products-container";
@@ -647,7 +648,7 @@ class TRENDiiAd {
     // TO DO throw error if image selector not present
     this.allImageElements = document.querySelectorAll(this.options.adImagesSelector);
     this.allValidImageSrcArray = [];
-    if (window.innerWidth <= 480) {
+    if (window.innerWidth <= MOBILE_WIDTH) {
 
       const alreadyLoadedImagesArray = Array.from(document.querySelectorAll(DAILY_MAIL_MOBILE_LOADED_IMAGE_SELECTOR_CLASS))
         .map(img => img.getAttribute("src"));
@@ -874,7 +875,7 @@ class TRENDiiAd {
   }
   getAllParentImageGroupClass() {
     let allParentElements;
-    if (window.innerWidth <= 480) {
+    if (window.innerWidth <= MOBILE_WIDTH) {
       allParentElements = document.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG);
     } else {
       allParentElements = document.querySelectorAll(IMAGE_GROUP_PARENT_DIV_CLASS);
