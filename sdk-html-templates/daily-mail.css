@@ -261,8 +261,8 @@ ul {
   position: absolute;
   top: 9px;
   left: 0px;
-  width: 30px;
-  background: #c562a5;
+  min-width: 30px;
+  background: rgb(197 98 165 / 80%);
   color: #fff;
   font-size: 7px;
   line-height: 10px;
