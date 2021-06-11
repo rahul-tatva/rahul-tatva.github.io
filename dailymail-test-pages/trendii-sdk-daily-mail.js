@@ -1364,13 +1364,12 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
       //       <div class="product-item-container">
       //         <div class="product-item">
       //           <div class="product-item-image"
-      //             style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
+      //             style="background-image: url(https://cdn.trendii.com/assets/4.jpg)">
       //             <span class="onsale">ON SALE</span>
       //           </div>
       //         </div>
       //         <div class="product-details-wrapper">
-      //           <b class="brand-name">MARCO POLO </b>
-      //           <p class="product-name">M2K tekno sneakers tekno tekno tekno tekno tekno v</p>
+      // 					 <p class="product-name">M2K tekno sneakers tekno tekno tekno tekno tekno v</p>
       //           <em class="product-price">$260</em>
       //         </div>
       //         <div class="product-details-wrapper-mobile">
@@ -1383,13 +1382,12 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
       //       <div class="product-item-container">
       //         <div class="product-item">
       //           <div class="product-item-image"
-      //             style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
+      //             style="background-image: url(https://cdn.trendii.com/assets/4.jpg)">
       //             <span class="onsale">ON SALE</span>
       //           </div>
       //         </div>
       //         <div class="product-details-wrapper">
-      //           <b class="brand-name">MARCO POLO </b>
-      //           <p class="product-name">M2K tekno sneakers tekno tekno tekno tekno tekno v</p>
+      // 					 <p class="product-name">M2K tekno sneakers tekno tekno tekno tekno tekno v</p>
       //           <em class="product-price">$260</em>
       //         </div>
       //         <div class="product-details-wrapper-mobile">
@@ -1402,13 +1400,12 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
       //       <div class="product-item-container">
       //         <div class="product-item">
       //           <div class="product-item-image"
-      //             style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
+      //             style="background-image: url(https://cdn.trendii.com/assets/4.jpg)">
       //             <span class="onsale">ON SALE</span>
       //           </div>
       //         </div>
       //         <div class="product-details-wrapper">
-      //           <b class="brand-name">MARCO POLO </b>
-      //           <p class="product-name">M2K tekno sneakers tekno tekno tekno tekno tekno v</p>
+      // 					 <p class="product-name">M2K tekno sneakers tekno tekno tekno tekno tekno v</p>
       //           <em class="product-price">$260</em>
       //         </div>
       //         <div class="product-details-wrapper-mobile">
@@ -1418,7 +1415,7 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
       //       </div>
       //     </div>
       //   </div>
-      // </div>
+      // </div>;
       const threeProductWrapper = document.createElement("DIV");
       threeProductWrapper.classList.add("three-product-wrapper");
       productsContainer.appendChild(threeProductWrapper);
@@ -1481,6 +1478,7 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
         productPrice.innerHTML = product.currency + product.price;
         productDetailsWrapper.appendChild(productPrice);
 
+        // mobile wrapper
         const productDetailsWrapperMobile = document.createElement("DIV");
         productDetailsWrapperMobile.classList.add("product-details-wrapper-mobile");
         productItemContainer.appendChild(productDetailsWrapperMobile);
@@ -1504,14 +1502,13 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
       //       <div class="product-item-container">
       //         <div class="product-item">
       //           <div class="product-item-image"
-      //             style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
+      //             style="background-image: url(https://cdn.trendii.com/assets/4.jpg)">
       //             <span class="onsale">ON SALE</span>
       //           </div>
-      //         </div>
-      //         <div class="product-details-wrapper">
-      //           <b class="brand-name">MARCO POLO </b>
-      //           <p class="product-name">M2K tekno sneakers tekno tekno tekno tekno tekno v</p>
-      //           <em class="product-price">$260</em>
+      //           <div class="product-details-wrapper">
+      //             <p class="product-name">M2K tekno sneakers tekno tekno tekno tekno tekno v</p>
+      //             <em class="product-price">$260</em>
+      //           </div>
       //         </div>
       //         <div class="product-details-wrapper-mobile">
       //           <p class="product-name">Relaxed Stripe Dress</p>
@@ -1523,15 +1520,15 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
       //       <div class="product-item-container">
       //         <div class="product-item">
       //           <div class="product-item-image"
-      //             style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
+      //             style="background-image: url(https://cdn.trendii.com/assets/4.jpg)">
       //             <span class="onsale">ON SALE</span>
       //           </div>
+      //           <div class="product-details-wrapper">
+      //             <p class="product-name">M2K tekno sneakers tekno tekno tekno tekno tekno v</p>
+      //             <em class="product-price">$260</em>
+      //           </div>
       //         </div>
-      //         <div class="product-details-wrapper">
-      //           <b class="brand-name">MARCO POLO </b>
-      //           <p class="product-name">M2K tekno sneakers tekno tekno tekno tekno tekno v</p>
-      //           <em class="product-price">$260</em>
-      //         </div>
+
       //         <div class="product-details-wrapper-mobile">
       //           <p class="product-name">Relaxed Stripe Dress</p>
       //           <em class="product-price">$119.00</em>
@@ -1542,15 +1539,15 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
       //       <div class="product-item-container">
       //         <div class="product-item">
       //           <div class="product-item-image"
-      //             style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
+      //             style="background-image: url(https://cdn.trendii.com/assets/4.jpg)">
       //             <span class="onsale">ON SALE</span>
       //           </div>
+      //           <div class="product-details-wrapper">
+      //             <p class="product-name">M2K tekno sneakers tekno tekno tekno tekno tekno v</p>
+      //             <em class="product-price">$260</em>
+      //           </div>
       //         </div>
-      //         <div class="product-details-wrapper">
-      //           <b class="brand-name">MARCO POLO </b>
-      //           <p class="product-name">M2K tekno sneakers tekno tekno tekno tekno tekno v</p>
-      //           <em class="product-price">$260</em>
-      //         </div>
+
       //         <div class="product-details-wrapper-mobile">
       //           <p class="product-name">Relaxed Stripe Dress</p>
       //           <em class="product-price">$119.00</em>
@@ -1561,15 +1558,15 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
       //       <div class="product-item-container">
       //         <div class="product-item">
       //           <div class="product-item-image"
-      //             style="background-image: url(https://cdn.trendii.com/assets/1.jpg)">
+      //             style="background-image: url(https://cdn.trendii.com/assets/4.jpg)">
       //             <span class="onsale">ON SALE</span>
       //           </div>
+      //           <div class="product-details-wrapper">
+      //             <p class="product-name">M2K tekno sneakers tekno tekno tekno tekno tekno v</p>
+      //             <em class="product-price">$260</em>
+      //           </div>
       //         </div>
-      //         <div class="product-details-wrapper">
-      //           <b class="brand-name">MARCO POLO </b>
-      //           <p class="product-name">M2K tekno sneakers tekno tekno tekno tekno tekno v</p>
-      //           <em class="product-price">$260</em>
-      //         </div>
+
       //         <div class="product-details-wrapper-mobile">
       //           <p class="product-name">Relaxed Stripe Dress</p>
       //           <em class="product-price">$119.00</em>
@@ -1623,7 +1620,7 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
 
         const productDetailsWrapper = document.createElement("DIV");
         productDetailsWrapper.classList.add("product-details-wrapper");
-        productItemContainer.appendChild(productDetailsWrapper);
+        productItem.appendChild(productDetailsWrapper);
 
         // const brandName = document.createElement("B");
         // brandName.classList.add("brand-name");
@@ -1640,6 +1637,7 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
         productPrice.innerHTML = product.currency + product.price;
         productDetailsWrapper.appendChild(productPrice);
 
+        // mobile detailer wrapper
         const productDetailsWrapperMobile = document.createElement("DIV");
         productDetailsWrapperMobile.classList.add("product-details-wrapper-mobile");
         productItemContainer.appendChild(productDetailsWrapperMobile);
