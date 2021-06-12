@@ -958,6 +958,7 @@ class TRENDiiAd {
             const adWrapper = foundImageData.generatedAdHTML;
             adWrapper.setAttribute("data-slider-appended", "true");
             adWrapper.style.display = "block";
+            this.log("slider appended");
           }
 
           const adProductsSliderContainer = document.getElementById(identifier);
@@ -966,7 +967,6 @@ class TRENDiiAd {
           //   console.log("mounted");
           //   // This will be executed.
           // });
-          this.log("slider appended");
 
           // setTimeout(() => { }, 2000);
 
