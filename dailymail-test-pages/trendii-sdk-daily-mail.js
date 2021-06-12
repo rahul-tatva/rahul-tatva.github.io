@@ -673,7 +673,7 @@ class TRENDiiAd {
       // if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
       if (entry.isIntersecting) {
         const visibleParentEl = entry.target;
-        console.log(visibleParentEl);
+        console.log(visibleImageSrc);
         // this.currentlyVisibleImageSrcURL = visibleImageSrc;
         // just to check that the ads is not rendered before the products are fetched
 
