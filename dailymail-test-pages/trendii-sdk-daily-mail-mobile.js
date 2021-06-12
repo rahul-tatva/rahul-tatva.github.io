@@ -956,8 +956,8 @@ class TRENDiiAd {
               autoHeight: true,
             }).mount();
             const adWrapper = foundImageData.generatedAdHTML;
-            adWrapper.setAttribute("data-slider-appended", "true");
-            adWrapper.style.display = "block";
+            // adWrapper.setAttribute("data-slider-appended", "true");
+            // adWrapper.style.display = "block";
             this.log("slider appended");
           }
 
