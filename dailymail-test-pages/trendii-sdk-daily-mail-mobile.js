@@ -861,7 +861,7 @@ class TRENDiiAd {
 
 
         let productsContainerEl = templatesDOM.getElementById(this.HTML_TEMPLATE_SLIDER_CONTAINER_ID);
-        productsContainerEl.style.display = "none";
+        // productsContainerEl.style.display = "none";
         productsContainerEl.innerHTML = "";
 
 
