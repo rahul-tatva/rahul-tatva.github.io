@@ -597,8 +597,6 @@ class TRENDiiAd {
 
     document.addEventListener("DOMContentLoaded", () => {
       console.log("DOM is ready");
-      this.createObserverForCurrentVisibleImage();
-      //debugger;
       this.getAllDailyMailBlogImagesFromDOM();
       const requestOptions = { method: "GET" };
 
@@ -649,10 +647,6 @@ class TRENDiiAd {
     document.head.appendChild(styles);
   }
   createObserverForCurrentVisibleImage() {
-    // // debugger;
-    /**
-     * Checking whether image is there to check the data
-     */
     if (!!window.IntersectionObserver) {
       const options = {
         rootMargin: "0px 0px 0px 0px",
@@ -674,11 +668,41 @@ class TRENDiiAd {
       if (entry.isIntersecting) {
         const visibleParentEl = entry.target;
         console.log(visibleParentEl);
-        // this.currentlyVisibleImageSrcURL = visibleImageSrc;
-        // just to check that the ads is not rendered before the products are fetched
+        this.log(visibleParentEl.getElementsByTagName('img'));
+        const allImagesPresentInTheSameGroup = Array.from(visibleParentEl.getElementsByTagName('img'));
 
-        // deregister intersection observer apis
-        // observer.unobserve(entry.target);
+        // find any one image from the parent to render ad
+        for (let i = 0; i < allImagesPresentInTheSameGroup.length; i++) {
+          const currentImageEle = allImagesPresentInTheSameGroup[i];
+          const imageSrcToShowAd = currentImageEle.src;
+          const imageDataSrcToShowAd = currentImageEle.getAttribute("data-src");
+          foundImageData = this.feedProducts.payload
+            .find((imageData) => imageData.imageUrl === imageSrcToShowAd || imageDataSrcToShowAd);
+          if (foundImageData?.generatedAdHTML) {
+            foundImageElement = currentImageEle;
+            break;
+          }
+        }
+
+        if (foundImageData?.generatedAdHTML) {
+          // handle the mobile version
+          if (window.innerWidth < 480) {
+            // append the found ad just after the image caption
+            const titleOfImageGroup = parentEl
+              .getElementsByTagName(DAILY_MAIL_MOBILE_IMAGE_CAPTION_TAG)[0];
+            if (titleOfImageGroup) {
+              titleOfImageGroup.after(foundImageData.generatedAdHTML);
+            } else {
+              parentEl.appendChild(foundImageData.generatedAdHTML);
+            }
+          }
+          else {
+            // append the found ad just after the image caption
+            parentEl
+              .getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0]
+              .after(foundImageData.generatedAdHTML);
+          }
+        }
       }
     });
   }
@@ -766,7 +790,8 @@ class TRENDiiAd {
             // );
             // this.productsContainerEl.innerHTML = "";
             this.createAdTemplatesForAllProducts();
-            this.getAllParentImageGroupClass();
+            // this.getAllParentImageGroupClass();
+            this.createObserverForCurrentVisibleImage();
             this.log(this.feedProducts);
           }
           // else {
