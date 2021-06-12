@@ -659,7 +659,7 @@ class TRENDiiAd {
         console.log(visibleParentEl);
         this.log(visibleParentEl.getElementsByTagName('img'));
         const allImagesPresentInTheSameGroup = Array.from(visibleParentEl.getElementsByTagName('img'));
-
+        let foundImageData = null;
         // find any one image from the parent to render ad
         for (let i = 0; i < allImagesPresentInTheSameGroup.length; i++) {
           const currentImageEle = allImagesPresentInTheSameGroup[i];
