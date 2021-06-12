@@ -829,7 +829,7 @@ class TRENDiiAd {
         const resultantAdWrapper = simpleTemplateDOM.getElementById(this.HTML_TEMPLATE_AD_WRAPPER_ID);
         return resultantAdWrapper;
       }
-        break;
+      // break;
 
       default: {
         imageData.isSliderTemplate = true;
