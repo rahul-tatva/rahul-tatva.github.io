@@ -961,12 +961,13 @@ class TRENDiiAd {
             adWrapper.setAttribute("data-slider-appended", "true");
             // adWrapper.style.display = "block";
             this.log("slider appended");
+            testSlider.on('mounted', function () {
+              console.log("mounted");
+              // This will be executed.
+            });
           }
 
-          testSlider.on('mounted', function () {
-            console.log("mounted");
-            // This will be executed.
-          });
+
 
           // setTimeout(() => { }, 2000);
 
