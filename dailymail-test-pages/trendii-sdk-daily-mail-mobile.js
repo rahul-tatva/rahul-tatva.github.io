@@ -861,6 +861,7 @@ class TRENDiiAd {
 
 
         let productsContainerEl = templatesDOM.getElementById(this.HTML_TEMPLATE_SLIDER_CONTAINER_ID);
+        productsContainerEl.style.display = "none";
         productsContainerEl.innerHTML = "";
 
 
@@ -945,6 +946,7 @@ class TRENDiiAd {
         // setup the splid lib to initialize the slider
 
         if (foundImageData.isSliderTemplate) {
+          console.log(window.Splide);
           const testSlider = new Splide(sliderIdSelector, {
             type: 'loop',
             // perPage: 6,
@@ -955,6 +957,9 @@ class TRENDiiAd {
             // width: 400,
             // fixedWidth: 200,
           }).mount();
+          const adWrapper = foundImageData.generatedAdHTML.getElementById(this.HTML_TEMPLATE_SLIDER_CONTAINER_ID).setAttribute("data-slider-appended", "true");
+          adWrapper.style.display = "none";
+
           const adProductsSliderContainer = document.getElementById(identifier);
           adProductsSliderContainer.style.display = "block";
           testSlider.on('mounted', function () {
