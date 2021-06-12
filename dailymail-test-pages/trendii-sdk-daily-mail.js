@@ -691,6 +691,11 @@ class TRENDiiAd {
               .getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0]
               .after(foundImageData.generatedAdHTML);
             foundImageData.isAdGenerated = true;
+            console.log("ad rendered for ", visibleParentEl);
+            // once ad is rendered no need to observe this parent element any more
+            // deregister intersection observer apis
+            observer.unobserve(entry.target);
+            console.log("observer unregistered for ", visibleParentEl);
           }
         }
       }
