@@ -955,18 +955,18 @@ class TRENDiiAd {
             autoWidth: true,
             autoHeight: true,
           }).mount();
+          const adProductsSliderContainer = document.getElementById(identifier);
+          adProductsSliderContainer.style.display = "block";
           const adWrapper = foundImageData.generatedAdHTML;
           // adWrapper.setAttribute("data-slider-appended", "true");
           // adWrapper.style.display = "block";
           this.log("slider appended");
           // }
 
-          const adProductsSliderContainer = document.getElementById(identifier);
-          adProductsSliderContainer.style.display = "block";
-          // testSlider.on('mounted', function () {
-          //   console.log("mounted");
-          //   // This will be executed.
-          // });
+          testSlider.on('mounted', function () {
+            console.log("mounted");
+            // This will be executed.
+          });
 
           // setTimeout(() => { }, 2000);
 
