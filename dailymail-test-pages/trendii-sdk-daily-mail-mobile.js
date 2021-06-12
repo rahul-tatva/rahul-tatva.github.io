@@ -957,8 +957,8 @@ class TRENDiiAd {
             // width: 400,
             // fixedWidth: 200,
           }).mount();
-          const adWrapper = foundImageData.generatedAdHTML
-            .setAttribute("data-slider-appended", "true");
+          const adWrapper = foundImageData.generatedAdHTML;
+          adWrapper.setAttribute("data-slider-appended", "true");
           adWrapper.style.display = "none";
 
           const adProductsSliderContainer = document.getElementById(identifier);
