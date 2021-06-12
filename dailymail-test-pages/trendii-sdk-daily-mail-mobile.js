@@ -962,10 +962,10 @@ class TRENDiiAd {
 
           const adProductsSliderContainer = document.getElementById(identifier);
           adProductsSliderContainer.style.display = "block";
-          testSlider.on('mounted', function () {
-            console.log("mounted");
-            // This will be executed.
-          });
+          // testSlider.on('mounted', function () {
+          //   console.log("mounted");
+          //   // This will be executed.
+          // });
           this.log("slider appended");
 
           // setTimeout(() => { }, 2000);
