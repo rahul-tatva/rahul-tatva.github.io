@@ -597,8 +597,6 @@ class TRENDiiAd {
 
     document.addEventListener("DOMContentLoaded", () => {
       console.log("DOM is ready");
-      this.createObserverForCurrentVisibleImage();
-      //debugger;
       this.getAllDailyMailBlogImagesFromDOM();
       const requestOptions = { method: "GET" };
 
@@ -611,17 +609,6 @@ class TRENDiiAd {
         // const response3 = allResponses[2];
         console.log("templates are ready");
         this.getProductsForAllImages();
-        let allParentElements;
-        if (window.innerWidth <= 480) {
-          allParentElements = Array.from(document.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG));
-        } else {
-          allParentElements = Array.from(document.querySelectorAll(IMAGE_GROUP_PARENT_DIV_CLASS));
-        }
-
-        allParentElements.forEach((parentEl) => {
-          // // debugger;
-          this.intersectionObserver.observe(parentEl);
-        });
       });
 
       // fetch(this.API_GET_NATIVE_AD_SLIDER_TEMPLATE, requestOptions)
@@ -649,10 +636,6 @@ class TRENDiiAd {
     document.head.appendChild(styles);
   }
   createObserverForCurrentVisibleImage() {
-    // // debugger;
-    /**
-     * Checking whether image is there to check the data
-     */
     if (!!window.IntersectionObserver) {
       const options = {
         rootMargin: "0px 0px 0px 0px",
@@ -674,11 +657,42 @@ class TRENDiiAd {
       if (entry.isIntersecting) {
         const visibleParentEl = entry.target;
         console.log(visibleParentEl);
-        // this.currentlyVisibleImageSrcURL = visibleImageSrc;
-        // just to check that the ads is not rendered before the products are fetched
-
-        // deregister intersection observer apis
-        // observer.unobserve(entry.target);
+        this.log(visibleParentEl.getElementsByTagName('img'));
+        const allImagesPresentInTheSameGroup = Array.from(visibleParentEl.getElementsByTagName('img'));
+        let foundImageData = null;
+        let foundImageElement = null;
+        // find any one image from the parent to render ad
+        for (let i = 0; i < allImagesPresentInTheSameGroup.length; i++) {
+          const currentImageEle = allImagesPresentInTheSameGroup[i];
+          const imageSrcToShowAd = currentImageEle.src;
+          const imageDataSrcToShowAd = currentImageEle.getAttribute("data-src");
+          foundImageData = this.feedProducts.payload
+            .find((imageData) => imageData.imageUrl === imageSrcToShowAd || imageDataSrcToShowAd);
+          if (foundImageData?.generatedAdHTML) {
+            foundImageElement = currentImageEle;
+            break;
+          }
+        }
+        if (foundImageData?.generatedAdHTML) {
+          // handle the mobile version
+          if (window.innerWidth < 480) {
+            // append the found ad just after the image caption
+            const titleOfImageGroup = visibleParentEl
+              .getElementsByTagName(DAILY_MAIL_MOBILE_IMAGE_CAPTION_TAG)[0];
+            if (titleOfImageGroup) {
+              titleOfImageGroup.after(foundImageData.generatedAdHTML);
+            } else {
+              visibleParentEl.appendChild(foundImageData.generatedAdHTML);
+            }
+          }
+          else {
+            // append the found ad just after the image caption
+            visibleParentEl
+              .getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0]
+              .after(foundImageData.generatedAdHTML);
+            foundImageData.isAdGenerated = true;
+          }
+        }
       }
     });
   }
@@ -766,7 +780,18 @@ class TRENDiiAd {
             // );
             // this.productsContainerEl.innerHTML = "";
             this.createAdTemplatesForAllProducts();
-            this.getAllParentImageGroupClass();
+            // this.getAllParentImageGroupClass();
+            this.createObserverForCurrentVisibleImage();
+            let allParentElements;
+            if (window.innerWidth <= 480) {
+              allParentElements = Array.from(document.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG));
+            } else {
+              allParentElements = Array.from(document.querySelectorAll(IMAGE_GROUP_PARENT_DIV_CLASS));
+            }
+            allParentElements.forEach((parentEl) => {
+              // // debugger;
+              this.intersectionObserver.observe(parentEl);
+            });
             this.log(this.feedProducts);
           }
           // else {
