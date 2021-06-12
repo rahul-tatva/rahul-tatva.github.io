@@ -678,17 +678,17 @@ class TRENDiiAd {
           // handle the mobile version
           if (window.innerWidth < 480) {
             // append the found ad just after the image caption
-            const titleOfImageGroup = parentEl
+            const titleOfImageGroup = visibleParentEl
               .getElementsByTagName(DAILY_MAIL_MOBILE_IMAGE_CAPTION_TAG)[0];
             if (titleOfImageGroup) {
               titleOfImageGroup.after(foundImageData.generatedAdHTML);
             } else {
-              parentEl.appendChild(foundImageData.generatedAdHTML);
+              visibleParentEl.appendChild(foundImageData.generatedAdHTML);
             }
           }
           else {
             // append the found ad just after the image caption
-            parentEl
+            visibleParentEl
               .getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0]
               .after(foundImageData.generatedAdHTML);
           }
