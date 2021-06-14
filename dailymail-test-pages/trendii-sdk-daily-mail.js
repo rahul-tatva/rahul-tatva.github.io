@@ -599,16 +599,82 @@ class TRENDiiAd {
     document.addEventListener("DOMContentLoaded", () => {
       console.log("DOM is ready");
       this.getAllDailyMailBlogImagesFromDOM();
-      const requestOptions = { method: "GET" };
+      const requestOptionsTemplates = { method: "GET" };
+
+      const requestBody = {
+        // "webpageUrl": "https://rahul-tatva.github.io/fashion-blog-below-ads.html",
+        "webpageUrl": window.location.href,
+        "imageUrls": this.allValidImageSrcArray,
+        "publisherId": 1,
+      };
+      const headers = new Headers();
+      headers.append("Content-Type", "application/json");
+      const raw = JSON.stringify(requestBody);
+      const requestOptionsProducts = {
+        method: "POST",
+        headers,
+        body: raw,
+      };
 
       Promise.all([
         fetch(this.API_GET_NATIVE_AD_SLIDER_TEMPLATE).then((response) => response.text()),
         fetch(this.API_GET_NATIVE_AD_SIMPLE_TEMPLATE).then((response) => response.text()),
+        fetch(this.API_GET_NATIVE_AD_PRODUCT, requestOptionsProducts).then((response) => response.json())
       ]).then(allResponses => {
         this.nativeAdSliderTemplateHTMLString = allResponses[0];
         this.nativeAdSimpleTemplateHTMLString = allResponses[1];
+        const imageDataWithProducts = allResponses[2];
         // const response3 = allResponses[2];
         console.log("templates are ready");
+        //debugger;
+        // if feed does not deliver an empty response
+        if (imageDataWithProducts !== "") {
+          if (imageDataWithProducts?.success === true) {
+            //debugger;
+            this.feedProducts = imageDataWithProducts;
+            // this.log(response.data);
+            // this.appendAdContainersToImages();
+            // const domParser = new DOMParser();
+            // const parsedHtmlDocumentEl = domParser.parseFromString(this.nativeAdHTMLString, "text/html");
+            // // here the container id should be dynamic for each ads sizes
+            // this.productsContainerEl = parsedHtmlDocumentEl.getElementById(
+            //   this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID
+            // );
+            // this.productsContainerEl.innerHTML = "";
+
+
+            // for desktop cant use the same approach as of now for intersection apis
+            // this.createAdTemplatesForAllProducts();
+
+            // handle mobile version
+            if (window.innerWidth <= 480) {
+              this.createAdTemplatesForAllProducts();
+              this.getAllParentImageGroupClassMobile();
+            }
+            // handle desktop version
+            else {
+              this.createObserverForCurrentVisibleImage();
+              let allParentElements;
+              if (window.innerWidth <= MOBILE_WIDTH) {
+                allParentElements = Array.from(document.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG));
+              } else {
+                allParentElements = Array.from(document.querySelectorAll(IMAGE_GROUP_PARENT_DIV_CLASS));
+              }
+              allParentElements.forEach((parentEl) => { this.intersectionObserver.observe(parentEl); });
+              this.log(this.feedProducts);
+            }
+          }
+          // else {
+          //   this.feedProducts = window.FEED_PRODUCTS;
+          //   this.createAdTemplatesForAllProducts();
+          //   this.getAllParentImageGroupClass();
+          //   onSuccessCallback();
+          //   this.log(this.feedProducts);
+          // }
+        } else {
+          // empty response from feed
+          this.log("empty feed response");
+        }
         this.getProductsForAllImages();
       });
 
@@ -764,83 +830,7 @@ class TRENDiiAd {
     //   // fixedWidth: 200,
     // }).mount();
   }
-  getProductsForAllImages(onSuccessCallback) {
-    //debugger;
-    const requestBody = {
-      // "webpageUrl": "https://rahul-tatva.github.io/fashion-blog-below-ads.html",
-      "webpageUrl": window.location.href,
-      "imageUrls": this.allValidImageSrcArray,
-      "publisherId": 1,
-    };
-    const headers = new Headers();
-    headers.append("Content-Type", "application/json");
-    const raw = JSON.stringify(requestBody);
-    const requestOptions = {
-      method: "POST",
-      headers,
-      body: raw,
-    };
-    fetch(this.API_GET_NATIVE_AD_PRODUCT, requestOptions)
-      .then((response) => response.json())
-      .then((response) => {
-        //debugger;
-        // if feed does not deliver an empty response
-        if (response !== "") {
-          if (response?.success === true) {
-            //debugger;
-            this.feedProducts = response;
-            // this.log(response.data);
-            // this.appendAdContainersToImages();
-            // const domParser = new DOMParser();
-            // const parsedHtmlDocumentEl = domParser.parseFromString(this.nativeAdHTMLString, "text/html");
-            // // here the container id should be dynamic for each ads sizes
-            // this.productsContainerEl = parsedHtmlDocumentEl.getElementById(
-            //   this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID
-            // );
-            // this.productsContainerEl.innerHTML = "";
 
-
-            // for desktop cant use the same approach as of now for intersection apis
-            // this.createAdTemplatesForAllProducts();
-
-            // handle mobile version
-            if (window.innerWidth <= 480) {
-              this.createAdTemplatesForAllProducts();
-              this.getAllParentImageGroupClassMobile();
-            }
-            // handle desktop version
-            else {
-              this.createObserverForCurrentVisibleImage();
-              let allParentElements;
-              if (window.innerWidth <= MOBILE_WIDTH) {
-                allParentElements = Array.from(document.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG));
-              } else {
-                allParentElements = Array.from(document.querySelectorAll(IMAGE_GROUP_PARENT_DIV_CLASS));
-              }
-              allParentElements.forEach((parentEl) => {
-                // // debugger;
-                this.intersectionObserver.observe(parentEl);
-              });
-              this.log(this.feedProducts);
-            }
-          }
-          // else {
-          //   this.feedProducts = window.FEED_PRODUCTS;
-          //   this.createAdTemplatesForAllProducts();
-          //   this.getAllParentImageGroupClass();
-          //   onSuccessCallback();
-          //   this.log(this.feedProducts);
-          // }
-        } else {
-          // empty response from feed
-          this.log("empty feed response");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        typeof onErrorCallback === "function" && onErrorCallback(error);
-      });
-  }
 
   generatedAdForSingleImage(imageData, foundIndex) {
     const generatedAd = this.createAdsForAllProductsInAdvance(imageData, foundIndex);
@@ -2122,4 +2112,83 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
       break;
     }
   }
+}
+
+
+getProductsForAllImages(onSuccessCallback) {
+  //debugger;
+  const requestBody = {
+    // "webpageUrl": "https://rahul-tatva.github.io/fashion-blog-below-ads.html",
+    "webpageUrl": window.location.href,
+    "imageUrls": this.allValidImageSrcArray,
+    "publisherId": 1,
+  };
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+  const raw = JSON.stringify(requestBody);
+  const requestOptions = {
+    method: "POST",
+    headers,
+    body: raw,
+  };
+  fetch(this.API_GET_NATIVE_AD_PRODUCT, requestOptions)
+    .then((response) => response.json())
+    .then((response) => {
+      //debugger;
+      // if feed does not deliver an empty response
+      if (response !== "") {
+        if (response?.success === true) {
+          //debugger;
+          this.feedProducts = response;
+          // this.log(response.data);
+          // this.appendAdContainersToImages();
+          // const domParser = new DOMParser();
+          // const parsedHtmlDocumentEl = domParser.parseFromString(this.nativeAdHTMLString, "text/html");
+          // // here the container id should be dynamic for each ads sizes
+          // this.productsContainerEl = parsedHtmlDocumentEl.getElementById(
+          //   this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID
+          // );
+          // this.productsContainerEl.innerHTML = "";
+
+
+          // for desktop cant use the same approach as of now for intersection apis
+          // this.createAdTemplatesForAllProducts();
+
+          // handle mobile version
+          if (window.innerWidth <= 480) {
+            this.createAdTemplatesForAllProducts();
+            this.getAllParentImageGroupClassMobile();
+          }
+          // handle desktop version
+          else {
+            this.createObserverForCurrentVisibleImage();
+            let allParentElements;
+            if (window.innerWidth <= MOBILE_WIDTH) {
+              allParentElements = Array.from(document.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG));
+            } else {
+              allParentElements = Array.from(document.querySelectorAll(IMAGE_GROUP_PARENT_DIV_CLASS));
+            }
+            allParentElements.forEach((parentEl) => {
+              // // debugger;
+              this.intersectionObserver.observe(parentEl);
+            });
+            this.log(this.feedProducts);
+          }
+        }
+        // else {
+        //   this.feedProducts = window.FEED_PRODUCTS;
+        //   this.createAdTemplatesForAllProducts();
+        //   this.getAllParentImageGroupClass();
+        //   onSuccessCallback();
+        //   this.log(this.feedProducts);
+        // }
+      } else {
+        // empty response from feed
+        this.log("empty feed response");
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      typeof onErrorCallback === "function" && onErrorCallback(error);
+    });
 }
