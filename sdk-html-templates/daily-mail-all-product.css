@@ -650,7 +650,7 @@ ul {
 @media (min-width: 768px) {
   block728X90-wrapper
     .four-product-wrapper
-    .product-redirection-link:hover
+    .product-item-container:hover
     .product-item
     .product-item-image {
     border: 1px solid rgb(197 98 165 / 80%);
