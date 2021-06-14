@@ -753,34 +753,35 @@ class TRENDiiAd {
             break;
           }
         }
+        if (foundImageData?.products.length > 0) {
+          // generate the ad on the go
+          //  and then just append to the this parent
+          this.generatedAdForSingleImage(foundImageData, foundIndex);
 
-        // generate the ad on the go
-        //  and then just append to the this parent
-        this.generatedAdForSingleImage(foundImageData, foundIndex);
-
-        if (foundImageData?.generatedAdHTML) {
-          // handle the mobile version
-          if (window.innerWidth < MOBILE_WIDTH) {
-            // append the found ad just after the image caption
-            const titleOfImageGroup = visibleParentEl
-              .getElementsByTagName(DAILY_MAIL_MOBILE_IMAGE_CAPTION_TAG)[0];
-            if (titleOfImageGroup) {
-              titleOfImageGroup.after(foundImageData.generatedAdHTML);
-            } else {
-              visibleParentEl.appendChild(foundImageData.generatedAdHTML);
+          if (foundImageData?.generatedAdHTML) {
+            // handle the mobile version
+            if (window.innerWidth < MOBILE_WIDTH) {
+              // append the found ad just after the image caption
+              const titleOfImageGroup = visibleParentEl
+                .getElementsByTagName(DAILY_MAIL_MOBILE_IMAGE_CAPTION_TAG)[0];
+              if (titleOfImageGroup) {
+                titleOfImageGroup.after(foundImageData.generatedAdHTML);
+              } else {
+                visibleParentEl.appendChild(foundImageData.generatedAdHTML);
+              }
             }
-          }
-          else {
-            // append the found ad just after the image caption
-            visibleParentEl
-              .getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0]
-              .after(foundImageData.generatedAdHTML);
-            foundImageData.isAdGenerated = true;
-            console.log("ad rendered for ", visibleParentEl);
-            // once ad is rendered no need to observe this parent element any more
-            // deregister intersection observer apis
-            observer.unobserve(entry.target);
-            console.log("observer unregistered for ", visibleParentEl);
+            else {
+              // append the found ad just after the image caption
+              visibleParentEl
+                .getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0]
+                .after(foundImageData.generatedAdHTML);
+              foundImageData.isAdGenerated = true;
+              console.log("ad rendered for ", visibleParentEl);
+              // once ad is rendered no need to observe this parent element any more
+              // deregister intersection observer apis
+              observer.unobserve(entry.target);
+              console.log("observer unregistered for ", visibleParentEl);
+            }
           }
         }
       }
