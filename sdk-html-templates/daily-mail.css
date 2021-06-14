@@ -247,6 +247,7 @@ ul {
   line-height: 14px;
   font-weight: 400;
   max-height: 14px;
+  color: rgb(197 98 165 / 100%);
   font-style: normal;
   text-decoration: none;
   white-space: nowrap;
@@ -341,6 +342,7 @@ ul {
     line-height: 14px;
     font-weight: 400;
     max-height: 14px;
+    color: rgb(197 98 165 / 100%);
     font-style: normal;
     text-decoration: none;
     white-space: nowrap;
