@@ -675,7 +675,7 @@ class TRENDiiAd {
           // empty response from feed
           this.log("empty feed response");
         }
-        this.getProductsForAllImages();
+        // this.getProductsForAllImages();
       });
 
       // fetch(this.API_GET_NATIVE_AD_SLIDER_TEMPLATE, requestOptions)
