@@ -2,6 +2,7 @@ const API_GET_AD_PRODUCTS =
   "https://flashtalking-sandbox-f6i4ayd3wa-ts.a.run.app/?site=16230&banner=300x600&p1=12345&p2=12345&p3=12345";
 // const API_GET_AD_PRODUCTS =
 //   "https://beeswax-creative-f6i4ayd3wa-ts.a.run.app/webImageProcess";
+const MOBILE_WIDTH = 480;
 const TRENDII_NATIVE_ADS_CDN = "https://cdn.trendii.com/native-ads-sdk/assets";
 const SUPPORTED_DIMENSIONS = ["160X600", "300X600"];
 const AD_PRODUCTS_CONTAINER = "trendii-sdk-ad-products-container";
@@ -662,6 +663,10 @@ class TRENDiiAd {
       // if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
       if (entry.isIntersecting) {
         const visibleParentEl = entry.target;
+
+        // window < MOBILE_WIDTH 
+        // handle mobile rendering
+
         // console.log(visibleParentEl);
         this.log(visibleParentEl.getElementsByTagName('img'));
         const allImagesPresentInTheSameGroup = Array.from(visibleParentEl.getElementsByTagName('img'));
@@ -681,7 +686,7 @@ class TRENDiiAd {
         }
         if (foundImageData?.generatedAdHTML) {
           // handle the mobile version
-          if (window.innerWidth < 480) {
+          if (window.innerWidth < MOBILE_WIDTH) {
             // append the found ad just after the image caption
             const titleOfImageGroup = visibleParentEl
               .getElementsByTagName(DAILY_MAIL_MOBILE_IMAGE_CAPTION_TAG)[0];
@@ -713,7 +718,7 @@ class TRENDiiAd {
     // TO DO throw error if image selector not present
     this.allImageElements = document.querySelectorAll(this.options.adImagesSelector);
     this.allValidImageSrcArray = [];
-    if (window.innerWidth <= 480) {
+    if (window.innerWidth <= MOBILE_WIDTH) {
 
       const alreadyLoadedImagesArray = Array.from(document.querySelectorAll(DAILY_MAIL_MOBILE_LOADED_IMAGE_SELECTOR_CLASS))
         .map(img => img.getAttribute("src"));
@@ -786,19 +791,26 @@ class TRENDiiAd {
             // );
             // this.productsContainerEl.innerHTML = "";
             this.createAdTemplatesForAllProducts();
-            // this.getAllParentImageGroupClass();
-            this.createObserverForCurrentVisibleImage();
-            let allParentElements;
+
+            // handle mobile version
             if (window.innerWidth <= 480) {
-              allParentElements = Array.from(document.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG));
-            } else {
-              allParentElements = Array.from(document.querySelectorAll(IMAGE_GROUP_PARENT_DIV_CLASS));
+              this.getAllParentImageGroupClassMobile();
             }
-            allParentElements.forEach((parentEl) => {
-              // // debugger;
-              this.intersectionObserver.observe(parentEl);
-            });
-            this.log(this.feedProducts);
+            // handle desktop version
+            else {
+              this.createObserverForCurrentVisibleImage();
+              let allParentElements;
+              if (window.innerWidth <= MOBILE_WIDTH) {
+                allParentElements = Array.from(document.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG));
+              } else {
+                allParentElements = Array.from(document.querySelectorAll(IMAGE_GROUP_PARENT_DIV_CLASS));
+              }
+              allParentElements.forEach((parentEl) => {
+                // // debugger;
+                this.intersectionObserver.observe(parentEl);
+              });
+              this.log(this.feedProducts);
+            }
           }
           // else {
           //   this.feedProducts = window.FEED_PRODUCTS;
@@ -835,7 +847,7 @@ class TRENDiiAd {
     // const products = imageData.products.slice(0, (index % 2 === 0 ? 2 : 1));
     // for 3 and 4 products
     // const products = imageData.products.slice(0, (index % 2 === 0 ? 3 : 4));
-    if (window.innerWidth > 480) {
+    if (window.innerWidth > MOBILE_WIDTH) {
       products = imageData.products.slice(0, 4);
     }
     const advertiserName = imageData.advertiserName;
@@ -946,14 +958,15 @@ class TRENDiiAd {
         // create slider html template and append to the container
         products.forEach((product) => this.createSliderItemProduct(product, productsContainerEl));
         const resultantAdWrapper = templatesDOM.getElementById(this.HTML_TEMPLATE_AD_WRAPPER_ID);
+        resultantAdWrapper.style.display = "none";
         return resultantAdWrapper;
       }
       // break;
     }
   }
-  getAllParentImageGroupClass() {
+  getAllParentImageGroupClassMobile() {
     let allParentElements;
-    if (window.innerWidth <= 480) {
+    if (window.innerWidth <= MOBILE_WIDTH) {
       allParentElements = document.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG);
     } else {
       allParentElements = document.querySelectorAll(IMAGE_GROUP_PARENT_DIV_CLASS);
@@ -1001,13 +1014,15 @@ class TRENDiiAd {
         // foundImageElement.after(adContainerMobile);
 
         // handle the mobile version
-        if (window.innerWidth < 480) {
+        if (window.innerWidth < MOBILE_WIDTH) {
           // append the found ad just after the image caption
           const titleOfImageGroup = parentEl
             .getElementsByTagName(DAILY_MAIL_MOBILE_IMAGE_CAPTION_TAG)[0];
           if (titleOfImageGroup) {
             titleOfImageGroup.after(foundImageData.generatedAdHTML);
-          } else {
+          }
+          // just to handle the image without caption for mobile
+          else {
             parentEl.appendChild(foundImageData.generatedAdHTML);
           }
         }
@@ -1034,38 +1049,34 @@ class TRENDiiAd {
         // setup the splid lib to initialize the slider
 
         if (foundImageData.isSliderTemplate) {
-          const testSlider = new Splide(sliderIdSelector, {
-            type: 'loop',
-            // perPage: 6,
-            pagination: false,
-            gap: 10,
-            autoWidth: true,
-            autoHeight: true,
-            // width: 400,
-            // fixedWidth: 200,
-          }).mount();
-          const adProductsSliderContainer = document.getElementById(identifier);
-          adProductsSliderContainer.style.display = "block";
-          testSlider.on('mounted', function () {
-            console.log("mounted");
-            // This will be executed.
-          });
-          this.log("slider appended");
-
-          // setTimeout(() => { }, 2000);
-
-          // const div = document.createElement('div');
-          // div.style.background = "yellow";
-          // parentEl.getElementsByClassName('imageCaption')[0].after(div);
-          // parentEl.getElementsByClassName('imageCaption')[0].after(div);
+          console.log(window.Splide);
+          if (window.Splide) {
+            const testSlider = new Splide(sliderIdSelector, {
+              type: 'loop',
+              pagination: false,
+              gap: 10,
+              autoWidth: true,
+              autoHeight: true,
+            }).mount();
+            const adProductsSliderContainer = document.getElementById(identifier);
+            adProductsSliderContainer.style.display = "block";
+            const adWrapper = foundImageData.generatedAdHTML;
+            adWrapper.setAttribute("data-slider-appended", "true");
+            adWrapper.style.display = "block";
+            this.log("slider appended");
+            testSlider.on('mounted', function () {
+              console.log("mounted");
+              // This will be executed.
+            });
+          }
         }
+        // //debugger;
+        // const div = document.createElement('div');
+        // div.style.background = "yellow";
+        // div.style.height = "100px";
+        // parentEl.getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0].after(div);
+        // if (index === (this.parentImageGroupElements.length - 1) && isThereAnySliderAds) { }
       }
-      // //debugger;
-      // const div = document.createElement('div');
-      // div.style.background = "yellow";
-      // div.style.height = "100px";
-      // parentEl.getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0].after(div);
-      // if (index === (this.parentImageGroupElements.length - 1) && isThereAnySliderAds) { }
     });
     // document.querySelectorAll(".mol-img-group")[0].getElementsByTagName('img');
     // document.querySelectorAll(".mol-img-group")[0].getElementsByClassName('imageCaption')[0];

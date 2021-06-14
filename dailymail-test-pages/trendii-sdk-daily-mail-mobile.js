@@ -722,7 +722,7 @@ class TRENDiiAd {
             // );
             // this.productsContainerEl.innerHTML = "";
             this.createAdTemplatesForAllProducts();
-            this.getAllParentImageGroupClass();
+            this.getAllParentImageGroupClassMobile();
             this.log(this.feedProducts);
           }
           // else {
@@ -755,11 +755,14 @@ class TRENDiiAd {
     //debugger;
     const imageUrl = imageData.imageUrl;
     const BRAND_NAME = imageData.advertiserName;
+    let products = imageData.products;
     // to test 1-2-3-4 products case
-    // const products = imageData.products.splice(0, (index % 2 === 0 ? 2 : 1));
+    // const products = imageData.products.slice(0, (index % 2 === 0 ? 2 : 1));
     // for 3 and 4 products
-    // const products = imageData.products.splice(0, (index % 2 === 0 ? 3 : 4));
-    const products = imageData.products;
+    // const products = imageData.products.slice(0, (index % 2 === 0 ? 3 : 4));
+    if (window.innerWidth > MOBILE_WIDTH) {
+      products = imageData.products.slice(0, 4);
+    }
     const advertiserName = imageData.advertiserName;
     const identifier = `splide${index}`;
     imageData.sliderId = identifier;
@@ -873,7 +876,7 @@ class TRENDiiAd {
       // break;
     }
   }
-  getAllParentImageGroupClass() {
+  getAllParentImageGroupClassMobile() {
     let allParentElements;
     if (window.innerWidth <= MOBILE_WIDTH) {
       allParentElements = document.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG);
