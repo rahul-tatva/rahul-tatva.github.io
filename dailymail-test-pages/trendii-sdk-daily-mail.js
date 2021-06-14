@@ -679,11 +679,16 @@ class TRENDiiAd {
           const imageDataSrcToShowAd = currentImageEle.getAttribute("data-src");
           foundImageData = this.feedProducts.payload
             .find((imageData) => imageData.imageUrl === imageSrcToShowAd || imageDataSrcToShowAd);
-          if (foundImageData?.generatedAdHTML) {
+          if (foundImageData?.products.length > 0) {
             foundImageElement = currentImageEle;
             break;
           }
         }
+
+        // generate the ad on the go
+        //  and then just append to the this parent
+        this.generatedAdForSingleImage(foundImageData);
+
         if (foundImageData?.generatedAdHTML) {
           // handle the mobile version
           if (window.innerWidth < MOBILE_WIDTH) {
@@ -790,10 +795,14 @@ class TRENDiiAd {
             //   this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID
             // );
             // this.productsContainerEl.innerHTML = "";
-            this.createAdTemplatesForAllProducts();
+
+
+            // for desktop cant use the same approach as of now for intersection apis
+            // this.createAdTemplatesForAllProducts();
 
             // handle mobile version
             if (window.innerWidth <= 480) {
+              this.createAdTemplatesForAllProducts();
               this.getAllParentImageGroupClassMobile();
             }
             // handle desktop version
@@ -829,6 +838,11 @@ class TRENDiiAd {
         typeof onErrorCallback === "function" && onErrorCallback(error);
       });
   }
+
+  generatedAdForSingleImage(imageData) {
+    const generatedAd = this.createAdsForAllProductsInAdvance(imageData, index);
+    imageData.generatedAdHTML = generatedAd;
+  }
   createAdTemplatesForAllProducts() {
     this.feedProducts.payload.map((imageData, index) => {
       if (imageData?.products.length > 0) {
@@ -836,6 +850,7 @@ class TRENDiiAd {
         imageData.generatedAdHTML = generatedAd;
         // imageData.generatedAdString = generatedAd.innerHTML;
       }
+      return imageData;
     });
   }
   createAdsForAllProductsInAdvance(imageData, index) {
