@@ -672,6 +672,7 @@ class TRENDiiAd {
         const allImagesPresentInTheSameGroup = Array.from(visibleParentEl.getElementsByTagName('img'));
         let foundImageData = null;
         let foundImageElement = null;
+        let foundIndex = null;
         // find any one image from the parent to render ad
         for (let i = 0; i < allImagesPresentInTheSameGroup.length; i++) {
           const currentImageEle = allImagesPresentInTheSameGroup[i];
@@ -679,6 +680,8 @@ class TRENDiiAd {
           const imageDataSrcToShowAd = currentImageEle.getAttribute("data-src");
           foundImageData = this.feedProducts.payload
             .find((imageData) => imageData.imageUrl === imageSrcToShowAd || imageDataSrcToShowAd);
+          foundIndex = this.feedProducts.payload
+            .findIndex((imageData) => imageData.imageUrl === imageSrcToShowAd || imageDataSrcToShowAd);
           if (foundImageData?.products.length > 0) {
             foundImageElement = currentImageEle;
             break;
@@ -687,7 +690,7 @@ class TRENDiiAd {
 
         // generate the ad on the go
         //  and then just append to the this parent
-        this.generatedAdForSingleImage(foundImageData);
+        this.generatedAdForSingleImage(foundImageData, foundIndex);
 
         if (foundImageData?.generatedAdHTML) {
           // handle the mobile version
@@ -839,8 +842,8 @@ class TRENDiiAd {
       });
   }
 
-  generatedAdForSingleImage(imageData) {
-    const generatedAd = this.createAdsForAllProductsInAdvance(imageData, index);
+  generatedAdForSingleImage(imageData, foundIndex) {
+    const generatedAd = this.createAdsForAllProductsInAdvance(imageData, foundIndex);
     imageData.generatedAdHTML = generatedAd;
   }
   createAdTemplatesForAllProducts() {
