@@ -86,7 +86,7 @@ ul {
 }
 
 .block728X90-wrapper .product-redirection-link {
-  text-decoration: none;
+  text-decoration: none !important;
   color: unset;
 }
 
