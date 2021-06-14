@@ -635,6 +635,12 @@ class TRENDiiAd {
     styles.href = url;
     document.head.appendChild(styles);
   }
+  loadScript(url) {
+    document.body.appendChild(document.createElement("script")).src = url;
+  }
+  loadScriptIntoHead(url) {
+    document.head.appendChild(document.createElement("script")).src = url;
+  }
   createObserverForCurrentVisibleImage() {
     if (!!window.IntersectionObserver) {
       const options = {
@@ -701,12 +707,7 @@ class TRENDiiAd {
       }
     });
   }
-  loadScript(url) {
-    document.body.appendChild(document.createElement("script")).src = url;
-  }
-  loadScriptIntoHead(url) {
-    document.head.appendChild(document.createElement("script")).src = url;
-  }
+
   getAllDailyMailBlogImagesFromDOM() {
     //debugger;
     // TO DO throw error if image selector not present
