@@ -1185,6 +1185,83 @@ class TRENDiiAd {
     productPriceMobile.innerHTML = product.currency + product.price;
     productDetailsWrapperMobile.appendChild(productPriceMobile);
   }
+  getProductsForAllImages(onSuccessCallback) {
+    //debugger;
+    const requestBody = {
+      // "webpageUrl": "https://rahul-tatva.github.io/fashion-blog-below-ads.html",
+      "webpageUrl": window.location.href,
+      "imageUrls": this.allValidImageSrcArray,
+      "publisherId": 1,
+    };
+    const headers = new Headers();
+    headers.append("Content-Type", "application/json");
+    const raw = JSON.stringify(requestBody);
+    const requestOptions = {
+      method: "POST",
+      headers,
+      body: raw,
+    };
+    fetch(this.API_GET_NATIVE_AD_PRODUCT, requestOptions)
+      .then((response) => response.json())
+      .then((response) => {
+        //debugger;
+        // if feed does not deliver an empty response
+        if (response !== "") {
+          if (response?.success === true) {
+            //debugger;
+            this.feedProducts = response;
+            // this.log(response.data);
+            // this.appendAdContainersToImages();
+            // const domParser = new DOMParser();
+            // const parsedHtmlDocumentEl = domParser.parseFromString(this.nativeAdHTMLString, "text/html");
+            // // here the container id should be dynamic for each ads sizes
+            // this.productsContainerEl = parsedHtmlDocumentEl.getElementById(
+            //   this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID
+            // );
+            // this.productsContainerEl.innerHTML = "";
+
+
+            // for desktop cant use the same approach as of now for intersection apis
+            // this.createAdTemplatesForAllProducts();
+
+            // handle mobile version
+            if (window.innerWidth <= 480) {
+              this.createAdTemplatesForAllProducts();
+              this.getAllParentImageGroupClassMobile();
+            }
+            // handle desktop version
+            else {
+              this.createObserverForCurrentVisibleImage();
+              let allParentElements;
+              if (window.innerWidth <= MOBILE_WIDTH) {
+                allParentElements = Array.from(document.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG));
+              } else {
+                allParentElements = Array.from(document.querySelectorAll(IMAGE_GROUP_PARENT_DIV_CLASS));
+              }
+              allParentElements.forEach((parentEl) => {
+                // // debugger;
+                this.intersectionObserver.observe(parentEl);
+              });
+              this.log(this.feedProducts);
+            }
+          }
+          // else {
+          //   this.feedProducts = window.FEED_PRODUCTS;
+          //   this.createAdTemplatesForAllProducts();
+          //   this.getAllParentImageGroupClass();
+          //   onSuccessCallback();
+          //   this.log(this.feedProducts);
+          // }
+        } else {
+          // empty response from feed
+          this.log("empty feed response");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        typeof onErrorCallback === "function" && onErrorCallback(error);
+      });
+  }
 }
 
 (function () {
@@ -2114,81 +2191,3 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
   }
 }
 
-
-getProductsForAllImages(onSuccessCallback) {
-  //debugger;
-  const requestBody = {
-    // "webpageUrl": "https://rahul-tatva.github.io/fashion-blog-below-ads.html",
-    "webpageUrl": window.location.href,
-    "imageUrls": this.allValidImageSrcArray,
-    "publisherId": 1,
-  };
-  const headers = new Headers();
-  headers.append("Content-Type", "application/json");
-  const raw = JSON.stringify(requestBody);
-  const requestOptions = {
-    method: "POST",
-    headers,
-    body: raw,
-  };
-  fetch(this.API_GET_NATIVE_AD_PRODUCT, requestOptions)
-    .then((response) => response.json())
-    .then((response) => {
-      //debugger;
-      // if feed does not deliver an empty response
-      if (response !== "") {
-        if (response?.success === true) {
-          //debugger;
-          this.feedProducts = response;
-          // this.log(response.data);
-          // this.appendAdContainersToImages();
-          // const domParser = new DOMParser();
-          // const parsedHtmlDocumentEl = domParser.parseFromString(this.nativeAdHTMLString, "text/html");
-          // // here the container id should be dynamic for each ads sizes
-          // this.productsContainerEl = parsedHtmlDocumentEl.getElementById(
-          //   this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID
-          // );
-          // this.productsContainerEl.innerHTML = "";
-
-
-          // for desktop cant use the same approach as of now for intersection apis
-          // this.createAdTemplatesForAllProducts();
-
-          // handle mobile version
-          if (window.innerWidth <= 480) {
-            this.createAdTemplatesForAllProducts();
-            this.getAllParentImageGroupClassMobile();
-          }
-          // handle desktop version
-          else {
-            this.createObserverForCurrentVisibleImage();
-            let allParentElements;
-            if (window.innerWidth <= MOBILE_WIDTH) {
-              allParentElements = Array.from(document.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG));
-            } else {
-              allParentElements = Array.from(document.querySelectorAll(IMAGE_GROUP_PARENT_DIV_CLASS));
-            }
-            allParentElements.forEach((parentEl) => {
-              // // debugger;
-              this.intersectionObserver.observe(parentEl);
-            });
-            this.log(this.feedProducts);
-          }
-        }
-        // else {
-        //   this.feedProducts = window.FEED_PRODUCTS;
-        //   this.createAdTemplatesForAllProducts();
-        //   this.getAllParentImageGroupClass();
-        //   onSuccessCallback();
-        //   this.log(this.feedProducts);
-        // }
-      } else {
-        // empty response from feed
-        this.log("empty feed response");
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-      typeof onErrorCallback === "function" && onErrorCallback(error);
-    });
-}
