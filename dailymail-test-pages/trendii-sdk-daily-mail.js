@@ -831,8 +831,6 @@ class TRENDiiAd {
     //   // fixedWidth: 200,
     // }).mount();
   }
-
-
   generatedAdForSingleImage(imageData, foundIndex) {
     const generatedAd = this.createAdsForAllProductsInAdvance(imageData, foundIndex);
     imageData.generatedAdHTML = generatedAd;
@@ -844,7 +842,6 @@ class TRENDiiAd {
         imageData.generatedAdHTML = generatedAd;
         // imageData.generatedAdString = generatedAd.innerHTML;
       }
-      return imageData;
     });
   }
   createAdsForAllProductsInAdvance(imageData, index) {
