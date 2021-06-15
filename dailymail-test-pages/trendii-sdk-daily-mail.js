@@ -573,7 +573,8 @@ class TRENDiiAd {
     this.API_GET_NATIVE_AD_PRODUCT = `https://beeswaxcreatives.trendii.com/img-creatives`;
     this.HTML_TEMPLATE_AD_WRAPPER_ID = "trendii-native-ad-wrapper";
     this.HTML_TEMPLATE_SLIDER_CONTAINER_ID = "trendii-sdk-ad-products-container";
-
+    this.slidersAppendedArray = [];
+    this.sliderCount = 0;
     //NATIVE AD CODE START
     // document.addEventListener("DOMContentLoaded", this.handleDOMLoaded.bind(this));
     // window.addEventListener("load", () => { });
@@ -676,9 +677,11 @@ class TRENDiiAd {
                   }
                 }
                 if (foundImageData?.products.length > 0) {
+                  // this.sliderCount;
                   // generate the ad on the go
                   // and then just append to the this parent
-                  this.generatedAdForSingleImage(foundImageData, foundIndex);
+                  this.generatedAdForSingleImage(foundImageData, this.sliderCount);
+                  this.sliderCount++;
                   if (foundImageData?.generatedAdHTML) {
                     // handle the mobile version
                     if (window.innerWidth <= MOBILE_WIDTH) {
@@ -710,6 +713,7 @@ class TRENDiiAd {
                     const sliderIdSelector = `#${identifier}`;
                     console.log(identifier);
                     if (foundImageData.isSliderTemplate) {
+                      this.slidersAppendedArray.push(foundImageData.sliderId);
                       console.log(window.Splide);
                       if (window.Splide) {
                         const testSlider = new Splide(sliderIdSelector, {
