@@ -735,13 +735,13 @@ class TRENDiiAd {
 
         // console.log(visibleParentEl);
         this.log(visibleParentEl.getElementsByTagName('img'));
-        const allImagesPresentInTheSameGroup = Array.from(visibleParentEl.getElementsByTagName('img'));
+        const imagesPresentInSameParent = Array.from(visibleParentEl.getElementsByTagName('img'));
         let foundImageData = null;
         let foundImageElement = null;
         let foundIndex = null;
         // find any one image from the parent to render ad
-        for (let i = 0; i < allImagesPresentInTheSameGroup.length; i++) {
-          const currentImageEle = allImagesPresentInTheSameGroup[i];
+        for (let i = 0; i < imagesPresentInSameParent.length; i++) {
+          const currentImageEle = imagesPresentInSameParent[i];
           const imageSrcToShowAd = currentImageEle.src;
           const imageDataSrcToShowAd = currentImageEle.getAttribute("data-src");
           foundImageData = this.feedProducts.payload
