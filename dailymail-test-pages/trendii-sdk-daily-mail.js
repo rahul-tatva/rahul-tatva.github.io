@@ -30,7 +30,7 @@ var IntersectionObserverV1 = window.IntersectionObserverV1;
 class TRENDiiAd {
   constructor(options) {
     //debugger;
-    // this.loadScriptIntoHead("https://rahul-tatva.github.io/dailymail-test-pages/intersection-observer.js");
+    this.loadScriptIntoHead("https://rahul-tatva.github.io/dailymail-test-pages/intersection-observer.js");
     this.loadScriptIntoHead("https://cdn.trendii.com/assets/splide.min.js");
     // this.loadScript("https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js");
 
@@ -83,22 +83,23 @@ class TRENDiiAd {
 
           // this.initializeIntersectionObserver();
           // let intersectionObserver;
-          // if (!!window.IntersectionObserver) {
           const options = {
             // root: document.body,
             rootMargin: "0px",
             threshold: 0.2,
           };
 
-          intersectionObserver = new IntersectionObserverV1(
-            this.handleIntersectionEntries.bind(this),
-            options
-          );
-          // this.intersectionObserver = new IntersectionObserver(
-          //   this.handleIntersectionEntries.bind(this),
-          //   options
-          // );
-          // }
+          if (window.IntersectionObserverV1) {
+            intersectionObserver = new IntersectionObserverV1(
+              this.handleIntersectionEntries.bind(this),
+              options
+            );
+          } else {
+            intersectionObserver = new IntersectionObserver(
+              this.handleIntersectionEntries.bind(this),
+              options
+            );
+          }
 
           let allParentEls;
           if (window.innerWidth <= MOBILE_WIDTH) {
