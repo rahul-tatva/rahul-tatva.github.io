@@ -1,8 +1,5 @@
-// const API_GET_AD_PRODUCTS =
-//   "https://beeswax-creative-f6i4ayd3wa-ts.a.run.app/webImageProcess";
 const MOBILE_WIDTH = 480;
 const TRENDII_NATIVE_ADS_CDN = "https://cdn.trendii.com/native-ads-sdk/assets";
-// const SUPPORTED_DIMENSIONS = ["160X600", "300X600"];
 const AD_PRODUCTS_CONTAINER = "trendii-sdk-ad-products-container";
 const PUBLISHER_NAME = "DAILY_MAIL";
 const RETAILER_LOGO_ID = "retailer-logo";
@@ -30,33 +27,27 @@ var IntersectionObserverV1 = window.IntersectionObserverV1;
 class TRENDiiAd {
   constructor(options) {
     //debugger;
-    this.loadScriptIntoHead("https://rahul-tatva.github.io/dailymail-test-pages/intersection-observer.js");
+    this.loadScriptIntoHead("https://cdn.trendii.com/native-ads-sdk/intersection-observer.min.js");
     this.loadScriptIntoHead("https://cdn.trendii.com/assets/splide.min.js");
     // this.loadScript("https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js");
 
     this.loadStyleSheetIntoHead("https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css");
     this.loadStyleSheetIntoHead("https://cdn.trendii.com/assets/splide-core.min.css");
-    this.loadStyleSheetIntoHead("https://rahul-tatva.github.io/sdk-html-templates/trendii-sdk-daily-mail-slider.css");
-    this.loadStyleSheetIntoHead("https://rahul-tatva.github.io/sdk-html-templates/trendii-sdk-daily-mail-all-product.css");
+    this.loadStyleSheetIntoHead("https://cdn.trendii.com/native-ads-sdk/trendii-sdk-daily-mail-slider.css");
+    this.loadStyleSheetIntoHead("https://cdn.trendii.com/native-ads-sdk/trendii-sdk-daily-mail-all-product.css");
     console.log("sdk constructor initialized");
-    // this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/Products-Silder.css");
+    // this.loadStyleSheet("https://cdn.trendii.com/native-ads-sdk/Products-Silder.css");
     // this.loadScript("https://unpkg.com/axios/dist/axios.min.js");
     // <link rel="stylesheet" href="./sdk-html-templates/trendii-sdk-daily-mail-slider.css"></link>
-    // options initialization
-    // this.options = options;
-    //debugger;
 
     // variable needed to store some data and info
     this.feedProducts = [];
-    this.htmlString;
-    this.allImageElements;
-    this.currentlyVisibleImageSrcURL = null;
     this.intersectionObserver;
     // this.feedProductsWithGeneratedAds = [];
 
     // native ads constants
-    this.API_GET_NATIVE_AD_SLIDER_TEMPLATE = `https://rahul-tatva.github.io/sdk-html-templates/Products-Slider-dynamic.html`;
-    this.API_GET_NATIVE_AD_SIMPLE_TEMPLATE = `https://rahul-tatva.github.io/sdk-html-templates/Products-728X90-all-product-dynamic.html`;
+    this.API_GET_NATIVE_AD_SLIDER_TEMPLATE = `https://cdn.trendii.com/native-ads-sdk/Products-Slider-dynamic.html`;
+    this.API_GET_NATIVE_AD_SIMPLE_TEMPLATE = `https://cdn.trendii.com/native-ads-sdk/Products-728X90-all-product-dynamic.html`;
     this.HTML_TEMPLATE_SIMPLE_CONTAINER_ID = "trendii-products-container-728X90";
     this.nativeAdSimpleTemplateHTMLString = null;
 
@@ -71,8 +62,8 @@ class TRENDiiAd {
     // window.addEventListener("load", () => {
     document.addEventListener("DOMContentLoaded", () => {
       console.log("DOM is ready");
-      this.getAllDailyMailBlogImagesFromDOM();
-      const requestOptionsTemplates = { method: "GET" };
+      // this.getAllDailyMailBlogImagesFromDOM();
+      // const requestOptionsTemplates = { method: "GET" };
       Promise.all([
         fetch(this.API_GET_NATIVE_AD_SLIDER_TEMPLATE).then((response) => response.text()),
         fetch(this.API_GET_NATIVE_AD_SIMPLE_TEMPLATE).then((response) => response.text()),
@@ -127,19 +118,6 @@ class TRENDiiAd {
   }
   loadScriptIntoHead(url) {
     document.head.appendChild(document.createElement("script")).src = url;
-  }
-  initializeIntersectionObserver() {
-    // if (!!window.IntersectionObserver) {
-    //   const options = {
-    //     root: null,
-    //     rootMargin: "0px",
-    //     threshold: 0.2,
-    //   };
-    //   const result = new IntersectionObserver(function (test) {
-    //     console.log("test intersection");
-    //   }, options);
-    //   this.intersectionObserver = result;
-    // }
   }
   handleIntersectionEntries(entries, observer) {
     // // debugger;
@@ -227,7 +205,7 @@ class TRENDiiAd {
 
                     const identifier = foundImageData.sliderId;
                     const sliderIdSelector = `#${identifier}`;
-                    console.log(identifier);
+                    // console.log(identifier);
                     if (foundImageData.isSliderTemplate) {
                       this.slidersAppendedArray.push(foundImageData.sliderId);
                       console.log(window.Splide);
@@ -269,50 +247,38 @@ class TRENDiiAd {
       }
     });
   }
+  // getAllDailyMailBlogImagesFromDOM() {
+  //   //debugger;
+  //   // TO DO throw error if image selector not present
+  //   // this.allImageElements = document.querySelectorAll(this.options.adImagesSelector);
+  //   this.allValidImageSrcArray = [];
+  //   if (window.innerWidth <= MOBILE_WIDTH) {
 
-  getAllDailyMailBlogImagesFromDOM() {
-    //debugger;
-    // TO DO throw error if image selector not present
-    // this.allImageElements = document.querySelectorAll(this.options.adImagesSelector);
-    this.allValidImageSrcArray = [];
-    if (window.innerWidth <= MOBILE_WIDTH) {
+  //     const alreadyLoadedImagesArray = Array.from(document.querySelectorAll(MOBILE_DAILY_MAIL_LOADED_IMAGE_SELECTOR_CLASS))
+  //       .map(img => img.getAttribute("src"));
+  //     this.allValidImageSrcArray.push(...alreadyLoadedImagesArray);
 
-      const alreadyLoadedImagesArray = Array.from(document.querySelectorAll(MOBILE_DAILY_MAIL_LOADED_IMAGE_SELECTOR_CLASS))
-        .map(img => img.getAttribute("src"));
-      this.allValidImageSrcArray.push(...alreadyLoadedImagesArray);
+  //     // async loadable images
+  //     const imagesWhichAreYetToBeLoaded = Array.from(document.querySelectorAll(MOBILE_DAILY_MAIL_IMAGE_SELECTOR_CLASS))
+  //       .map(img => img.getAttribute("data-src"))
+  //       // filter null values or undefined
+  //       .filter(x => x);
+  //     this.allValidImageSrcArray.push(...imagesWhichAreYetToBeLoaded);
+  //   } else {
+  //     // consider desktop view
+  //     const alreadyLoadedImagesArray = Array.from(document.querySelectorAll(DESKTOP_DAILY_MAIL_LOADED_IMAGE_SELECTOR_CLASS))
+  //       .map(img => img.getAttribute("src"));
+  //     this.allValidImageSrcArray.push(...alreadyLoadedImagesArray);
 
-      // async loadable images
-      const imagesWhichAreYetToBeLoaded = Array.from(document.querySelectorAll(MOBILE_DAILY_MAIL_IMAGE_SELECTOR_CLASS))
-        .map(img => img.getAttribute("data-src"))
-        // filter null values or undefined
-        .filter(x => x);
-      this.allValidImageSrcArray.push(...imagesWhichAreYetToBeLoaded);
-    } else {
-      // consider desktop view
-      const alreadyLoadedImagesArray = Array.from(document.querySelectorAll(DESKTOP_DAILY_MAIL_LOADED_IMAGE_SELECTOR_CLASS))
-        .map(img => img.getAttribute("src"));
-      this.allValidImageSrcArray.push(...alreadyLoadedImagesArray);
-
-      // async loadable images
-      const imagesWhichAreYetToBeLoaded = Array.from(document.querySelectorAll(DESKTOP_DAILY_MAIL_IMAGE_SELECTOR_CLASS))
-        .map(img => img.getAttribute("data-src"))
-        // filter null values or undefined
-        .filter(x => x);
-      this.allValidImageSrcArray.push(...imagesWhichAreYetToBeLoaded);
-    }
-    this.log(this.allValidImageSrcArray);
-  };
-  initializeSliderSetup() {
-    // new Splide('.splide', {
-    //   type: 'loop',
-    //   // perPage: 6,
-    //   pagination: false,
-    //   gap: 10,
-    //   autoWidth: true,
-    //   // width: 400,
-    //   // fixedWidth: 200,
-    // }).mount();
-  }
+  //     // async loadable images
+  //     const imagesWhichAreYetToBeLoaded = Array.from(document.querySelectorAll(DESKTOP_DAILY_MAIL_IMAGE_SELECTOR_CLASS))
+  //       .map(img => img.getAttribute("data-src"))
+  //       // filter null values or undefined
+  //       .filter(x => x);
+  //     this.allValidImageSrcArray.push(...imagesWhichAreYetToBeLoaded);
+  //   }
+  //   this.log(this.allValidImageSrcArray);
+  // };
   generatedAdForSingleImage(imageData, foundIndex) {
     const generatedAd = this.createAdsForAllProductsInAdvance(imageData, foundIndex);
     imageData.generatedAdHTML = generatedAd;
@@ -384,14 +350,12 @@ class TRENDiiAd {
         const domParser = new DOMParser();
         const templatesDOM = domParser.parseFromString(newDOM, "text/html");
 
-
         // dynamic logo for the advertiser
         const logoUrl = `${TRENDII_NATIVE_ADS_CDN}/${advertiserName.toLowerCase()}.png`;
         const retailerLogoEl = templatesDOM.getElementById(RETAILER_LOGO_ID);
         retailerLogoEl.title = advertiserName;
         // when the logo is used as the image tag
         retailerLogoEl.src = logoUrl;
-
 
         // when the logo is used as the div tag
         // const newBackgroundStyle = 'url("' + logoUrl + '") no-repeat center center';
@@ -406,8 +370,6 @@ class TRENDiiAd {
 
         let productsContainerEl = templatesDOM.getElementById(this.HTML_TEMPLATE_SLIDER_CONTAINER_ID);
         productsContainerEl.innerHTML = "";
-
-
 
         // create slider html template and append to the container
         products.forEach((product) => this.createSliderItemProduct(product, productsContainerEl));
@@ -598,10 +560,10 @@ class TRENDiiAd {
     productPriceMobile.innerHTML = product.currency + product.price;
     productDetailsWrapperMobile.appendChild(productPriceMobile);
   }
+  /*
   getProductsForAllImages(onSuccessCallback) {
     //debugger;
     const requestBody = {
-      // "webpageUrl": "https://rahul-tatva.github.io/fashion-blog-below-ads.html",
       "webpageUrl": window.location.href,
       "imageUrls": this.allValidImageSrcArray,
       "publisherId": 1,
@@ -677,7 +639,6 @@ class TRENDiiAd {
         typeof onErrorCallback === "function" && onErrorCallback(error);
       });
   }
-
   getProductsForVisibleImages(allVisibleImages, onSuccessCallback) {
     const requestBody = {
       "webpageUrl": window.location.href,
@@ -711,21 +672,17 @@ class TRENDiiAd {
         typeof onErrorCallback === "function" && onErrorCallback(error);
       });
   }
+  */
 }
-
 (function () {
-  // var foo = 3;
-  // this.log(foo);
-
   // native ad options to implement
-  const options = {
-    adImagesSelector: ".ad-image",
-    isNativeAd: true,
-    // adPosition: "bottom", // "bottom" || "left" || "right" || "top"
-    brandName: "TRENDii"
-  };
-
-  var myTrendii = new TRENDiiAd(options);
+  // const options = {
+  //   adImagesSelector: ".ad-image",
+  //   isNativeAd: true,
+  //   // adPosition: "bottom", // "bottom" || "left" || "right" || "top"
+  //   brandName: "TRENDii"
+  // };
+  var myTrendii = new TRENDiiAd();
   myTrendii.log("initialize new instance");
 })();
 
