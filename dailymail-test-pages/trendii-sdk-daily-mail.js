@@ -634,8 +634,8 @@ class TRENDiiAd {
         const visibleParentEl = entry.target;
         // console.log(visibleParentEl);
         this.log(visibleParentEl.getElementsByTagName('img'));
-        const imagesPresentInSameParent = Array.from(visibleParentEl.getElementsByTagName('img'))
-          .map(img => img.getAttribute("src"))
+        const imageElsInsideSameParent = Array.from(visibleParentEl.getElementsByTagName('img'));
+        const imagesPresentInSameParent = imageElsInsideSameParent.map(img => img.getAttribute("src"))
           // filter null values or undefined
           .filter(x => x);
         // call the apis here
@@ -661,8 +661,8 @@ class TRENDiiAd {
                 const adProductsData = response;
                 let foundImageData = null, foundImageElement = null, foundIndex = null;
                 // find any one image from the parent to render ad
-                for (let i = 0; i < imagesPresentInSameParent.length; i++) {
-                  const currentImageEle = imagesPresentInSameParent[i];
+                for (let i = 0; i < imageElsInsideSameParent.length; i++) {
+                  const currentImageEle = imageElsInsideSameParent[i];
                   const imageSrcToShowAd = currentImageEle.src;
                   const imageDataSrcToShowAd = currentImageEle.getAttribute("data-src");
                   foundIndex = adProductsData.payload
