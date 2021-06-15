@@ -253,7 +253,7 @@ class TRENDiiAd {
   getAllDailyMailBlogImagesFromDOM() {
     //debugger;
     // TO DO throw error if image selector not present
-    this.allImageElements = document.querySelectorAll(this.options.adImagesSelector);
+    // this.allImageElements = document.querySelectorAll(this.options.adImagesSelector);
     this.allValidImageSrcArray = [];
     if (window.innerWidth <= MOBILE_WIDTH) {
 
@@ -484,7 +484,7 @@ class TRENDiiAd {
     // document.querySelectorAll(".mol-img-group")[0].getElementsByClassName('imageCaption')[0].after(t);
   }
   getAllAdContainersFromDOM() {
-    this.allAdContainers = document.querySelectorAll(this.options.adContainer);
+    // this.allAdContainers = document.querySelectorAll(this.options.adContainer);
   }
   log(message) {
     console.log(message);
