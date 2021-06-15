@@ -25,7 +25,7 @@ const SLIDER_CLASS_TO_REPLACE_WITH = "trendiiSliderUniqueString";
 const SCRIPT_ID_TO_REPLACE = "trendiiSliderUniqueString-script";
 var intersectionObserver;
 
-var IntersectionObserverV1 = window.IntersectionObserver;
+var IntersectionObserverV1 = window.IntersectionObserverV1;
 
 class TRENDiiAd {
   constructor(options) {
