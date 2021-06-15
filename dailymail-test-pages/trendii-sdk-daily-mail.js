@@ -2,7 +2,7 @@
 //   "https://beeswax-creative-f6i4ayd3wa-ts.a.run.app/webImageProcess";
 const MOBILE_WIDTH = 480;
 const TRENDII_NATIVE_ADS_CDN = "https://cdn.trendii.com/native-ads-sdk/assets";
-const SUPPORTED_DIMENSIONS = ["160X600", "300X600"];
+// const SUPPORTED_DIMENSIONS = ["160X600", "300X600"];
 const AD_PRODUCTS_CONTAINER = "trendii-sdk-ad-products-container";
 const PUBLISHER_NAME = "DAILY_MAIL";
 const RETAILER_LOGO_ID = "retailer-logo";
