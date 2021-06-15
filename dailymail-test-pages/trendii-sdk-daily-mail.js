@@ -78,7 +78,19 @@ class TRENDiiAd {
           this.nativeAdSliderTemplateHTMLString = allResponses[0];
           this.nativeAdSimpleTemplateHTMLString = allResponses[1];
 
-          this.initializeIntersectionObserver();
+          // this.initializeIntersectionObserver();
+          let intersectionObserver;
+          if (!!window.IntersectionObserver) {
+            const options = {
+              root: null,
+              rootMargin: "0px",
+              threshold: 0.2,
+            };
+            intersectionObserver = new IntersectionObserver((test) => {
+              console.log("test intersection");
+            }, options);
+          }
+
           let allParentEls;
           if (window.innerWidth <= MOBILE_WIDTH) {
             allParentEls = Array.from(document.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG));
@@ -86,7 +98,9 @@ class TRENDiiAd {
             allParentEls = Array.from(document.querySelectorAll(DESKTOP_IMAGE_GROUP_PARENT_DIV_CLASS));
           }
           // start observing them
-          allParentEls.forEach((parentEl) => { this.intersectionObserver.observe(parentEl); });
+          allParentEls.forEach((parentEl) => {
+            intersectionObserver.observe(parentEl);
+          });
           this.log(this.feedProducts);
         });
     });
@@ -105,16 +119,17 @@ class TRENDiiAd {
     document.head.appendChild(document.createElement("script")).src = url;
   }
   initializeIntersectionObserver() {
-    if (!!window.IntersectionObserver) {
-      const options = {
-        root: null,
-        rootMargin: "0px",
-        threshold: 0.2,
-      };
-      this.intersectionObserver = new IntersectionObserver(function (test) {
-        console.log("test intersection");
-      }, options);
-    }
+    // if (!!window.IntersectionObserver) {
+    //   const options = {
+    //     root: null,
+    //     rootMargin: "0px",
+    //     threshold: 0.2,
+    //   };
+    //   const result = new IntersectionObserver(function (test) {
+    //     console.log("test intersection");
+    //   }, options);
+    //   this.intersectionObserver = result;
+    // }
   }
   handleIntersectionEntries(entries, observer) {
     // // debugger;
@@ -619,7 +634,7 @@ class TRENDiiAd {
             }
             // handle desktop version
             else {
-              this.initializeIntersectionObserver();
+              // this.initializeIntersectionObserver().bind(this);
               let allParentElements;
               // for mobile devices parents
               if (window.innerWidth <= MOBILE_WIDTH) {
