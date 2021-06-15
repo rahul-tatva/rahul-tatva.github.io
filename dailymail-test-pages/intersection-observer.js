@@ -491,6 +491,7 @@
 
     var rootIsInDom = this._rootIsInDom();
     var rootRect = rootIsInDom ? this._getRootRect() : getEmptyRect();
+
     for (let index = 0; index < this._observationTargets.length; index++) {
       const item = this._observationTargets[index];
       var target = item.element;
