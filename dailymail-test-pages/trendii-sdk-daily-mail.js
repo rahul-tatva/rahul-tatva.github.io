@@ -10,17 +10,17 @@ const PUBLISHER_NAME = "DAILY_MAIL";
 const RETAILER_LOGO_ID = "retailer-logo";
 
 // ad by default to below this class element
-const DAILY_MAIL_IMAGE_SELECTOR_CLASS = ".blkBorder.img-share";
-const DAILY_MAIL_LOADED_IMAGE_SELECTOR_CLASS = ".blkBorder.img-share.b-loaded";
+const DESKTOP_DAILY_MAIL_IMAGE_SELECTOR_CLASS = ".blkBorder.img-share";
+const DESKTOP_DAILY_MAIL_LOADED_IMAGE_SELECTOR_CLASS = ".blkBorder.img-share.b-loaded";
 
-const DAILY_MAIL_MOBILE_IMAGE_SELECTOR_CLASS = ".img-share";
-const DAILY_MAIL_MOBILE_LOADED_IMAGE_SELECTOR_CLASS = ".img-share.b-loaded";
+const MOBILE_DAILY_MAIL_IMAGE_SELECTOR_CLASS = ".img-share";
+const MOBILE_DAILY_MAIL_LOADED_IMAGE_SELECTOR_CLASS = ".img-share.b-loaded";
 
 const DESKTOP_IMAGE_GROUP_PARENT_DIV_CLASS = ".mol-img-group";
 const MOBILE_IMAGE_GROUP_PARENT_TAG = "figure";
 
-const DAILY_MAIL_IMAGE_CAPTION_CLASS = 'imageCaption';
-const DAILY_MAIL_MOBILE_IMAGE_CAPTION_TAG = 'figcaption';
+const DESKTOP_DAILY_MAIL_IMAGE_CAPTION_CLASS = 'imageCaption';
+const MOBILE_DAILY_MAIL_IMAGE_CAPTION_TAG = 'figcaption';
 
 const RETAILER_NAME_TO_REPLACE_WITH = "{{RETAILER_NAME}}";
 const SLIDER_CLASS_TO_REPLACE_WITH = "trendiiSliderUniqueString";
@@ -577,123 +577,29 @@ class TRENDiiAd {
     //NATIVE AD CODE START
     // document.addEventListener("DOMContentLoaded", this.handleDOMLoaded.bind(this));
     // window.addEventListener("load", () => { });
-
-    // window.addEventListener("load", () => {
-    //   console.log("DOM is ready");
-    //   //debugger;
-    //   this.getAllDailyMailBlogImagesFromDOM();
-    //   const requestOptions = { method: "GET" };
-
-    //   Promise.all([
-    //     fetch(this.API_GET_NATIVE_AD_SLIDER_TEMPLATE).then((response) => response.text()),
-    //     fetch(this.API_GET_NATIVE_AD_SIMPLE_TEMPLATE).then((response) => response.text()),
-    //   ]).then(allResponses => {
-    //     this.nativeAdSliderTemplateHTMLString = allResponses[0];
-    //     this.nativeAdSimpleTemplateHTMLString = allResponses[1];
-    //     // const response3 = allResponses[2];
-    //     console.log("templates are ready");
-    //     this.getProductsForAllImages();
-    //   });
-    // });
-
     document.addEventListener("DOMContentLoaded", () => {
       console.log("DOM is ready");
       this.getAllDailyMailBlogImagesFromDOM();
       const requestOptionsTemplates = { method: "GET" };
-
-      const requestBody = {
-        // "webpageUrl": "https://rahul-tatva.github.io/fashion-blog-below-ads.html",
-        "webpageUrl": window.location.href,
-        "imageUrls": this.allValidImageSrcArray,
-        "publisherId": 1,
-      };
-      const headers = new Headers();
-      headers.append("Content-Type", "application/json");
-      const raw = JSON.stringify(requestBody);
-      const requestOptionsProducts = {
-        method: "POST",
-        headers,
-        body: raw,
-      };
-
       Promise.all([
         fetch(this.API_GET_NATIVE_AD_SLIDER_TEMPLATE).then((response) => response.text()),
         fetch(this.API_GET_NATIVE_AD_SIMPLE_TEMPLATE).then((response) => response.text()),
-        fetch(this.API_GET_NATIVE_AD_PRODUCT, requestOptionsProducts).then((response) => response.json())
-      ]).then(allResponses => {
-        this.nativeAdSliderTemplateHTMLString = allResponses[0];
-        this.nativeAdSimpleTemplateHTMLString = allResponses[1];
-        const imageDataWithProducts = allResponses[2];
-        // const response3 = allResponses[2];
-        console.log("templates are ready");
-        //debugger;
-        // if feed does not deliver an empty response
-        if (imageDataWithProducts !== "") {
-          if (imageDataWithProducts?.success === true) {
-            //debugger;
-            this.feedProducts = imageDataWithProducts;
-            // this.log(response.data);
-            // this.appendAdContainersToImages();
-            // const domParser = new DOMParser();
-            // const parsedHtmlDocumentEl = domParser.parseFromString(this.nativeAdHTMLString, "text/html");
-            // // here the container id should be dynamic for each ads sizes
-            // this.productsContainerEl = parsedHtmlDocumentEl.getElementById(
-            //   this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID
-            // );
-            // this.productsContainerEl.innerHTML = "";
+      ])
+        .then(allResponses => {
+          this.nativeAdSliderTemplateHTMLString = allResponses[0];
+          this.nativeAdSimpleTemplateHTMLString = allResponses[1];
 
-
-            // for desktop cant use the same approach as of now for intersection apis
-            // this.createAdTemplatesForAllProducts();
-
-            // handle mobile version
-            if (window.innerWidth <= 480) {
-              this.createAdTemplatesForAllProducts();
-              this.getAllParentImageGroupClassMobile();
-            }
-            // handle desktop version
-            else {
-              this.initializeIntersectionObserver();
-              let allParentEls;
-              if (window.innerWidth <= MOBILE_WIDTH) {
-                allParentEls = Array.from(document.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG));
-              } else {
-                allParentEls = Array.from(document.querySelectorAll(DESKTOP_IMAGE_GROUP_PARENT_DIV_CLASS));
-              }
-              // start observing them
-              allParentEls.forEach((parentEl) => { this.intersectionObserver.observe(parentEl); });
-              this.log(this.feedProducts);
-            }
+          this.initializeIntersectionObserver();
+          let allParentEls;
+          if (window.innerWidth <= MOBILE_WIDTH) {
+            allParentEls = Array.from(document.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG));
+          } else {
+            allParentEls = Array.from(document.querySelectorAll(DESKTOP_IMAGE_GROUP_PARENT_DIV_CLASS));
           }
-          // else {
-          //   this.feedProducts = window.FEED_PRODUCTS;
-          //   this.createAdTemplatesForAllProducts();
-          //   this.getAllParentImageGroupClass();
-          //   onSuccessCallback();
-          //   this.log(this.feedProducts);
-          // }
-        } else {
-          // empty response from feed
-          this.log("empty feed response");
-        }
-        // this.getProductsForAllImages();
-      });
-
-      // fetch(this.API_GET_NATIVE_AD_SLIDER_TEMPLATE, requestOptions)
-      //   .then((response) => response.text())
-      //   .then((response) => {
-      //     //debugger;
-      //     // //debugger;
-      //     this.nativeAdSliderTemplateHTMLString = response;
-      //     // this.log(response.data);
-      //     // this.getProductsForAllImages();
-      //     // this.appendAdContainersToImages();
-      //     this.getProductsForAllImages();
-      //   })
-      //   .catch((error) => {
-      //     console.error(error);
-      //     typeof onErrorCallback === "function" && onErrorCallback(error);
-      //   });
+          // start observing them
+          allParentEls.forEach((parentEl) => { this.intersectionObserver.observe(parentEl); });
+          this.log(this.feedProducts);
+        });
     });
   }
   loadStyleSheetIntoHead(url) {
@@ -715,10 +621,7 @@ class TRENDiiAd {
         rootMargin: "0px 0px 0px 0px",
         threshold: 0.2,
       };
-      this.intersectionObserver = new IntersectionObserver(
-        this.handleIntersectionEntries.bind(this),
-        options
-      );
+      this.intersectionObserver = new IntersectionObserver(this.handleIntersectionEntries.bind(this), options);
     }
   }
   handleIntersectionEntries(entries, observer) {
@@ -729,61 +632,118 @@ class TRENDiiAd {
       // if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
       if (entry.isIntersecting) {
         const visibleParentEl = entry.target;
-
-        // window < MOBILE_WIDTH 
-        // handle mobile rendering
-
         // console.log(visibleParentEl);
         this.log(visibleParentEl.getElementsByTagName('img'));
         const imagesPresentInSameParent = Array.from(visibleParentEl.getElementsByTagName('img'));
-        let foundImageData = null;
-        let foundImageElement = null;
-        let foundIndex = null;
-        // find any one image from the parent to render ad
-        for (let i = 0; i < imagesPresentInSameParent.length; i++) {
-          const currentImageEle = imagesPresentInSameParent[i];
-          const imageSrcToShowAd = currentImageEle.src;
-          const imageDataSrcToShowAd = currentImageEle.getAttribute("data-src");
-          foundImageData = this.feedProducts.payload
-            .find((imageData) => imageData.imageUrl === imageSrcToShowAd || imageDataSrcToShowAd);
-          foundIndex = this.feedProducts.payload
-            .findIndex((imageData) => imageData.imageUrl === imageSrcToShowAd || imageDataSrcToShowAd);
-          if (foundImageData?.products.length > 0) {
-            foundImageElement = currentImageEle;
-            break;
-          }
-        }
-        if (foundImageData?.products.length > 0) {
-          // generate the ad on the go
-          //  and then just append to the this parent
-          this.generatedAdForSingleImage(foundImageData, foundIndex);
 
-          if (foundImageData?.generatedAdHTML) {
-            // handle the mobile version
-            if (window.innerWidth < MOBILE_WIDTH) {
-              // append the found ad just after the image caption
-              const titleOfImageGroup = visibleParentEl
-                .getElementsByTagName(DAILY_MAIL_MOBILE_IMAGE_CAPTION_TAG)[0];
-              if (titleOfImageGroup) {
-                titleOfImageGroup.after(foundImageData.generatedAdHTML);
-              } else {
-                visibleParentEl.appendChild(foundImageData.generatedAdHTML);
+        // call the apis here
+        const requestBody = {
+          webpageUrl: window.location.href,
+          imageUrls: imagesPresentInSameParent,
+          publisherId: 1,
+        };
+        const headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        const raw = JSON.stringify(requestBody);
+        const requestOptions = {
+          method: "POST",
+          headers,
+          body: raw,
+        };
+        fetch(this.API_GET_NATIVE_AD_PRODUCT, requestOptions)
+          .then((response) => response.json())
+          .then((response) => {
+            // if feed does not deliver an empty response
+            if (response !== "") {
+              if (response?.success === true) {
+                const adProductsData = response;
+                let foundImageData = null, foundImageElement = null, foundIndex = null;
+                // find any one image from the parent to render ad
+                for (let i = 0; i < imagesPresentInSameParent.length; i++) {
+                  const currentImageEle = imagesPresentInSameParent[i];
+                  const imageSrcToShowAd = currentImageEle.src;
+                  const imageDataSrcToShowAd = currentImageEle.getAttribute("data-src");
+                  foundIndex = adProductsData.payload
+                    .findIndex((imageData) => imageData.imageUrl === imageSrcToShowAd || imageDataSrcToShowAd);
+                  foundImageData = adProductsData.payload[foundIndex];
+                  // check if event the first image have ad products
+                  // just stop finding for other images
+                  if (foundImageData?.products.length > 0) {
+                    foundImageElement = currentImageEle;
+                    break;
+                  }
+                }
+                if (foundImageData?.products.length > 0) {
+                  // generate the ad on the go
+                  // and then just append to the this parent
+                  this.generatedAdForSingleImage(foundImageData, foundIndex);
+                  if (foundImageData?.generatedAdHTML) {
+                    // handle the mobile version
+                    if (window.innerWidth <= MOBILE_WIDTH) {
+                      // append the found ad just after the image caption
+                      const titleOfImageGroup = visibleParentEl
+                        .getElementsByTagName(MOBILE_DAILY_MAIL_IMAGE_CAPTION_TAG)[0];
+                      if (titleOfImageGroup) {
+                        titleOfImageGroup.after(foundImageData.generatedAdHTML);
+                      }
+                      // just to handle the image without caption for mobile
+                      else {
+                        visibleParentEl.appendChild(foundImageData.generatedAdHTML);
+                      }
+                    }
+                    // desktop version
+                    else {
+                      // append the found ad just after the image caption
+                      visibleParentEl
+                        .getElementsByClassName(DESKTOP_DAILY_MAIL_IMAGE_CAPTION_CLASS)[0]
+                        .after(foundImageData.generatedAdHTML);
+                      foundImageData.isAdGenerated = true;
+                      console.log("ad rendered for ", visibleParentEl);
+                      // once ad is rendered no need to observe this parent element any more
+                      // deregister intersection observer apis
+
+                    }
+
+                    const identifier = foundImageData.sliderId;
+                    const sliderIdSelector = `#${identifier}`;
+                    console.log(identifier);
+                    if (foundImageData.isSliderTemplate) {
+                      console.log(window.Splide);
+                      if (window.Splide) {
+                        const testSlider = new Splide(sliderIdSelector, {
+                          type: 'loop',
+                          pagination: false,
+                          gap: 10,
+                          autoWidth: true,
+                          autoHeight: true,
+                        }).mount();
+                        const adProductsSliderContainer = document.getElementById(identifier);
+                        adProductsSliderContainer.style.display = "block";
+                        const adWrapper = foundImageData.generatedAdHTML;
+                        adWrapper.setAttribute("data-slider-appended", "true");
+                        adWrapper.style.display = "block";
+                        this.log("slider appended");
+                        testSlider.on('mounted', function () {
+                          console.log("mounted");
+                          // This will be executed.
+                        });
+                      }
+                    }
+
+                    observer.unobserve(entry.target);
+                    console.log("observer unregistered for ", visibleParentEl);
+                  }
+                }
               }
+            } else {
+              // empty response from feed
+              this.log("empty feed response");
             }
-            else {
-              // append the found ad just after the image caption
-              visibleParentEl
-                .getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0]
-                .after(foundImageData.generatedAdHTML);
-              foundImageData.isAdGenerated = true;
-              console.log("ad rendered for ", visibleParentEl);
-              // once ad is rendered no need to observe this parent element any more
-              // deregister intersection observer apis
-              observer.unobserve(entry.target);
-              console.log("observer unregistered for ", visibleParentEl);
-            }
-          }
-        }
+          })
+          .catch((error) => {
+            console.error(error);
+            typeof onErrorCallback === "function" && onErrorCallback(error);
+          });
       }
     });
   }
@@ -795,24 +755,24 @@ class TRENDiiAd {
     this.allValidImageSrcArray = [];
     if (window.innerWidth <= MOBILE_WIDTH) {
 
-      const alreadyLoadedImagesArray = Array.from(document.querySelectorAll(DAILY_MAIL_MOBILE_LOADED_IMAGE_SELECTOR_CLASS))
+      const alreadyLoadedImagesArray = Array.from(document.querySelectorAll(MOBILE_DAILY_MAIL_LOADED_IMAGE_SELECTOR_CLASS))
         .map(img => img.getAttribute("src"));
       this.allValidImageSrcArray.push(...alreadyLoadedImagesArray);
 
       // async loadable images
-      const imagesWhichAreYetToBeLoaded = Array.from(document.querySelectorAll(DAILY_MAIL_MOBILE_IMAGE_SELECTOR_CLASS))
+      const imagesWhichAreYetToBeLoaded = Array.from(document.querySelectorAll(MOBILE_DAILY_MAIL_IMAGE_SELECTOR_CLASS))
         .map(img => img.getAttribute("data-src"))
         // filter null values or undefined
         .filter(x => x);
       this.allValidImageSrcArray.push(...imagesWhichAreYetToBeLoaded);
     } else {
       // consider desktop view
-      const alreadyLoadedImagesArray = Array.from(document.querySelectorAll(DAILY_MAIL_LOADED_IMAGE_SELECTOR_CLASS))
+      const alreadyLoadedImagesArray = Array.from(document.querySelectorAll(DESKTOP_DAILY_MAIL_LOADED_IMAGE_SELECTOR_CLASS))
         .map(img => img.getAttribute("src"));
       this.allValidImageSrcArray.push(...alreadyLoadedImagesArray);
 
       // async loadable images
-      const imagesWhichAreYetToBeLoaded = Array.from(document.querySelectorAll(DAILY_MAIL_IMAGE_SELECTOR_CLASS))
+      const imagesWhichAreYetToBeLoaded = Array.from(document.querySelectorAll(DESKTOP_DAILY_MAIL_IMAGE_SELECTOR_CLASS))
         .map(img => img.getAttribute("data-src"))
         // filter null values or undefined
         .filter(x => x);
@@ -859,40 +819,6 @@ class TRENDiiAd {
     const advertiserName = imageData.advertiserName;
     const identifier = `splide${index}`;
     imageData.sliderId = identifier;
-
-    // const newDOM = this.nativeAdSliderTemplateHTMLString
-    //   .replaceAll(SLIDER_CLASS_TO_REPLACE_WITH, identifier);
-    // // .replaceAll(RETAILER_NAME_TO_REPLACE_WITH, advertiserName);
-
-    // const domParser = new DOMParser();
-    // const templatesDOM = domParser.parseFromString(newDOM, "text/html");
-
-
-    // dynamic logo for the advertiser
-    // const logoUrl = `${TRENDII_NATIVE_ADS_CDN}/${advertiserName.toLowerCase()}.png`;
-    // const retailerLogoEl = templatesDOM.getElementById(RETAILER_LOGO_ID);
-    // retailerLogoEl.title = advertiserName;
-    // // when the logo is used as the image tag
-    // retailerLogoEl.src = logoUrl;
-
-
-    // when the logo is used as the div tag
-    // const newBackgroundStyle = 'url("' + logoUrl + '") no-repeat center center';
-    // // retailerLogoEl.style.background = `url("${logoUrl}") no-repeat center center;`;
-    // retailerLogoEl.style.background = newBackgroundStyle;
-    // retailerLogoEl.style.backgroundSize = "contain";
-
-    // to resolve the issue for the slider getting too much height while rendering
-    // const adProductsSliderContainer = templatesDOM.getElementById(identifier);
-    // adProductsSliderContainer.style.display = "none";
-
-
-    // let productsContainerEl = templatesDOM.getElementById(this.HTML_TEMPLATE_SLIDER_CONTAINER_ID);
-    // productsContainerEl.innerHTML = "";
-
-    // const scriptId = `${identifier}-script`;
-    // let scriptTag = templatesDOM.getElementById(scriptId);
-    // imageData.scriptTag = scriptTag;
     switch (products.length) {
       case 1:
       case 2:
@@ -1023,11 +949,10 @@ class TRENDiiAd {
         if (window.innerWidth < MOBILE_WIDTH) {
           // append the found ad just after the image caption
           const titleOfImageGroup = parentEl
-            .getElementsByTagName(DAILY_MAIL_MOBILE_IMAGE_CAPTION_TAG)[0];
+            .getElementsByTagName(MOBILE_DAILY_MAIL_IMAGE_CAPTION_TAG)[0];
           if (titleOfImageGroup) {
             titleOfImageGroup.after(foundImageData.generatedAdHTML);
           }
-          // just to handle the image without caption for mobile
           else {
             parentEl.appendChild(foundImageData.generatedAdHTML);
           }
@@ -1036,46 +961,14 @@ class TRENDiiAd {
         else {
           // append the found ad just after the image caption
           parentEl
-            .getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0]
+            .getElementsByClassName(DESKTOP_DAILY_MAIL_IMAGE_CAPTION_CLASS)[0]
             .after(foundImageData.generatedAdHTML);
           // parentEl
           //   .after(foundImageData.generatedAdHTML);
         }
 
 
-        // const script = foundImageData.scriptTag;
-        const identifier = foundImageData.sliderId;
-        const sliderIdSelector = `#${identifier}`;
-        console.log(identifier);
 
-        // const sc = document.createElement('script');
-        // sc.innerHTML = foundImageData.scriptTag.innerHTML;
-        // document.body.appendChild(sc);
-        //debugger;
-        // setup the splid lib to initialize the slider
-
-        if (foundImageData.isSliderTemplate) {
-          console.log(window.Splide);
-          if (window.Splide) {
-            const testSlider = new Splide(sliderIdSelector, {
-              type: 'loop',
-              pagination: false,
-              gap: 10,
-              autoWidth: true,
-              autoHeight: true,
-            }).mount();
-            const adProductsSliderContainer = document.getElementById(identifier);
-            adProductsSliderContainer.style.display = "block";
-            const adWrapper = foundImageData.generatedAdHTML;
-            adWrapper.setAttribute("data-slider-appended", "true");
-            adWrapper.style.display = "block";
-            this.log("slider appended");
-            testSlider.on('mounted', function () {
-              console.log("mounted");
-              // This will be executed.
-            });
-          }
-        }
         // //debugger;
         // const div = document.createElement('div');
         // div.style.background = "yellow";
@@ -1252,6 +1145,40 @@ class TRENDiiAd {
           //   onSuccessCallback();
           //   this.log(this.feedProducts);
           // }
+        } else {
+          // empty response from feed
+          this.log("empty feed response");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        typeof onErrorCallback === "function" && onErrorCallback(error);
+      });
+  }
+
+  getProductsForVisibleImages(allVisibleImages, onSuccessCallback) {
+    const requestBody = {
+      "webpageUrl": window.location.href,
+      "imageUrls": allVisibleImages,
+      "publisherId": 1,
+    };
+    const headers = new Headers();
+    headers.append("Content-Type", "application/json");
+    const raw = JSON.stringify(requestBody);
+    const requestOptions = {
+      method: "POST",
+      headers,
+      body: raw,
+    };
+    fetch(this.API_GET_NATIVE_AD_PRODUCT, requestOptions)
+      .then((response) => response.json())
+      .then((response) => {
+        // if feed does not deliver an empty response
+        if (response !== "") {
+          if (response?.success === true) {
+            // this.feedProducts = response;
+            onSuccessCallback(response);
+          }
         } else {
           // empty response from feed
           this.log("empty feed response");
