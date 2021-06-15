@@ -82,14 +82,18 @@ class TRENDiiAd {
           // let intersectionObserver;
           // if (!!window.IntersectionObserver) {
           const options = {
-            root: document.body,
+            // root: document.body,
             rootMargin: "0px",
             threshold: 0.2,
           };
-          intersectionObserver = new IntersectionObserver((test) => {
-            console.log("test intersection");
-          }, options);
-          // .bind(intersectionObserver);
+          intersectionObserver = new new IntersectionObserver(
+            this.handleIntersectionEntries.bind(this),
+            options
+          );
+          // this.intersectionObserver = new IntersectionObserver(
+          //   this.handleIntersectionEntries.bind(this),
+          //   options
+          // );
           // }
 
           let allParentEls;
