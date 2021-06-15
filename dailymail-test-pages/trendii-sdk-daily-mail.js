@@ -106,6 +106,7 @@ class TRENDiiAd {
   initializeIntersectionObserver() {
     if (!!window.IntersectionObserver) {
       const options = {
+        root: document.body,
         rootMargin: "0px 0px 0px 0px",
         threshold: 0.2,
       };
