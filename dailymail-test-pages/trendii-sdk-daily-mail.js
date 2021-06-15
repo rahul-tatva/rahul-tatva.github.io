@@ -86,7 +86,7 @@ class TRENDiiAd {
             rootMargin: "0px",
             threshold: 0.2,
           };
-          intersectionObserver = new new IntersectionObserver(
+          intersectionObserver = new IntersectionObserver(
             this.handleIntersectionEntries.bind(this),
             options
           );
