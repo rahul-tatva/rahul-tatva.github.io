@@ -634,8 +634,10 @@ class TRENDiiAd {
         const visibleParentEl = entry.target;
         // console.log(visibleParentEl);
         this.log(visibleParentEl.getElementsByTagName('img'));
-        const imagesPresentInSameParent = Array.from(visibleParentEl.getElementsByTagName('img'));
-
+        const imagesPresentInSameParent = Array.from(visibleParentEl.getElementsByTagName('img'))
+          .map(img => img.getAttribute("src"))
+          // filter null values or undefined
+          .filter(x => x);
         // call the apis here
         const requestBody = {
           webpageUrl: window.location.href,
