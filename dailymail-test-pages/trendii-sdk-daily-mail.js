@@ -23,7 +23,7 @@ const MOBILE_DAILY_MAIL_IMAGE_CAPTION_TAG = 'figcaption';
 const RETAILER_NAME_TO_REPLACE_WITH = "{{RETAILER_NAME}}";
 const SLIDER_CLASS_TO_REPLACE_WITH = "trendiiSliderUniqueString";
 const SCRIPT_ID_TO_REPLACE = "trendiiSliderUniqueString-script";
-
+var intersectionObserver;
 class TRENDiiAd {
   constructor(options) {
     //debugger;
@@ -79,17 +79,17 @@ class TRENDiiAd {
           this.nativeAdSimpleTemplateHTMLString = allResponses[1];
 
           // this.initializeIntersectionObserver();
-          let intersectionObserver;
-          if (!!window.IntersectionObserver) {
-            const options = {
-              root: null,
-              rootMargin: "0px",
-              threshold: 0.2,
-            };
-            intersectionObserver = new IntersectionObserver((test) => {
-              console.log("test intersection");
-            }, options);
-          }
+          // let intersectionObserver;
+          // if (!!window.IntersectionObserver) {
+          const options = {
+            root: null,
+            rootMargin: "0px",
+            threshold: 0.2,
+          };
+          intersectionObserver = new IntersectionObserver((test) => {
+            console.log("test intersection");
+          }, options);
+          // }
 
           let allParentEls;
           if (window.innerWidth <= MOBILE_WIDTH) {
