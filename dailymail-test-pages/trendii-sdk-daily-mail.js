@@ -16,7 +16,7 @@ const DAILY_MAIL_LOADED_IMAGE_SELECTOR_CLASS = ".blkBorder.img-share.b-loaded";
 const DAILY_MAIL_MOBILE_IMAGE_SELECTOR_CLASS = ".img-share";
 const DAILY_MAIL_MOBILE_LOADED_IMAGE_SELECTOR_CLASS = ".img-share.b-loaded";
 
-const IMAGE_GROUP_PARENT_DIV_CLASS = ".mol-img-group";
+const DESKTOP_IMAGE_GROUP_PARENT_DIV_CLASS = ".mol-img-group";
 const MOBILE_IMAGE_GROUP_PARENT_TAG = "figure";
 
 const DAILY_MAIL_IMAGE_CAPTION_CLASS = 'imageCaption';
@@ -653,14 +653,15 @@ class TRENDiiAd {
             }
             // handle desktop version
             else {
-              this.createObserverForCurrentVisibleImage();
-              let allParentElements;
+              this.initializeIntersectionObserver();
+              let allParentEls;
               if (window.innerWidth <= MOBILE_WIDTH) {
-                allParentElements = Array.from(document.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG));
+                allParentEls = Array.from(document.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG));
               } else {
-                allParentElements = Array.from(document.querySelectorAll(IMAGE_GROUP_PARENT_DIV_CLASS));
+                allParentEls = Array.from(document.querySelectorAll(DESKTOP_IMAGE_GROUP_PARENT_DIV_CLASS));
               }
-              allParentElements.forEach((parentEl) => { this.intersectionObserver.observe(parentEl); });
+              // start observing them
+              allParentEls.forEach((parentEl) => { this.intersectionObserver.observe(parentEl); });
               this.log(this.feedProducts);
             }
           }
@@ -708,7 +709,7 @@ class TRENDiiAd {
   loadScriptIntoHead(url) {
     document.head.appendChild(document.createElement("script")).src = url;
   }
-  createObserverForCurrentVisibleImage() {
+  initializeIntersectionObserver() {
     if (!!window.IntersectionObserver) {
       const options = {
         rootMargin: "0px 0px 0px 0px",
@@ -724,7 +725,6 @@ class TRENDiiAd {
     // // debugger;
     entries.forEach((entry) => {
       // console.log(entry);
-      // // debugger;
       // check if image el is visible in screen/window
       // if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
       if (entry.isIntersecting) {
@@ -975,7 +975,7 @@ class TRENDiiAd {
     if (window.innerWidth <= MOBILE_WIDTH) {
       allParentElements = document.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG);
     } else {
-      allParentElements = document.querySelectorAll(IMAGE_GROUP_PARENT_DIV_CLASS);
+      allParentElements = document.querySelectorAll(DESKTOP_IMAGE_GROUP_PARENT_DIV_CLASS);
     }
     this.parentImageGroupElements = Array.from(allParentElements);
     this.log(this.parentImageGroupElements);
@@ -1229,12 +1229,14 @@ class TRENDiiAd {
             }
             // handle desktop version
             else {
-              this.createObserverForCurrentVisibleImage();
+              this.initializeIntersectionObserver();
               let allParentElements;
+              // for mobile devices parents
               if (window.innerWidth <= MOBILE_WIDTH) {
                 allParentElements = Array.from(document.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG));
               } else {
-                allParentElements = Array.from(document.querySelectorAll(IMAGE_GROUP_PARENT_DIV_CLASS));
+                // for desktop devices parents
+                allParentElements = Array.from(document.querySelectorAll(DESKTOP_IMAGE_GROUP_PARENT_DIV_CLASS));
               }
               allParentElements.forEach((parentEl) => {
                 // // debugger;
