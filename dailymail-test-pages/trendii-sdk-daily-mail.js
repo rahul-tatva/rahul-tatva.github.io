@@ -115,7 +115,7 @@ class TRENDiiAd {
   }
   handleIntersectionEntries(entries, observer) {
     // // debugger;
-    entries.forEach((entry) => {
+    entries.forEach(function handleEachEntry(entry) {
       // console.log(entry);
       // check if image el is visible in screen/window
       // if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
