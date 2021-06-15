@@ -673,7 +673,7 @@ class TRENDiiAd {
       });
   }
   */
-}
+};
 (function () {
   // native ad options to implement
   // const options = {
