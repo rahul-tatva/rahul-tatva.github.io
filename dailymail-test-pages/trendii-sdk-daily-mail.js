@@ -1,5 +1,3 @@
-const API_GET_AD_PRODUCTS =
-  "https://flashtalking-sandbox-f6i4ayd3wa-ts.a.run.app/?site=16230&banner=300x600&p1=12345&p2=12345&p3=12345";
 // const API_GET_AD_PRODUCTS =
 //   "https://beeswax-creative-f6i4ayd3wa-ts.a.run.app/webImageProcess";
 const MOBILE_WIDTH = 480;
@@ -42,13 +40,6 @@ class TRENDiiAd {
     // <link rel="stylesheet" href="./sdk-html-templates/trendii-sdk-daily-mail-slider.css"></link>
     // options initialization
     // this.options = options;
-    // this.width = options?.width || 0;
-    // this.height = options?.height || 0;
-    // // native ad options to by pass iframes
-    // this.isNativeAd = options?.isNativeAd || false;
-    // this.adPosition = options?.adPosition || "bottom";
-    // this.brandName = options?.brandName || "";
-    // this.blogContainerSelector = options?.blogContainerSelector;
     //debugger;
 
     // variable needed to store some data and info
@@ -154,7 +145,7 @@ class TRENDiiAd {
           .then((response) => {
             // if feed does not deliver an empty response
             if (response !== "") {
-              if (response?.success === true) {
+              if (response.success && response.success === true) {
                 const adProductsData = response;
                 let foundImageData = null, foundImageElement = null, foundIndex = null;
                 // find any one image from the parent to render ad
@@ -167,18 +158,18 @@ class TRENDiiAd {
                   foundImageData = adProductsData.payload[foundIndex];
                   // check if event the first image have ad products
                   // just stop finding for other images
-                  if (foundImageData?.products.length > 0) {
+                  if (foundImageData.products && foundImageData.products.length > 0) {
                     foundImageElement = currentImageEle;
                     break;
                   }
                 }
-                if (foundImageData?.products.length > 0) {
+                if (foundImageData.products && foundImageData.products.length > 0) {
                   // this.sliderCount;
                   // generate the ad on the go
                   // and then just append to the this parent
                   this.generatedAdForSingleImage(foundImageData, this.sliderCount);
                   this.sliderCount++;
-                  if (foundImageData?.generatedAdHTML) {
+                  if (foundImageData.generatedAdHTML) {
                     // handle the mobile version
                     if (window.innerWidth <= MOBILE_WIDTH) {
                       // append the found ad just after the image caption
@@ -299,7 +290,7 @@ class TRENDiiAd {
   }
   createAdTemplatesForAllProducts() {
     this.feedProducts.payload.map((imageData, index) => {
-      if (imageData?.products.length > 0) {
+      if (imageData.products && imageData.products.length > 0) {
         const generatedAd = this.createAdsForAllProductsInAdvance(imageData, index);
         imageData.generatedAdHTML = generatedAd;
         // imageData.generatedAdString = generatedAd.innerHTML;
@@ -422,7 +413,7 @@ class TRENDiiAd {
         const imageDataSrcToShowAd = currentImageEle.getAttribute("data-src");
         foundImageData = this.feedProducts.payload
           .find((imageData) => imageData.imageUrl === imageSrcToShowAd || imageDataSrcToShowAd);
-        if (foundImageData?.generatedAdHTML) {
+        if (foundImageData.generatedAdHTML) {
           foundImageElement = currentImageEle;
           break;
         }
@@ -432,7 +423,7 @@ class TRENDiiAd {
       // this.log(imageDataSrcToShowAd);
       // this.log(findImageData);
 
-      if (foundImageData?.generatedAdHTML) {
+      if (foundImageData.generatedAdHTML) {
         // isThereAnySliderAds = true;
         const adContainer = document.createElement('div');
         adContainer.classList.add("adContainer");
@@ -600,7 +591,7 @@ class TRENDiiAd {
         //debugger;
         // if feed does not deliver an empty response
         if (response !== "") {
-          if (response?.success === true) {
+          if (response.success && response.success === true) {
             //debugger;
             this.feedProducts = response;
             // this.log(response.data);
@@ -677,7 +668,7 @@ class TRENDiiAd {
       .then((response) => {
         // if feed does not deliver an empty response
         if (response !== "") {
-          if (response?.success === true) {
+          if (response.success && response.success === true) {
             // this.feedProducts = response;
             onSuccessCallback(response);
           }
