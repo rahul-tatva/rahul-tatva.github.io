@@ -491,7 +491,8 @@
 
     var rootIsInDom = this._rootIsInDom();
     var rootRect = rootIsInDom ? this._getRootRect() : getEmptyRect();
-    function testCall(item) {
+    for (let index = 0; index < this._observationTargets.length; index++) {
+      const item = this._observationTargets[index];
       var target = item.element;
       var targetRect = getBoundingClientRect(target);
       var rootContainsTarget = this._rootContainsTarget(target);
@@ -530,10 +531,6 @@
           this._queuedEntries.push(newEntry);
         }
       }
-    }
-    for (let index = 0; index < this._observationTargets.length; index++) {
-      const item = this._observationTargets[index];
-      testCall(item);
     }
     if (this._queuedEntries.length) {
       this._callback(this.takeRecords(), this);
