@@ -27,7 +27,7 @@ const SCRIPT_ID_TO_REPLACE = "trendiiSliderUniqueString-script";
 class TRENDiiAd {
   constructor(options) {
     //debugger;
-    this.loadScriptIntoHead("https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver");
+    this.loadScriptIntoHead("https://rahul-tatva.github.io/dailymail-test-pages/intersection-observer.js");
     this.loadScriptIntoHead("https://cdn.trendii.com/assets/splide.min.js");
     // this.loadScript("https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js");
 
