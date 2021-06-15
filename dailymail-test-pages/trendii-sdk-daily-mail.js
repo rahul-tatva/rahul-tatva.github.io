@@ -88,7 +88,8 @@ class TRENDiiAd {
           };
           intersectionObserver = new IntersectionObserver((test) => {
             console.log("test intersection");
-          }, options).bind(intersectionObserver);
+          }, options);
+          // .bind(intersectionObserver);
           // }
 
           let allParentEls;
