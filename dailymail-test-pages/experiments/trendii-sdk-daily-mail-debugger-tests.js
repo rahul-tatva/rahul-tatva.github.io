@@ -522,11 +522,11 @@ class TRENDiiAd {
   constructor(options) {
     debugger;
     this.loadStyleSheet("https://cdn.trendii.com/assets/splide-core.min.css");
-    // this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/daily-mail.css");
+    // this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/trendii-sdk-daily-mail-slider.css");
     this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/Products-Silder.css");
     this.loadScript("https://unpkg.com/axios/dist/axios.min.js");
     this.loadScript("https://cdn.trendii.com/assets/splide.min.js");
-    // <link rel="stylesheet" href="./sdk-html-templates/daily-mail.css"></link>
+    // <link rel="stylesheet" href="./sdk-html-templates/trendii-sdk-daily-mail-slider.css"></link>
     // options initialization
     this.options = options;
     this.width = options?.width || 0;

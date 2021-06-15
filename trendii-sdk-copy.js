@@ -21,7 +21,7 @@ class TRENDiiAd {
   constructor(options) {
     this.loadScript("https://cdn.trendii.com/assets/splide.min.js");
     this.loadStyleSheet("https://cdn.trendii.com/assets/splide-core.min.css");
-    // this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/daily-mail.css");
+    // this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/trendii-sdk-daily-mail-slider.css");
     this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/Products-Silder.css");
 
 

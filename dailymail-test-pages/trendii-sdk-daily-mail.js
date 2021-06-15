@@ -538,12 +538,12 @@ class TRENDiiAd {
 
     this.loadStyleSheetIntoHead("https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css");
     this.loadStyleSheetIntoHead("https://cdn.trendii.com/assets/splide-core.min.css");
-    this.loadStyleSheetIntoHead("https://rahul-tatva.github.io/sdk-html-templates/daily-mail.css");
-    this.loadStyleSheetIntoHead("https://rahul-tatva.github.io/sdk-html-templates/daily-mail-all-product.css");
+    this.loadStyleSheetIntoHead("https://rahul-tatva.github.io/sdk-html-templates/trendii-sdk-daily-mail-slider.css");
+    this.loadStyleSheetIntoHead("https://rahul-tatva.github.io/sdk-html-templates/trendii-sdk-daily-mail-all-product.css");
     console.log("sdk constructor initialized");
     // this.loadStyleSheet("https://rahul-tatva.github.io/sdk-html-templates/Products-Silder.css");
     // this.loadScript("https://unpkg.com/axios/dist/axios.min.js");
-    // <link rel="stylesheet" href="./sdk-html-templates/daily-mail.css"></link>
+    // <link rel="stylesheet" href="./sdk-html-templates/trendii-sdk-daily-mail-slider.css"></link>
     // options initialization
     this.options = options;
     this.width = options?.width || 0;
