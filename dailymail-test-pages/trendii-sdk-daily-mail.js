@@ -111,19 +111,21 @@ class TRENDiiAd {
         rootMargin: "0px",
         threshold: 0.2,
       };
-      this.intersectionObserver = new IntersectionObserver(this.handleIntersectionEntries.bind(this), options);
+      this.intersectionObserver = new IntersectionObserver(function (test) {
+        console.log("test intersection");
+      }, options);
     }
   }
   handleIntersectionEntries(entries, observer) {
     // // debugger;
-    entries.forEach(function handleEachEntry(entry) {
+    entries.forEach((entry) => {
       // console.log(entry);
       // check if image el is visible in screen/window
       // if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
       if (entry.isIntersecting) {
         const visibleParentEl = entry.target;
         // console.log(visibleParentEl);
-        this.log(visibleParentEl.getElementsByTagName('img'));
+        // this.log(visibleParentEl.getElementsByTagName('img'));
         const imageElsInsideSameParent = Array.from(visibleParentEl.getElementsByTagName('img'));
         const imagesPresentInSameParent = imageElsInsideSameParent.map(img => img.getAttribute("src"))
           // filter null values or undefined
