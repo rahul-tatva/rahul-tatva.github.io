@@ -149,6 +149,9 @@ class TRENDiiAd {
       // if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
       if (entry.isIntersecting) {
         const visibleParentEl = entry.target;
+
+        observer.unobserve(entry.target);
+        console.log("observer unregistered for ", visibleParentEl);
         // console.log(visibleParentEl);
         // this.log(visibleParentEl.getElementsByTagName('img'));
         const imageElsInsideSameParent = Array.from(visibleParentEl.getElementsByTagName('img'));
@@ -251,8 +254,6 @@ class TRENDiiAd {
                         });
                       }
                     }
-
-
                   }
                 }
               }
