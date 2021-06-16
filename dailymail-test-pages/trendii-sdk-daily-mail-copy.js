@@ -1078,74 +1078,69 @@ class TRENDiiAd {
     if (document.readyState === "complete") {
       // Fully loaded!
       console.log("complete");
+      this.startAdGenerationProcess();
     }
     else if (document.readyState === "interactive") {
       // DOM ready! Images, frames, and other subresources are still downloading.
       console.log("interactive");
+      this.startAdGenerationProcess();
     }
     else {
       // Loading still in progress.
       // To wait for it to complete, add "DOMContentLoaded" or "load" listeners.
-      console.log("in progress");
+      console.log("DOM in progress");
 
       document.addEventListener("DOMContentLoaded", () => {
         // DOM ready! Images, frames, and other subresources are still downloading.
         console.log("DOMContentLoaded");
+        this.startAdGenerationProcess();
       });
       // window.addEventListener("load", () => {
       //   // Fully loaded!
       // });
     }
+  }
+  startAdGenerationProcess() {
+    Promise.all([
+      fetch(this.API_GET_NATIVE_AD_SLIDER_TEMPLATE).then((response) => response.text()),
+      fetch(this.API_GET_NATIVE_AD_SIMPLE_TEMPLATE).then((response) => response.text()),
+    ])
+      .then(allResponses => {
+        this.nativeAdSliderTemplateHTMLString = allResponses[0];
+        this.nativeAdSimpleTemplateHTMLString = allResponses[1];
 
+        // this.initializeIntersectionObserver();
+        // let intersectionObserver;
+        const options = {
+          // root: document.body,
+          rootMargin: "0px",
+          threshold: 0.2,
+        };
 
-    //NATIVE AD CODE START
-    // document.addEventListener("DOMContentLoaded", this.handleDOMLoaded.bind(this));
-    // window.addEventListener("load", () => {
-    document.addEventListener("DOMContentLoaded", () => {
-      console.log("DOM is ready");
-      // this.getAllDailyMailBlogImagesFromDOM();
-      // const requestOptionsTemplates = { method: "GET" };
-      Promise.all([
-        fetch(this.API_GET_NATIVE_AD_SLIDER_TEMPLATE).then((response) => response.text()),
-        fetch(this.API_GET_NATIVE_AD_SIMPLE_TEMPLATE).then((response) => response.text()),
-      ])
-        .then(allResponses => {
-          this.nativeAdSliderTemplateHTMLString = allResponses[0];
-          this.nativeAdSimpleTemplateHTMLString = allResponses[1];
+        if (window.IntersectionObserverV1) {
+          intersectionObserver = new IntersectionObserverV1(
+            this.handleIntersectionEntries.bind(this),
+            options
+          );
+        } else {
+          intersectionObserver = new IntersectionObserver(
+            this.handleIntersectionEntries.bind(this),
+            options
+          );
+        }
 
-          // this.initializeIntersectionObserver();
-          // let intersectionObserver;
-          const options = {
-            // root: document.body,
-            rootMargin: "0px",
-            threshold: 0.2,
-          };
-
-          if (window.IntersectionObserverV1) {
-            intersectionObserver = new IntersectionObserverV1(
-              this.handleIntersectionEntries.bind(this),
-              options
-            );
-          } else {
-            intersectionObserver = new IntersectionObserver(
-              this.handleIntersectionEntries.bind(this),
-              options
-            );
-          }
-
-          let allParentEls;
-          if (window.innerWidth <= MOBILE_WIDTH) {
-            allParentEls = Array.from(document.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG));
-          } else {
-            allParentEls = Array.from(document.querySelectorAll(DESKTOP_IMAGE_GROUP_PARENT_DIV_CLASS));
-          }
-          // start observing them
-          allParentEls.forEach((parentEl) => {
-            intersectionObserver.observe(parentEl);
-          });
-          this.log(this.feedProducts);
+        let allParentEls;
+        if (window.innerWidth <= MOBILE_WIDTH) {
+          allParentEls = Array.from(document.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG));
+        } else {
+          allParentEls = Array.from(document.querySelectorAll(DESKTOP_IMAGE_GROUP_PARENT_DIV_CLASS));
+        }
+        // start observing them
+        allParentEls.forEach((parentEl) => {
+          intersectionObserver.observe(parentEl);
         });
-    });
+        this.log(this.feedProducts);
+      });
   }
   loadStyleSheetIntoHead(url) {
     var styles = document.createElement('link');
@@ -1634,11 +1629,11 @@ class TRENDiiAd {
             //   this.NATIVE_AD_HTML_TEMPLATE_SLIDER_CONTAINER_ID
             // );
             // this.productsContainerEl.innerHTML = "";
-
-
+ 
+ 
             // for desktop cant use the same approach as of now for intersection apis
             // this.createAdTemplatesForAllProducts();
-
+ 
             // handle mobile version
             if (window.innerWidth <= 480) {
               this.createAdTemplatesForAllProducts();
