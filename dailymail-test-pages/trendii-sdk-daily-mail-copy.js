@@ -1073,6 +1073,31 @@ class TRENDiiAd {
     this.HTML_TEMPLATE_SLIDER_CONTAINER_ID = "trendii-sdk-ad-products-container";
     this.slidersAppendedArray = [];
     this.sliderCount = 0;
+
+
+    if (document.readyState === "complete") {
+      // Fully loaded!
+      console.log("complete");
+    }
+    else if (document.readyState === "interactive") {
+      // DOM ready! Images, frames, and other subresources are still downloading.
+      console.log("interactive");
+    }
+    else {
+      // Loading still in progress.
+      // To wait for it to complete, add "DOMContentLoaded" or "load" listeners.
+      console.log("in progress");
+
+      document.addEventListener("DOMContentLoaded", () => {
+        // DOM ready! Images, frames, and other subresources are still downloading.
+        console.log("DOMContentLoaded");
+      });
+      // window.addEventListener("load", () => {
+      //   // Fully loaded!
+      // });
+    }
+
+
     //NATIVE AD CODE START
     // document.addEventListener("DOMContentLoaded", this.handleDOMLoaded.bind(this));
     // window.addEventListener("load", () => {
