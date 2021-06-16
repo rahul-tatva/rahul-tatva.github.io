@@ -1075,8 +1075,8 @@ class TRENDiiAd {
     this.sliderCount = 0;
     //NATIVE AD CODE START
     // document.addEventListener("DOMContentLoaded", this.handleDOMLoaded.bind(this));
-    // window.addEventListener("load", () => {
-    document.addEventListener("DOMContentLoaded", () => {
+    window.addEventListener("load", () => {
+      // document.addEventListener("DOMContentLoaded", () => {
       console.log("DOM is ready");
       // this.getAllDailyMailBlogImagesFromDOM();
       // const requestOptionsTemplates = { method: "GET" };
