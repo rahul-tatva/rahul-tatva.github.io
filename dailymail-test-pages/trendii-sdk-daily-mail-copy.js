@@ -24,9 +24,9 @@ var intersectionObserver;
 
 
 
-var IntersectionObserverV1 = window.IntersectionObserverV1;
 var adsWindow = window.top;
-var adsDOM = window.top.document;
+var IntersectionObserverV1 = adsWindow.IntersectionObserverV1;
+var adsDOM = adsWindow.document;
 class TRENDiiAd {
   constructor(options) {
     //debugger;
@@ -82,7 +82,7 @@ class TRENDiiAd {
         console.log("DOMContentLoaded");
         this.startAdGenerationProcess();
       });
-      // window.addEventListener("load", () => {
+      // adsWindow.addEventListener("load", () => {
       //   // Fully loaded!
       // });
     }
@@ -104,7 +104,7 @@ class TRENDiiAd {
           threshold: 0.2,
         };
 
-        if (window.IntersectionObserverV1) {
+        if (adsWindow.IntersectionObserverV1) {
           intersectionObserver = new IntersectionObserverV1(
             this.handleIntersectionEntries.bind(this),
             options
@@ -117,7 +117,7 @@ class TRENDiiAd {
         }
 
         let allParentEls;
-        if (window.innerWidth <= MOBILE_WIDTH) {
+        if (adsWindow.innerWidth <= MOBILE_WIDTH) {
           allParentEls = Array.from(adsDOM.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG));
         } else {
           allParentEls = Array.from(adsDOM.querySelectorAll(DESKTOP_IMAGE_GROUP_PARENT_DIV_CLASS));
@@ -161,7 +161,7 @@ class TRENDiiAd {
           .filter(x => x);
         // call the apis here
         const requestBody = {
-          webpageUrl: window.location.href,
+          webpageUrl: adsWindow.location.href,
           imageUrls: imagesPresentInSameParent,
           publisherId: 1,
         };
@@ -204,7 +204,7 @@ class TRENDiiAd {
                   this.sliderCount++;
                   if (foundImageData.generatedAdHTML) {
                     // handle the mobile version
-                    if (window.innerWidth <= MOBILE_WIDTH) {
+                    if (adsWindow.innerWidth <= MOBILE_WIDTH) {
                       // append the found ad just after the image caption
                       const titleOfImageGroup = visibleParentEl
                         .getElementsByTagName(MOBILE_DAILY_MAIL_IMAGE_CAPTION_TAG)[0];
@@ -234,8 +234,8 @@ class TRENDiiAd {
                     // console.log(identifier);
                     if (foundImageData.isSliderTemplate) {
                       this.slidersAppendedArray.push(foundImageData.sliderId);
-                      console.log(window.Splide);
-                      if (window.Splide) {
+                      console.log(adsWindow.Splide);
+                      if (adsWindow.Splide) {
                         const testSlider = new Splide(sliderIdSelector, {
                           type: 'loop',
                           pagination: false,
@@ -275,7 +275,7 @@ class TRENDiiAd {
   //   // TO DO throw error if image selector not present
   //   // this.allImageElements = adsDOM.querySelectorAll(this.options.adImagesSelector);
   //   this.allValidImageSrcArray = [];
-  //   if (window.innerWidth <= MOBILE_WIDTH) {
+  //   if (adsWindow.innerWidth <= MOBILE_WIDTH) {
 
   //     const alreadyLoadedImagesArray = Array.from(adsDOM.querySelectorAll(MOBILE_DAILY_MAIL_LOADED_IMAGE_SELECTOR_CLASS))
   //       .map(img => img.getAttribute("src"));
@@ -324,7 +324,7 @@ class TRENDiiAd {
     // const products = imageData.products.slice(0, (index % 2 === 0 ? 2 : 1));
     // for 3 and 4 products
     // const products = imageData.products.slice(0, (index % 2 === 0 ? 3 : 4));
-    if (window.innerWidth > MOBILE_WIDTH) {
+    if (adsWindow.innerWidth > MOBILE_WIDTH) {
       products = imageData.products.slice(0, 4);
     }
     const advertiserName = imageData.advertiserName;
@@ -356,7 +356,7 @@ class TRENDiiAd {
 
         // const logo = adsDOM.getElementById("logo");
         // logo.addEventListener("click", function () {
-        //   window.open(feedProducts[0].url, "_blank");
+        //   adsWindow.open(feedProducts[0].url, "_blank");
         // });
         initializeRenderingProductsBasedOnCount(products, productsContainerEl);
         const resultantAdWrapper = simpleTemplateDOM.getElementById(this.HTML_TEMPLATE_AD_WRAPPER_ID);
@@ -405,7 +405,7 @@ class TRENDiiAd {
   }
   getAllParentImageGroupClassMobile() {
     let allParentElements;
-    if (window.innerWidth <= MOBILE_WIDTH) {
+    if (adsWindow.innerWidth <= MOBILE_WIDTH) {
       allParentElements = adsDOM.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG);
     } else {
       allParentElements = adsDOM.querySelectorAll(DESKTOP_IMAGE_GROUP_PARENT_DIV_CLASS);
@@ -453,7 +453,7 @@ class TRENDiiAd {
         // foundImageElement.after(adContainerMobile);
 
         // handle the mobile version
-        if (window.innerWidth < MOBILE_WIDTH) {
+        if (adsWindow.innerWidth < MOBILE_WIDTH) {
           // append the found ad just after the image caption
           const titleOfImageGroup = parentEl
             .getElementsByTagName(MOBILE_DAILY_MAIL_IMAGE_CAPTION_TAG)[0];
@@ -523,7 +523,7 @@ class TRENDiiAd {
     const productItemContainer = adsDOM.createElement("DIV");
     productItemContainer.classList.add("product-item-container");
     productItemContainer.addEventListener("click", function () {
-      window.open(product.url, "_blank");
+      adsWindow.open(product.url, "_blank");
     });
     productItemRedirectContainer.appendChild(productItemContainer);
 
@@ -543,14 +543,14 @@ class TRENDiiAd {
     productDetailsWrapper.classList.add("product-details-wrapper");
     productItem.appendChild(productDetailsWrapper);
     productDetailsWrapper.addEventListener("click", function () {
-      window.open(product.url, "_blank");
+      adsWindow.open(product.url, "_blank");
     });
 
     const productDetailsWrapperMobile = adsDOM.createElement("DIV");
     productDetailsWrapperMobile.classList.add("product-details-wrapper-mobile");
     productItemContainer.appendChild(productDetailsWrapperMobile);
     // productDetailsWrapperMobile.addEventListener("click", function () {
-    //   window.open(product.url, "_blank");
+    //   adsWindow.open(product.url, "_blank");
     // });
 
     // const productName = adsDOM.createElement("B");
@@ -587,7 +587,7 @@ class TRENDiiAd {
   getProductsForAllImages(onSuccessCallback) {
     //debugger;
     const requestBody = {
-      "webpageUrl": window.location.href,
+      "webpageUrl": adsWindow.location.href,
       "imageUrls": this.allValidImageSrcArray,
       "publisherId": 1,
     };
@@ -623,7 +623,7 @@ class TRENDiiAd {
             // this.createAdTemplatesForAllProducts();
  
             // handle mobile version
-            if (window.innerWidth <= 480) {
+            if (adsWindow.innerWidth <= 480) {
               this.createAdTemplatesForAllProducts();
               this.getAllParentImageGroupClassMobile();
             }
@@ -632,7 +632,7 @@ class TRENDiiAd {
               // this.initializeIntersectionObserver().bind(this);
               let allParentElements;
               // for mobile devices parents
-              if (window.innerWidth <= MOBILE_WIDTH) {
+              if (adsWindow.innerWidth <= MOBILE_WIDTH) {
                 allParentElements = Array.from(adsDOM.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG));
               } else {
                 // for desktop devices parents
@@ -646,7 +646,7 @@ class TRENDiiAd {
             }
           }
           // else {
-          //   this.feedProducts = window.FEED_PRODUCTS;
+          //   this.feedProducts = adsWindow.FEED_PRODUCTS;
           //   this.createAdTemplatesForAllProducts();
           //   this.getAllParentImageGroupClass();
           //   onSuccessCallback();
@@ -664,7 +664,7 @@ class TRENDiiAd {
   }
   getProductsForVisibleImages(allVisibleImages, onSuccessCallback) {
     const requestBody = {
-      "webpageUrl": window.location.href,
+      "webpageUrl": adsWindow.location.href,
       "imageUrls": allVisibleImages,
       "publisherId": 1,
     };
@@ -766,7 +766,7 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
       const productItemContainer = adsDOM.createElement("DIV");
       productItemContainer.classList.add("product-item-container");
       productItemContainer.addEventListener("click", function () {
-        window.open(product.url, "_blank");
+        adsWindow.open(product.url, "_blank");
       });
       oneProductWrapper.appendChild(productItemContainer);
 
@@ -820,7 +820,7 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
       const product = adRenderingProducts[0];
       // const adWrapper = adsDOM.getElementsByClassName("block728X90-wrapper")[0];
       // adWrapper.addEventListener("click", function () {
-      //   window.open(product.url, "_blank");
+      //   adsWindow.open(product.url, "_blank");
       // });
       // // to fix curser pointer issue
       // adWrapper.style.cursor = "pointer";
@@ -847,7 +847,7 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
       const productItemContainer = adsDOM.createElement("DIV");
       productItemContainer.classList.add("product-item-container");
       productItemContainer.addEventListener("click", function () {
-        window.open(product.url, "_blank");
+        adsWindow.open(product.url, "_blank");
       });
       productItemRedirectContainer.appendChild(productItemContainer);
 
@@ -933,7 +933,7 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
         const productItemContainer = adsDOM.createElement("DIV");
         productItemContainer.classList.add("product-item-container");
         productItemContainer.addEventListener("click", function () {
-          window.open(product.url, "_blank");
+          adsWindow.open(product.url, "_blank");
         });
         col.appendChild(productItemContainer);
 
@@ -1357,7 +1357,7 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
       const productItemContainer = adsDOM.createElement("DIV");
       productItemContainer.classList.add("product-item-container");
       productItemContainer.addEventListener("click", function () {
-        window.open(product.url, "_blank");
+        adsWindow.open(product.url, "_blank");
       });
       productItemRedirectContainer.appendChild(productItemContainer);
 
@@ -1416,7 +1416,7 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
           const productItemContainer = adsDOM.createElement("DIV");
           productItemContainer.classList.add("product-item-container");
           productItemContainer.addEventListener("click", function () {
-            window.open(product.url, "_blank");
+            adsWindow.open(product.url, "_blank");
           });
           productItemRedirectContainer.appendChild(productItemContainer);
 
@@ -1574,7 +1574,7 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
           const productItemContainer = adsDOM.createElement("DIV");
           productItemContainer.classList.add("product-item-container");
           productItemContainer.addEventListener("click", function () {
-            window.open(product.url, "_blank");
+            adsWindow.open(product.url, "_blank");
           });
           productItemRedirectContainer.appendChild(productItemContainer);
 
