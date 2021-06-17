@@ -25,7 +25,8 @@ var intersectionObserver;
 
 
 var IntersectionObserverV1 = window.IntersectionObserverV1;
-
+var adsWindow = window.top;
+var adsDOM = window.top.document;
 class TRENDiiAd {
   constructor(options) {
     //debugger;
@@ -61,12 +62,12 @@ class TRENDiiAd {
     this.sliderCount = 0;
 
 
-    if (document.readyState === "complete") {
+    if (adsDOM.readyState === "complete") {
       // Fully loaded!
       console.log("complete");
       this.startAdGenerationProcess();
     }
-    else if (document.readyState === "interactive") {
+    else if (adsDOM.readyState === "interactive") {
       // DOM ready! Images, frames, and other subresources are still downloading.
       console.log("interactive");
       this.startAdGenerationProcess();
@@ -76,7 +77,7 @@ class TRENDiiAd {
       // To wait for it to complete, add "DOMContentLoaded" or "load" listeners.
       console.log("DOM in progress");
 
-      document.addEventListener("DOMContentLoaded", () => {
+      adsDOM.addEventListener("DOMContentLoaded", () => {
         // DOM ready! Images, frames, and other subresources are still downloading.
         console.log("DOMContentLoaded");
         this.startAdGenerationProcess();
@@ -98,7 +99,7 @@ class TRENDiiAd {
         // this.initializeIntersectionObserver();
         // let intersectionObserver;
         const options = {
-          // root: document.body,
+          // root: adsDOM.body,
           rootMargin: "0px",
           threshold: 0.2,
         };
@@ -117,9 +118,9 @@ class TRENDiiAd {
 
         let allParentEls;
         if (window.innerWidth <= MOBILE_WIDTH) {
-          allParentEls = Array.from(document.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG));
+          allParentEls = Array.from(adsDOM.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG));
         } else {
-          allParentEls = Array.from(document.querySelectorAll(DESKTOP_IMAGE_GROUP_PARENT_DIV_CLASS));
+          allParentEls = Array.from(adsDOM.querySelectorAll(DESKTOP_IMAGE_GROUP_PARENT_DIV_CLASS));
         }
         // start observing them
         allParentEls.forEach((parentEl) => {
@@ -129,17 +130,17 @@ class TRENDiiAd {
       });
   }
   loadStyleSheetIntoHead(url) {
-    var styles = document.createElement('link');
+    var styles = adsDOM.createElement('link');
     styles.type = "text/css";
     styles.rel = "stylesheet";
     styles.href = url;
-    document.head.appendChild(styles);
+    adsDOM.head.appendChild(styles);
   }
   loadScript(url) {
-    document.body.appendChild(document.createElement("script")).src = url;
+    adsDOM.body.appendChild(adsDOM.createElement("script")).src = url;
   }
   loadScriptIntoHead(url) {
-    document.head.appendChild(document.createElement("script")).src = url;
+    adsDOM.head.appendChild(adsDOM.createElement("script")).src = url;
   }
   handleIntersectionEntries(entries, observer) {
     // // debugger;
@@ -242,7 +243,7 @@ class TRENDiiAd {
                           autoWidth: true,
                           autoHeight: true,
                         }).mount();
-                        const adProductsSliderContainer = document.getElementById(identifier);
+                        const adProductsSliderContainer = adsDOM.getElementById(identifier);
                         adProductsSliderContainer.style.display = "block";
                         const adWrapper = foundImageData.generatedAdHTML;
                         adWrapper.setAttribute("data-slider-appended", "true");
@@ -272,28 +273,28 @@ class TRENDiiAd {
   // getAllDailyMailBlogImagesFromDOM() {
   //   //debugger;
   //   // TO DO throw error if image selector not present
-  //   // this.allImageElements = document.querySelectorAll(this.options.adImagesSelector);
+  //   // this.allImageElements = adsDOM.querySelectorAll(this.options.adImagesSelector);
   //   this.allValidImageSrcArray = [];
   //   if (window.innerWidth <= MOBILE_WIDTH) {
 
-  //     const alreadyLoadedImagesArray = Array.from(document.querySelectorAll(MOBILE_DAILY_MAIL_LOADED_IMAGE_SELECTOR_CLASS))
+  //     const alreadyLoadedImagesArray = Array.from(adsDOM.querySelectorAll(MOBILE_DAILY_MAIL_LOADED_IMAGE_SELECTOR_CLASS))
   //       .map(img => img.getAttribute("src"));
   //     this.allValidImageSrcArray.push(...alreadyLoadedImagesArray);
 
   //     // async loadable images
-  //     const imagesWhichAreYetToBeLoaded = Array.from(document.querySelectorAll(MOBILE_DAILY_MAIL_IMAGE_SELECTOR_CLASS))
+  //     const imagesWhichAreYetToBeLoaded = Array.from(adsDOM.querySelectorAll(MOBILE_DAILY_MAIL_IMAGE_SELECTOR_CLASS))
   //       .map(img => img.getAttribute("data-src"))
   //       // filter null values or undefined
   //       .filter(x => x);
   //     this.allValidImageSrcArray.push(...imagesWhichAreYetToBeLoaded);
   //   } else {
   //     // consider desktop view
-  //     const alreadyLoadedImagesArray = Array.from(document.querySelectorAll(DESKTOP_DAILY_MAIL_LOADED_IMAGE_SELECTOR_CLASS))
+  //     const alreadyLoadedImagesArray = Array.from(adsDOM.querySelectorAll(DESKTOP_DAILY_MAIL_LOADED_IMAGE_SELECTOR_CLASS))
   //       .map(img => img.getAttribute("src"));
   //     this.allValidImageSrcArray.push(...alreadyLoadedImagesArray);
 
   //     // async loadable images
-  //     const imagesWhichAreYetToBeLoaded = Array.from(document.querySelectorAll(DESKTOP_DAILY_MAIL_IMAGE_SELECTOR_CLASS))
+  //     const imagesWhichAreYetToBeLoaded = Array.from(adsDOM.querySelectorAll(DESKTOP_DAILY_MAIL_IMAGE_SELECTOR_CLASS))
   //       .map(img => img.getAttribute("data-src"))
   //       // filter null values or undefined
   //       .filter(x => x);
@@ -353,7 +354,7 @@ class TRENDiiAd {
         );
         productsContainerEl.innerHTML = "";
 
-        // const logo = document.getElementById("logo");
+        // const logo = adsDOM.getElementById("logo");
         // logo.addEventListener("click", function () {
         //   window.open(feedProducts[0].url, "_blank");
         // });
@@ -405,9 +406,9 @@ class TRENDiiAd {
   getAllParentImageGroupClassMobile() {
     let allParentElements;
     if (window.innerWidth <= MOBILE_WIDTH) {
-      allParentElements = document.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG);
+      allParentElements = adsDOM.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG);
     } else {
-      allParentElements = document.querySelectorAll(DESKTOP_IMAGE_GROUP_PARENT_DIV_CLASS);
+      allParentElements = adsDOM.querySelectorAll(DESKTOP_IMAGE_GROUP_PARENT_DIV_CLASS);
     }
     this.parentImageGroupElements = Array.from(allParentElements);
     this.log(this.parentImageGroupElements);
@@ -438,13 +439,13 @@ class TRENDiiAd {
 
       if (foundImageData.generatedAdHTML) {
         // isThereAnySliderAds = true;
-        const adContainer = document.createElement('div');
+        const adContainer = adsDOM.createElement('div');
         adContainer.classList.add("adContainer");
         adContainer.style.background = "yellow";
         adContainer.style.maxHeight = "300px";
         // adContainer.appendChild(findImageData.generatedAdHTML);
 
-        const adContainerMobile = document.createElement('div');
+        const adContainerMobile = adsDOM.createElement('div');
         adContainerMobile.classList.add("ads-inside-the-images");
         // adContainerMobile.style.background = "yellow";
         // adContainerMobile.style.height = "max-content";
@@ -476,19 +477,19 @@ class TRENDiiAd {
 
 
         // //debugger;
-        // const div = document.createElement('div');
+        // const div = adsDOM.createElement('div');
         // div.style.background = "yellow";
         // div.style.height = "100px";
         // parentEl.getElementsByClassName(DAILY_MAIL_IMAGE_CAPTION_CLASS)[0].after(div);
         // if (index === (this.parentImageGroupElements.length - 1) && isThereAnySliderAds) { }
       }
     });
-    // document.querySelectorAll(".mol-img-group")[0].getElementsByTagName('img');
-    // document.querySelectorAll(".mol-img-group")[0].getElementsByClassName('imageCaption')[0];
-    // document.querySelectorAll(".mol-img-group")[0].getElementsByClassName('imageCaption')[0].after(t);
+    // adsDOM.querySelectorAll(".mol-img-group")[0].getElementsByTagName('img');
+    // adsDOM.querySelectorAll(".mol-img-group")[0].getElementsByClassName('imageCaption')[0];
+    // adsDOM.querySelectorAll(".mol-img-group")[0].getElementsByClassName('imageCaption')[0].after(t);
   }
   getAllAdContainersFromDOM() {
-    // this.allAdContainers = document.querySelectorAll(this.options.adContainer);
+    // this.allAdContainers = adsDOM.querySelectorAll(this.options.adContainer);
   }
   log(message) {
     console.log(message);
@@ -508,76 +509,76 @@ class TRENDiiAd {
     //         </div>
     //     </div>
     // </li>
-    const sliderItem = document.createElement("LI");
+    const sliderItem = adsDOM.createElement("LI");
     sliderItem.classList.add("splide__slide");
     productsContainer.appendChild(sliderItem);
 
-    const productItemRedirectContainer = document.createElement("A");
+    const productItemRedirectContainer = adsDOM.createElement("A");
     productItemRedirectContainer.classList.add("product-redirection-link");
     productItemRedirectContainer.style = "text-decoration: none;";
     productItemRedirectContainer.href = product.url;
     productItemRedirectContainer.target = "_blank";
     sliderItem.appendChild(productItemRedirectContainer);
 
-    const productItemContainer = document.createElement("DIV");
+    const productItemContainer = adsDOM.createElement("DIV");
     productItemContainer.classList.add("product-item-container");
     productItemContainer.addEventListener("click", function () {
       window.open(product.url, "_blank");
     });
     productItemRedirectContainer.appendChild(productItemContainer);
 
-    const productItem = document.createElement("DIV");
+    const productItem = adsDOM.createElement("DIV");
     productItem.classList.add("product-item");
     productItem.style.backgroundImage = `url(${product.image})`;
     productItemContainer.appendChild(productItem);
 
     if (product.sale) {
-      const onSaleTag = document.createElement("SPAN");
+      const onSaleTag = adsDOM.createElement("SPAN");
       onSaleTag.classList.add("onsale");
       onSaleTag.innerHTML = "ON SALE";
       productItem.appendChild(onSaleTag);
     }
 
-    const productDetailsWrapper = document.createElement("DIV");
+    const productDetailsWrapper = adsDOM.createElement("DIV");
     productDetailsWrapper.classList.add("product-details-wrapper");
     productItem.appendChild(productDetailsWrapper);
     productDetailsWrapper.addEventListener("click", function () {
       window.open(product.url, "_blank");
     });
 
-    const productDetailsWrapperMobile = document.createElement("DIV");
+    const productDetailsWrapperMobile = adsDOM.createElement("DIV");
     productDetailsWrapperMobile.classList.add("product-details-wrapper-mobile");
     productItemContainer.appendChild(productDetailsWrapperMobile);
     // productDetailsWrapperMobile.addEventListener("click", function () {
     //   window.open(product.url, "_blank");
     // });
 
-    // const productName = document.createElement("B");
+    // const productName = adsDOM.createElement("B");
     // productName.classList.add("brand-name");
     // productName.innerHTML = this.brandName;
     // productDetailsWrapper.appendChild(productName);
 
-    const productNameP = document.createElement("P");
+    const productNameP = adsDOM.createElement("P");
     productNameP.classList.add("product-name");
     productNameP.innerHTML = product.name;
     productDetailsWrapper.appendChild(productNameP);
 
-    const productNamePMobile = document.createElement("P");
+    const productNamePMobile = adsDOM.createElement("P");
     productNamePMobile.classList.add("product-name");
     productNamePMobile.innerHTML = product.name;
     productDetailsWrapperMobile.appendChild(productNamePMobile);
 
-    // const productCashbackPercentage = document.createElement("SPAN");
+    // const productCashbackPercentage = adsDOM.createElement("SPAN");
     // productCashbackPercentage.classList.add("product-cashback-chip");
     // productCashbackPercentage.innerHTML = "4%" + " Cashback";
     // productDetailsWrapper.appendChild(productCashbackPercentage);
 
-    const productPrice = document.createElement("EM");
+    const productPrice = adsDOM.createElement("EM");
     productPrice.classList.add("product-price");
     productPrice.innerHTML = product.currency + product.price;
     productDetailsWrapper.appendChild(productPrice);
 
-    const productPriceMobile = document.createElement("EM");
+    const productPriceMobile = adsDOM.createElement("EM");
     productPriceMobile.classList.add("product-price");
     productPriceMobile.innerHTML = product.currency + product.price;
     productDetailsWrapperMobile.appendChild(productPriceMobile);
@@ -632,10 +633,10 @@ class TRENDiiAd {
               let allParentElements;
               // for mobile devices parents
               if (window.innerWidth <= MOBILE_WIDTH) {
-                allParentElements = Array.from(document.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG));
+                allParentElements = Array.from(adsDOM.querySelectorAll(MOBILE_IMAGE_GROUP_PARENT_TAG));
               } else {
                 // for desktop devices parents
-                allParentElements = Array.from(document.querySelectorAll(DESKTOP_IMAGE_GROUP_PARENT_DIV_CLASS));
+                allParentElements = Array.from(adsDOM.querySelectorAll(DESKTOP_IMAGE_GROUP_PARENT_DIV_CLASS));
               }
               allParentElements.forEach((parentEl) => {
                 // // debugger;
@@ -751,47 +752,47 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
       /*
       const product = adRenderingProducts[0];
 
-      const productItemRedirectContainer = document.createElement("A");
+      const productItemRedirectContainer = adsDOM.createElement("A");
       productItemRedirectContainer.classList.add("product-redirection-link");
       productItemRedirectContainer.style = "text-decoration: none;";
       productItemRedirectContainer.href = product.url;
       productItemRedirectContainer.target = "_blank";
       productsContainer.appendChild(productItemRedirectContainer);
 
-      const oneProductWrapper = document.createElement("DIV");
+      const oneProductWrapper = adsDOM.createElement("DIV");
       oneProductWrapper.classList.add("one-product-wrapper");
       productItemRedirectContainer.appendChild(oneProductWrapper);
 
-      const productItemContainer = document.createElement("DIV");
+      const productItemContainer = adsDOM.createElement("DIV");
       productItemContainer.classList.add("product-item-container");
       productItemContainer.addEventListener("click", function () {
         window.open(product.url, "_blank");
       });
       oneProductWrapper.appendChild(productItemContainer);
 
-      const productItem = document.createElement("DIV");
+      const productItem = adsDOM.createElement("DIV");
       productItem.classList.add("product-item");
       productItem.classList.add("main-item");
       productItem.style.backgroundImage = `url(${product.image})`;
       productItemContainer.appendChild(productItem);
 
       if (product.sale) {
-        const onSaleTag = document.createElement('SPAN');
+        const onSaleTag = adsDOM.createElement('SPAN');
         onSaleTag.classList.add("onsale");
         onSaleTag.innerHTML = "ON SALE";
         productItem.appendChild(onSaleTag);
       }
 
-      const productDetailsWrapper = document.createElement("DIV");
+      const productDetailsWrapper = adsDOM.createElement("DIV");
       productDetailsWrapper.classList.add("product-details-wrapper");
       productItemContainer.appendChild(productDetailsWrapper);
 
-      const productName = document.createElement("P");
+      const productName = adsDOM.createElement("P");
       productName.classList.add("product-name");
       productName.innerHTML = product.name;
       productDetailsWrapper.appendChild(productName);
 
-      const productPrice = document.createElement("EM");
+      const productPrice = adsDOM.createElement("EM");
       productPrice.classList.add("product-price");
       productPrice.innerHTML = product.currency + product.price;
       productDetailsWrapper.appendChild(productPrice);
@@ -817,65 +818,65 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
       //     </div>
       // </div>
       const product = adRenderingProducts[0];
-      // const adWrapper = document.getElementsByClassName("block728X90-wrapper")[0];
+      // const adWrapper = adsDOM.getElementsByClassName("block728X90-wrapper")[0];
       // adWrapper.addEventListener("click", function () {
       //   window.open(product.url, "_blank");
       // });
       // // to fix curser pointer issue
       // adWrapper.style.cursor = "pointer";
 
-      const oneProductWrapper = document.createElement("DIV");
+      const oneProductWrapper = adsDOM.createElement("DIV");
       oneProductWrapper.classList.add("one-product-wrapper");
       productsContainer.appendChild(oneProductWrapper);
 
-      const row = document.createElement("DIV");
+      const row = adsDOM.createElement("DIV");
       row.classList.add("row");
       oneProductWrapper.appendChild(row);
 
-      const col = document.createElement("DIV");
+      const col = adsDOM.createElement("DIV");
       col.classList.add("col-12");
       row.appendChild(col);
 
-      const productItemRedirectContainer = document.createElement("A");
+      const productItemRedirectContainer = adsDOM.createElement("A");
       productItemRedirectContainer.classList.add("product-redirection-link");
       productItemRedirectContainer.style = "text-decoration: none;";
       productItemRedirectContainer.href = product.url;
       productItemRedirectContainer.target = "_blank";
       col.appendChild(productItemRedirectContainer);
 
-      const productItemContainer = document.createElement("DIV");
+      const productItemContainer = adsDOM.createElement("DIV");
       productItemContainer.classList.add("product-item-container");
       productItemContainer.addEventListener("click", function () {
         window.open(product.url, "_blank");
       });
       productItemRedirectContainer.appendChild(productItemContainer);
 
-      const productItem = document.createElement("DIV");
+      const productItem = adsDOM.createElement("DIV");
       productItem.classList.add("product-item");
       productItemContainer.appendChild(productItem);
 
-      const productItemImage = document.createElement("DIV");
+      const productItemImage = adsDOM.createElement("DIV");
       productItemImage.classList.add("product-item-image");
       productItemImage.style.backgroundImage = `url(${product.image})`;
       productItem.appendChild(productItemImage);
 
       if (product.sale) {
-        const onSaleTag = document.createElement('SPAN');
+        const onSaleTag = adsDOM.createElement('SPAN');
         onSaleTag.classList.add("onsale");
         onSaleTag.innerHTML = "ON SALE";
         productItemImage.appendChild(onSaleTag);
       }
 
-      const productDetailsWrapper = document.createElement("DIV");
+      const productDetailsWrapper = adsDOM.createElement("DIV");
       productDetailsWrapper.classList.add("product-details-wrapper");
       productItemContainer.appendChild(productDetailsWrapper);
 
-      const productName = document.createElement("P");
+      const productName = adsDOM.createElement("P");
       productName.classList.add("product-name");
       productName.innerHTML = product.name;
       productDetailsWrapper.appendChild(productName);
 
-      const productPrice = document.createElement("EM");
+      const productPrice = adsDOM.createElement("EM");
       productPrice.classList.add("product-price");
       productPrice.innerHTML = product.currency + product.price;
       productDetailsWrapper.appendChild(productPrice);
@@ -914,47 +915,47 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
       //         </div>
       //     </div>
       // </div>
-      const twoProductWrapper = document.createElement("DIV");
+      const twoProductWrapper = adsDOM.createElement("DIV");
       twoProductWrapper.classList.add("two-product-wrapper");
       productsContainer.appendChild(twoProductWrapper);
 
-      const row = document.createElement("DIV");
+      const row = adsDOM.createElement("DIV");
       row.classList.add("row");
       twoProductWrapper.appendChild(row);
 
       for (let i = 0; i <= 1; i++) {
         const product = adRenderingProducts[i];
 
-        const col = document.createElement("DIV");
+        const col = adsDOM.createElement("DIV");
         col.classList.add("col-6");
         row.appendChild(col);
 
-        const productItemContainer = document.createElement("DIV");
+        const productItemContainer = adsDOM.createElement("DIV");
         productItemContainer.classList.add("product-item-container");
         productItemContainer.addEventListener("click", function () {
           window.open(product.url, "_blank");
         });
         col.appendChild(productItemContainer);
 
-        const productItem = document.createElement("DIV");
+        const productItem = adsDOM.createElement("DIV");
         productItem.classList.add("product-item");
         productItemContainer.appendChild(productItem);
 
-        const productItemImage = document.createElement("DIV");
+        const productItemImage = adsDOM.createElement("DIV");
         productItemImage.classList.add("product-item-image");
         productItemImage.style.backgroundImage = `url(${product.image})`;
         productItem.appendChild(productItemImage);
 
-        const productDetailsWrapper = document.createElement("DIV");
+        const productDetailsWrapper = adsDOM.createElement("DIV");
         productDetailsWrapper.classList.add("product-details-wrapper");
         productItemContainer.appendChild(productDetailsWrapper);
 
-        const productName = document.createElement("P");
+        const productName = adsDOM.createElement("P");
         productName.classList.add("product-name");
         productName.innerHTML = product.name;
         productDetailsWrapper.appendChild(productName);
 
-        const productPrice = document.createElement("EM");
+        const productPrice = adsDOM.createElement("EM");
         productPrice.classList.add("product-price");
         productPrice.innerHTML = product.currency + product.price;
         productDetailsWrapper.appendChild(productPrice);
@@ -1020,11 +1021,11 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
       //     </div>
       //   </div>
       // </div>;
-      const threeProductWrapper = document.createElement("DIV");
+      const threeProductWrapper = adsDOM.createElement("DIV");
       threeProductWrapper.classList.add("three-product-wrapper");
       productsContainer.appendChild(threeProductWrapper);
 
-      const row = document.createElement("DIV");
+      const row = adsDOM.createElement("DIV");
       row.classList.add("row");
       row.classList.add("row-cols-3");
       threeProductWrapper.appendChild(row);
@@ -1032,67 +1033,67 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
       for (let i = 0; i <= 2; i++) {
         const product = adRenderingProducts[i];
 
-        const col = document.createElement("DIV");
+        const col = adsDOM.createElement("DIV");
         col.classList.add("col");
         row.appendChild(col);
 
-        const productItemRedirectContainer = document.createElement("A");
+        const productItemRedirectContainer = adsDOM.createElement("A");
         productItemRedirectContainer.classList.add("product-redirection-link");
         // productItemRedirectContainer.style = "text-decoration: none;";
         productItemRedirectContainer.href = product.url;
         productItemRedirectContainer.target = "_blank";
         col.appendChild(productItemRedirectContainer);
 
-        const productItemContainer = document.createElement("DIV");
+        const productItemContainer = adsDOM.createElement("DIV");
         productItemContainer.classList.add("product-item-container");
         productItemRedirectContainer.appendChild(productItemContainer);
 
-        const productItem = document.createElement("DIV");
+        const productItem = adsDOM.createElement("DIV");
         productItem.classList.add("product-item");
         productItemContainer.appendChild(productItem);
 
-        const productItemImage = document.createElement("DIV");
+        const productItemImage = adsDOM.createElement("DIV");
         productItemImage.classList.add("product-item-image");
         productItemImage.style.backgroundImage = `url(${product.image})`;
         productItem.appendChild(productItemImage);
 
         if (product.sale) {
-          const onSaleTag = document.createElement('SPAN');
+          const onSaleTag = adsDOM.createElement('SPAN');
           onSaleTag.classList.add("onsale");
           onSaleTag.innerHTML = "ON SALE";
           productItemImage.appendChild(onSaleTag);
         }
 
-        const productDetailsWrapper = document.createElement("DIV");
+        const productDetailsWrapper = adsDOM.createElement("DIV");
         productDetailsWrapper.classList.add("product-details-wrapper");
         productItemContainer.appendChild(productDetailsWrapper);
 
-        // const brandName = document.createElement("B");
+        // const brandName = adsDOM.createElement("B");
         // brandName.classList.add("brand-name");
         // brandName.innerHTML = BRAND_NAME;
         // productDetailsWrapper.appendChild(brandName);
 
-        const productName = document.createElement("P");
+        const productName = adsDOM.createElement("P");
         productName.classList.add("product-name");
         productName.innerHTML = product.name;
         productDetailsWrapper.appendChild(productName);
 
-        const productPrice = document.createElement("EM");
+        const productPrice = adsDOM.createElement("EM");
         productPrice.classList.add("product-price");
         productPrice.innerHTML = product.currency + product.price;
         productDetailsWrapper.appendChild(productPrice);
 
         // mobile wrapper
-        const productDetailsWrapperMobile = document.createElement("DIV");
+        const productDetailsWrapperMobile = adsDOM.createElement("DIV");
         productDetailsWrapperMobile.classList.add("product-details-wrapper-mobile");
         productItemContainer.appendChild(productDetailsWrapperMobile);
 
-        const productNameMobile = document.createElement("P");
+        const productNameMobile = adsDOM.createElement("P");
         productNameMobile.classList.add("product-name");
         productNameMobile.innerHTML = product.name;
         productDetailsWrapperMobile.appendChild(productNameMobile);
 
-        const productPriceMobile = document.createElement("EM");
+        const productPriceMobile = adsDOM.createElement("EM");
         productPriceMobile.classList.add("product-price");
         productPriceMobile.innerHTML = product.currency + product.price;
         productDetailsWrapperMobile.appendChild(productPriceMobile);
@@ -1179,11 +1180,11 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
       //     </div>
       //   </div>
       // </div>;
-      const fourProductWrapper = document.createElement("DIV");
+      const fourProductWrapper = adsDOM.createElement("DIV");
       fourProductWrapper.classList.add("four-product-wrapper");
       productsContainer.appendChild(fourProductWrapper);
 
-      const row = document.createElement("DIV");
+      const row = adsDOM.createElement("DIV");
       row.classList.add("row");
       row.classList.add("row-cols-4");
       fourProductWrapper.appendChild(row);
@@ -1191,67 +1192,67 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
       for (let i = 0; i <= 3; i++) {
         const product = adRenderingProducts[i];
 
-        const col = document.createElement("DIV");
+        const col = adsDOM.createElement("DIV");
         col.classList.add("col");
         row.appendChild(col);
 
-        const productItemRedirectContainer = document.createElement("A");
+        const productItemRedirectContainer = adsDOM.createElement("A");
         productItemRedirectContainer.classList.add("product-redirection-link");
         // productItemRedirectContainer.style = "text-decoration: none;";
         productItemRedirectContainer.href = product.url;
         productItemRedirectContainer.target = "_blank";
         col.appendChild(productItemRedirectContainer);
 
-        const productItemContainer = document.createElement("DIV");
+        const productItemContainer = adsDOM.createElement("DIV");
         productItemContainer.classList.add("product-item-container");
         productItemRedirectContainer.appendChild(productItemContainer);
 
-        const productItem = document.createElement("DIV");
+        const productItem = adsDOM.createElement("DIV");
         productItem.classList.add("product-item");
         productItemContainer.appendChild(productItem);
 
-        const productItemImage = document.createElement("DIV");
+        const productItemImage = adsDOM.createElement("DIV");
         productItemImage.classList.add("product-item-image");
         productItemImage.style.backgroundImage = `url(${product.image})`;
         productItem.appendChild(productItemImage);
 
         if (product.sale) {
-          const onSaleTag = document.createElement('SPAN');
+          const onSaleTag = adsDOM.createElement('SPAN');
           onSaleTag.classList.add("onsale");
           onSaleTag.innerHTML = "ON SALE";
           productItemImage.appendChild(onSaleTag);
         }
 
-        const productDetailsWrapper = document.createElement("DIV");
+        const productDetailsWrapper = adsDOM.createElement("DIV");
         productDetailsWrapper.classList.add("product-details-wrapper");
         productItem.appendChild(productDetailsWrapper);
 
-        // const brandName = document.createElement("B");
+        // const brandName = adsDOM.createElement("B");
         // brandName.classList.add("brand-name");
         // brandName.innerHTML = BRAND_NAME;
         // productDetailsWrapper.appendChild(brandName);
 
-        const productName = document.createElement("P");
+        const productName = adsDOM.createElement("P");
         productName.classList.add("product-name");
         productName.innerHTML = product.name;
         productDetailsWrapper.appendChild(productName);
 
-        const productPrice = document.createElement("EM");
+        const productPrice = adsDOM.createElement("EM");
         productPrice.classList.add("product-price");
         productPrice.innerHTML = product.currency + product.price;
         productDetailsWrapper.appendChild(productPrice);
 
         // mobile detailer wrapper
-        const productDetailsWrapperMobile = document.createElement("DIV");
+        const productDetailsWrapperMobile = adsDOM.createElement("DIV");
         productDetailsWrapperMobile.classList.add("product-details-wrapper-mobile");
         productItemContainer.appendChild(productDetailsWrapperMobile);
 
-        const productNameMobile = document.createElement("P");
+        const productNameMobile = adsDOM.createElement("P");
         productNameMobile.classList.add("product-name");
         productNameMobile.innerHTML = product.name;
         productDetailsWrapperMobile.appendChild(productNameMobile);
 
-        const productPriceMobile = document.createElement("EM");
+        const productPriceMobile = adsDOM.createElement("EM");
         productPriceMobile.classList.add("product-price");
         productPriceMobile.innerHTML = product.currency + product.price;
         productDetailsWrapperMobile.appendChild(productPriceMobile);
@@ -1332,68 +1333,68 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
       //         </div>
       //     </div>
       // </div>
-      const fiveProductWrapper = document.createElement("DIV");
+      const fiveProductWrapper = adsDOM.createElement("DIV");
       fiveProductWrapper.classList.add("five-product-wrapper");
       productsContainer.appendChild(fiveProductWrapper);
 
       const product = adRenderingProducts[0];
 
-      const row = document.createElement("DIV");
+      const row = adsDOM.createElement("DIV");
       row.classList.add("row");
       fiveProductWrapper.appendChild(row);
 
-      const col = document.createElement("DIV");
+      const col = adsDOM.createElement("DIV");
       col.classList.add("col");
       row.appendChild(col);
 
-      const productItemRedirectContainer = document.createElement("A");
+      const productItemRedirectContainer = adsDOM.createElement("A");
       productItemRedirectContainer.classList.add("product-redirection-link");
       productItemRedirectContainer.style = "text-decoration: none;";
       productItemRedirectContainer.href = product.url;
       productItemRedirectContainer.target = "_blank";
       col.appendChild(productItemRedirectContainer);
 
-      const productItemContainer = document.createElement("DIV");
+      const productItemContainer = adsDOM.createElement("DIV");
       productItemContainer.classList.add("product-item-container");
       productItemContainer.addEventListener("click", function () {
         window.open(product.url, "_blank");
       });
       productItemRedirectContainer.appendChild(productItemContainer);
 
-      const productItem = document.createElement("DIV");
+      const productItem = adsDOM.createElement("DIV");
       productItem.classList.add("product-item");
       productItem.style.backgroundImage = `url(${product.image})`;
       productItemContainer.appendChild(productItem);
 
       if (product.sale) {
-        const onSaleTag = document.createElement('SPAN');
+        const onSaleTag = adsDOM.createElement('SPAN');
         onSaleTag.classList.add("onsale");
         onSaleTag.innerHTML = "ON SALE";
         productItem.appendChild(onSaleTag);
       }
 
-      const productDetailsWrapper = document.createElement("DIV");
+      const productDetailsWrapper = adsDOM.createElement("DIV");
       productDetailsWrapper.classList.add("product-details-wrapper");
       productItem.appendChild(productDetailsWrapper);
 
-      const brandName = document.createElement("B");
+      const brandName = adsDOM.createElement("B");
       brandName.classList.add("brand-name");
       brandName.innerHTML = BRAND_NAME;
       productDetailsWrapper.appendChild(brandName);
 
-      const productName = document.createElement("P");
+      const productName = adsDOM.createElement("P");
       productName.classList.add("product-name");
       productName.innerHTML = product.name;
       productDetailsWrapper.appendChild(productName);
 
-      const productPrice = document.createElement("EM");
+      const productPrice = adsDOM.createElement("EM");
       productPrice.classList.add("product-price");
       productPrice.innerHTML = product.currency + product.price;
       productDetailsWrapper.appendChild(productPrice);
 
       let countIndex = 1;
       for (let i = 1; i <= 2; i++) {
-        const row = document.createElement("DIV");
+        const row = adsDOM.createElement("DIV");
         row.classList.add("row");
         row.classList.add("secondary-product-row");
         fiveProductWrapper.appendChild(row);
@@ -1401,51 +1402,51 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
         for (let i = 1; i <= 2; i++) {
           const product = adRenderingProducts[countIndex];
 
-          const col = document.createElement("DIV");
+          const col = adsDOM.createElement("DIV");
           col.classList.add("col-6");
           row.appendChild(col);
 
-          const productItemRedirectContainer = document.createElement("A");
+          const productItemRedirectContainer = adsDOM.createElement("A");
           productItemRedirectContainer.classList.add("product-redirection-link");
           productItemRedirectContainer.style = "text-decoration: none;";
           productItemRedirectContainer.href = product.url;
           productItemRedirectContainer.target = "_blank";
           col.appendChild(productItemRedirectContainer);
 
-          const productItemContainer = document.createElement("DIV");
+          const productItemContainer = adsDOM.createElement("DIV");
           productItemContainer.classList.add("product-item-container");
           productItemContainer.addEventListener("click", function () {
             window.open(product.url, "_blank");
           });
           productItemRedirectContainer.appendChild(productItemContainer);
 
-          const productItem = document.createElement("DIV");
+          const productItem = adsDOM.createElement("DIV");
           productItem.classList.add("product-item");
           productItem.style.backgroundImage = `url(${product.image})`;
           productItemContainer.appendChild(productItem);
 
           if (product.sale) {
-            const onSaleTag = document.createElement('SPAN');
+            const onSaleTag = adsDOM.createElement('SPAN');
             onSaleTag.classList.add("onsale");
             onSaleTag.innerHTML = "ON SALE";
             productItem.appendChild(onSaleTag);
           }
 
-          const productDetailsWrapper = document.createElement("DIV");
+          const productDetailsWrapper = adsDOM.createElement("DIV");
           productDetailsWrapper.classList.add("product-details-wrapper");
           productItem.appendChild(productDetailsWrapper);
 
-          const brandName = document.createElement("B");
+          const brandName = adsDOM.createElement("B");
           brandName.classList.add("brand-name");
           brandName.innerHTML = BRAND_NAME;
           productDetailsWrapper.appendChild(brandName);
 
-          const productName = document.createElement("P");
+          const productName = adsDOM.createElement("P");
           productName.classList.add("product-name");
           productName.innerHTML = product.name;
           productDetailsWrapper.appendChild(productName);
 
-          const productPrice = document.createElement("EM");
+          const productPrice = adsDOM.createElement("EM");
           productPrice.classList.add("product-price");
           productPrice.innerHTML = product.currency + product.price;
           productDetailsWrapper.appendChild(productPrice);
@@ -1544,14 +1545,14 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
       //     </div>
       // </div>
 
-      const sixProductWrapper = document.createElement("DIV");
+      const sixProductWrapper = adsDOM.createElement("DIV");
       sixProductWrapper.classList.add("six-product-wrapper");
       productsContainer.appendChild(sixProductWrapper);
 
       let countIndex = 0;
       for (let index = 1; index <= 3; index++) {
 
-        const row = document.createElement("DIV");
+        const row = adsDOM.createElement("DIV");
         row.classList.add("row");
         row.classList.add("secondary-product-row");
         sixProductWrapper.appendChild(row);
@@ -1559,51 +1560,51 @@ function initializeRenderingProductsBasedOnCount(adRenderingProducts, productsCo
         for (let i = 1; i <= 2; i++) {
           const product = adRenderingProducts[countIndex];
 
-          const col = document.createElement("DIV");
+          const col = adsDOM.createElement("DIV");
           col.classList.add("col-6");
           row.appendChild(col);
 
-          const productItemRedirectContainer = document.createElement("A");
+          const productItemRedirectContainer = adsDOM.createElement("A");
           productItemRedirectContainer.classList.add("product-redirection-link");
           productItemRedirectContainer.style = "text-decoration: none;";
           productItemRedirectContainer.href = product.url;
           productItemRedirectContainer.target = "_blank";
           col.appendChild(productItemRedirectContainer);
 
-          const productItemContainer = document.createElement("DIV");
+          const productItemContainer = adsDOM.createElement("DIV");
           productItemContainer.classList.add("product-item-container");
           productItemContainer.addEventListener("click", function () {
             window.open(product.url, "_blank");
           });
           productItemRedirectContainer.appendChild(productItemContainer);
 
-          const productItem = document.createElement("DIV");
+          const productItem = adsDOM.createElement("DIV");
           productItem.classList.add("product-item");
           productItem.style.backgroundImage = `url(${product.image})`;
           productItemContainer.appendChild(productItem);
 
           if (product.sale) {
-            const onSaleTag = document.createElement('SPAN');
+            const onSaleTag = adsDOM.createElement('SPAN');
             onSaleTag.classList.add("onsale");
             onSaleTag.innerHTML = "ON SALE";
             productItem.appendChild(onSaleTag);
           }
 
-          const productDetailsWrapper = document.createElement("DIV");
+          const productDetailsWrapper = adsDOM.createElement("DIV");
           productDetailsWrapper.classList.add("product-details-wrapper");
           productItem.appendChild(productDetailsWrapper);
 
-          const brandName = document.createElement("B");
+          const brandName = adsDOM.createElement("B");
           brandName.classList.add("brand-name");
           brandName.innerHTML = BRAND_NAME;
           productDetailsWrapper.appendChild(brandName);
 
-          const productName = document.createElement("P");
+          const productName = adsDOM.createElement("P");
           productName.classList.add("product-name");
           productName.innerHTML = product.name;
           productDetailsWrapper.appendChild(productName);
 
-          const productPrice = document.createElement("EM");
+          const productPrice = adsDOM.createElement("EM");
           productPrice.classList.add("product-price");
           productPrice.innerHTML = product.currency + product.price;
           productDetailsWrapper.appendChild(productPrice);
