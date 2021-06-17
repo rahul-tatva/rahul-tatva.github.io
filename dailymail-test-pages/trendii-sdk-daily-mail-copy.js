@@ -107,8 +107,7 @@ class TRENDiiAd {
         };
 
 
-
-        if (false) {
+        if (adsWindow.IntersectionObserverV1) {
           this.intersectionObserver = new adsWindow.IntersectionObserverV1(
             this.handleIntersectionEntries.bind(this),
             options
