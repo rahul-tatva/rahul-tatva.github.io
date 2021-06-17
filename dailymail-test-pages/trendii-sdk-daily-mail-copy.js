@@ -103,7 +103,7 @@ class TRENDiiAd {
         const options = {
           // root: adsDOM.body,
           rootMargin: "0px",
-          threshold: 0.1,
+          threshold: 0.3,
         };
 
 
@@ -153,7 +153,6 @@ class TRENDiiAd {
       // if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
       if (entry.isIntersecting) {
         const visibleParentEl = entry.target;
-
         observer.unobserve(entry.target);
         console.log("observer unregistered for ", visibleParentEl);
         // console.log(visibleParentEl);
