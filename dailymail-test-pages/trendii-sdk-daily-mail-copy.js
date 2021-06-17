@@ -166,7 +166,7 @@ class TRENDiiAd {
         const requestBody = {
           webpageUrl: adsWindow.location.href,
           imageUrls: imagesPresentInSameParent,
-          publisherId: 1,
+          publisherId: 2,
         };
         const headers = new Headers();
         headers.append("Content-Type", "application/json");
