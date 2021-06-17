@@ -1,7 +1,3 @@
-var intersectionObserver;
-
-
-
 var adsWindow = window.top;
 var IntersectionObserverV1 = adsWindow.IntersectionObserverV1;
 var adsDOM = adsWindow.document;
@@ -106,12 +102,12 @@ class TRENDiiAd {
         };
 
         if (adsWindow.IntersectionObserverV1) {
-          intersectionObserver = new IntersectionObserverV1(
+          this.intersectionObserver = new IntersectionObserverV1(
             this.handleIntersectionEntries.bind(this),
             options
           );
         } else {
-          intersectionObserver = new IntersectionObserver(
+          this.intersectionObserver = new IntersectionObserver(
             this.handleIntersectionEntries.bind(this),
             options
           );
@@ -125,7 +121,7 @@ class TRENDiiAd {
         }
         // start observing them
         allParentEls.forEach((parentEl) => {
-          intersectionObserver.observe(parentEl);
+          this.intersectionObserver.observe(parentEl);
         });
         this.log(this.feedProducts);
       });
