@@ -150,8 +150,8 @@ class TRENDiiAd {
     entries.forEach((entry) => {
       // console.log(entry);
       // check if image el is visible in screen/window
-      if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
-        // if (entry.isIntersecting) {
+      // if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+      if (entry.isIntersecting) {
         const visibleParentEl = entry.target;
 
         observer.unobserve(entry.target);
