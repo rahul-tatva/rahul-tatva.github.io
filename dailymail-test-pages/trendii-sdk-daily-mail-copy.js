@@ -103,7 +103,7 @@ class TRENDiiAd {
         const options = {
           // root: adsDOM.body,
           rootMargin: "0px",
-          threshold: 0.3,
+          threshold: 0.1,
         };
 
 
@@ -459,7 +459,7 @@ class TRENDiiAd {
         // foundImageElement.after(adContainerMobile);
 
         // handle the mobile version
-        if (adsWindow.innerWidth < MOBILE_WIDTH) {
+        if (adsWindow.innerWidth <= MOBILE_WIDTH) {
           // append the found ad just after the image caption
           const titleOfImageGroup = parentEl
             .getElementsByTagName(MOBILE_DAILY_MAIL_IMAGE_CAPTION_TAG)[0];
