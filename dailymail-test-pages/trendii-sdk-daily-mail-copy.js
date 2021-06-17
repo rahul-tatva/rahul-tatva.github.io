@@ -243,7 +243,7 @@ class TRENDiiAd {
                       this.slidersAppendedArray.push(foundImageData.sliderId);
                       console.log(adsWindow.Splide);
                       if (adsWindow.Splide) {
-                        const testSlider = new Splide(sliderIdSelector, {
+                        const testSlider = new adsWindow.Splide(sliderIdSelector, {
                           type: 'loop',
                           pagination: false,
                           gap: 10,
