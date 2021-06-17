@@ -103,7 +103,7 @@ class TRENDiiAd {
         const options = {
           // root: adsDOM.body,
           rootMargin: "0px",
-          threshold: 0.5,
+          threshold: 0.1,
         };
 
 
@@ -159,7 +159,11 @@ class TRENDiiAd {
         // console.log(visibleParentEl);
         // this.log(visibleParentEl.getElementsByTagName('img'));
         const imageElsInsideSameParent = Array.from(visibleParentEl.getElementsByTagName('img'));
-        const imagesPresentInSameParent = imageElsInsideSameParent.map(img => img.getAttribute("src"))
+        const imagesPresentInSameParent = imageElsInsideSameParent
+          .map(img => {
+            if (img.getAttribute("data-src")) return img.getAttribute("data-src");
+            return img.getAttribute("src");
+          })
           // filter null values or undefined
           .filter(x => x);
         // call the apis here
