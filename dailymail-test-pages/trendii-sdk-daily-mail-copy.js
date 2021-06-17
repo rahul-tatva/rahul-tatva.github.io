@@ -20,12 +20,14 @@ const MOBILE_DAILY_MAIL_IMAGE_CAPTION_TAG = 'figcaption';
 const RETAILER_NAME_TO_REPLACE_WITH = "{{RETAILER_NAME}}";
 const SLIDER_CLASS_TO_REPLACE_WITH = "trendiiSliderUniqueString";
 const SCRIPT_ID_TO_REPLACE = "trendiiSliderUniqueString-script";
-var intersectionObserver;
+// var intersectionObserver;
 
 
 
 var adsWindow = window.top;
-var IntersectionObserverV1 = adsWindow.IntersectionObserverV1;
+// if (adsWindow.IntersectionObserverV1) {
+//   var IntersectionObserverV1 = adsWindow.IntersectionObserverV1;
+// }
 var adsDOM = adsWindow.document;
 class TRENDiiAd {
   constructor(options) {
@@ -105,12 +107,12 @@ class TRENDiiAd {
         };
 
         if (adsWindow.IntersectionObserverV1) {
-          intersectionObserver = new IntersectionObserverV1(
+          this.intersectionObserver = new adsWindow.IntersectionObserverV1(
             this.handleIntersectionEntries.bind(this),
             options
           );
         } else {
-          intersectionObserver = new IntersectionObserver(
+          this.intersectionObserver = new IntersectionObserver(
             this.handleIntersectionEntries.bind(this),
             options
           );
@@ -124,7 +126,7 @@ class TRENDiiAd {
         }
         // start observing them
         allParentEls.forEach((parentEl) => {
-          intersectionObserver.observe(parentEl);
+          this.intersectionObserver.observe(parentEl);
         });
         this.log(this.feedProducts);
       });
