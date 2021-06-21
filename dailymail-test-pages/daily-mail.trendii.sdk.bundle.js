@@ -63,7 +63,7 @@ trendii.globals.API_GET_NATIVE_AD_SLIDER_TEMPLATE = `${trendii.globals.cdn}/temp
 
 trendii.globals.API_GET_NATIVE_AD_SIMPLE_TEMPLATE = `${trendii.globals.cdn}/templates/products-728X90-all-product-dynamic.html`;
 
-trendii.log = function () {
+trendii.log = function (message) {
     if (trendii.env === "test") {
         console.log("[Trendii.SDK]", message);
     }
