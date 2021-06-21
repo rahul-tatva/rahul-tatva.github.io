@@ -1,10 +1,4 @@
-if (!trendii) {
-    trendii = {};
-} else {
-    if (typeof trendii != "object") {
-        throw new Error("trendii already exists and is not an object.");
-    }
-}
+var trendii = {};
 
 trendii.DESKTOP_IMAGE_GROUP_PARENT_DIV_CLASS = ".mol-img-group";
 
@@ -32,7 +26,7 @@ trendii.nativeAdSimpleTemplateHTMLString = null;
 
 trendii.nativeAdSliderTemplateHTMLString = null;
 
-trendii.init = function() {
+trendii.init = function () {
     trendii.log("SDK init method called");
     trendii.globals.PUBLISHER_ID = 2;
     trendii.loadScriptAndCssToHead();
@@ -73,21 +67,21 @@ trendii.globals.API_GET_NATIVE_AD_SIMPLE_TEMPLATE = `${trendii.globals.cdn}/temp
 
 module.exports = trendii.globals;
 
-trendii.log = function() {
+trendii.log = function () {
     if (trendii.env === "test") {
         console.log("[Trendii.SDK]", message);
     }
 };
 
-trendii.logError = function(err) {
+trendii.logError = function (err) {
     console.error("[Trendii.SDK]", err.stack ? err.stack : err.toString());
 };
 
-trendii.getRetailerLogoPath = function(fileName) {
+trendii.getRetailerLogoPath = function (fileName) {
     return `${trendii.globals.CDN}/iamges/retailers-logo/${fileName}`;
 };
 
-trendii.createHtmlElement = function(element, classes, innerHTML, style, href, target) {
+trendii.createHtmlElement = function (element, classes, innerHTML, style, href, target) {
     const htmlElement = trendii.adsDOM.createElement(element);
     htmlElement.classList.add(classes);
     if (innerHTML) {
@@ -105,15 +99,15 @@ trendii.createHtmlElement = function(element, classes, innerHTML, style, href, t
     return htmlElement;
 };
 
-trendii.setPublisherName = function(name) {
+trendii.setPublisherName = function (name) {
     trendii.globals.PUBLISHER_NAME = name;
 };
 
-trendii.loadScriptIntoHead = function(url) {
+trendii.loadScriptIntoHead = function (url) {
     trendii.adsDOM.head.appendChild(trendii.adsDOM.createElement("script")).src = url;
 };
 
-trendii.loadStyleSheetIntoHead = function(url) {
+trendii.loadStyleSheetIntoHead = function (url) {
     let styles = trendii.adsDOM.createElement("link");
     styles.type = "text/css";
     styles.rel = "stylesheet";
@@ -121,7 +115,7 @@ trendii.loadStyleSheetIntoHead = function(url) {
     trendii.adsDOM.head.appendChild(styles);
 };
 
-trendii.loadScriptAndCssToHead = function() {
+trendii.loadScriptAndCssToHead = function () {
     if (trendii.env === "test") {
         trendii.loadScriptIntoHead(`${trendii.globals.cdn}/scripts/common/intersection-observer.js`);
         trendii.loadScriptIntoHead(`${trendii.globals.cdn}/scripts/common/splide.js`);
@@ -132,9 +126,9 @@ trendii.loadScriptAndCssToHead = function() {
     trendii.loadStyleSheetIntoHead(`${trendii.globals.cdn}/styles/common/splide-core.min.css`);
 };
 
-trendii.startAdGenerationProcess = function() {
+trendii.startAdGenerationProcess = function () {
     try {
-        Promise.all([ fetch(trendii.globals.API_GET_NATIVE_AD_SLIDER_TEMPLATE).then(response => response.text()), fetch(trendii.globals.API_GET_NATIVE_AD_SIMPLE_TEMPLATE).then(response => response.text()) ]).then(allResponses => {
+        Promise.all([fetch(trendii.globals.API_GET_NATIVE_AD_SLIDER_TEMPLATE).then(response => response.text()), fetch(trendii.globals.API_GET_NATIVE_AD_SIMPLE_TEMPLATE).then(response => response.text())]).then(allResponses => {
             trendii.nativeAdSliderTemplateHTMLString = allResponses[0];
             trendii.nativeAdSimpleTemplateHTMLString = allResponses[1];
             const options = {
@@ -161,7 +155,7 @@ trendii.startAdGenerationProcess = function() {
     }
 };
 
-trendii.handleIntersectionEntries = function(entries, observer) {
+trendii.handleIntersectionEntries = function (entries, observer) {
     try {
         entries.forEach(entry => {
             trendii.handleIntersectionEntry(entry);
@@ -171,7 +165,7 @@ trendii.handleIntersectionEntries = function(entries, observer) {
     }
 };
 
-trendii.handleIntersectionEntry = function(entry) {
+trendii.handleIntersectionEntry = function (entry) {
     try {
         if (entry.isIntersecting) {
             const visibleParentEl = entry.target;
@@ -247,7 +241,7 @@ trendii.handleIntersectionEntry = function(entry) {
                                         adWrapper.setAttribute("data-slider-appended", "true");
                                         adWrapper.style.display = "block";
                                         trendii.log("slider appended");
-                                        testSlider.on("mounted", function() {
+                                        testSlider.on("mounted", function () {
                                             console.log("mounted");
                                         });
                                     }
@@ -268,11 +262,11 @@ trendii.handleIntersectionEntry = function(entry) {
     }
 };
 
-trendii.generatedAdForSingleImage = function(imageData, foundIndex) {
+trendii.generatedAdForSingleImage = function (imageData, foundIndex) {
     imageData.generatedAdHTML = trendii.createAdsForAllProductsInAdvance(imageData, foundIndex);
 };
 
-trendii.createAdTemplatesForAllProducts = function() {
+trendii.createAdTemplatesForAllProducts = function () {
     try {
         trendii.feedProducts.payload.map((imageData, index) => {
             if (imageData.products && imageData.products.length > 0) {
@@ -284,7 +278,7 @@ trendii.createAdTemplatesForAllProducts = function() {
     }
 };
 
-trendii.createAdsForAllProductsInAdvance = function(imageData, index) {
+trendii.createAdsForAllProductsInAdvance = function (imageData, index) {
     try {
         const imageUrl = imageData.imageUrl;
         const BRAND_NAME = imageData.advertiserName;
@@ -296,44 +290,44 @@ trendii.createAdsForAllProductsInAdvance = function(imageData, index) {
         const identifier = `splide${index}`;
         imageData.sliderId = identifier;
         switch (products.length) {
-          case 1:
-          case 2:
-          case 3:
-          case 4:
-            {
-                imageData.isSliderTemplate = false;
-                const domParser = new DOMParser();
-                const simpleTemplateDOM = domParser.parseFromString(trendii.nativeAdSimpleTemplateHTMLString, "text/html");
-                const logoUrl = getRetailerLogoPath(`${advertiserName.toLowerCase()}.png`);
-                const retailerLogoEl = simpleTemplateDOM.getElementById(trendii.globals.RETAILER_LOGO_ID);
-                retailerLogoEl.title = advertiserName;
-                retailerLogoEl.src = logoUrl;
-                const productsContainerEl = simpleTemplateDOM.getElementById(trendii.globals.HTML_TEMPLATE_SIMPLE_CONTAINER_ID);
-                productsContainerEl.innerHTML = "";
-                trendii.initializeRenderingProductsBasedOnCount(products, productsContainerEl);
-                const resultantAdWrapper = simpleTemplateDOM.getElementById(this.HTML_TEMPLATE_AD_WRAPPER_ID);
-                return resultantAdWrapper;
-            }
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+                {
+                    imageData.isSliderTemplate = false;
+                    const domParser = new DOMParser();
+                    const simpleTemplateDOM = domParser.parseFromString(trendii.nativeAdSimpleTemplateHTMLString, "text/html");
+                    const logoUrl = getRetailerLogoPath(`${advertiserName.toLowerCase()}.png`);
+                    const retailerLogoEl = simpleTemplateDOM.getElementById(trendii.globals.RETAILER_LOGO_ID);
+                    retailerLogoEl.title = advertiserName;
+                    retailerLogoEl.src = logoUrl;
+                    const productsContainerEl = simpleTemplateDOM.getElementById(trendii.globals.HTML_TEMPLATE_SIMPLE_CONTAINER_ID);
+                    productsContainerEl.innerHTML = "";
+                    trendii.initializeRenderingProductsBasedOnCount(products, productsContainerEl);
+                    const resultantAdWrapper = simpleTemplateDOM.getElementById(this.HTML_TEMPLATE_AD_WRAPPER_ID);
+                    return resultantAdWrapper;
+                }
 
-          default:
-            {
-                imageData.isSliderTemplate = true;
-                const newDOM = this.nativeAdSliderTemplateHTMLString.replaceAll(trendii.SLIDER_CLASS_TO_REPLACE_WITH, identifier);
-                const domParser = new DOMParser();
-                const templatesDOM = domParser.parseFromString(newDOM, "text/html");
-                const logoUrl = getRetailerLogoPath(`${advertiserName.toLowerCase()}.png`);
-                const retailerLogoEl = templatesDOM.getElementById(RETAILER_LOGO_ID);
-                retailerLogoEl.title = advertiserName;
-                retailerLogoEl.src = logoUrl;
-                const adProductsSliderContainer = templatesDOM.getElementById(identifier);
-                adProductsSliderContainer.style.display = "none";
-                let productsContainerEl = templatesDOM.getElementById(this.HTML_TEMPLATE_SLIDER_CONTAINER_ID);
-                productsContainerEl.innerHTML = "";
-                products.forEach(product => trendii.createSliderItemProduct(product, productsContainerEl));
-                const resultantAdWrapper = templatesDOM.getElementById(trendii.globals.HTML_TEMPLATE_AD_WRAPPER_ID);
-                resultantAdWrapper.style.display = "none";
-                return resultantAdWrapper;
-            }
+            default:
+                {
+                    imageData.isSliderTemplate = true;
+                    const newDOM = this.nativeAdSliderTemplateHTMLString.replaceAll(trendii.SLIDER_CLASS_TO_REPLACE_WITH, identifier);
+                    const domParser = new DOMParser();
+                    const templatesDOM = domParser.parseFromString(newDOM, "text/html");
+                    const logoUrl = getRetailerLogoPath(`${advertiserName.toLowerCase()}.png`);
+                    const retailerLogoEl = templatesDOM.getElementById(RETAILER_LOGO_ID);
+                    retailerLogoEl.title = advertiserName;
+                    retailerLogoEl.src = logoUrl;
+                    const adProductsSliderContainer = templatesDOM.getElementById(identifier);
+                    adProductsSliderContainer.style.display = "none";
+                    let productsContainerEl = templatesDOM.getElementById(this.HTML_TEMPLATE_SLIDER_CONTAINER_ID);
+                    productsContainerEl.innerHTML = "";
+                    products.forEach(product => trendii.createSliderItemProduct(product, productsContainerEl));
+                    const resultantAdWrapper = templatesDOM.getElementById(trendii.globals.HTML_TEMPLATE_AD_WRAPPER_ID);
+                    resultantAdWrapper.style.display = "none";
+                    return resultantAdWrapper;
+                }
         }
     } catch (err) {
         trendii.logError(err);
@@ -341,7 +335,7 @@ trendii.createAdsForAllProductsInAdvance = function(imageData, index) {
     }
 };
 
-trendii.getAllParentImageGroupClassMobile = function() {
+trendii.getAllParentImageGroupClassMobile = function () {
     try {
         let allParentElements;
         if (trendii.adsWindow.innerWidth <= trendii.globals.MOBILE_WIDTH) {
@@ -391,14 +385,14 @@ trendii.getAllParentImageGroupClassMobile = function() {
     }
 };
 
-trendii.createSliderItemProduct = function(product, productsContainer) {
+trendii.createSliderItemProduct = function (product, productsContainer) {
     try {
         const sliderItem = trendii.createHtmlElement("LI", "splide__slide");
         productsContainer.appendChild(sliderItem);
         const productItemRedirectContainer = trendii.createHtmlElement("A", "product-redirection-link", null, "text-decoration: none;", product.url, "_blank");
         sliderItem.appendChild(productItemRedirectContainer);
         const productItemContainer = trendii.createHtmlElement("DIV", "product-item-container");
-        productItemContainer.addEventListener("click", function() {
+        productItemContainer.addEventListener("click", function () {
             adsWindow.open(product.url, "_blank");
         });
         productItemRedirectContainer.appendChild(productItemContainer);
@@ -409,7 +403,7 @@ trendii.createSliderItemProduct = function(product, productsContainer) {
             productItem.appendChild(trendii.createHtmlElement("SPAN", "onsale", "ON SALE"));
         }
         const productDetailsWrapper = trendii.createHtmlElement("DIV", "product-details-wrapper");
-        productDetailsWrapper.addEventListener("click", function() {
+        productDetailsWrapper.addEventListener("click", function () {
             adsWindow.open(product.url, "_blank");
         });
         productItem.appendChild(productDetailsWrapper);
@@ -424,14 +418,14 @@ trendii.createSliderItemProduct = function(product, productsContainer) {
     }
 };
 
-trendii.createProductItemHtml = function(product, row, cssClass, which) {
+trendii.createProductItemHtml = function (product, row, cssClass, which) {
     try {
         const col = trendii.createHtmlElement("DIV", cssClass);
         row.appendChild(col);
         const productItemRedirectContainer = trendii.createHtmlElement("A", "product-redirection-link", null, "text-decoration: none;", product.url, "_blank");
         col.appendChild(productItemRedirectContainer);
         const productItemContainer = trendii.createHtmlElement("DIV", "product-item-container");
-        productItemContainer.addEventListener("click", function() {
+        productItemContainer.addEventListener("click", function () {
             adsWindow.open(product.url, "_blank");
         });
         productItemRedirectContainer.appendChild(productItemContainer);
@@ -463,66 +457,66 @@ trendii.createProductItemHtml = function(product, row, cssClass, which) {
     }
 };
 
-trendii.initializeRenderingProductsBasedOnCount = function(adRenderingProducts, productsContainer) {
+trendii.initializeRenderingProductsBasedOnCount = function (adRenderingProducts, productsContainer) {
     switch (adRenderingProducts.length) {
-      case 1:
-        {
-            const product = adRenderingProducts[0];
-            const oneProductWrapper = trendii.createHtmlElement("DIV", "one-product-wrapper");
-            productsContainer.appendChild(oneProductWrapper);
-            const row = trendii.createHtmlElement("DIV", "row");
-            oneProductWrapper.appendChild(row);
-            trendii.createProductItemHtml(product, row, "col-12", adRenderingProducts.length);
-            break;
-        }
-
-      case 2:
-        {
-            const twoProductWrapper = adsDOM.createElement("DIV");
-            twoProductWrapper.classList.add("two-product-wrapper");
-            productsContainer.appendChild(twoProductWrapper);
-            const row = adsDOM.createElement("DIV");
-            row.classList.add("row");
-            twoProductWrapper.appendChild(row);
-            for (let i = 0; i <= 1; i++) {
-                trendii.createProductItemHtml(adRenderingProducts[i], row, "col-6", adRenderingProducts.length);
+        case 1:
+            {
+                const product = adRenderingProducts[0];
+                const oneProductWrapper = trendii.createHtmlElement("DIV", "one-product-wrapper");
+                productsContainer.appendChild(oneProductWrapper);
+                const row = trendii.createHtmlElement("DIV", "row");
+                oneProductWrapper.appendChild(row);
+                trendii.createProductItemHtml(product, row, "col-12", adRenderingProducts.length);
+                break;
             }
-            break;
-        }
 
-      case 3:
-        {
-            const threeProductWrapper = adsDOM.createElement("DIV");
-            threeProductWrapper.classList.add("three-product-wrapper");
-            productsContainer.appendChild(threeProductWrapper);
-            const row = adsDOM.createElement("DIV");
-            row.classList.add("row");
-            row.classList.add("row-cols-3");
-            threeProductWrapper.appendChild(row);
-            for (let i = 0; i <= 2; i++) {
-                trendii.createProductItemHtml(adRenderingProducts[i], row, "col", adRenderingProducts.length);
+        case 2:
+            {
+                const twoProductWrapper = adsDOM.createElement("DIV");
+                twoProductWrapper.classList.add("two-product-wrapper");
+                productsContainer.appendChild(twoProductWrapper);
+                const row = adsDOM.createElement("DIV");
+                row.classList.add("row");
+                twoProductWrapper.appendChild(row);
+                for (let i = 0; i <= 1; i++) {
+                    trendii.createProductItemHtml(adRenderingProducts[i], row, "col-6", adRenderingProducts.length);
+                }
+                break;
             }
-            break;
-        }
 
-      case 4:
-        {
-            const fourProductWrapper = adsDOM.createElement("DIV");
-            fourProductWrapper.classList.add("four-product-wrapper");
-            productsContainer.appendChild(fourProductWrapper);
-            const row = adsDOM.createElement("DIV");
-            row.classList.add("row");
-            row.classList.add("row-cols-4");
-            fourProductWrapper.appendChild(row);
-            for (let i = 0; i <= 3; i++) {
-                trendii.createProductItemHtml(adRenderingProducts[i], row, "col", adRenderingProducts.length);
+        case 3:
+            {
+                const threeProductWrapper = adsDOM.createElement("DIV");
+                threeProductWrapper.classList.add("three-product-wrapper");
+                productsContainer.appendChild(threeProductWrapper);
+                const row = adsDOM.createElement("DIV");
+                row.classList.add("row");
+                row.classList.add("row-cols-3");
+                threeProductWrapper.appendChild(row);
+                for (let i = 0; i <= 2; i++) {
+                    trendii.createProductItemHtml(adRenderingProducts[i], row, "col", adRenderingProducts.length);
+                }
+                break;
             }
-            break;
-        }
 
-      default:
-        {
-            break;
-        }
+        case 4:
+            {
+                const fourProductWrapper = adsDOM.createElement("DIV");
+                fourProductWrapper.classList.add("four-product-wrapper");
+                productsContainer.appendChild(fourProductWrapper);
+                const row = adsDOM.createElement("DIV");
+                row.classList.add("row");
+                row.classList.add("row-cols-4");
+                fourProductWrapper.appendChild(row);
+                for (let i = 0; i <= 3; i++) {
+                    trendii.createProductItemHtml(adRenderingProducts[i], row, "col", adRenderingProducts.length);
+                }
+                break;
+            }
+
+        default:
+            {
+                break;
+            }
     }
 };
