@@ -50,7 +50,7 @@ trendii.globals = {
     PUBLISHER_NAME: "",
     PUBLISHER_ID: 0,
     MOBILE_WIDTH: 480,
-    CDN: "https://cdn.trendii.com/native-ads-sdk/test/",
+    CDN: "https://cdn.trendii.com/native-ads-sdk/test",
     API_GET_NATIVE_AD_PRODUCT: `https://beeswaxcreatives.trendii.com/img-creatives`,
     AD_PRODUCTS_CONTAINER: "trendii-sdk-ad-products-container",
     RETAILER_LOGO_ID: "retailer-logo",
