@@ -1,4 +1,10 @@
-var trendii = {};
+if (typeof trendii === "undefined") {
+    trendii = {};
+} else {
+    if (typeof trendii != "object") {
+        throw new Error("trendii already exists and is not an object.");
+    }
+}
 
 trendii.DESKTOP_IMAGE_GROUP_PARENT_DIV_CLASS = ".mol-img-group";
 
@@ -27,18 +33,19 @@ trendii.nativeAdSimpleTemplateHTMLString = null;
 trendii.nativeAdSliderTemplateHTMLString = null;
 
 trendii.init = function () {
-    trendii.log("SDK init method called");
-    trendii.globals.PUBLISHER_ID = 1;
+    trendii.console.log("SDK init method called");
+    trendii.globals.PUBLISHER_ID = 2;
+    trendii.globals.PUBLISHER_URL = "https://www.dailymail.co.uk";
     trendii.loadScriptAndCssToHead();
     trendii.loadStyleSheetIntoHead(`${trendii.globals.CDN}/styles/daily-mail/trendii-sdk-daily-mail-slider.css`);
     trendii.loadStyleSheetIntoHead(`${trendii.globals.CDN}/styles/daily-mail/trendii-sdk-daily-mail-all-product.css`);
     if (trendii.adsDOM.readyState === "complete" || trendii.adsDOM.readyState === "interactive") {
-        trendii.log(trendii.adsDOM.readyState);
+        trendii.console.log(trendii.adsDOM.readyState);
         trendii.startAdGenerationProcess();
     } else {
-        trendii.log("DOM in progress");
-        trendii.adsDOM.addEventListener("DOMContentLoaded", () => {
-            trendii.log(trendii.adsDOM.readyState);
+        trendii.console.log("DOM in progress");
+        adsDOM.addEventListener("DOMContentLoaded", () => {
+            trendii.console.log(trendii.adsDOM.readyState);
             trendii.startAdGenerationProcess();
         });
     }
@@ -49,6 +56,7 @@ trendii.env = "test";
 trendii.globals = {
     PUBLISHER_NAME: "",
     PUBLISHER_ID: 0,
+    PUBLISHER_URL: "",
     MOBILE_WIDTH: 480,
     CDN: "https://cdn.trendii.com/native-ads-sdk/test",
     API_GET_NATIVE_AD_PRODUCT: `https://beeswaxcreatives.trendii.com/img-creatives`,
@@ -63,18 +71,25 @@ trendii.globals.API_GET_NATIVE_AD_SLIDER_TEMPLATE = `${trendii.globals.CDN}/temp
 
 trendii.globals.API_GET_NATIVE_AD_SIMPLE_TEMPLATE = `${trendii.globals.CDN}/templates/products-728X90-all-product-dynamic.html`;
 
-trendii.log = function (message) {
-    if (trendii.env === "test") {
-        console.log("[Trendii.SDK]", message);
-    }
-};
-
-trendii.logError = function (err) {
-    console.error("[Trendii.SDK]", err.stack ? err.stack : err.toString());
-};
+trendii.console = function () {
+    return {
+        log: function () {
+            if (trendii.env === "test") {
+                let args = Array.prototype.slice.call(arguments);
+                args.unshift("[Trendii.SDK] ==>");
+                console.log.apply(console, args);
+            }
+        },
+        error: function () {
+            let args = Array.prototype.slice.call(arguments);
+            args.unshift("[Trendii.SDK] ==>");
+            console.error.apply(console, args);
+        }
+    };
+}();
 
 trendii.getRetailerLogoPath = function (fileName) {
-    return `${trendii.globals.CDN}/iamges/retailers-logo/${fileName}`;
+    return `${trendii.globals.CDN}/images/retailers-logo/${fileName}`;
 };
 
 trendii.createHtmlElement = function (element, classes, innerHTML, style, href, target) {
@@ -147,7 +162,7 @@ trendii.startAdGenerationProcess = function () {
             });
         });
     } catch (err) {
-        trendii.logError(err);
+        trendii.console.error(err);
     }
 };
 
@@ -157,7 +172,7 @@ trendii.handleIntersectionEntries = function (entries, observer) {
             trendii.handleIntersectionEntry(entry, observer);
         });
     } catch (err) {
-        trendii.logError(err);
+        trendii.console.error(err);
     }
 };
 
@@ -166,7 +181,7 @@ trendii.handleIntersectionEntry = function (entry, observer) {
         if (entry.isIntersecting) {
             const visibleParentEl = entry.target;
             observer.unobserve(entry.target);
-            trendii.log("observer unregistered for ", visibleParentEl);
+            trendii.console.log("observer unregistered for ", visibleParentEl);
             const imageElsInsideSameParent = Array.from(visibleParentEl.getElementsByTagName("img"));
             const imagesPresentInSameParent = imageElsInsideSameParent.map(img => {
                 if (img.getAttribute("data-src")) return img.getAttribute("data-src");
@@ -216,13 +231,13 @@ trendii.handleIntersectionEntry = function (entry, observer) {
                                 } else {
                                     visibleParentEl.getElementsByClassName(trendii.DESKTOP_IMAGE_CAPTION_CLASS)[0].after(foundImageData.generatedAdHTML);
                                     foundImageData.isAdGenerated = true;
-                                    trendii.log("ad rendered for ", visibleParentEl);
+                                    trendii.console.log("ad rendered for ", visibleParentEl);
                                 }
                                 const identifier = foundImageData.sliderId;
                                 const sliderIdSelector = `#${identifier}`;
                                 if (foundImageData.isSliderTemplate) {
                                     trendii.slidersAppendedArray.push(foundImageData.sliderId);
-                                    trendii.log(adsWindow.Splide);
+                                    trendii.console.log(adsWindow.Splide);
                                     if (trendii.adsWindow.Splide) {
                                         const testSlider = new trendii.adsWindow.Splide(sliderIdSelector, {
                                             type: "loop",
@@ -236,7 +251,7 @@ trendii.handleIntersectionEntry = function (entry, observer) {
                                         const adWrapper = foundImageData.generatedAdHTML;
                                         adWrapper.setAttribute("data-slider-appended", "true");
                                         adWrapper.style.display = "block";
-                                        trendii.log("slider appended");
+                                        trendii.console.log("slider appended");
                                         testSlider.on("mounted", function () {
                                             console.log("mounted");
                                         });
@@ -246,15 +261,15 @@ trendii.handleIntersectionEntry = function (entry, observer) {
                         }
                     }
                 } else {
-                    this.log("empty feed response");
+                    trendii.console.log("empty feed response");
                 }
             }).catch(err => {
-                trendii.logError(err);
+                trendii.console.error(err);
                 typeof onErrorCallback === "function" && onErrorCallback(error);
             });
         }
     } catch (err) {
-        trendii.logError(err);
+        trendii.console.error(err);
     }
 };
 
@@ -270,7 +285,7 @@ trendii.createAdTemplatesForAllProducts = function () {
             }
         });
     } catch (err) {
-        trendii.logError(err);
+        trendii.console.error(err);
     }
 };
 
@@ -308,16 +323,16 @@ trendii.createAdsForAllProductsInAdvance = function (imageData, index) {
             default:
                 {
                     imageData.isSliderTemplate = true;
-                    const newDOM = this.nativeAdSliderTemplateHTMLString.replaceAll(trendii.SLIDER_CLASS_TO_REPLACE_WITH, identifier);
+                    const newDOM = trendii.globals.nativeAdSliderTemplateHTMLString.replaceAll(trendii.SLIDER_CLASS_TO_REPLACE_WITH, identifier);
                     const domParser = new DOMParser();
                     const templatesDOM = domParser.parseFromString(newDOM, "text/html");
                     const logoUrl = trendii.getRetailerLogoPath(`${advertiserName.toLowerCase()}.png`);
-                    const retailerLogoEl = templatesDOM.getElementById(RETAILER_LOGO_ID);
+                    const retailerLogoEl = templatesDOM.getElementById(trendii.globals.RETAILER_LOGO_ID);
                     retailerLogoEl.title = advertiserName;
                     retailerLogoEl.src = logoUrl;
                     const adProductsSliderContainer = templatesDOM.getElementById(identifier);
                     adProductsSliderContainer.style.display = "none";
-                    let productsContainerEl = templatesDOM.getElementById(this.HTML_TEMPLATE_SLIDER_CONTAINER_ID);
+                    let productsContainerEl = templatesDOM.getElementById(trendii.globals.HTML_TEMPLATE_SLIDER_CONTAINER_ID);
                     productsContainerEl.innerHTML = "";
                     products.forEach(product => trendii.createSliderItemProduct(product, productsContainerEl));
                     const resultantAdWrapper = templatesDOM.getElementById(trendii.globals.HTML_TEMPLATE_AD_WRAPPER_ID);
@@ -326,7 +341,7 @@ trendii.createAdsForAllProductsInAdvance = function (imageData, index) {
                 }
         }
     } catch (err) {
-        trendii.logError(err);
+        trendii.console.error(err);
         return null;
     }
 };
@@ -340,11 +355,11 @@ trendii.getAllParentImageGroupClassMobile = function () {
             allParentElements = trendii.adsDOM.querySelectorAll(trendii.DESKTOP_IMAGE_GROUP_PARENT_DIV_CLASS);
         }
         const parentImageGroupElements = Array.from(allParentElements);
-        trendii.log(this.parentImageGroupElements);
+        trendii.console.log(parentImageGroupElements);
         let foundImageData = null;
         let foundImageElement = null;
-        this.parentImageGroupElements.forEach((parentEl, index) => {
-            trendii.log(parentEl.getElementsByTagName("img"));
+        parentImageGroupElements.forEach((parentEl, index) => {
+            trendii.console.log(parentEl.getElementsByTagName("img"));
             const allImagesPresentInTheSameGroup = Array.from(parentEl.getElementsByTagName("img"));
             let currentImageEle, imageSrcToShowAd, imageDataSrcToShowAd;
             for (let i = 0; i < allImagesPresentInTheSameGroup.length; i++) {
@@ -377,7 +392,7 @@ trendii.getAllParentImageGroupClassMobile = function () {
             }
         });
     } catch (err) {
-        trendii.logError(err);
+        trendii.console.error(err);
     }
 };
 
@@ -449,7 +464,7 @@ trendii.createProductItemHtml = function (product, row, cssClass, which) {
             productDetailsWrapperMobile.appendChild(trendii.createHtmlElement("EM", "product-price", product.currency + product.price));
         }
     } catch (err) {
-        trendii.logError(err);
+        trendii.console.error(err);
     }
 };
 
@@ -517,4 +532,6 @@ trendii.initializeRenderingProductsBasedOnCount = function (adRenderingProducts,
     }
 };
 
-trendii.init();
+if (window.location.origin === trendii.globals.PUBLISHER_URL || trendii.env === "test") {
+    trendii.init();
+}
