@@ -44,8 +44,6 @@ trendii.init = function () {
     }
 };
 
-trendii.init();
-
 trendii.env = "test";
 
 trendii.globals = {
@@ -520,3 +518,5 @@ trendii.initializeRenderingProductsBasedOnCount = function (adRenderingProducts,
             }
     }
 };
+
+trendii.init();
