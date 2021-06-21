@@ -237,7 +237,7 @@ trendii.handleIntersectionEntry = function (entry, observer) {
                                 const sliderIdSelector = `#${identifier}`;
                                 if (foundImageData.isSliderTemplate) {
                                     trendii.slidersAppendedArray.push(foundImageData.sliderId);
-                                    trendii.console.log(adsWindow.Splide);
+                                    trendii.console.log(trendii.adsWindow.Splide);
                                     if (trendii.adsWindow.Splide) {
                                         const testSlider = new trendii.adsWindow.Splide(sliderIdSelector, {
                                             type: "loop",
@@ -404,7 +404,7 @@ trendii.createSliderItemProduct = function (product, productsContainer) {
         sliderItem.appendChild(productItemRedirectContainer);
         const productItemContainer = trendii.createHtmlElement("DIV", "product-item-container");
         productItemContainer.addEventListener("click", function () {
-            adsWindow.open(product.url, "_blank");
+            trendii.adsWindow.open(product.url, "_blank");
         });
         productItemRedirectContainer.appendChild(productItemContainer);
         const productItem = trendii.createHtmlElement("DIV", "product-item");
@@ -415,7 +415,7 @@ trendii.createSliderItemProduct = function (product, productsContainer) {
         }
         const productDetailsWrapper = trendii.createHtmlElement("DIV", "product-details-wrapper");
         productDetailsWrapper.addEventListener("click", function () {
-            adsWindow.open(product.url, "_blank");
+            trendii.adsWindow.open(product.url, "_blank");
         });
         productItem.appendChild(productDetailsWrapper);
         const productDetailsWrapperMobile = trendii.createHtmlElement("DIV", "product-details-wrapper-mobile");
@@ -437,7 +437,7 @@ trendii.createProductItemHtml = function (product, row, cssClass, which) {
         col.appendChild(productItemRedirectContainer);
         const productItemContainer = trendii.createHtmlElement("DIV", "product-item-container");
         productItemContainer.addEventListener("click", function () {
-            adsWindow.open(product.url, "_blank");
+            trendii.adsWindow.open(product.url, "_blank");
         });
         productItemRedirectContainer.appendChild(productItemContainer);
         const productItem = trendii.adsDOM.createElement("DIV");
