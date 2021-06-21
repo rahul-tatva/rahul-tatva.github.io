@@ -54,8 +54,6 @@ trendii.init = function () {
 
 trendii.env = "production";
 
-trendii.publisherURL = "";
-
 trendii.globals = {
     PUBLISHER_NAME: "",
     PUBLISHER_ID: 0,
