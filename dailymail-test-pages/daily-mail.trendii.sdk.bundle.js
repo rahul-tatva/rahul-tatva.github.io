@@ -154,14 +154,14 @@ trendii.startAdGenerationProcess = function () {
 trendii.handleIntersectionEntries = function (entries, observer) {
     try {
         entries.forEach(entry => {
-            trendii.handleIntersectionEntry(entry);
+            trendii.handleIntersectionEntry(entry, observer);
         });
     } catch (err) {
         trendii.logError(err);
     }
 };
 
-trendii.handleIntersectionEntry = function (entry) {
+trendii.handleIntersectionEntry = function (entry, observer) {
     try {
         if (entry.isIntersecting) {
             const visibleParentEl = entry.target;
