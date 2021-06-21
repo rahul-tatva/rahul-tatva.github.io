@@ -32,10 +32,11 @@ trendii.nativeAdSimpleTemplateHTMLString = null;
 
 trendii.nativeAdSliderTemplateHTMLString = null;
 
+trendii.publisherURL = "https://rahul-tatva.github.io";
+
 trendii.init = function () {
     trendii.console.log("SDK init method called");
     trendii.globals.PUBLISHER_ID = 2;
-    trendii.globals.PUBLISHER_URL = "https://rahul-tatva.github.io";
     trendii.loadScriptAndCssToHead();
     trendii.loadStyleSheetIntoHead(`${trendii.globals.CDN}/styles/daily-mail/trendii-sdk-daily-mail-slider.css`);
     trendii.loadStyleSheetIntoHead(`${trendii.globals.CDN}/styles/daily-mail/trendii-sdk-daily-mail-all-product.css`);
@@ -53,10 +54,11 @@ trendii.init = function () {
 
 trendii.env = "production";
 
+trendii.publisherURL = "";
+
 trendii.globals = {
     PUBLISHER_NAME: "",
     PUBLISHER_ID: 0,
-    PUBLISHER_URL: "",
     MOBILE_WIDTH: 480,
     CDN: "https://cdn.trendii.com/native-ads-sdk",
     API_GET_NATIVE_AD_PRODUCT: `https://beeswaxcreatives.trendii.com/img-creatives`,
@@ -532,6 +534,6 @@ trendii.initializeRenderingProductsBasedOnCount = function (adRenderingProducts,
     }
 };
 
-if (window.location.origin === trendii.globals.PUBLISHER_URL || trendii.env === "test") {
+if (window.location.origin === trendii.publisherURL || trendii.env === "test") {
     trendii.init();
 }
