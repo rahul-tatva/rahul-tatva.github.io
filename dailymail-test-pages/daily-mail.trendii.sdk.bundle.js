@@ -1,1 +1,528 @@
-if(!trendii){trendii={}}else{if(typeof trendii!="object"){throw new Error("trendii already exists and is not an object.")}}trendii.i=".mol-img-group";trendii.t="figure";trendii.o="imageCaption";trendii.l="figcaption";trendii.p="trendiiSliderUniqueString";trendii.u=window.top;trendii.m=trendii.u.document;trendii.D=[];trendii.I;trendii.h=[];trendii._=0;trendii.M=null;trendii.O=null;trendii.init=function(){trendii.log("SDK init method called");trendii.k.g=2;trendii.A();trendii.P(`${trendii.k.L}/styles/daily-mail/trendii-sdk-daily-mail-slider.css`);trendii.P(`${trendii.k.L}/styles/daily-mail/trendii-sdk-daily-mail-all-product.css`);if(adsDOM.readyState==="complete"||adsDOM.readyState==="interactive"){trendii.log(adsDOM.readyState);trendii.T()}else{trendii.log("DOM in progress");adsDOM.addEventListener("DOMContentLoaded",()=>{trendii.log(adsDOM.readyState);trendii.T()})}};trendii.init();trendii.V="test";trendii.k={R:PUBLISHER_NAME,g:PUBLISHER_ID,S:480,$:"https://cdn.trendii.com/native-ads-sdk/test/",N:`https://beeswaxcreatives.trendii.com/img-creatives`,v:"trendii-sdk-ad-products-container",C:"retailer-logo",H:"trendii-native-ad-wrapper",U:"trendii-sdk-ad-products-container",j:"trendii-products-container-728X90"};trendii.k.W=`${trendii.k.L}/templates/products-slider-dynamic.html`;trendii.k.B=`${trendii.k.L}/templates/products-728X90-all-product-dynamic.html`;module.exports=trendii.k;trendii.log=function(){if(trendii.V==="test"){console.log("[Trendii.SDK]",message)}};trendii.G=function(i){console.error("[Trendii.SDK]",i.stack?i.stack:i.toString())};trendii.K=function(i){return`${trendii.k.$}/iamges/retailers-logo/${i}`};trendii.X=function(i,t,e,n,r,d){const o=trendii.m.createElement(i);o.classList.add(t);if(e){o.innerHTML=e}if(n){o.style=n}if(r){o.href=r}if(d){o.target=d}return o};trendii.q=function(i){trendii.k.R=i};trendii.J=function(i){trendii.m.head.appendChild(trendii.m.createElement("script")).src=i};trendii.P=function(i){let t=trendii.m.createElement("link");t.type="text/css";t.rel="stylesheet";t.href=i;trendii.m.head.appendChild(t)};trendii.A=function(){if(trendii.V==="test"){trendii.J(`${trendii.k.L}/scripts/common/intersection-observer.js`);trendii.J(`${trendii.k.L}/scripts/common/splide.js`)}else{trendii.J(`${trendii.k.L}/scripts/common/intersection-observer.min.js`);trendii.J(`${trendii.k.L}/scripts/common/splide.min.js`)}trendii.P(`${trendii.k.L}/styles/common/splide-core.min.css`)};trendii.T=function(){try{Promise.all([fetch(trendii.k.W).then(i=>i.text()),fetch(trendii.k.B).then(i=>i.text())]).then(i=>{trendii.O=i[0];trendii.M=i[1];const t={rootMargin:"0px",threshold:.1};if(trendii.u.F){trendii.I=new trendii.u.F(trendii.Y,t)}else{trendii.I=new IntersectionObserver(trendii.Y,t)}let e;if(trendii.u.innerWidth<=trendii.k.S){e=Array.from(trendii.m.querySelectorAll(trendii.t))}else{e=Array.from(trendii.m.querySelectorAll(trendii.i))}e.forEach(i=>{trendii.I.observe(i)})})}catch(i){trendii.G(i)}};trendii.Y=function(i,t){try{i.forEach(i=>{trendii.Z(i)})}catch(i){trendii.G(i)}};trendii.Z=function(i){try{if(i.isIntersecting){const D=i.target;observer.unobserve(i.target);trendii.log("observer unregistered for ",D);const I=Array.from(D.getElementsByTagName("img"));const t=I.map(i=>{if(i.getAttribute("data-src"))return i.getAttribute("data-src");return i.getAttribute("src")}).filter(i=>i);const e={ii:trendii.u.location.href,ti:t,ei:trendii.k.g};const n=new Headers;n.append("Content-Type","application/json");const r=JSON.stringify(e);const d={method:"POST",headers:n,body:r};fetch(trendii.k.N,d).then(i=>i.json()).then(i=>{if(i!==""){if(i.ni&&i.ni===true){const s=i;let t=null,e=null,n=null,r,d,o;const c=I.length;for(let i=0;i<c;i++){r=I[i];d=r.src;o=r.getAttribute("data-src");n=s.ri.findIndex(i=>i.di===d||o);t=s.ri[n];if(t.oi&&t.oi.length>0){e=r;break}}if(t.oi&&t.oi.length>0){trendii.si(t,trendii._);trendii._++;if(t.ci){if(trendii.u.innerWidth<=trendii.k.S){const p=D.getElementsByTagName(trendii.l)[0];if(p){p.after(t.ci)}else{D.appendChild(t.ci)}}else{D.getElementsByClassName(trendii.o)[0].after(t.ci);t.ai=true;trendii.log("ad rendered for ",D)}const a=t.li;const l=`#${a}`;if(t.pi){trendii.h.push(t.li);trendii.log(adsWindow.ui);if(trendii.u.ui){const u=new trendii.u.ui(l,{type:"loop",fi:false,gap:10,mi:true,Di:true}).mount();const f=trendii.m.getElementById(a);f.style.display="block";const m=t.ci;m.setAttribute("data-slider-appended","true");m.style.display="block";trendii.log("slider appended");u.Ii("mounted",function(){console.log("mounted")})}}}}}}else{this.log("empty feed response")}}).catch(i=>{trendii.G(i);typeof onErrorCallback==="function"&&onErrorCallback(error)})}}catch(i){trendii.G(i)}};trendii.si=function(i,t){i.ci=trendii.hi(i,t)};trendii.wi=function(){try{trendii.D.ri.map((i,t)=>{if(i.oi&&i.oi.length>0){i.ci=trendii.hi(i,t)}})}catch(i){trendii.G(i)}};trendii.hi=function(e,t){try{const n=e.di;const r=e.Ei;let i=e.oi;if(trendii.u.innerWidth>trendii.k.S){i=e.oi.slice(0,4)}const d=e.Ei;const o=`splide${t}`;e.li=o;switch(i.length){case 1:case 2:case 3:case 4:{e.pi=false;const s=new DOMParser;const c=s.parseFromString(trendii.M,"text/html");const a=getRetailerLogoPath(`${d.toLowerCase()}.png`);const l=c.getElementById(trendii.k.C);l.title=d;l.src=a;const p=c.getElementById(trendii.k.j);p.innerHTML="";trendii._i(i,p);const u=c.getElementById(this.H);return u}default:{e.pi=true;const f=this.O.replaceAll(trendii.p,o);const s=new DOMParser;const m=s.parseFromString(f,"text/html");const a=getRetailerLogoPath(`${d.toLowerCase()}.png`);const l=m.getElementById(RETAILER_LOGO_ID);l.title=d;l.src=a;const D=m.getElementById(o);D.style.display="none";let t=m.getElementById(this.U);t.innerHTML="";i.forEach(i=>trendii.Mi(i,t));const u=m.getElementById(trendii.k.H);u.style.display="none";return u}}}catch(i){trendii.G(i);return null}};trendii.Oi=function(){try{let i;if(trendii.u.innerWidth<=trendii.k.S){i=trendii.m.querySelectorAll(trendii.t)}else{i=trendii.m.querySelectorAll(trendii.i)}const t=Array.from(i);trendii.log(this.yi);let a=null;let l=null;this.yi.forEach((i,t)=>{trendii.log(i.getElementsByTagName("img"));const e=Array.from(i.getElementsByTagName("img"));let n,r,d;for(let i=0;i<e.length;i++){n=e[i];r=n.src;d=n.getAttribute("data-src");a=trendii.D.ri.find(i=>i.di===r||d);if(a.ci){l=n;break}}if(a.ci){const o=adsDOM.createElement("div");o.classList.add("adContainer");o.style.background="yellow";o.style.maxHeight="300px";const s=adsDOM.createElement("div");s.classList.add("ads-inside-the-images");if(trendii.u.innerWidth<=trendii.k.S){const c=i.getElementsByTagName(trendii.l)[0];if(c){c.after(a.ci)}else{i.appendChild(a.ci)}}else{i.getElementsByClassName(trendii.o)[0].after(a.ci)}}})}catch(i){trendii.G(i)}};trendii.Mi=function(i,t){try{const e=trendii.X("LI","splide__slide");t.appendChild(e);const n=trendii.X("A","product-redirection-link",null,"text-decoration: none;",i.url,"_blank");e.appendChild(n);const r=trendii.X("DIV","product-item-container");r.addEventListener("click",function(){adsWindow.open(i.url,"_blank")});n.appendChild(r);const d=trendii.X("DIV","product-item");d.style.backgroundImage=`url(${i.gi})`;r.appendChild(d);if(i.bi){d.appendChild(trendii.X("SPAN","onsale","ON SALE"))}const o=trendii.X("DIV","product-details-wrapper");o.addEventListener("click",function(){adsWindow.open(i.url,"_blank")});d.appendChild(o);const s=trendii.X("DIV","product-details-wrapper-mobile");r.appendChild(s);o.appendChild(trendii.X("P","product-name",i.name));s.appendChild(trendii.X("P","product-name",i.name));o.appendChild(trendii.X("EM","product-price",i.currency+i.ki));s.appendChild(trendii.X("EM","product-price",i.currency+i.ki))}catch(i){console.G(i)}};trendii.Ai=function(i,t,e,n){try{const r=trendii.X("DIV",e);t.appendChild(r);const d=trendii.X("A","product-redirection-link",null,"text-decoration: none;",i.url,"_blank");r.appendChild(d);const o=trendii.X("DIV","product-item-container");o.addEventListener("click",function(){adsWindow.open(i.url,"_blank")});d.appendChild(o);const s=adsDOM.createElement("DIV");s.classList.add("product-item");o.appendChild(s);const c=trendii.X("DIV","product-item-image");c.style.backgroundImage=`url(${i.gi})`;s.appendChild(c);if(i.bi){c.appendChild(trendii.X("SPAN","onsale","ON SALE"))}const a=trendii.X("DIV","product-details-wrapper");if(n>3){s.appendChild(a)}else{o.appendChild(a)}a.appendChild(trendii.X("P","product-name",i.name));a.appendChild(trendii.X("EM","product-price",i.currency+i.ki));if(n>2){const l=trendii.X("DIV","product-details-wrapper-mobile");o.appendChild(l);l.appendChild(trendii.X("P","product-name",i.name));l.appendChild(trendii.X("EM","product-price",i.currency+i.ki))}}catch(i){trendii.G(i)}};trendii._i=function(t,i){switch(t.length){case 1:{const e=t[0];const n=trendii.X("DIV","one-product-wrapper");i.appendChild(n);const r=trendii.X("DIV","row");n.appendChild(r);trendii.Ai(e,r,"col-12",t.length);break}case 2:{const d=adsDOM.createElement("DIV");d.classList.add("two-product-wrapper");i.appendChild(d);const r=adsDOM.createElement("DIV");r.classList.add("row");d.appendChild(r);for(let i=0;i<=1;i++){trendii.Ai(t[i],r,"col-6",t.length)}break}case 3:{const o=adsDOM.createElement("DIV");o.classList.add("three-product-wrapper");i.appendChild(o);const r=adsDOM.createElement("DIV");r.classList.add("row");r.classList.add("row-cols-3");o.appendChild(r);for(let i=0;i<=2;i++){trendii.Ai(t[i],r,"col",t.length)}break}case 4:{const s=adsDOM.createElement("DIV");s.classList.add("four-product-wrapper");i.appendChild(s);const r=adsDOM.createElement("DIV");r.classList.add("row");r.classList.add("row-cols-4");s.appendChild(r);for(let i=0;i<=3;i++){trendii.Ai(t[i],r,"col",t.length)}break}default:{break}}};
+if (!trendii) {
+    trendii = {};
+} else {
+    if (typeof trendii != "object") {
+        throw new Error("trendii already exists and is not an object.");
+    }
+}
+
+trendii.DESKTOP_IMAGE_GROUP_PARENT_DIV_CLASS = ".mol-img-group";
+
+trendii.MOBILE_IMAGE_GROUP_PARENT_TAG = "figure";
+
+trendii.DESKTOP_IMAGE_CAPTION_CLASS = "imageCaption";
+
+trendii.MOBILE_IMAGE_CAPTION_TAG = "figcaption";
+
+trendii.SLIDER_CLASS_TO_REPLACE_WITH = "trendiiSliderUniqueString";
+
+trendii.adsWindow = window.top;
+
+trendii.adsDOM = trendii.adsWindow.document;
+
+trendii.feedProducts = [];
+
+trendii.intersectionObserver;
+
+trendii.slidersAppendedArray = [];
+
+trendii.sliderCount = 0;
+
+trendii.nativeAdSimpleTemplateHTMLString = null;
+
+trendii.nativeAdSliderTemplateHTMLString = null;
+
+trendii.init = function() {
+    trendii.log("SDK init method called");
+    trendii.globals.PUBLISHER_ID = 2;
+    trendii.loadScriptAndCssToHead();
+    trendii.loadStyleSheetIntoHead(`${trendii.globals.cdn}/styles/daily-mail/trendii-sdk-daily-mail-slider.css`);
+    trendii.loadStyleSheetIntoHead(`${trendii.globals.cdn}/styles/daily-mail/trendii-sdk-daily-mail-all-product.css`);
+    if (adsDOM.readyState === "complete" || adsDOM.readyState === "interactive") {
+        trendii.log(adsDOM.readyState);
+        trendii.startAdGenerationProcess();
+    } else {
+        trendii.log("DOM in progress");
+        adsDOM.addEventListener("DOMContentLoaded", () => {
+            trendii.log(adsDOM.readyState);
+            trendii.startAdGenerationProcess();
+        });
+    }
+};
+
+trendii.init();
+
+trendii.env = "test";
+
+trendii.globals = {
+    PUBLISHER_NAME: PUBLISHER_NAME,
+    PUBLISHER_ID: PUBLISHER_ID,
+    MOBILE_WIDTH: 480,
+    CDN: "https://cdn.trendii.com/native-ads-sdk/test/",
+    API_GET_NATIVE_AD_PRODUCT: `https://beeswaxcreatives.trendii.com/img-creatives`,
+    AD_PRODUCTS_CONTAINER: "trendii-sdk-ad-products-container",
+    RETAILER_LOGO_ID: "retailer-logo",
+    HTML_TEMPLATE_AD_WRAPPER_ID: "trendii-native-ad-wrapper",
+    HTML_TEMPLATE_SLIDER_CONTAINER_ID: "trendii-sdk-ad-products-container",
+    HTML_TEMPLATE_SIMPLE_CONTAINER_ID: "trendii-products-container-728X90"
+};
+
+trendii.globals.API_GET_NATIVE_AD_SLIDER_TEMPLATE = `${trendii.globals.cdn}/templates/products-slider-dynamic.html`;
+
+trendii.globals.API_GET_NATIVE_AD_SIMPLE_TEMPLATE = `${trendii.globals.cdn}/templates/products-728X90-all-product-dynamic.html`;
+
+module.exports = trendii.globals;
+
+trendii.log = function() {
+    if (trendii.env === "test") {
+        console.log("[Trendii.SDK]", message);
+    }
+};
+
+trendii.logError = function(err) {
+    console.error("[Trendii.SDK]", err.stack ? err.stack : err.toString());
+};
+
+trendii.getRetailerLogoPath = function(fileName) {
+    return `${trendii.globals.CDN}/iamges/retailers-logo/${fileName}`;
+};
+
+trendii.createHtmlElement = function(element, classes, innerHTML, style, href, target) {
+    const htmlElement = trendii.adsDOM.createElement(element);
+    htmlElement.classList.add(classes);
+    if (innerHTML) {
+        htmlElement.innerHTML = innerHTML;
+    }
+    if (style) {
+        htmlElement.style = style;
+    }
+    if (href) {
+        htmlElement.href = href;
+    }
+    if (target) {
+        htmlElement.target = target;
+    }
+    return htmlElement;
+};
+
+trendii.setPublisherName = function(name) {
+    trendii.globals.PUBLISHER_NAME = name;
+};
+
+trendii.loadScriptIntoHead = function(url) {
+    trendii.adsDOM.head.appendChild(trendii.adsDOM.createElement("script")).src = url;
+};
+
+trendii.loadStyleSheetIntoHead = function(url) {
+    let styles = trendii.adsDOM.createElement("link");
+    styles.type = "text/css";
+    styles.rel = "stylesheet";
+    styles.href = url;
+    trendii.adsDOM.head.appendChild(styles);
+};
+
+trendii.loadScriptAndCssToHead = function() {
+    if (trendii.env === "test") {
+        trendii.loadScriptIntoHead(`${trendii.globals.cdn}/scripts/common/intersection-observer.js`);
+        trendii.loadScriptIntoHead(`${trendii.globals.cdn}/scripts/common/splide.js`);
+    } else {
+        trendii.loadScriptIntoHead(`${trendii.globals.cdn}/scripts/common/intersection-observer.min.js`);
+        trendii.loadScriptIntoHead(`${trendii.globals.cdn}/scripts/common/splide.min.js`);
+    }
+    trendii.loadStyleSheetIntoHead(`${trendii.globals.cdn}/styles/common/splide-core.min.css`);
+};
+
+trendii.startAdGenerationProcess = function() {
+    try {
+        Promise.all([ fetch(trendii.globals.API_GET_NATIVE_AD_SLIDER_TEMPLATE).then(response => response.text()), fetch(trendii.globals.API_GET_NATIVE_AD_SIMPLE_TEMPLATE).then(response => response.text()) ]).then(allResponses => {
+            trendii.nativeAdSliderTemplateHTMLString = allResponses[0];
+            trendii.nativeAdSimpleTemplateHTMLString = allResponses[1];
+            const options = {
+                rootMargin: "0px",
+                threshold: .1
+            };
+            if (trendii.adsWindow.TrendiiIntersectionObserver) {
+                trendii.intersectionObserver = new trendii.adsWindow.TrendiiIntersectionObserver(trendii.handleIntersectionEntries, options);
+            } else {
+                trendii.intersectionObserver = new IntersectionObserver(trendii.handleIntersectionEntries, options);
+            }
+            let allParentEls;
+            if (trendii.adsWindow.innerWidth <= trendii.globals.MOBILE_WIDTH) {
+                allParentEls = Array.from(trendii.adsDOM.querySelectorAll(trendii.MOBILE_IMAGE_GROUP_PARENT_TAG));
+            } else {
+                allParentEls = Array.from(trendii.adsDOM.querySelectorAll(trendii.DESKTOP_IMAGE_GROUP_PARENT_DIV_CLASS));
+            }
+            allParentEls.forEach(parentEl => {
+                trendii.intersectionObserver.observe(parentEl);
+            });
+        });
+    } catch (err) {
+        trendii.logError(err);
+    }
+};
+
+trendii.handleIntersectionEntries = function(entries, observer) {
+    try {
+        entries.forEach(entry => {
+            trendii.handleIntersectionEntry(entry);
+        });
+    } catch (err) {
+        trendii.logError(err);
+    }
+};
+
+trendii.handleIntersectionEntry = function(entry) {
+    try {
+        if (entry.isIntersecting) {
+            const visibleParentEl = entry.target;
+            observer.unobserve(entry.target);
+            trendii.log("observer unregistered for ", visibleParentEl);
+            const imageElsInsideSameParent = Array.from(visibleParentEl.getElementsByTagName("img"));
+            const imagesPresentInSameParent = imageElsInsideSameParent.map(img => {
+                if (img.getAttribute("data-src")) return img.getAttribute("data-src");
+                return img.getAttribute("src");
+            }).filter(x => x);
+            const requestBody = {
+                webpageUrl: trendii.adsWindow.location.href,
+                imageUrls: imagesPresentInSameParent,
+                publisherId: trendii.globals.PUBLISHER_ID
+            };
+            const headers = new Headers();
+            headers.append("Content-Type", "application/json");
+            const raw = JSON.stringify(requestBody);
+            const requestOptions = {
+                method: "POST",
+                headers: headers,
+                body: raw
+            };
+            fetch(trendii.globals.API_GET_NATIVE_AD_PRODUCT, requestOptions).then(response => response.json()).then(response => {
+                if (response !== "") {
+                    if (response.success && response.success === true) {
+                        const adProductsData = response;
+                        let foundImageData = null, foundImageElement = null, foundIndex = null, currentImageEle, imageSrcToShowAd, imageDataSrcToShowAd;
+                        const imageElsInsideSameParentLength = imageElsInsideSameParent.length;
+                        for (let i = 0; i < imageElsInsideSameParentLength; i++) {
+                            currentImageEle = imageElsInsideSameParent[i];
+                            imageSrcToShowAd = currentImageEle.src;
+                            imageDataSrcToShowAd = currentImageEle.getAttribute("data-src");
+                            foundIndex = adProductsData.payload.findIndex(imageData => imageData.imageUrl === imageSrcToShowAd || imageDataSrcToShowAd);
+                            foundImageData = adProductsData.payload[foundIndex];
+                            if (foundImageData.products && foundImageData.products.length > 0) {
+                                foundImageElement = currentImageEle;
+                                break;
+                            }
+                        }
+                        if (foundImageData.products && foundImageData.products.length > 0) {
+                            trendii.generatedAdForSingleImage(foundImageData, trendii.sliderCount);
+                            trendii.sliderCount++;
+                            if (foundImageData.generatedAdHTML) {
+                                if (trendii.adsWindow.innerWidth <= trendii.globals.MOBILE_WIDTH) {
+                                    const titleOfImageGroup = visibleParentEl.getElementsByTagName(trendii.MOBILE_IMAGE_CAPTION_TAG)[0];
+                                    if (titleOfImageGroup) {
+                                        titleOfImageGroup.after(foundImageData.generatedAdHTML);
+                                    } else {
+                                        visibleParentEl.appendChild(foundImageData.generatedAdHTML);
+                                    }
+                                } else {
+                                    visibleParentEl.getElementsByClassName(trendii.DESKTOP_IMAGE_CAPTION_CLASS)[0].after(foundImageData.generatedAdHTML);
+                                    foundImageData.isAdGenerated = true;
+                                    trendii.log("ad rendered for ", visibleParentEl);
+                                }
+                                const identifier = foundImageData.sliderId;
+                                const sliderIdSelector = `#${identifier}`;
+                                if (foundImageData.isSliderTemplate) {
+                                    trendii.slidersAppendedArray.push(foundImageData.sliderId);
+                                    trendii.log(adsWindow.Splide);
+                                    if (trendii.adsWindow.Splide) {
+                                        const testSlider = new trendii.adsWindow.Splide(sliderIdSelector, {
+                                            type: "loop",
+                                            pagination: false,
+                                            gap: 10,
+                                            autoWidth: true,
+                                            autoHeight: true
+                                        }).mount();
+                                        const adProductsSliderContainer = trendii.adsDOM.getElementById(identifier);
+                                        adProductsSliderContainer.style.display = "block";
+                                        const adWrapper = foundImageData.generatedAdHTML;
+                                        adWrapper.setAttribute("data-slider-appended", "true");
+                                        adWrapper.style.display = "block";
+                                        trendii.log("slider appended");
+                                        testSlider.on("mounted", function() {
+                                            console.log("mounted");
+                                        });
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    this.log("empty feed response");
+                }
+            }).catch(err => {
+                trendii.logError(err);
+                typeof onErrorCallback === "function" && onErrorCallback(error);
+            });
+        }
+    } catch (err) {
+        trendii.logError(err);
+    }
+};
+
+trendii.generatedAdForSingleImage = function(imageData, foundIndex) {
+    imageData.generatedAdHTML = trendii.createAdsForAllProductsInAdvance(imageData, foundIndex);
+};
+
+trendii.createAdTemplatesForAllProducts = function() {
+    try {
+        trendii.feedProducts.payload.map((imageData, index) => {
+            if (imageData.products && imageData.products.length > 0) {
+                imageData.generatedAdHTML = trendii.createAdsForAllProductsInAdvance(imageData, index);
+            }
+        });
+    } catch (err) {
+        trendii.logError(err);
+    }
+};
+
+trendii.createAdsForAllProductsInAdvance = function(imageData, index) {
+    try {
+        const imageUrl = imageData.imageUrl;
+        const BRAND_NAME = imageData.advertiserName;
+        let products = imageData.products;
+        if (trendii.adsWindow.innerWidth > trendii.globals.MOBILE_WIDTH) {
+            products = imageData.products.slice(0, 4);
+        }
+        const advertiserName = imageData.advertiserName;
+        const identifier = `splide${index}`;
+        imageData.sliderId = identifier;
+        switch (products.length) {
+          case 1:
+          case 2:
+          case 3:
+          case 4:
+            {
+                imageData.isSliderTemplate = false;
+                const domParser = new DOMParser();
+                const simpleTemplateDOM = domParser.parseFromString(trendii.nativeAdSimpleTemplateHTMLString, "text/html");
+                const logoUrl = getRetailerLogoPath(`${advertiserName.toLowerCase()}.png`);
+                const retailerLogoEl = simpleTemplateDOM.getElementById(trendii.globals.RETAILER_LOGO_ID);
+                retailerLogoEl.title = advertiserName;
+                retailerLogoEl.src = logoUrl;
+                const productsContainerEl = simpleTemplateDOM.getElementById(trendii.globals.HTML_TEMPLATE_SIMPLE_CONTAINER_ID);
+                productsContainerEl.innerHTML = "";
+                trendii.initializeRenderingProductsBasedOnCount(products, productsContainerEl);
+                const resultantAdWrapper = simpleTemplateDOM.getElementById(this.HTML_TEMPLATE_AD_WRAPPER_ID);
+                return resultantAdWrapper;
+            }
+
+          default:
+            {
+                imageData.isSliderTemplate = true;
+                const newDOM = this.nativeAdSliderTemplateHTMLString.replaceAll(trendii.SLIDER_CLASS_TO_REPLACE_WITH, identifier);
+                const domParser = new DOMParser();
+                const templatesDOM = domParser.parseFromString(newDOM, "text/html");
+                const logoUrl = getRetailerLogoPath(`${advertiserName.toLowerCase()}.png`);
+                const retailerLogoEl = templatesDOM.getElementById(RETAILER_LOGO_ID);
+                retailerLogoEl.title = advertiserName;
+                retailerLogoEl.src = logoUrl;
+                const adProductsSliderContainer = templatesDOM.getElementById(identifier);
+                adProductsSliderContainer.style.display = "none";
+                let productsContainerEl = templatesDOM.getElementById(this.HTML_TEMPLATE_SLIDER_CONTAINER_ID);
+                productsContainerEl.innerHTML = "";
+                products.forEach(product => trendii.createSliderItemProduct(product, productsContainerEl));
+                const resultantAdWrapper = templatesDOM.getElementById(trendii.globals.HTML_TEMPLATE_AD_WRAPPER_ID);
+                resultantAdWrapper.style.display = "none";
+                return resultantAdWrapper;
+            }
+        }
+    } catch (err) {
+        trendii.logError(err);
+        return null;
+    }
+};
+
+trendii.getAllParentImageGroupClassMobile = function() {
+    try {
+        let allParentElements;
+        if (trendii.adsWindow.innerWidth <= trendii.globals.MOBILE_WIDTH) {
+            allParentElements = trendii.adsDOM.querySelectorAll(trendii.MOBILE_IMAGE_GROUP_PARENT_TAG);
+        } else {
+            allParentElements = trendii.adsDOM.querySelectorAll(trendii.DESKTOP_IMAGE_GROUP_PARENT_DIV_CLASS);
+        }
+        const parentImageGroupElements = Array.from(allParentElements);
+        trendii.log(this.parentImageGroupElements);
+        let foundImageData = null;
+        let foundImageElement = null;
+        this.parentImageGroupElements.forEach((parentEl, index) => {
+            trendii.log(parentEl.getElementsByTagName("img"));
+            const allImagesPresentInTheSameGroup = Array.from(parentEl.getElementsByTagName("img"));
+            let currentImageEle, imageSrcToShowAd, imageDataSrcToShowAd;
+            for (let i = 0; i < allImagesPresentInTheSameGroup.length; i++) {
+                currentImageEle = allImagesPresentInTheSameGroup[i];
+                imageSrcToShowAd = currentImageEle.src;
+                imageDataSrcToShowAd = currentImageEle.getAttribute("data-src");
+                foundImageData = trendii.feedProducts.payload.find(imageData => imageData.imageUrl === imageSrcToShowAd || imageDataSrcToShowAd);
+                if (foundImageData.generatedAdHTML) {
+                    foundImageElement = currentImageEle;
+                    break;
+                }
+            }
+            if (foundImageData.generatedAdHTML) {
+                const adContainer = adsDOM.createElement("div");
+                adContainer.classList.add("adContainer");
+                adContainer.style.background = "yellow";
+                adContainer.style.maxHeight = "300px";
+                const adContainerMobile = adsDOM.createElement("div");
+                adContainerMobile.classList.add("ads-inside-the-images");
+                if (trendii.adsWindow.innerWidth <= trendii.globals.MOBILE_WIDTH) {
+                    const titleOfImageGroup = parentEl.getElementsByTagName(trendii.MOBILE_IMAGE_CAPTION_TAG)[0];
+                    if (titleOfImageGroup) {
+                        titleOfImageGroup.after(foundImageData.generatedAdHTML);
+                    } else {
+                        parentEl.appendChild(foundImageData.generatedAdHTML);
+                    }
+                } else {
+                    parentEl.getElementsByClassName(trendii.DESKTOP_IMAGE_CAPTION_CLASS)[0].after(foundImageData.generatedAdHTML);
+                }
+            }
+        });
+    } catch (err) {
+        trendii.logError(err);
+    }
+};
+
+trendii.createSliderItemProduct = function(product, productsContainer) {
+    try {
+        const sliderItem = trendii.createHtmlElement("LI", "splide__slide");
+        productsContainer.appendChild(sliderItem);
+        const productItemRedirectContainer = trendii.createHtmlElement("A", "product-redirection-link", null, "text-decoration: none;", product.url, "_blank");
+        sliderItem.appendChild(productItemRedirectContainer);
+        const productItemContainer = trendii.createHtmlElement("DIV", "product-item-container");
+        productItemContainer.addEventListener("click", function() {
+            adsWindow.open(product.url, "_blank");
+        });
+        productItemRedirectContainer.appendChild(productItemContainer);
+        const productItem = trendii.createHtmlElement("DIV", "product-item");
+        productItem.style.backgroundImage = `url(${product.image})`;
+        productItemContainer.appendChild(productItem);
+        if (product.sale) {
+            productItem.appendChild(trendii.createHtmlElement("SPAN", "onsale", "ON SALE"));
+        }
+        const productDetailsWrapper = trendii.createHtmlElement("DIV", "product-details-wrapper");
+        productDetailsWrapper.addEventListener("click", function() {
+            adsWindow.open(product.url, "_blank");
+        });
+        productItem.appendChild(productDetailsWrapper);
+        const productDetailsWrapperMobile = trendii.createHtmlElement("DIV", "product-details-wrapper-mobile");
+        productItemContainer.appendChild(productDetailsWrapperMobile);
+        productDetailsWrapper.appendChild(trendii.createHtmlElement("P", "product-name", product.name));
+        productDetailsWrapperMobile.appendChild(trendii.createHtmlElement("P", "product-name", product.name));
+        productDetailsWrapper.appendChild(trendii.createHtmlElement("EM", "product-price", product.currency + product.price));
+        productDetailsWrapperMobile.appendChild(trendii.createHtmlElement("EM", "product-price", product.currency + product.price));
+    } catch (err) {
+        console.logError(err);
+    }
+};
+
+trendii.createProductItemHtml = function(product, row, cssClass, which) {
+    try {
+        const col = trendii.createHtmlElement("DIV", cssClass);
+        row.appendChild(col);
+        const productItemRedirectContainer = trendii.createHtmlElement("A", "product-redirection-link", null, "text-decoration: none;", product.url, "_blank");
+        col.appendChild(productItemRedirectContainer);
+        const productItemContainer = trendii.createHtmlElement("DIV", "product-item-container");
+        productItemContainer.addEventListener("click", function() {
+            adsWindow.open(product.url, "_blank");
+        });
+        productItemRedirectContainer.appendChild(productItemContainer);
+        const productItem = adsDOM.createElement("DIV");
+        productItem.classList.add("product-item");
+        productItemContainer.appendChild(productItem);
+        const productItemImage = trendii.createHtmlElement("DIV", "product-item-image");
+        productItemImage.style.backgroundImage = `url(${product.image})`;
+        productItem.appendChild(productItemImage);
+        if (product.sale) {
+            productItemImage.appendChild(trendii.createHtmlElement("SPAN", "onsale", "ON SALE"));
+        }
+        const productDetailsWrapper = trendii.createHtmlElement("DIV", "product-details-wrapper");
+        if (which > 3) {
+            productItem.appendChild(productDetailsWrapper);
+        } else {
+            productItemContainer.appendChild(productDetailsWrapper);
+        }
+        productDetailsWrapper.appendChild(trendii.createHtmlElement("P", "product-name", product.name));
+        productDetailsWrapper.appendChild(trendii.createHtmlElement("EM", "product-price", product.currency + product.price));
+        if (which > 2) {
+            const productDetailsWrapperMobile = trendii.createHtmlElement("DIV", "product-details-wrapper-mobile");
+            productItemContainer.appendChild(productDetailsWrapperMobile);
+            productDetailsWrapperMobile.appendChild(trendii.createHtmlElement("P", "product-name", product.name));
+            productDetailsWrapperMobile.appendChild(trendii.createHtmlElement("EM", "product-price", product.currency + product.price));
+        }
+    } catch (err) {
+        trendii.logError(err);
+    }
+};
+
+trendii.initializeRenderingProductsBasedOnCount = function(adRenderingProducts, productsContainer) {
+    switch (adRenderingProducts.length) {
+      case 1:
+        {
+            const product = adRenderingProducts[0];
+            const oneProductWrapper = trendii.createHtmlElement("DIV", "one-product-wrapper");
+            productsContainer.appendChild(oneProductWrapper);
+            const row = trendii.createHtmlElement("DIV", "row");
+            oneProductWrapper.appendChild(row);
+            trendii.createProductItemHtml(product, row, "col-12", adRenderingProducts.length);
+            break;
+        }
+
+      case 2:
+        {
+            const twoProductWrapper = adsDOM.createElement("DIV");
+            twoProductWrapper.classList.add("two-product-wrapper");
+            productsContainer.appendChild(twoProductWrapper);
+            const row = adsDOM.createElement("DIV");
+            row.classList.add("row");
+            twoProductWrapper.appendChild(row);
+            for (let i = 0; i <= 1; i++) {
+                trendii.createProductItemHtml(adRenderingProducts[i], row, "col-6", adRenderingProducts.length);
+            }
+            break;
+        }
+
+      case 3:
+        {
+            const threeProductWrapper = adsDOM.createElement("DIV");
+            threeProductWrapper.classList.add("three-product-wrapper");
+            productsContainer.appendChild(threeProductWrapper);
+            const row = adsDOM.createElement("DIV");
+            row.classList.add("row");
+            row.classList.add("row-cols-3");
+            threeProductWrapper.appendChild(row);
+            for (let i = 0; i <= 2; i++) {
+                trendii.createProductItemHtml(adRenderingProducts[i], row, "col", adRenderingProducts.length);
+            }
+            break;
+        }
+
+      case 4:
+        {
+            const fourProductWrapper = adsDOM.createElement("DIV");
+            fourProductWrapper.classList.add("four-product-wrapper");
+            productsContainer.appendChild(fourProductWrapper);
+            const row = adsDOM.createElement("DIV");
+            row.classList.add("row");
+            row.classList.add("row-cols-4");
+            fourProductWrapper.appendChild(row);
+            for (let i = 0; i <= 3; i++) {
+                trendii.createProductItemHtml(adRenderingProducts[i], row, "col", adRenderingProducts.length);
+            }
+            break;
+        }
+
+      default:
+        {
+            break;
+        }
+    }
+};
