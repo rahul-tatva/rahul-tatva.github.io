@@ -33,12 +33,12 @@ trendii.init = function () {
     trendii.loadStyleSheetIntoHead(`${trendii.globals.cdn}/styles/daily-mail/trendii-sdk-daily-mail-slider.css`);
     trendii.loadStyleSheetIntoHead(`${trendii.globals.cdn}/styles/daily-mail/trendii-sdk-daily-mail-all-product.css`);
     if (trendii.adsDOM.readyState === "complete" || trendii.adsDOM.readyState === "interactive") {
-        trendii.log(adsDOM.readyState);
+        trendii.log(trendii.adsDOM.readyState);
         trendii.startAdGenerationProcess();
     } else {
         trendii.log("DOM in progress");
-        adsDOM.addEventListener("DOMContentLoaded", () => {
-            trendii.log(adsDOM.readyState);
+        trendii.adsDOM.addEventListener("DOMContentLoaded", () => {
+            trendii.log(trendii.adsDOM.readyState);
             trendii.startAdGenerationProcess();
         });
     }
@@ -358,11 +358,11 @@ trendii.getAllParentImageGroupClassMobile = function () {
                 }
             }
             if (foundImageData.generatedAdHTML) {
-                const adContainer = adsDOM.createElement("div");
+                const adContainer = trendii.adsDOM.createElement("div");
                 adContainer.classList.add("adContainer");
                 adContainer.style.background = "yellow";
                 adContainer.style.maxHeight = "300px";
-                const adContainerMobile = adsDOM.createElement("div");
+                const adContainerMobile = trendii.adsDOM.createElement("div");
                 adContainerMobile.classList.add("ads-inside-the-images");
                 if (trendii.adsWindow.innerWidth <= trendii.globals.MOBILE_WIDTH) {
                     const titleOfImageGroup = parentEl.getElementsByTagName(trendii.MOBILE_IMAGE_CAPTION_TAG)[0];
@@ -425,7 +425,7 @@ trendii.createProductItemHtml = function (product, row, cssClass, which) {
             adsWindow.open(product.url, "_blank");
         });
         productItemRedirectContainer.appendChild(productItemContainer);
-        const productItem = adsDOM.createElement("DIV");
+        const productItem = trendii.adsDOM.createElement("DIV");
         productItem.classList.add("product-item");
         productItemContainer.appendChild(productItem);
         const productItemImage = trendii.createHtmlElement("DIV", "product-item-image");
@@ -468,10 +468,10 @@ trendii.initializeRenderingProductsBasedOnCount = function (adRenderingProducts,
 
         case 2:
             {
-                const twoProductWrapper = adsDOM.createElement("DIV");
+                const twoProductWrapper = trendii.adsDOM.createElement("DIV");
                 twoProductWrapper.classList.add("two-product-wrapper");
                 productsContainer.appendChild(twoProductWrapper);
-                const row = adsDOM.createElement("DIV");
+                const row = trendii.adsDOM.createElement("DIV");
                 row.classList.add("row");
                 twoProductWrapper.appendChild(row);
                 for (let i = 0; i <= 1; i++) {
@@ -482,10 +482,10 @@ trendii.initializeRenderingProductsBasedOnCount = function (adRenderingProducts,
 
         case 3:
             {
-                const threeProductWrapper = adsDOM.createElement("DIV");
+                const threeProductWrapper = trendii.adsDOM.createElement("DIV");
                 threeProductWrapper.classList.add("three-product-wrapper");
                 productsContainer.appendChild(threeProductWrapper);
-                const row = adsDOM.createElement("DIV");
+                const row = trendii.adsDOM.createElement("DIV");
                 row.classList.add("row");
                 row.classList.add("row-cols-3");
                 threeProductWrapper.appendChild(row);
@@ -497,10 +497,10 @@ trendii.initializeRenderingProductsBasedOnCount = function (adRenderingProducts,
 
         case 4:
             {
-                const fourProductWrapper = adsDOM.createElement("DIV");
+                const fourProductWrapper = trendii.adsDOM.createElement("DIV");
                 fourProductWrapper.classList.add("four-product-wrapper");
                 productsContainer.appendChild(fourProductWrapper);
-                const row = adsDOM.createElement("DIV");
+                const row = trendii.adsDOM.createElement("DIV");
                 row.classList.add("row");
                 row.classList.add("row-cols-4");
                 fourProductWrapper.appendChild(row);
