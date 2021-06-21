@@ -32,7 +32,7 @@ trendii.init = function () {
     trendii.loadScriptAndCssToHead();
     trendii.loadStyleSheetIntoHead(`${trendii.globals.cdn}/styles/daily-mail/trendii-sdk-daily-mail-slider.css`);
     trendii.loadStyleSheetIntoHead(`${trendii.globals.cdn}/styles/daily-mail/trendii-sdk-daily-mail-all-product.css`);
-    if (adsDOM.readyState === "complete" || adsDOM.readyState === "interactive") {
+    if (trendii.adsDOM.readyState === "complete" || trendii.adsDOM.readyState === "interactive") {
         trendii.log(adsDOM.readyState);
         trendii.startAdGenerationProcess();
     } else {
