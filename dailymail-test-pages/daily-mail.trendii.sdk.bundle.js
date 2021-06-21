@@ -30,8 +30,8 @@ trendii.init = function () {
     trendii.log("SDK init method called");
     trendii.globals.PUBLISHER_ID = 2;
     trendii.loadScriptAndCssToHead();
-    trendii.loadStyleSheetIntoHead(`${trendii.globals.cdn}/styles/daily-mail/trendii-sdk-daily-mail-slider.css`);
-    trendii.loadStyleSheetIntoHead(`${trendii.globals.cdn}/styles/daily-mail/trendii-sdk-daily-mail-all-product.css`);
+    trendii.loadStyleSheetIntoHead(`${trendii.globals.CDN}/styles/daily-mail/trendii-sdk-daily-mail-slider.css`);
+    trendii.loadStyleSheetIntoHead(`${trendii.globals.CDN}/styles/daily-mail/trendii-sdk-daily-mail-all-product.css`);
     if (trendii.adsDOM.readyState === "complete" || trendii.adsDOM.readyState === "interactive") {
         trendii.log(trendii.adsDOM.readyState);
         trendii.startAdGenerationProcess();
@@ -59,9 +59,9 @@ trendii.globals = {
     HTML_TEMPLATE_SIMPLE_CONTAINER_ID: "trendii-products-container-728X90"
 };
 
-trendii.globals.API_GET_NATIVE_AD_SLIDER_TEMPLATE = `${trendii.globals.cdn}/templates/products-slider-dynamic.html`;
+trendii.globals.API_GET_NATIVE_AD_SLIDER_TEMPLATE = `${trendii.globals.CDN}/templates/products-slider-dynamic.html`;
 
-trendii.globals.API_GET_NATIVE_AD_SIMPLE_TEMPLATE = `${trendii.globals.cdn}/templates/products-728X90-all-product-dynamic.html`;
+trendii.globals.API_GET_NATIVE_AD_SIMPLE_TEMPLATE = `${trendii.globals.CDN}/templates/products-728X90-all-product-dynamic.html`;
 
 trendii.log = function (message) {
     if (trendii.env === "test") {
@@ -113,13 +113,13 @@ trendii.loadStyleSheetIntoHead = function (url) {
 
 trendii.loadScriptAndCssToHead = function () {
     if (trendii.env === "test") {
-        trendii.loadScriptIntoHead(`${trendii.globals.cdn}/scripts/common/intersection-observer.js`);
-        trendii.loadScriptIntoHead(`${trendii.globals.cdn}/scripts/common/splide.js`);
+        trendii.loadScriptIntoHead(`${trendii.globals.CDN}/scripts/common/intersection-observer.js`);
+        trendii.loadScriptIntoHead(`${trendii.globals.CDN}/scripts/common/splide.js`);
     } else {
-        trendii.loadScriptIntoHead(`${trendii.globals.cdn}/scripts/common/intersection-observer.min.js`);
-        trendii.loadScriptIntoHead(`${trendii.globals.cdn}/scripts/common/splide.min.js`);
+        trendii.loadScriptIntoHead(`${trendii.globals.CDN}/scripts/common/intersection-observer.min.js`);
+        trendii.loadScriptIntoHead(`${trendii.globals.CDN}/scripts/common/splide.min.js`);
     }
-    trendii.loadStyleSheetIntoHead(`${trendii.globals.cdn}/styles/common/splide-core.min.css`);
+    trendii.loadStyleSheetIntoHead(`${trendii.globals.CDN}/styles/common/splide-core.min.css`);
 };
 
 trendii.startAdGenerationProcess = function () {
