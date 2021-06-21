@@ -47,8 +47,8 @@ trendii.init = function () {
 trendii.env = "test";
 
 trendii.globals = {
-    PUBLISHER_NAME = "",
-    PUBLISHER_ID = 0,
+    PUBLISHER_NAME: "",
+    PUBLISHER_ID: 0,
     MOBILE_WIDTH: 480,
     CDN: "https://cdn.trendii.com/native-ads-sdk/test/",
     API_GET_NATIVE_AD_PRODUCT: `https://beeswaxcreatives.trendii.com/img-creatives`,
