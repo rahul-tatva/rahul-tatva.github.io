@@ -28,7 +28,7 @@ trendii.nativeAdSliderTemplateHTMLString = null;
 
 trendii.init = function () {
     trendii.log("SDK init method called");
-    trendii.globals.PUBLISHER_ID = 2;
+    trendii.globals.PUBLISHER_ID = 1;
     trendii.loadScriptAndCssToHead();
     trendii.loadStyleSheetIntoHead(`${trendii.globals.CDN}/styles/daily-mail/trendii-sdk-daily-mail-slider.css`);
     trendii.loadStyleSheetIntoHead(`${trendii.globals.CDN}/styles/daily-mail/trendii-sdk-daily-mail-all-product.css`);
@@ -301,7 +301,7 @@ trendii.createAdsForAllProductsInAdvance = function (imageData, index) {
                     const productsContainerEl = simpleTemplateDOM.getElementById(trendii.globals.HTML_TEMPLATE_SIMPLE_CONTAINER_ID);
                     productsContainerEl.innerHTML = "";
                     trendii.initializeRenderingProductsBasedOnCount(products, productsContainerEl);
-                    const resultantAdWrapper = simpleTemplateDOM.getElementById(this.HTML_TEMPLATE_AD_WRAPPER_ID);
+                    const resultantAdWrapper = simpleTemplateDOM.getElementById(trendii.globals.HTML_TEMPLATE_AD_WRAPPER_ID);
                     return resultantAdWrapper;
                 }
 
