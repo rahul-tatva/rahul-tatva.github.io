@@ -323,7 +323,7 @@ trendii.createAdsForAllProductsInAdvance = function (imageData, index) {
             default:
                 {
                     imageData.isSliderTemplate = true;
-                    const newDOM = trendii.globals.nativeAdSliderTemplateHTMLString.replaceAll(trendii.SLIDER_CLASS_TO_REPLACE_WITH, identifier);
+                    const newDOM = trendii.nativeAdSliderTemplateHTMLString.replaceAll(trendii.SLIDER_CLASS_TO_REPLACE_WITH, identifier);
                     const domParser = new DOMParser();
                     const templatesDOM = domParser.parseFromString(newDOM, "text/html");
                     const logoUrl = trendii.getRetailerLogoPath(`${advertiserName.toLowerCase()}.png`);
