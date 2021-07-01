@@ -624,7 +624,7 @@ trendii.generateAdHtml = function(imageCreative) {
 
 trendii.appendAdHtml = function(imageCreative, visibleElement) {
     try {
-        const captionElement = visibleElement.getElementsByTagName(trendii.isMobileDevice ? trendii.MOBILE_IMAGE_CAPTION_TAG : trendii.DESKTOP_IMAGE_CAPTION_CLASS)[0];
+        const captionElement = visibleElement.querySelector(trendii.isMobileDevice ? trendii.MOBILE_IMAGE_CAPTION_TAG : trendii.DESKTOP_IMAGE_CAPTION_CLASS)[0];
         if (captionElement !== undefined) {
             captionElement.after(imageCreative.adHtml);
         } else {
