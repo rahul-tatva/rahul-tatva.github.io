@@ -1,0 +1,1280 @@
+.trendii-ads-body {
+  margin: 0;
+}
+
+.trendii-responsive-ad-wrapper {
+  display: block;
+  /* padding: 0 12px; */
+  /* width: 728px; */
+  /* height: 90px; */
+  /* background: #f9f9f9; */
+  /* background: cornflowerblue; */
+}
+
+.trendii-responsive-ad-wrapper .trendii-ad-outer-wrapper {
+  margin: 10px 0;
+}
+
+.trendii-responsive-ad-wrapper .trendii-brand-logo {
+  display: flex;
+  /* width: 27px;
+			min-width: 27px;
+			height: 80px;
+			border-top-right-radius: 5px;
+			border-bottom-right-radius: 5px;
+			background: #232323; */
+}
+
+.trendii-responsive-ad-wrapper .trendii-brand-logo .logo-container {
+  /* display: block;
+			margin: 5px auto;
+			width: 15px;
+			height: 30px; */
+  /* background: url(https://cdn.trendii.com/native-ads-sdk/assets/levis.png)
+    no-repeat center center;
+  background-size: contain; */
+
+  /* display: block; */
+  /* margin: 5px auto; */
+  margin: 0px 8px;
+  /* max-width: 80px; */
+  width: auto;
+  /* min-height: 10px; */
+  max-height: 13px;
+  /* background: url(https://cdn.trendii.com/native-ads-sdk/assets/trendii.png)
+    no-repeat center center; */
+  /* background-size: contain; */
+}
+
+.trendii-responsive-ad-wrapper .product-redirection-link {
+  text-decoration: none !important;
+  color: unset;
+}
+
+.trendii-responsive-ad-wrapper .trendii-ad-header {
+  font-weight: 700;
+  /* margin: 5px 0; */
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+/* one product wrapper styles */
+
+.trendii-responsive-ad-wrapper .one-product-wrapper .product-item-container {
+  display: flex;
+  /* width: 100%; */
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.trendii-responsive-ad-wrapper .one-product-wrapper .product-item {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  /* width: 100%; */
+}
+
+.trendii-responsive-ad-wrapper
+  .one-product-wrapper
+  .product-item
+  .product-item-image {
+  position: relative;
+  cursor: pointer;
+  display: block;
+  width: 100px;
+  height: 125px;
+  box-sizing: border-box;
+  border: 1px solid #000;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.trendii-responsive-ad-wrapper
+  .one-product-wrapper
+  .product-item
+  + .product-item {
+  /* margin-left: 10px; */
+}
+
+.trendii-responsive-ad-wrapper .one-product-wrapper .product-details-wrapper {
+  padding: 0 0 0 5px;
+  max-width: calc(100% - 100px);
+}
+
+.trendii-responsive-ad-wrapper
+  .one-product-wrapper
+  .product-item-container
+  .product-details-wrapper
+  b.brand-name {
+  display: block;
+  font-size: 14px;
+  line-height: 16px;
+  max-height: 16px;
+  overflow: hidden;
+  padding-bottom: 0;
+  /* margin: 5px 0; */
+  white-space: normal;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+  text-overflow: ellipsis;
+  color: #000000;
+}
+
+.trendii-responsive-ad-wrapper
+  .one-product-wrapper
+  .product-item-container
+  .product-details-wrapper
+  p.product-name {
+  display: block;
+  font-size: 12px;
+  line-height: 14px;
+  font-weight: 600;
+  /* max-height: 17px; */
+  overflow: hidden;
+  padding-bottom: 0;
+  /* margin-bottom: 2px; */
+  white-space: normal;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+.trendii-responsive-ad-wrapper
+  .one-product-wrapper
+  .product-item-container
+  .product-details-wrapper
+  .product-price {
+  display: block;
+  font-size: 18px;
+  line-height: 30px;
+  font-weight: 600;
+  color: rgb(197 98 165 / 100%);
+  /* max-height: 17px; */
+  font-style: normal;
+  text-decoration: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.trendii-responsive-ad-wrapper
+  .one-product-wrapper
+  .product-item-container
+  .product-item-image
+  .onsale {
+  display: inline-block;
+  padding: 2px 4px;
+  text-transform: uppercase;
+  position: absolute;
+  top: 9px;
+  left: 0;
+  width: 40px;
+  background: rgb(197 98 165 / 80%);
+  color: #fff;
+  font-size: 7px;
+  line-height: 10px;
+  z-index: 2;
+  transition: all 0.2s ease;
+}
+
+.trendii-responsive-ad-wrapper
+  .one-product-wrapper
+  .product-item-container
+  .product-item-image
+  .onsale:after {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  bottom: 0;
+  border-left: 0 solid transparent;
+  border-right: 7px solid #fff0;
+  border-top: 7px solid rgb(197 98 165 / 80%);
+  border-bottom: 7px solid rgb(197 98 165 / 80%);
+}
+
+.trendii-responsive-ad-wrapper .one-product-wrapper .product-price-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+}
+
+.trendii-responsive-ad-wrapper .one-product-wrapper .product-buy-link {
+  color: #c52031;
+  font-size: 9px;
+  font-weight: 600;
+  line-height: 11px;
+  margin-right: auto;
+}
+
+.trendii-responsive-ad-wrapper .one-product-wrapper .row {
+  /* width: 100%; */
+  /* margin-left: unset; */
+}
+
+.trendii-responsive-ad-wrapper .one-product-wrapper .row .col {
+  /* padding: unset; */
+  margin: unset;
+  /* padding: 0 0 0 10px; */
+  /* background-color: chartreuse; */
+  /* text-align: center; */
+}
+
+/* two product wrapper styles */
+
+.trendii-responsive-ad-wrapper .two-product-wrapper .product-item-container {
+  /* padding: 3px; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.trendii-responsive-ad-wrapper .two-product-wrapper .product-item {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  /* width: 100%; */
+}
+
+.trendii-responsive-ad-wrapper
+  .two-product-wrapper
+  .product-item
+  .product-item-image {
+  position: relative;
+  cursor: pointer;
+  display: block;
+  width: 100px;
+  height: 125px;
+  box-sizing: border-box;
+  border: 1px solid #000;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.trendii-responsive-ad-wrapper .two-product-wrapper .product-details-wrapper {
+  padding: 0 0 0 5px;
+  max-width: calc(100% - 100px);
+}
+
+.trendii-responsive-ad-wrapper
+  .two-product-wrapper
+  .product-item-container
+  .product-details-wrapper
+  b.brand-name {
+  display: block;
+  font-size: 14px;
+  line-height: 16px;
+  max-height: 16px;
+  overflow: hidden;
+  padding-bottom: 0;
+  /* margin: 5px 0; */
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #000000;
+}
+
+.trendii-responsive-ad-wrapper
+  .two-product-wrapper
+  .product-item-container
+  .product-details-wrapper
+  p.product-name {
+  display: block;
+  font-size: 12px;
+  line-height: 14px;
+  font-weight: 600;
+  /* max-height: 17px; */
+  overflow: hidden;
+  padding-bottom: 0;
+  margin: 0;
+  /* margin-bottom: 2px; */
+  white-space: normal;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+.trendii-responsive-ad-wrapper
+  .two-product-wrapper
+  .product-item-container
+  .product-details-wrapper
+  .product-price {
+  display: block;
+  font-size: 18px;
+  line-height: 30px;
+  font-weight: 600;
+  color: rgb(197 98 165 / 100%);
+  /* max-height: 17px; */
+  font-style: normal;
+  text-decoration: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.trendii-responsive-ad-wrapper
+  .two-product-wrapper
+  .product-item-container
+  .product-item-image
+  .onsale {
+  display: inline-block;
+  padding: 2px 4px;
+  text-transform: uppercase;
+  position: absolute;
+  top: 9px;
+  left: 0;
+  width: 40px;
+  background: rgb(197 98 165 / 80%);
+  color: #fff;
+  font-size: 7px;
+  line-height: 10px;
+  z-index: 2;
+  transition: all 0.2s ease;
+}
+
+.trendii-responsive-ad-wrapper
+  .two-product-wrapper
+  .product-item-container
+  .product-item-image
+  .onsale:after {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  bottom: 0;
+  border-left: 0 solid transparent;
+  border-right: 7px solid #fff0;
+  border-top: 7px solid rgb(197 98 165 / 80%);
+  border-bottom: 7px solid rgb(197 98 165 / 80%);
+}
+
+.trendii-responsive-ad-wrapper .two-product-wrapper .product-buy-link {
+  color: #c52031;
+  font-size: 9px;
+  font-weight: 600;
+  line-height: 11px;
+}
+
+.trendii-responsive-ad-wrapper .two-product-wrapper .row {
+  /* width: 100%; */
+  /* margin-left: unset; */
+  display: flex;
+}
+
+.trendii-responsive-ad-wrapper .two-product-wrapper .row .col-6 {
+  /* padding: unset; */
+  /* margin: unset; */
+  /* padding: 0 0 0 10px; */
+  /* background-color: chartreuse; */
+  /* text-align: center; */
+}
+
+/* three product wrapper styles */
+
+/* .trendii-responsive-ad-wrapper .three-product-wrapper .product-item {
+  position: relative;
+  display: flex;
+  cursor: pointer;
+  display: inline-block;
+  width: 100%;
+  flex-direction: row;
+  align-content: center;
+  justify-content: flex-start;
+  align-items: center;
+} */
+.trendii-responsive-ad-wrapper .three-product-wrapper .product-item-container {
+  /* padding: 3px; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.trendii-responsive-ad-wrapper .three-product-wrapper .product-item {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  /* width: 100%; */
+}
+.trendii-responsive-ad-wrapper
+  .three-product-wrapper
+  .product-item
+  .product-item-image {
+  position: relative;
+  cursor: pointer;
+  display: block;
+  width: 100px;
+  height: 125px;
+  box-sizing: border-box;
+  border: 1px solid #000;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.trendii-responsive-ad-wrapper
+  .three-product-wrapper
+  .product-item-container
+  .product-item-image
+  .onsale {
+  display: inline-block;
+  padding: 2px 4px;
+  text-transform: uppercase;
+  position: absolute;
+  top: 9px;
+  left: 0;
+  width: 40px;
+  background: rgb(197 98 165 / 80%);
+  color: #fff;
+  font-size: 7px;
+  line-height: 10px;
+  z-index: 2;
+  transition: all 0.2s ease;
+}
+
+.trendii-responsive-ad-wrapper
+  .three-product-wrapper
+  .product-item-container
+  .product-item-image
+  .onsale:after {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  bottom: 0;
+  border-left: 0 solid transparent;
+  border-right: 7px solid #fff0;
+  border-top: 7px solid rgb(197 98 165 / 80%);
+  border-bottom: 7px solid rgb(197 98 165 / 80%);
+}
+
+/* .trendii-responsive-ad-wrapper
+  .three-product-wrapper
+  .product-item-container
+  .product-details-wrapper {
+  display: block;
+  color: black;
+  z-index: 1;
+  overflow: hidden;
+  max-width: calc(100% - 100px);
+  padding: 0 0 0 5px;
+  display: none;
+} */
+
+.trendii-responsive-ad-wrapper .three-product-wrapper .product-details-wrapper {
+  padding: 0 0 0 5px;
+  max-width: calc(100% - 100px);
+}
+
+.trendii-responsive-ad-wrapper
+  .three-product-wrapper
+  .product-details-wrapper-mobile {
+  display: none;
+}
+
+.trendii-responsive-ad-wrapper
+  .three-product-wrapper
+  .product-item-container
+  .product-details-wrapper
+  b.brand-name {
+  display: block;
+  font-size: 14px;
+  line-height: 16px;
+  max-height: 16px;
+  overflow: hidden;
+  padding-bottom: 0;
+  /* margin: 5px 0; */
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #000000;
+}
+
+.trendii-responsive-ad-wrapper
+  .three-product-wrapper
+  .product-item-container
+  .product-details-wrapper
+  p.product-name {
+  display: block;
+  font-size: 12px;
+  line-height: 14px;
+  font-weight: 600;
+  /* max-height: 17px; */
+  margin: 0;
+  overflow: hidden;
+  padding-bottom: 0;
+  /* margin-bottom: 2px; */
+  white-space: normal;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+.trendii-responsive-ad-wrapper
+  .three-product-wrapper
+  .product-item-container
+  .product-details-wrapper
+  .product-price {
+  display: block;
+  font-size: 18px;
+  line-height: 30px;
+  font-weight: 600;
+  color: rgb(197 98 165 / 100%);
+  /* max-height: 17px; */
+  font-style: normal;
+  text-decoration: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.trendii-responsive-ad-wrapper .three-product-wrapper .product-buy-link {
+  color: #c52031;
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.trendii-responsive-ad-wrapper .three-product-wrapper .row {
+  /* width: 100%; */
+  /* margin-left: unset; */
+  display: flex;
+}
+
+.trendii-responsive-ad-wrapper .three-product-wrapper .row .col {
+  /* padding: unset; */
+  /* margin: unset; */
+  /* padding: 0 4px; */
+  /* background-color: chartreuse; */
+  /* text-align: center; */
+}
+
+/* .trendii-responsive-ad-wrapper .product-item .product-item-image {
+  position: relative;
+  cursor: pointer;
+  display: block;
+  width: 100px;
+  height: 125px;
+  box-sizing: border-box;
+  border: 1px solid #000;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+} */
+
+/* four product wrapper styles */
+
+.trendii-responsive-ad-wrapper .four-product-wrapper .product-item {
+  position: relative;
+  display: flex;
+  cursor: pointer;
+  /* display: inline-block; */
+  width: fit-content;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+.trendii-responsive-ad-wrapper
+  .four-product-wrapper
+  .product-item
+  .product-item-image {
+  position: relative;
+  cursor: pointer;
+  display: block;
+  width: 100px;
+  height: 125px;
+  box-sizing: border-box;
+  border: 1px solid #000;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+@media (min-width: 768px) {
+  .trendii-responsive-ad-wrapper
+    .four-product-wrapper
+    .product-item-container:hover
+    .product-item
+    .product-item-image {
+    border: 1px solid rgb(197 98 165 / 80%);
+  }
+  .trendii-responsive-ad-wrapper
+    .four-product-wrapper
+    .product-item:hover
+    .onsale {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.trendii-responsive-ad-wrapper
+  .four-product-wrapper
+  .product-item-image
+  .onsale {
+  display: inline-block;
+  padding: 2px 4px;
+  text-transform: uppercase;
+  position: absolute;
+  top: 9px;
+  left: 0px;
+  width: 40px;
+  background: rgb(197 98 165 / 80%);
+  color: #fff;
+  font-size: 7px;
+  line-height: 10px;
+  z-index: 2;
+  transition: all 0.2s ease;
+}
+
+.trendii-responsive-ad-wrapper
+  .four-product-wrapper
+  .product-item-image
+  .onsale:after {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  bottom: 0;
+  border-left: 0 solid transparent;
+  border-right: 7px solid #fff0;
+  border-top: 7px solid rgb(197 98 165 / 80%);
+  border-bottom: 7px solid rgb(197 98 165 / 80%);
+}
+
+.trendii-responsive-ad-wrapper
+  .four-product-wrapper
+  .product-item
+  .product-details-wrapper {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.trendii-responsive-ad-wrapper
+  .four-product-wrapper
+  .product-item:hover
+  .product-details-wrapper {
+  opacity: 1;
+  visibility: visible;
+  bottom: 0;
+}
+.trendii-responsive-ad-wrapper
+  .four-product-wrapper
+  .product-item-container
+  .product-details-wrapper {
+  /* display: block;
+  color: black;
+  z-index: 1;
+  overflow: hidden;
+  max-width: calc(100% - 100px);
+  padding: 0 0 0 5px; */
+  /* margin-left: 4px; */
+  /* text-align: center; */
+  /* background-color: darkcyan; */
+
+  color: #fff;
+  z-index: 1;
+  position: absolute;
+  bottom: -100%;
+  left: 0;
+  right: 0;
+  /* width: 100%; */
+  padding: 5px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background: rgb(197 98 165 / 80%);
+  display: block;
+}
+
+.trendii-responsive-ad-wrapper
+  .four-product-wrapper
+  .product-details-wrapper-mobile {
+  display: none;
+}
+
+.trendii-responsive-ad-wrapper
+  .four-product-wrapper
+  .product-item-container
+  .product-details-wrapper
+  b.brand-name {
+  display: block;
+  font-size: 14px;
+  line-height: 16px;
+  max-height: 16px;
+  overflow: hidden;
+  padding-bottom: 0;
+  /* margin: 5px 0; */
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #000000;
+}
+
+.trendii-responsive-ad-wrapper
+  .four-product-wrapper
+  .product-item-container
+  .product-details-wrapper
+  p.product-name {
+  display: block;
+  font-size: 10px;
+  line-height: 12px;
+  font-weight: 200;
+  max-height: 12px;
+  overflow: hidden;
+  padding-bottom: 0;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.trendii-responsive-ad-wrapper
+  .four-product-wrapper
+  .product-item-container
+  .product-details-wrapper
+  .product-price {
+  display: block;
+  font-size: 10px;
+  line-height: 14px;
+  font-weight: 400;
+  max-height: 14px;
+  font-style: normal;
+  text-decoration: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.trendii-responsive-ad-wrapper .four-product-wrapper .row {
+  /* width: 100%;
+  margin-left: unset; */
+  display: flex;
+  margin: 0 -5px;
+}
+
+.trendii-responsive-ad-wrapper .four-product-wrapper .row .col {
+  padding: 0 5px;
+  /* padding: unset; */
+  /* margin: unset; */
+  /* padding: 0 0 0 5px; */
+  /* background-color: chartreuse; */
+  /* text-align: center; */
+}
+
+/* five product wrapper styles */
+.trendii-responsive-ad-wrapper .product-item-wrapper {
+  /* width: 100%; */
+  flex-grow: 1;
+  /* display: flex;
+      justify-content: flex-start;
+      margin: 0 5px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* .trendii-responsive-ad-wrapper .five-product-wrapper .product-item {
+			position: relative;
+			cursor: pointer;
+			display: inline-block;
+			vertical-align: middle;
+			width: 98px;
+			height: 72px;
+			border-radius: 8px;
+			/* background-color: cyan; */
+/* background-repeat: no-repeat;
+		background-position: center center;
+		background-size: cover; */
+/* } */
+
+.trendii-responsive-ad-wrapper .five-product-wrapper .row {
+  margin-left: unset;
+  margin: unset;
+}
+
+.trendii-responsive-ad-wrapper .five-product-wrapper .row .col {
+  padding: unset;
+  margin: unset;
+  /* background-color: chartreuse; */
+  text-align: center;
+}
+
+/* 
+		.trendii-responsive-ad-wrapper .five-product-wrapper .product-item:after {
+			content: "";
+			position: absolute;
+			top: -1px;
+			bottom: -1px;
+			right: -1px;
+			left: -1px;
+			background: rgba(34, 34, 34, 0.75);
+			transition: all 0.2s ease;
+			opacity: 0;
+			visibility: hidden;
+			border-radius: 10px;
+		}
+
+		.trendii-responsive-ad-wrapper .five-product-wrapper .product-item:hover:after {
+			opacity: 1;
+			visibility: visible;
+		} */
+
+.trendii-responsive-ad-wrapper
+  .five-product-wrapper
+  .product-item
+  .product-details-wrapper,
+.trendii-responsive-ad-wrapper
+  .five-product-wrapper
+  .product-item:hover
+  .onsale {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.trendii-responsive-ad-wrapper
+  .five-product-wrapper
+  .product-item:hover
+  .product-details-wrapper {
+  opacity: 1;
+  visibility: visible;
+}
+
+.trendii-responsive-ad-wrapper
+  .five-product-wrapper
+  .product-item
+  .product-details-wrapper {
+  color: #fff;
+  z-index: 1;
+  position: relative;
+  padding: 7px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.trendii-responsive-ad-wrapper
+  .five-product-wrapper
+  .product-item
+  .product-details-wrapper
+  .brand-name {
+  display: block;
+  font-size: 12px;
+  line-height: 14px;
+  font-weight: 500;
+  max-height: 12px;
+  overflow: hidden;
+  padding-bottom: 0;
+  margin: 6px 0;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.trendii-responsive-ad-wrapper
+  .five-product-wrapper
+  .product-item
+  .product-details-wrapper
+  .product-name {
+  display: block;
+  font-size: 10px;
+  line-height: 12px;
+  font-weight: 200;
+  max-height: 12px;
+  overflow: hidden;
+  padding-bottom: 0;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.trendii-responsive-ad-wrapper
+  .five-product-wrapper
+  .product-item
+  .product-details-wrapper
+  .product-price {
+  display: block;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 500;
+  max-height: 14px;
+  font-style: normal;
+  text-decoration: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.trendii-responsive-ad-wrapper .five-product-wrapper .product-item .onsale {
+  display: block;
+  padding: 2px 4px;
+  text-transform: uppercase;
+  position: absolute;
+  top: 9px;
+  left: -1px;
+  width: 43px;
+  background: #ee1100;
+  color: #fff;
+  font-size: 8px;
+  line-height: 10px;
+  z-index: 2;
+  transition: all 0.2s ease;
+}
+
+.trendii-responsive-ad-wrapper
+  .five-product-wrapper
+  .product-item
+  .onsale:after {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  bottom: 0;
+  border-left: 0 solid transparent;
+  border-right: 7px solid #fff0;
+  border-top: 7px solid #ee1100;
+  border-bottom: 7px solid #ee1100;
+}
+
+/* six product wrapper styles*/
+.trendii-responsive-ad-wrapper .product-item-wrapper {
+  /* width: 100%; */
+  flex-grow: 1;
+  /* display: flex;
+				justify-content: flex-start;
+				margin: 0 5px; */
+}
+
+/* .trendii-responsive-ad-wrapper .six-product-wrapper .product-item {
+			position: relative;
+			cursor: pointer;
+			display: inline-block;
+			vertical-align: middle;
+			width: 98px;
+			height: 72px;
+			border-radius: 8px;
+			/* background-color: cyan; */
+/* background-repeat: no-repeat;
+		background-position: center center;
+		background-size: cover; */
+/* } */
+
+.trendii-responsive-ad-wrapper .six-product-wrapper .row {
+  margin-left: unset;
+  margin: unset;
+}
+
+.trendii-responsive-ad-wrapper .six-product-wrapper .row .col-2 {
+  padding: unset;
+  margin: unset;
+  /* background-color: chartreuse; */
+  text-align: center;
+}
+
+/* .trendii-responsive-ad-wrapper .six-product-wrapper .product-item:after {
+			content: "";
+			position: absolute;
+			top: -1px;
+			bottom: -1px;
+			right: -1px;
+			left: -1px;
+			background: rgba(34, 34, 34, 0.75);
+			transition: all 0.2s ease;
+			opacity: 0;
+			visibility: hidden;
+			border-radius: 10px;
+		} */
+
+/* .trendii-responsive-ad-wrapper .six-product-wrapper .product-item:hover:after {
+			opacity: 1;
+			visibility: visible;
+		} */
+
+.trendii-responsive-ad-wrapper
+  .six-product-wrapper
+  .product-item
+  .product-details-wrapper,
+.trendii-responsive-ad-wrapper
+  .six-product-wrapper
+  .product-item:hover
+  .onsale {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.trendii-responsive-ad-wrapper
+  .six-product-wrapper
+  .product-item:hover
+  .product-details-wrapper {
+  opacity: 1;
+  visibility: visible;
+}
+
+.trendii-responsive-ad-wrapper
+  .six-product-wrapper
+  .product-item
+  .product-details-wrapper {
+  color: #fff;
+  z-index: 1;
+  position: relative;
+  padding: 7px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.trendii-responsive-ad-wrapper
+  .six-product-wrapper
+  .product-item
+  .product-details-wrapper
+  .brand-name {
+  display: block;
+  font-size: 12px;
+  line-height: 14px;
+  font-weight: 500;
+  max-height: 12px;
+  overflow: hidden;
+  padding-bottom: 0;
+  margin: 6px 0;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.trendii-responsive-ad-wrapper
+  .six-product-wrapper
+  .product-item
+  .product-details-wrapper
+  .product-name {
+  display: block;
+  font-size: 10px;
+  line-height: 12px;
+  font-weight: 200;
+  max-height: 12px;
+  overflow: hidden;
+  padding-bottom: 0;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.trendii-responsive-ad-wrapper
+  .six-product-wrapper
+  .product-item
+  .product-details-wrapper
+  .product-price {
+  display: block;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 500;
+  max-height: 14px;
+  font-style: normal;
+  text-decoration: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.trendii-responsive-ad-wrapper .six-product-wrapper .product-item .onsale {
+  display: block;
+  padding: 2px 4px;
+  text-transform: uppercase;
+  position: absolute;
+  top: 9px;
+  left: -1px;
+  width: 43px;
+  background: #ee1100;
+  color: #fff;
+  font-size: 8px;
+  line-height: 10px;
+  z-index: 2;
+  transition: all 0.2s ease;
+}
+
+.trendii-responsive-ad-wrapper
+  .six-product-wrapper
+  .product-item
+  .onsale:after {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  bottom: 0;
+  border-left: 0 solid transparent;
+  border-right: 7px solid #fff0;
+  border-top: 7px solid #ee1100;
+  border-bottom: 7px solid #ee1100;
+}
+
+@media (max-width: 767px) {
+  .trendii-responsive-ad-wrapper
+    .three-product-wrapper
+    .product-item-container {
+    /* padding: 3px; */
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .trendii-responsive-ad-wrapper
+    .one-product-wrapper
+    .product-item
+    .product-item-image,
+  .trendii-responsive-ad-wrapper
+    .two-product-wrapper
+    .product-item
+    .product-item-image,
+  .trendii-responsive-ad-wrapper
+    .three-product-wrapper
+    .product-item
+    .product-item-image,
+  .trendii-responsive-ad-wrapper
+    .four-product-wrapper
+    .product-item
+    .product-item-image {
+    width: 85px;
+    height: 100px;
+  }
+
+  .trendii-responsive-ad-wrapper
+    .one-product-wrapper
+    .product-item-container
+    .product-item-image
+    .onsale,
+  .trendii-responsive-ad-wrapper
+    .two-product-wrapper
+    .product-item-container
+    .product-item-image
+    .onsale,
+  .trendii-responsive-ad-wrapper
+    .three-product-wrapper
+    .product-item-container
+    .product-item-image
+    .onsale,
+  .trendii-responsive-ad-wrapper
+    .four-product-wrapper
+    .product-item-container
+    .product-item-image
+    .onsale {
+    width: auto;
+    font-size: 6px;
+    min-width: 32px;
+    padding: 2px 2px;
+  }
+  .trendii-responsive-ad-wrapper .one-product-wrapper .product-details-wrapper,
+  .trendii-responsive-ad-wrapper .two-product-wrapper .product-details-wrapper {
+    max-width: calc(100% - 85px);
+  }
+
+  .trendii-responsive-ad-wrapper
+    .three-product-wrapper
+    .product-details-wrapper {
+    display: none;
+  }
+
+  .trendii-responsive-ad-wrapper
+    .four-product-wrapper
+    .product-item-container
+    .product-details-wrapper {
+    display: none;
+  }
+  /* .block728X90-slider-wrapper .product-item {
+    width: 85px;
+    height: 100px;
+  } */
+
+  .trendii-responsive-ad-wrapper
+    .three-product-wrapper
+    .product-item-container
+    .product-details-wrapper-mobile,
+  .trendii-responsive-ad-wrapper
+    .four-product-wrapper
+    .product-item-container
+    .product-details-wrapper-mobile {
+    z-index: 1;
+    width: 85px;
+    padding: 5px 0;
+    overflow: hidden;
+    display: block;
+    /* margin: auto; */
+  }
+  .trendii-responsive-ad-wrapper
+    .three-product-wrapper
+    .product-item-container
+    .product-details-wrapper-mobile
+    p,
+  .trendii-responsive-ad-wrapper
+    .four-product-wrapper
+    .product-item-container
+    .product-details-wrapper-mobile
+    p {
+    display: block;
+    font-size: 11px;
+    line-height: 14px;
+    font-weight: 400;
+    max-height: 12px;
+    overflow: hidden;
+    padding-bottom: 0;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .trendii-responsive-ad-wrapper
+    .three-product-wrapper
+    .product-item-container
+    .product-details-wrapper-mobile
+    em,
+  .trendii-responsive-ad-wrapper
+    .four-product-wrapper
+    .product-item-container
+    .product-details-wrapper-mobile
+    em {
+    display: block;
+    font-size: 11px;
+    line-height: 14px;
+    font-weight: 600;
+    max-height: 14px;
+    font-style: normal;
+    text-decoration: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: rgb(197 98 165 / 100%);
+  }
+}

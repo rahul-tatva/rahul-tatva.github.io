@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!-- saved from url=(0068)https://pre.ads.justpremium.com/v/1.0/t/sync?_c=alfi68m1623894286241 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Justpremium Sync Pixel</title>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+</head>
+<body marginwidth="0" marginheight="0">
+<script>
+    function getTrackUrl(ssp) {
+        var scope = window;
+        var trParams = '?rid=r-8457f64d-f84e-464e-89d3-7c8758b53eba-8606-982013070'
+            + '&sid=&uid=r-ebd79f43-5c68-4c19-828a-e83a8e50451d-13480-883437263&vr='
+            + '&ru=https%3A%2F%2Fwww.dailymail.co.uk%2F'
+            + '&tt=' + new Date().getTime()
+            + '&siw=0'
+            + '&sh='+ scope.screen.height
+            + '&sw=' + scope.screen.width
+            + '&wh=' + scope.innerHeight
+            + '&ww=' + scope.innerWidth
+            + '&an=pixel'
+            + '&vn=ap-northeast-1'
+            + '&sd='
+            + '&_c=' + Math.floor((Math.random() * Math.pow(2, 32)) + 1).toString()
+            + '&et=&aid=&said=&ei=&fc=&sp=&at=&cid=0&ist=&mg=&dl=&dlt=&ev=&vt=&zid=0&dr=0&di=&pr=&cw=&ch=&nt=&st='
+            + '&jp=%7B%22jpuid%22%3A%22um-2e99afb1-7e20-48fb-8acb-81fe1660007f-1616975269%22%2C%22ssp%22%3A%22SSP_VAR%22%7D'
+            + '&ty=cu';
+        trParams = trParams.replace('SSP_VAR', ssp);
+        return 'https://tracking.justpremium.com/tracking.gif' + trParams;
+    }
+
+    function pixelTracking(ssp) {
+        var url = getTrackUrl(ssp);
+        var imgPixel = window.document.createElement("img");
+        imgPixel.style.position = "fixed";
+        imgPixel.style.left = "-9999px";
+        imgPixel.style.top = "-9999px";
+        imgPixel.style.width = "1px";
+        imgPixel.style.height = "1px";
+        imgPixel.src = url;
+        window.document.body.appendChild(imgPixel);
+    }
+
+
+    if (false) {
+        var i = document.createElement('iframe');
+        i.setAttribute('frameBorder', 0);
+        i.src = 'https://u.openx.net/w/1.0/cm?gdpr=0&gdpr_consent=&id=fa4f7893-4738-4b38-9fc3-0dca639c806d&ph=26e53f82-d199-49df-9eca-7b350c0f9646&r=' + encodeURIComponent('https://apn1-match.justpremium.com/match/ox?rid=r-8457f64d-f84e-464e-89d3-7c8758b53eba-8606-982013070&jp_uid=um-2e99afb1-7e20-48fb-8acb-81fe1660007f-1616975269&ex_uid=');
+        window.document.body.appendChild(i);
+    }
+    if (false) {
+        var iid = document.createElement('img');
+        iid.setAttribute('src', 'https://ad.360yield.com/server_match?r=' + encodeURIComponent('https://apn1-match.justpremium.com/match/id?rid=r-8457f64d-f84e-464e-89d3-7c8758b53eba-8606-982013070&jp_uid=um-2e99afb1-7e20-48fb-8acb-81fe1660007f-1616975269&ex_uid={PUB_USER_ID}&partner_id=2'));
+        window.document.body.appendChild(iid);
+    }
+    if (false) {
+        var anx = document.createElement('img');
+        anx.setAttribute('src', 'https://ib.adnxs.com/getuid?https://apn1-match.justpremium.com/match/an?rid=r-8457f64d-f84e-464e-89d3-7c8758b53eba-8606-982013070&jp_uid=um-2e99afb1-7e20-48fb-8acb-81fe1660007f-1616975269&ex_uid=$UID');
+        window.document.body.appendChild(anx);
+    }
+    if (false) {
+        var unruly = document.createElement('img');
+        unruly.setAttribute('src', 'https://sync.1rx.io/usersync2/rmpssp?sub=justpremium&redir=' + encodeURIComponent('https://apn1-match.justpremium.com/match/un?rid=r-8457f64d-f84e-464e-89d3-7c8758b53eba-8606-982013070&jp_uid=um-2e99afb1-7e20-48fb-8acb-81fe1660007f-1616975269&ex_uid=[RX_UUID]'));
+        window.document.body.appendChild(unruly);
+    }
+    if (false) {
+        var sptx = document.createElement('img');
+        sptx.setAttribute('src', 'https://sync.search.spotxchange.com/partner?adv_id=8590&redir=' + encodeURIComponent('https://apn1-match.justpremium.com/match/spx?rid=r-8457f64d-f84e-464e-89d3-7c8758b53eba-8606-982013070&jp_uid=um-2e99afb1-7e20-48fb-8acb-81fe1660007f-1616975269&ex_uid=$SPOTX_USER_ID'));
+        window.document.body.appendChild(sptx);
+    }
+    if (false) {
+        var index = document.createElement('iframe');
+        index.setAttribute('frameBorder', 0);
+        index.setAttribute('src', 'https://ssum.casalemedia.com/usermatch?s=189872&cb=' + encodeURIComponent('https://apn1-match.justpremium.com/match/ie?jp_uid=um-2e99afb1-7e20-48fb-8acb-81fe1660007f-1616975269&ex_uid='));
+        window.document.body.appendChild(index);
+    }
+
+</script>
+
+
+</body></html>
