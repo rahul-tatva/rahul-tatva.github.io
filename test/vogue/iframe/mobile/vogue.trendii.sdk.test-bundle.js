@@ -7,7 +7,7 @@ if (typeof trendii === "undefined") {
 }
 
 trendii.AD_CONTAINERS_SELECTORS = [ {
-    parentSelector: `[data-test-id="ArticleBodyImage"]`,
+    parentSelector: `[data-test-id="GalleryImage"]`,
     adRendererSelector: `[data-test-id="ImageWrapper"]`,
     renderFunction: null,
     appendIntoParent: false
@@ -514,6 +514,7 @@ trendii.selectAllParentElementsFromDOM = function() {
         allParentEls = Array.from(trendii.adsDOM.querySelectorAll(selectorObj.parentSelector));
         if (allParentEls.length > 0) {
             trendii.CURRENT_PAGE_AD_CONTAINER_SELECTOR = selectorObj;
+            trendii.console.log("Found structure", selectorObj);
             return allParentEls;
         }
     }
