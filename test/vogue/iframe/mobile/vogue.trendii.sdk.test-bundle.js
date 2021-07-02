@@ -6,9 +6,19 @@ if (typeof trendii === "undefined") {
     }
 }
 
-trendii.DESKTOP_IMAGE_GROUP_PARENT_DIV_CLASS = trendii.MOBILE_IMAGE_GROUP_PARENT_TAG = `[data-test-id="GalleryImage"]`;
+trendii.AD_CONTAINERS_SELECTORS = [ {
+    parentSelector: `[data-test-id="ArticleBodyImage"]`,
+    adRendererSelector: `[data-test-id="ImageWrapper"]`,
+    renderFunction: null,
+    appendIntoParent: false
+}, {
+    parentSelector: `[data-test-id="ArticleBodyImage"]`,
+    adRendererSelector: `[data-test-id="Wrapper"]`,
+    renderFunction: null,
+    appendIntoParent: false
+} ];
 
-trendii.DESKTOP_IMAGE_CAPTION_CLASS = trendii.MOBILE_IMAGE_CAPTION_TAG = `[data-test-id="ImageWrapper"]`;
+trendii.CURRENT_PAGE_AD_CONTAINER_SELECTOR = {};
 
 trendii.SLIDER_CLASS_TO_REPLACE_WITH = "trendiiSliderUniqueString";
 
@@ -486,14 +496,26 @@ trendii.startAdGenerationProcess = function() {
         } else {
             trendii.imageIntersectionObserver = new IntersectionObserver(trendii.handleImageIntersectionEntries, options);
         }
-        let allParentEls = Array.from(trendii.adsDOM.querySelectorAll(trendii.isMobileDevice ? trendii.MOBILE_IMAGE_GROUP_PARENT_TAG : trendii.DESKTOP_IMAGE_GROUP_PARENT_DIV_CLASS));
-        trendii.console.log("Fetched all parents element.", allParentEls);
+        let allParentEls = trendii.selectAllParentElementsFromDOM();
+        trendii.console.log("All parent elements.", allParentEls);
         trendii.pacingValue = trendii.getPacingValue(allParentEls.length);
         for (let i = 0; i < allParentEls.length; i++) {
             trendii.imageIntersectionObserver.observe(allParentEls[i]);
         }
     } catch (err) {
         trendii.console.error(err);
+    }
+};
+
+trendii.selectAllParentElementsFromDOM = function() {
+    let allParentEls;
+    for (let index = 0; index < trendii.AD_CONTAINERS_SELECTORS.length; index++) {
+        const selectorObj = trendii.AD_CONTAINERS_SELECTORS[index];
+        allParentEls = Array.from(trendii.adsDOM.querySelectorAll(selectorObj.parentSelector));
+        if (allParentEls.length > 0) {
+            trendii.CURRENT_PAGE_AD_CONTAINER_SELECTOR = selectorObj;
+            return allParentEls;
+        }
     }
 };
 
@@ -624,16 +646,27 @@ trendii.generateAdHtml = function(imageCreative) {
 
 trendii.appendAdHtml = function(imageCreative, visibleElement) {
     try {
-        const captionElement = visibleElement.querySelector(trendii.isMobileDevice ? trendii.MOBILE_IMAGE_CAPTION_TAG : trendii.DESKTOP_IMAGE_CAPTION_CLASS);
-        if (captionElement !== undefined) {
-            captionElement.after(imageCreative.adHtml);
-        } else {
+        let isAdAppended = false;
+        const selectorObj = trendii.CURRENT_PAGE_AD_CONTAINER_SELECTOR;
+        const adRendererElement = visibleElement.querySelector(selectorObj.adRendererSelector);
+        if (adRendererElement !== undefined) {
+            if (selectorObj.renderFunction) {
+                adRendererElement[renderFunction].apply(adRendererElement, [ imageCreative.adHtml ]);
+                isAdAppended = true;
+            } else {
+                adRendererElement.after(imageCreative.adHtml);
+                isAdAppended = true;
+            }
+        } else if (selectorObj.appendIntoParent) {
             visibleElement.appendChild(imageCreative.adHtml);
+            isAdAppended = true;
         }
-        if (imageCreative.isSliderTemplate) {
-            trendii.registerSlider(imageCreative);
+        if (isAdAppended) {
+            if (imageCreative.isSliderTemplate) {
+                trendii.registerSlider(imageCreative);
+            }
+            trendii.imageIntersectionObserver.observe(imageCreative.adHtml);
         }
-        trendii.imageIntersectionObserver.observe(imageCreative.adHtml);
     } catch (err) {
         trendii.console.error(err);
     }
