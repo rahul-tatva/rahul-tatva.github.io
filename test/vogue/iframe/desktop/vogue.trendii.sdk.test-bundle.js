@@ -508,7 +508,7 @@ trendii.startAdGenerationProcess = function() {
 };
 
 trendii.selectAllParentElementsFromDOM = function() {
-    let allParentEls;
+    let allParentEls = [];
     for (let index = 0; index < trendii.AD_CONTAINERS_SELECTORS.length; index++) {
         const selectorObj = trendii.AD_CONTAINERS_SELECTORS[index];
         allParentEls = Array.from(trendii.adsDOM.querySelectorAll(selectorObj.parentSelector));
@@ -543,9 +543,11 @@ trendii.handleImageIntersectionEntry = async function(entry, observer) {
                     return;
                 }
                 trendii.console.log("API called to send impressions for ad.");
+                const creativeId = visibleElement.getAttribute("trendii-ad-creative-id");
                 const productsIds = visibleElement.getAttribute("trendii-ad-products-id");
                 const requestBody = {
                     impressionId: impressionId,
+                    creativeId: creativeId,
                     deviceType: trendii.isMobileDevice ? "MOBILE" : "PC",
                     products: productsIds ? productsIds.split(",") : []
                 };
@@ -592,6 +594,7 @@ trendii.handleImageIntersectionEntry = async function(entry, observer) {
             trendii.console.log("Ad html generated.");
             imageCreative.adHtml.setAttribute("data-is-trendii-ad", true);
             imageCreative.adHtml.setAttribute("trendii-ad-impression-id", imageCreative.impressionId);
+            imageCreative.adHtml.setAttribute("trendii-ad-creative-id", imageCreative.creativeId);
             imageCreative.adHtml.setAttribute("trendii-ad-products-id", imageCreative.productsId);
             trendii.appendAdHtml(imageCreative, visibleElement);
             trendii.console.log("Appended ad html.");
