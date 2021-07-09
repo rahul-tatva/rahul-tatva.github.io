@@ -483,7 +483,7 @@
   text-align: center;
 }
 
-/* 
+/*
           .trendii-responsive-ad-wrapper .five-product-wrapper .trendii-product-item:after {
               content: "";
               position: absolute;
@@ -497,7 +497,7 @@
               visibility: hidden;
               border-radius: 10px;
           }
-  
+
           .trendii-responsive-ad-wrapper .five-product-wrapper .trendii-product-item:hover:after {
               opacity: 1;
               visibility: visible;
@@ -1405,7 +1405,7 @@
   visibility: visible;
 }
 
-/* 
+/*
 .trendii-floating-ad-wrapper .trendii-one-product-wrapper .product-item-container .product-item .trendii-product-details-wrapper {
 color: #FFF;
 display: block;
@@ -1608,7 +1608,7 @@ transition: all 0.3s ease;
   visibility: visible;
 }
 
-/* 
+/*
 .trendii-floating-ad-wrapper .trendii-two-product-wrapper .product-item-container .product-item .trendii-product-details-wrapper {
 color: #FFF;
 display: block;
@@ -1936,7 +1936,7 @@ max-height: 202px; */
   visibility: visible;
 }
 
-/* 
+/*
 .trendii-floating-ad-wrapper .trendii-three-product-wrapper .product-item-container .product-item .trendii-product-details-wrapper {
 color: #FFF;
 display: block;
@@ -2719,7 +2719,7 @@ max-height: 202px; */
   visibility: visible;
 }
 
-/* 
+/*
 .trendii-floating-ad-wrapper .trendii-five-product-wrapper .product-item-container .product-item .trendii-product-details-wrapper {
 color: #FFF;
 display: block;
@@ -2876,9 +2876,10 @@ transition: all 0.3s ease;
   background: var(--trendii-floating-ad-wrapper-background-color);
   position: fixed;
   bottom: 0;
-  /* left: 19px; */
+  left: 0;
   right: 0;
-  /* /* margin-left: -160px; */
+  margin: auto;
+  /* /* top: 0; */
 }
 
 .trendii-mobile-floating-ad-wrapper .outer {
@@ -2896,8 +2897,8 @@ transition: all 0.3s ease;
 .trendii-mobile-floating-ad-wrapper .trendii-brand-logo {
   width: 15px;
   height: 42px;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+  /* border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px; */
   background: var(--trendii-floating-ad-header-background-color);
 }
 
@@ -3097,7 +3098,7 @@ transition: all 0.3s ease;
 .trendii-mobile-floating-ad-wrapper
   .trendii-two-product-wrapper
   .trendii-product-details-wrapper {
-  padding: 0 2px;
+  padding: 0 4px;
   max-width: calc(100% - 44px);
 }
 
