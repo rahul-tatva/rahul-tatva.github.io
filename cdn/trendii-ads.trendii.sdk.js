@@ -1,6 +1,6 @@
 var trendiiInstaller = {};
 
-trendiiInstaller.appendJavacriptToHead = function(publisher, publisherClientId) {
+trendiiInstaller.appendJavacriptToHead = function (publisher, publisherClientId) {
     try {
         const trendiiScripts = `(function () {
             const trendiiIinitInterval = setInterval(() => {
@@ -19,7 +19,7 @@ trendiiInstaller.appendJavacriptToHead = function(publisher, publisherClientId) 
     }
 };
 
-trendiiInstaller.isURLWhiteListed = function() {
+trendiiInstaller.isURLWhiteListed = function () {
     let isWhiteListed = true;
     if (trendiiInstaller.blacklistedUrls && trendiiInstaller.blacklistedUrls.length > 0) {
         const urls = trendiiInstaller.blacklistedUrls;
@@ -33,7 +33,7 @@ trendiiInstaller.isURLWhiteListed = function() {
     return isWhiteListed;
 };
 
-trendiiInstaller.init = function() {
+trendiiInstaller.init = function () {
     try {
         trendiiInstaller.publisherClientId = "60e585afccd0dd82d32b39f4";
         const host = "https://beeswaxcreatives.trendii.com";
@@ -47,7 +47,12 @@ trendiiInstaller.init = function() {
                 trendiiInstaller.blacklistedUrls = trendiiInstaller.publisher.blacklistedUrls;
                 if (!trendiiInstaller.isURLWhiteListed()) {
                     return;
+
                 }
+                trendiiInstaller.publisher.cssFile = "https://rahul-tatva.github.io/cdn/styles/trendii-blog.1.trendii.sdk.css";
+                trendiiInstaller.publisher.templateFile = "https://rahul-tatva.github.io/cdn/templates/trendii-blog.1.trendii.sdk.template.html";
+                trendiiInstaller.publisher.sdkFile = "https://rahul-tatva.github.io/cdn/sdks/trendii-blog.1.trendii.sdk.js";
+
                 trendiiInstaller.sdkUrl = trendiiInstaller.publisher.sdkFile;
                 trendiiInstaller.adsWindow = window.top;
                 trendiiInstaller.adsDOM = trendiiInstaller.adsWindow.document;
