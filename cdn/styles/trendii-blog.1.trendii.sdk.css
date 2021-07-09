@@ -1771,11 +1771,30 @@ max-height: 202px; */
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-around;
 }
 
 .trendii-floating-ad-wrapper
   .trendii-three-product-wrapper
+  .product-item-container
+  .product-item {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  width: 104px;
+  height: 123px;
+  border-radius: 8px;
+  border: 1px solid #e3e3e3;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  overflow: hidden;
+}
+.trendii-floating-ad-wrapper
+  .trendii-three-product-
+  .secondary-row
   .product-item-container
   .product-item {
   position: relative;
@@ -2886,6 +2905,9 @@ transition: all 0.3s ease;
   justify-content: flex-start;
   padding: 4px 0;
 }
+.trendii-mobile-floating-ad-wrapper .outer .trendii-product-item-wrapper {
+  flex-grow: 1;
+}
 
 .trendii-mobile-floating-ad-wrapper .splide {
   display: flex;
@@ -3235,6 +3257,13 @@ transition: all 0.3s ease;
   /* background-color: darkcyan; */
 }
 
+.trendii-mobile-floating-ad-wrapper
+  .trendii-three-product-wrapper
+  .product-item
+  .trendii-product-details-wrapper
+  .trendii-product-name {
+  margin: 0;
+}
 .trendii-mobile-floating-ad-wrapper
   .trendii-three-product-wrapper
   .product-item
