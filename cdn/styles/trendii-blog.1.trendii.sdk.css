@@ -2876,8 +2876,9 @@ transition: all 0.3s ease;
   background: var(--trendii-floating-ad-wrapper-background-color);
   position: fixed;
   bottom: 0;
-  left: 50%;
-  margin-left: -160px;
+  /* left: 19px; */
+  right: 0;
+  /* /* margin-left: -160px; */
 }
 
 .trendii-mobile-floating-ad-wrapper .outer {
@@ -2897,7 +2898,7 @@ transition: all 0.3s ease;
   height: 42px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
-  background: #f32b95;
+  background: var(--trendii-floating-ad-header-background-color);
 }
 
 .trendii-mobile-floating-ad-wrapper .trendii-brand-logo img {

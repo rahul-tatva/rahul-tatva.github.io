@@ -792,7 +792,7 @@ trendii.registerSlider = function (imageCreative) {
 
 trendii.generateFloatingAdHtml = function (imageCreative) {
     try {
-        const products = imageCreative.products.slice(0, 1);
+        const products = imageCreative.products.slice(0, 2);
         const productCount = products.length;
         imageCreative.isSliderTemplate = false;
         let adWrapper = trendii.getFloatingAdWrapperHtml(trendii.getRetailerLogoPath(`${imageCreative.advertiserName.toLowerCase()}.png`), imageCreative.advertiserName, productCount);
