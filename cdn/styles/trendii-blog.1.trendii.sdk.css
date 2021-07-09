@@ -6,6 +6,7 @@
   --trendii-product-item-hover-border-color: #f32b97;
   --trendii-slider-button-color: rgba(34, 34, 34, 0.75);
   /* floating ads variables */
+  --trendii-floating-ad-header-background-color: #232323;
   --trendii-floating-ad-on-sale-tag-color: rgba(243, 43, 151, 0.75);
   /* --trendii-floating-ad-wrapper-background-color: #f9f9f9; */
   --trendii-floating-ad-wrapper-background-color: cornflowerblue;
@@ -1336,7 +1337,7 @@
   padding: 14px 0;
   text-align: center;
   width: 280px;
-  background: #f32b95;
+  background: var(--trendii-floating-ad-header-background-color);
   margin-bottom: 8px;
 }
 
