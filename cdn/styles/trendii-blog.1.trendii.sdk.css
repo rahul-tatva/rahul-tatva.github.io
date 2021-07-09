@@ -1321,7 +1321,7 @@
   display: block;
   width: 300px;
   max-height: 60%;
-  background: #f9f9f9;
+  background: var(--trendii-floating-ad-wrapper-background-color);
   position: fixed;
   top: 35%;
   right: 25px;
