@@ -3260,6 +3260,11 @@ transition: all 0.3s ease;
   .trendii-three-product-wrapper
   .product-item
   .trendii-product-details-wrapper
+  .trendii-product-name,
+.trendii-mobile-floating-ad-wrapper
+  .trendii-four-product-wrapper
+  .product-item
+  .trendii-product-details-wrapper
   .trendii-product-name {
   margin: 0;
 }
