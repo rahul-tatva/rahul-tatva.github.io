@@ -1793,7 +1793,7 @@ max-height: 202px; */
   overflow: hidden;
 }
 .trendii-floating-ad-wrapper
-  .trendii-three-product-
+  .trendii-three-product-wrapper
   .secondary-row
   .product-item-container
   .product-item {
@@ -1975,7 +1975,7 @@ transition: all 0.3s ease;
   .trendii-three-product-wrapper
   .product-item-container
   .trendii-product-details-wrapper {
-  /* max-width: 50px; */
+  max-width: 50%;
 }
 
 .trendii-floating-ad-wrapper
