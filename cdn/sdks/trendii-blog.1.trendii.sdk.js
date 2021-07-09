@@ -20,7 +20,7 @@ trendii.nativeAdSimpleTemplateHTMLString = null;
 
 trendii.nativeAdSliderTemplateHTMLString = null;
 
-trendii.init = function(publisher, publisherClientId) {
+trendii.init = function (publisher, publisherClientId) {
     const {
         id,
         name,
@@ -87,7 +87,7 @@ trendii.globals.API_GET_NATIVE_AD_SLIDER_TEMPLATE = `${trendii.globals.CDN}/temp
 
 trendii.globals.API_GET_NATIVE_AD_SIMPLE_TEMPLATE = `${trendii.globals.CDN}/templates/products-728X90-all-product-dynamic.html`;
 
-trendii.getSimpleAdWrapperHtml = function(imageUrl, advertiserName, productsCount) {
+trendii.getSimpleAdWrapperHtml = function (imageUrl, advertiserName, productsCount) {
     try {
         let html = trendii.template.simpleAdContainer;
         const htmlClass = {
@@ -120,7 +120,7 @@ trendii.getSimpleAdWrapperHtml = function(imageUrl, advertiserName, productsCoun
     }
 };
 
-trendii.getProductHtml = function(product, which) {
+trendii.getProductHtml = function (product, which) {
     try {
         let html = trendii.template.productItemContainer;
         const htmlClass = {
@@ -159,7 +159,7 @@ trendii.getProductHtml = function(product, which) {
     }
 };
 
-trendii.getSliderAdWrapperHtml = function(imageUrl, advertiserName, productsCount, sliderId) {
+trendii.getSliderAdWrapperHtml = function (imageUrl, advertiserName, productsCount, sliderId) {
     try {
         let html = trendii.template.silderAdContainer;
         html = html.replace("##PRODUCT_SLIDER_ID##", sliderId);
@@ -172,7 +172,7 @@ trendii.getSliderAdWrapperHtml = function(imageUrl, advertiserName, productsCoun
     }
 };
 
-trendii.getSliderProductHtml = function(product) {
+trendii.getSliderProductHtml = function (product) {
     try {
         let html = trendii.template.sliderProductItemContriner;
         html = html.replace("##PRODUCT_ITEM_URL_TO_CLICK##", product.url);
@@ -193,7 +193,7 @@ trendii.getSliderProductHtml = function(product) {
     }
 };
 
-trendii.getFloatingAdWrapperHtml = function(imageUrl, advertiserName, productsCount) {
+trendii.getFloatingAdWrapperHtml = function (imageUrl, advertiserName, productsCount) {
     try {
         let html = trendii.isMobileDevice ? trendii.template.floatingMobileAdContainer : trendii.template.floatingAdContainer;
         const htmlClass = {
@@ -209,29 +209,29 @@ trendii.getFloatingAdWrapperHtml = function(imageUrl, advertiserName, productsCo
         html = html.replace("##RETAILER_NAME##", advertiserName);
         html = html.replace("##PRODUCT_WRAPPER_CLASS##", htmlClass[productsCount]);
         switch (productsCount) {
-          case 1:
-            html = html.replace("##PRODUCT_HTML##", trendii.isMobileDevice ? trendii.template.oneFloatingMobileAdWrapper : trendii.template.oneFloatingAdWrapper);
-            break;
+            case 1:
+                html = html.replace("##PRODUCT_HTML##", trendii.isMobileDevice ? trendii.template.oneFloatingMobileAdWrapper : trendii.template.oneFloatingAdWrapper);
+                break;
 
-          case 2:
-            html = html.replace("##PRODUCT_HTML##", trendii.isMobileDevice ? trendii.template.twoFloatingMobileAdWrapper : trendii.template.twoFloatingAdWrapper);
-            break;
+            case 2:
+                html = html.replace("##PRODUCT_HTML##", trendii.isMobileDevice ? trendii.template.twoFloatingMobileAdWrapper : trendii.template.twoFloatingAdWrapper);
+                break;
 
-          case 3:
-            html = html.replace("##PRODUCT_HTML##", trendii.isMobileDevice ? trendii.template.threeFloatingMobileAdWrapper : trendii.template.threeFloatingAdWrapper);
-            break;
+            case 3:
+                html = html.replace("##PRODUCT_HTML##", trendii.isMobileDevice ? trendii.template.threeFloatingMobileAdWrapper : trendii.template.threeFloatingAdWrapper);
+                break;
 
-          case 4:
-            html = html.replace("##PRODUCT_HTML##", trendii.isMobileDevice ? trendii.template.fourFloatingMobileAdWrapper : trendii.template.fourFloatingAdWrapper);
-            break;
+            case 4:
+                html = html.replace("##PRODUCT_HTML##", trendii.isMobileDevice ? trendii.template.fourFloatingMobileAdWrapper : trendii.template.fourFloatingAdWrapper);
+                break;
 
-          case 5:
-            html = html.replace("##PRODUCT_HTML##", trendii.isMobileDevice ? trendii.template.fiveFloatingMobileAdWrapper : trendii.template.fiveFloatingAdWrapper);
-            break;
+            case 5:
+                html = html.replace("##PRODUCT_HTML##", trendii.isMobileDevice ? trendii.template.fiveFloatingMobileAdWrapper : trendii.template.fiveFloatingAdWrapper);
+                break;
 
-          case 6:
-            html = html.replace("##PRODUCT_HTML##", trendii.isMobileDevice ? trendii.template.sixFloatingMobileAdWrapper : trendii.template.sixFloatingAdWrapper);
-            break;
+            case 6:
+                html = html.replace("##PRODUCT_HTML##", trendii.isMobileDevice ? trendii.template.sixFloatingMobileAdWrapper : trendii.template.sixFloatingAdWrapper);
+                break;
         }
         return html;
     } catch (err) {
@@ -240,7 +240,7 @@ trendii.getFloatingAdWrapperHtml = function(imageUrl, advertiserName, productsCo
     }
 };
 
-trendii.getFloatingProductHtml = function(product, which) {
+trendii.getFloatingProductHtml = function (product, which) {
     try {
         let html;
         if (trendii.isMobileDevice) {
@@ -294,16 +294,16 @@ trendii.getFloatingProductHtml = function(product, which) {
     }
 };
 
-trendii.console = function() {
+trendii.console = function () {
     return {
-        log: function() {
+        log: function () {
             if (trendii.env === "test") {
                 let args = Array.prototype.slice.call(arguments);
                 args.unshift("[Trendii.SDK] ==>");
                 console.log.apply(console, args);
             }
         },
-        error: function() {
+        error: function () {
             let args = Array.prototype.slice.call(arguments);
             args.unshift("[Trendii.SDK] ==>");
             console.error.apply(console, args);
@@ -311,11 +311,11 @@ trendii.console = function() {
     };
 }();
 
-trendii.getRetailerLogoPath = function(fileName) {
+trendii.getRetailerLogoPath = function (fileName) {
     return `${trendii.globals.CDN}/images/retailers-logo/${fileName}`;
 };
 
-trendii.createHtmlElement = function(element, classes, innerHTML, style, href, target) {
+trendii.createHtmlElement = function (element, classes, innerHTML, style, href, target) {
     const htmlElement = trendii.adsDOM.createElement(element);
     htmlElement.classList.add(classes);
     if (innerHTML) {
@@ -333,15 +333,15 @@ trendii.createHtmlElement = function(element, classes, innerHTML, style, href, t
     return htmlElement;
 };
 
-trendii.setPublisherName = function(name) {
+trendii.setPublisherName = function (name) {
     trendii.globals.PUBLISHER_NAME = name;
 };
 
-trendii.loadScriptIntoHead = function(url) {
+trendii.loadScriptIntoHead = function (url) {
     trendii.adsDOM.head.appendChild(trendii.adsDOM.createElement("script")).src = url;
 };
 
-trendii.loadStyleSheetIntoHead = function(url) {
+trendii.loadStyleSheetIntoHead = function (url) {
     let styles = trendii.adsDOM.createElement("link");
     styles.type = "text/css";
     styles.rel = "stylesheet";
@@ -349,7 +349,7 @@ trendii.loadStyleSheetIntoHead = function(url) {
     trendii.adsDOM.head.appendChild(styles);
 };
 
-trendii.loadScriptAndCssToHead = function() {
+trendii.loadScriptAndCssToHead = function () {
     if (trendii.env === "test") {
         trendii.loadScriptIntoHead(`${trendii.globals.CDN}/scripts/common/intersection-observer.js`);
         trendii.loadScriptIntoHead(`${trendii.globals.CDN}/scripts/common/splide.js`);
@@ -360,7 +360,7 @@ trendii.loadScriptAndCssToHead = function() {
     trendii.loadStyleSheetIntoHead(`${trendii.globals.CDN}/styles/common/splide-core.min.css`);
 };
 
-trendii.getImageURLsWithCount = function(element) {
+trendii.getImageURLsWithCount = function (element) {
     try {
         const imageElements = Array.from(element.getElementsByTagName("img"));
         return {
@@ -376,7 +376,7 @@ trendii.getImageURLsWithCount = function(element) {
     }
 };
 
-trendii.getImageUrl = function(element) {
+trendii.getImageUrl = function (element) {
     try {
         if (element.getAttribute("data-src")) {
             return element.getAttribute("data-src");
@@ -389,15 +389,15 @@ trendii.getImageUrl = function(element) {
     }
 };
 
-trendii.fetchProducts = function(params) {
+trendii.fetchProducts = function (params) {
     return trendii.apiPost(trendii.globals.API_GET_NATIVE_AD_PRODUCT, params);
 };
 
-trendii.setViewImpression = function(params) {
+trendii.setViewImpression = function (params) {
     return trendii.apiPost(trendii.globals.API_SET_NATIVE_AD_VIEW_IMPRESSION, params);
 };
 
-trendii.apiPost = async function(url, params) {
+trendii.apiPost = async function (url, params) {
     try {
         const headers = new Headers();
         headers.append("Content-Type", "application/json");
@@ -413,7 +413,7 @@ trendii.apiPost = async function(url, params) {
     }
 };
 
-trendii.canShowAdForAdvertiser = function(advertiserName, index, isForFloating) {
+trendii.canShowAdForAdvertiser = function (advertiserName, index, isForFloating) {
     try {
         const advertiserIndex = trendii.advertiserLog.findIndex(item => item.name === advertiserName.toLowerCase() && item.isForFloating === isForFloating);
         let advertiserLog;
@@ -443,7 +443,7 @@ trendii.canShowAdForAdvertiser = function(advertiserName, index, isForFloating) 
     }
 };
 
-trendii.getPacingValue = function(count) {
+trendii.getPacingValue = function (count) {
     try {
         return Math.ceil(count / trendii.globals.MAX_ADS_PER_ADVTISER);
     } catch (err) {
@@ -452,7 +452,7 @@ trendii.getPacingValue = function(count) {
     }
 };
 
-trendii.openProductLink = function(e, url) {
+trendii.openProductLink = function (e, url) {
     try {
         trendii.adsWindow.open(url, "_blank");
         e.preventDefault();
@@ -461,7 +461,7 @@ trendii.openProductLink = function(e, url) {
     }
 };
 
-trendii.isURLWhiteListed = function() {
+trendii.isURLWhiteListed = function () {
     let isWhiteListed = true;
     if (trendii.blacklistedUrls && trendii.blacklistedUrls.length > 0) {
         const urls = trendii.blacklistedUrls;
@@ -475,7 +475,7 @@ trendii.isURLWhiteListed = function() {
     return isWhiteListed;
 };
 
-trendii.appendJavacriptToHead = function() {
+trendii.appendJavacriptToHead = function () {
     try {
         const trendiiScripts = `function trendiiSDKOpenProductLink (e, url) {
             try {
@@ -494,7 +494,7 @@ trendii.appendJavacriptToHead = function() {
     }
 };
 
-trendii.setAdTemplates = async function(templateURL) {
+trendii.setAdTemplates = async function (templateURL) {
     try {
         const response = await fetch(templateURL);
         if (!response.ok) {
@@ -535,7 +535,7 @@ trendii.setAdTemplates = async function(templateURL) {
     }
 };
 
-trendii.startAdGenerationProcess = async function(templateURL) {
+trendii.startAdGenerationProcess = async function (templateURL) {
     try {
         trendii.advertiserLog = [];
         trendii.pacingValue = 0;
@@ -578,7 +578,7 @@ trendii.startAdGenerationProcess = async function(templateURL) {
     }
 };
 
-trendii.handleImageIntersectionEntries = function(entries, observer) {
+trendii.handleImageIntersectionEntries = function (entries, observer) {
     try {
         for (let i = 0; i < entries.length; i++) {
             trendii.console.log("Image intersection called for below image ads.");
@@ -589,7 +589,7 @@ trendii.handleImageIntersectionEntries = function(entries, observer) {
     }
 };
 
-trendii.handleImageIntersectionEntriesFloating = function(entries, observer) {
+trendii.handleImageIntersectionEntriesFloating = function (entries, observer) {
     try {
         for (let i = 0; i < entries.length; i++) {
             trendii.console.log("Image intersection called for floating ads.");
@@ -600,7 +600,7 @@ trendii.handleImageIntersectionEntriesFloating = function(entries, observer) {
     }
 };
 
-trendii.handleImageIntersectionEntry = async function(entry, observer, isForFloating) {
+trendii.handleImageIntersectionEntry = async function (entry, observer, isForFloating) {
     try {
         if (entry.isIntersecting) {
             const visibleElement = entry.target;
@@ -704,41 +704,41 @@ trendii.handleImageIntersectionEntry = async function(entry, observer, isForFloa
     }
 };
 
-trendii.generateAdHtml = function(imageCreative) {
+trendii.generateAdHtml = function (imageCreative) {
     try {
         const products = trendii.isMobileDevice ? imageCreative.products : imageCreative.products.slice(0, 4);
         const productCount = products.length;
         switch (productCount) {
-          case 1:
-          case 2:
-          case 3:
-          case 4:
-            {
-                imageCreative.isSliderTemplate = false;
-                let adWrapper = trendii.getSimpleAdWrapperHtml(trendii.getRetailerLogoPath(`${imageCreative.advertiserName.toLowerCase()}.png`), imageCreative.advertiserName, products.length);
-                let productItemsHtml = "";
-                for (let i = 0; i < productCount; i++) {
-                    productItemsHtml += trendii.getProductHtml(products[i], productCount);
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+                {
+                    imageCreative.isSliderTemplate = false;
+                    let adWrapper = trendii.getSimpleAdWrapperHtml(trendii.getRetailerLogoPath(`${imageCreative.advertiserName.toLowerCase()}.png`), imageCreative.advertiserName, products.length);
+                    let productItemsHtml = "";
+                    for (let i = 0; i < productCount; i++) {
+                        productItemsHtml += trendii.getProductHtml(products[i], productCount);
+                    }
+                    adWrapper = adWrapper.replace("##PRODUCT_HTML##", productItemsHtml);
+                    imageCreative.adHtml = new DOMParser().parseFromString(adWrapper, "text/html").getElementById(trendii.globals.HTML_TEMPLATE_AD_WRAPPER_ID);
                 }
-                adWrapper = adWrapper.replace("##PRODUCT_HTML##", productItemsHtml);
-                imageCreative.adHtml = new DOMParser().parseFromString(adWrapper, "text/html").getElementById(trendii.globals.HTML_TEMPLATE_AD_WRAPPER_ID);
-            }
-            break;
+                break;
 
-          default:
-            {
-                imageCreative.isSliderTemplate = true;
-                ++trendii.sliderCount;
-                imageCreative.sliderId = `splide${trendii.sliderCount}`;
-                let adWrapper = trendii.getSliderAdWrapperHtml(trendii.getRetailerLogoPath(`${imageCreative.advertiserName.toLowerCase()}.png`), imageCreative.advertiserName, products.length, imageCreative.sliderId);
-                let productItemsHtml = "";
-                for (let i = 0; i < productCount; i++) {
-                    productItemsHtml += trendii.getSliderProductHtml(products[i]);
+            default:
+                {
+                    imageCreative.isSliderTemplate = true;
+                    ++trendii.sliderCount;
+                    imageCreative.sliderId = `splide${trendii.sliderCount}`;
+                    let adWrapper = trendii.getSliderAdWrapperHtml(trendii.getRetailerLogoPath(`${imageCreative.advertiserName.toLowerCase()}.png`), imageCreative.advertiserName, products.length, imageCreative.sliderId);
+                    let productItemsHtml = "";
+                    for (let i = 0; i < productCount; i++) {
+                        productItemsHtml += trendii.getSliderProductHtml(products[i]);
+                    }
+                    adWrapper = adWrapper.replace("##PRODUCT_HTML##", productItemsHtml);
+                    imageCreative.adHtml = new DOMParser().parseFromString(adWrapper, "text/html").getElementById(trendii.globals.HTML_TEMPLATE_AD_WRAPPER_ID);
                 }
-                adWrapper = adWrapper.replace("##PRODUCT_HTML##", productItemsHtml);
-                imageCreative.adHtml = new DOMParser().parseFromString(adWrapper, "text/html").getElementById(trendii.globals.HTML_TEMPLATE_AD_WRAPPER_ID);
-            }
-            break;
+                break;
         }
     } catch (err) {
         trendii.console.error(err);
@@ -746,7 +746,7 @@ trendii.generateAdHtml = function(imageCreative) {
     }
 };
 
-trendii.appendAdHtml = function(imageCreative, visibleElement) {
+trendii.appendAdHtml = function (imageCreative, visibleElement) {
     try {
         const captionElement = visibleElement.getElementsByTagName(trendii.isMobileDevice ? trendii.MOBILE_IMAGE_CAPTION_TAG : trendii.DESKTOP_IMAGE_CAPTION_CLASS)[0];
         if (captionElement !== undefined) {
@@ -763,7 +763,7 @@ trendii.appendAdHtml = function(imageCreative, visibleElement) {
     }
 };
 
-trendii.registerSlider = function(imageCreative) {
+trendii.registerSlider = function (imageCreative) {
     try {
         const identifier = imageCreative.sliderId;
         trendii.slidersAppendedArray.push(identifier);
@@ -781,7 +781,7 @@ trendii.registerSlider = function(imageCreative) {
             adWrapper.setAttribute("data-slider-appended", "true");
             adWrapper.style.display = "block";
             trendii.console.log("Slider appended");
-            testSlider.on("mounted", function() {
+            testSlider.on("mounted", function () {
                 trendii.console.log("Splide mounted.");
             });
         }
@@ -790,9 +790,9 @@ trendii.registerSlider = function(imageCreative) {
     }
 };
 
-trendii.generateFloatingAdHtml = function(imageCreative) {
+trendii.generateFloatingAdHtml = function (imageCreative) {
     try {
-        const products = imageCreative.products.slice(0, 6);
+        const products = imageCreative.products.slice(0, 1);
         const productCount = products.length;
         imageCreative.isSliderTemplate = false;
         let adWrapper = trendii.getFloatingAdWrapperHtml(trendii.getRetailerLogoPath(`${imageCreative.advertiserName.toLowerCase()}.png`), imageCreative.advertiserName, productCount);
@@ -805,7 +805,7 @@ trendii.generateFloatingAdHtml = function(imageCreative) {
     }
 };
 
-trendii.appendFloatingAdHtml = function(imageCreative, visibleElement) {
+trendii.appendFloatingAdHtml = function (imageCreative, visibleElement) {
     try {
         trendii.adsDOM.body.appendChild(imageCreative.adHtml);
         visibleElement.setAttribute("data-trendii-floating-ad-find-id", imageCreative.impressionId);
@@ -827,7 +827,7 @@ trendii.appendFloatingAdHtml = function(imageCreative, visibleElement) {
     }
 };
 
-trendii.getAllProductsId = function(products) {
+trendii.getAllProductsId = function (products) {
     try {
         const productsIds = [];
         for (let i = 0; i < products.length; i++) {
@@ -840,7 +840,7 @@ trendii.getAllProductsId = function(products) {
     }
 };
 
-trendii.isFloatingAdGenerated = function(element) {
+trendii.isFloatingAdGenerated = function (element) {
     try {
         return element.getAttribute("data-trendii-floating-ad-generated");
     } catch (err) {
@@ -849,7 +849,7 @@ trendii.isFloatingAdGenerated = function(element) {
     }
 };
 
-trendii.showFloatingAd = function(visibleElement) {
+trendii.showFloatingAd = function (visibleElement) {
     try {
         const selector = trendii.isMobileDevice ? ".trendii-mobile-floating-ad-wrapper" : ".trendii-floating-ad-wrapper";
         const divsToHide = trendii.adsDOM.querySelectorAll(selector);

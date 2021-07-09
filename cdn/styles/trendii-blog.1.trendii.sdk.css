@@ -7,7 +7,8 @@
   --trendii-slider-button-color: rgba(34, 34, 34, 0.75);
   /* floating ads variables */
   --trendii-floating-ad-on-sale-tag-color: rgba(243, 43, 151, 0.75);
-  --trendii-floating-ad-wrapper-background-color: #f9f9f9;
+  /* --trendii-floating-ad-wrapper-background-color: #f9f9f9; */
+  --trendii-floating-ad-wrapper-background-color: cornflowerblue;
 }
 
 .trendii-ads-body {
