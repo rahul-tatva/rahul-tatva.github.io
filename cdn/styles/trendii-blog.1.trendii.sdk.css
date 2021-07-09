@@ -1659,7 +1659,7 @@ transition: all 0.3s ease;
   max-height: 17px;
   overflow: hidden;
   padding-bottom: 0;
-  /* margin-bottom: 2px; */
+  margin-bottom: 2px;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
@@ -1679,6 +1679,7 @@ transition: all 0.3s ease;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  margin-bottom: 2px;
 }
 
 .trendii-floating-ad-wrapper
