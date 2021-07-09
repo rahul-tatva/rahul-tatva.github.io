@@ -1,0 +1,116 @@
+<div selector="adHeader">
+	<div class="trendii-ad-header">
+		<span class="trendii-ad-header-title">Shop the look with</span>
+		<div class="trendii-brand-logo-container">
+			<img src="##RETAILER_LOGO_URL##" id="retailer-logo" title="##RETAILER_NAME##"
+				class="trendii-brand-logo-image" />
+		</div>
+	</div>
+</div>
+
+<div selector="simpleAdContainer">
+	<div class="trendii-ads-body">
+		<div class="trendii-responsive-ad-wrapper" id="trendii-native-ad-wrapper">
+			<div class="trendii-ad-outer-wrapper">
+				##AD_HEADER_HTML##
+				<div class="trendii-product-item-wrapper" id="trendii-products-container-728X90">
+					<div class="##PRODUCT_WRAPPER_CLASS##">
+						<div class="##PRODUCT_WRAPPER_ROW_CLASS##">
+							##PRODUCT_HTML##
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div selector="productItemContainer">
+	<div class="trendii-ads-body">
+		<div class="trendii-responsive-ad-wrapper" id="trendii-native-ad-wrapper">
+			<div class="trendii-ad-outer-wrapper">
+				##AD_HEADER_HTML##
+				<div class="trendii-product-item-wrapper" id="trendii-products-container-728X90">
+					<div class="##PRODUCT_WRAPPER_CLASS##">
+						<div class="##PRODUCT_WRAPPER_ROW_CLASS##">
+							##PRODUCT_HTML##
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div selector="productItemContainer">
+	<div class="##PRODUCT_ITEM_CONTAINER_CLASS##">
+		<div class="trendii-product-item-container"
+			onclick="trendiiSDKOpenProductLink(event, '##PRODUCT_ITEM_URL_TO_CLICK##');">
+			<div class="trendii-product-item">
+				<div class="trendii-product-item-image" style="background-image: url('##PRODUCT_IMAGE_URL##');">
+					<span ##ON_SALE_VISIBLE## class="trendii-onsale">
+						ON SALE
+					</span>
+				</div>
+				##PRODUCT_DETAILS_WRAPPER_IN_ITEM##
+			</div>
+			##PRODUCT_DETAILS_WRAPPER_IN_WRAPPER##
+			##PRODUCT_DETAILS_MOBILE_WRAPPER_IN_WRAPPER##
+		</div>
+	</div>
+</div>
+
+<div selector="productDetailsWrapper">
+	<div class="trendii-product-details-wrapper">
+		<p class="trendii-product-name">##PRODUCT_NAME##</p>
+		<em class="trendii-product-price">##PRODUCT_PRICE##</em>
+	</div>
+</div>
+
+<div selector="productDetailsMobileWrapper">
+	<div class="trendii-product-details-wrapper-mobile">
+		<p class="trendii-product-name">##PRODUCT_NAME##</p>
+		<em class="trendii-product-price">##PRODUCT_PRICE##</em>
+	</div>
+</div>
+
+<div selector="silderAdContainer">
+	<div class="trendii-block728X90-slider-wrapper" id="trendii-native-ad-wrapper" sytle="display: none;">
+		<div class="trendii-ad-outer-wrapper">
+			##AD_HEADER_HTML##
+			<div class="trendii-product-item-wrapper splide" id="##PRODUCT_SLIDER_ID##" sytle="display: none;">
+				<div class="trendii-slider-title splide__arrows">
+					<button class="trendii-btn trendii-btn-slider splide__arrow splide__arrow--prev"
+						style="display: none" title="Previous">
+						<img src="https://cdn.trendii.com/assets/prev.svg" alt="prev-icon" />
+					</button>
+
+					<div class="trendii-all-product splide__track">
+						<ul class="splide__list" id="trendii-sdk-ad-products-container">
+							##PRODUCT_HTML##
+						</ul>
+					</div>
+					<button class="trendii-btn trendii-btn-slider splide__arrow splide__arrow--next" title="Next">
+						<img id="slider-next-button" src="https://cdn.trendii.com/assets/arrow_pink.svg"
+							alt="next-icon" />
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div selector="sliderProductItemContriner">
+	<li class="splide__slide">
+		<div class="trendii-product-item-container"
+			onclick="trendiiSDKOpenProductLink(event, '##PRODUCT_ITEM_URL_TO_CLICK##');">
+			<div class="trendii-product-item" style="background-image: url('##PRODUCT_IMAGE_URL##');">
+				<span ##ON_SALE_VISIBLE## class="trendii-onsale">
+					ON SALE
+				</span>
+				##PRODUCT_DETAILS_WRAPPER_IN_ITEM##
+			</div>
+			##PRODUCT_DETAILS_MOBILE_WRAPPER_IN_WRAPPER##
+		</div>
+	</li>
+</div>

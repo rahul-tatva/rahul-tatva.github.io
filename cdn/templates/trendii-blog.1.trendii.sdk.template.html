@@ -1,0 +1,381 @@
+<div selector="adHeader">
+    <div class="trendii-ad-header">
+        <span class="trendii-ad-header-title">Shop the look with</span>
+        <div class="trendii-brand-logo-container">
+            <img src="##RETAILER_LOGO_URL##" id="retailer-logo" title="##RETAILER_NAME##"
+                class="trendii-brand-logo-image" />
+        </div>
+    </div>
+</div>
+
+<div selector="adHeaderFloating">
+    <div class="trendii-brand-logo">
+        <img src="##RETAILER_LOGO_URL##" id="retailer-logo" title="##RETAILER_NAME##" class="trendii-logo-container" />
+    </div>
+</div>
+
+<div selector="adHeaderFloatingMobile">
+    <div class="trendii-brand-logo">
+        <img src="##RETAILER_LOGO_URL##" id="retailer-logo" title="##RETAILER_NAME##" class="trendii-logo-container" />
+    </div>
+</div>
+
+<div selector="simpleAdContainer">
+    <div class="trendii-ads-body">
+        <div class="trendii-responsive-ad-wrapper" id="trendii-native-ad-wrapper">
+            <div class="trendii-ad-outer-wrapper">
+                ##AD_HEADER_HTML##
+                <div class="trendii-product-item-wrapper" id="trendii-products-container-728X90">
+                    <div class="##PRODUCT_WRAPPER_CLASS##">
+                        <div class="##PRODUCT_WRAPPER_ROW_CLASS##">
+                            ##PRODUCT_HTML##
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div selector="productItemContainer">
+    <div class="trendii-ads-body">
+        <div class="trendii-responsive-ad-wrapper" id="trendii-native-ad-wrapper">
+            <div class="trendii-ad-outer-wrapper">
+                ##AD_HEADER_HTML##
+                <div class="trendii-product-item-wrapper" id="trendii-products-container-728X90">
+                    <div class="##PRODUCT_WRAPPER_CLASS##">
+                        <div class="##PRODUCT_WRAPPER_ROW_CLASS##">
+                            ##PRODUCT_HTML##
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div selector="productItemContainer">
+    <div class="##PRODUCT_ITEM_CONTAINER_CLASS##">
+        <div class="trendii-product-item-container"
+            onclick="trendiiSDKOpenProductLink(event, '##PRODUCT_ITEM_URL_TO_CLICK##');">
+            <div class="trendii-product-item">
+                <div class="trendii-product-item-image" style="background-image: url('##PRODUCT_IMAGE_URL##');">
+                    <span ##ON_SALE_VISIBLE## class="trendii-onsale">
+                        ON SALE
+                    </span>
+                </div>
+                ##PRODUCT_DETAILS_WRAPPER_IN_ITEM##
+            </div>
+            ##PRODUCT_DETAILS_WRAPPER_IN_WRAPPER##
+            ##PRODUCT_DETAILS_MOBILE_WRAPPER_IN_WRAPPER##
+        </div>
+    </div>
+</div>
+
+<div selector="productDetailsWrapper">
+    <div class="trendii-product-details-wrapper">
+        <p class="trendii-product-name">##PRODUCT_NAME##</p>
+        <em class="trendii-product-price">##PRODUCT_PRICE##</em>
+    </div>
+</div>
+
+<div selector="productDetailsMobileWrapper">
+    <div class="trendii-product-details-wrapper-mobile">
+        <p class="trendii-product-name">##PRODUCT_NAME##</p>
+        <em class="trendii-product-price">##PRODUCT_PRICE##</em>
+    </div>
+</div>
+
+<div selector="silderAdContainer">
+    <div class="trendii-block728X90-slider-wrapper" id="trendii-native-ad-wrapper" sytle="display: none;">
+        <div class="trendii-ad-outer-wrapper">
+            ##AD_HEADER_HTML##
+            <div class="trendii-product-item-wrapper splide" id="##PRODUCT_SLIDER_ID##" sytle="display: none;">
+                <div class="trendii-slider-title splide__arrows">
+                    <button class="trendii-btn trendii-btn-slider splide__arrow splide__arrow--prev"
+                        style="display: none" title="Previous">
+                        <img src="https://cdn.trendii.com/assets/prev.svg" alt="prev-icon" />
+                    </button>
+
+                    <div class="trendii-all-product splide__track">
+                        <ul class="splide__list" id="trendii-sdk-ad-products-container">
+                            ##PRODUCT_HTML##
+                        </ul>
+                    </div>
+                    <button class="trendii-btn trendii-btn-slider splide__arrow splide__arrow--next" title="Next">
+                        <img id="slider-next-button" src="https://cdn.trendii.com/assets/arrow_pink.svg"
+                            alt="next-icon" />
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div selector="sliderProductItemContriner">
+    <li class="splide__slide">
+        <div class="trendii-product-item-container"
+            onclick="trendiiSDKOpenProductLink(event, '##PRODUCT_ITEM_URL_TO_CLICK##');">
+            <div class="trendii-product-item" style="background-image: url('##PRODUCT_IMAGE_URL##');">
+                <span ##ON_SALE_VISIBLE## class="trendii-onsale">
+                    ON SALE
+                </span>
+                ##PRODUCT_DETAILS_WRAPPER_IN_ITEM##
+            </div>
+            ##PRODUCT_DETAILS_MOBILE_WRAPPER_IN_WRAPPER##
+        </div>
+    </li>
+</div>
+
+<div selector="floatingAdContainer">
+    <div class="trendii-block300X600-wrapper trendii-floating-ad-wrapper" id="trendii-native-ad-wrapper">
+        <div class="outer">
+            ##AD_HEADER_FLOATING_HTML##
+            <div class="product-items-wrapper">
+                <div class="##PRODUCT_WRAPPER_CLASS##">
+                    ##PRODUCT_HTML##
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div selector="oneFloatingAdWrapper">
+    <div class="row">
+        <div class="col">
+            ##PRODUCT_ITEM_HTML_1##
+        </div>
+    </div>
+</div>
+
+<div selector="twoFloatingAdWrapper">
+    <div class="row">
+        <div class="col-6">
+            ##PRODUCT_ITEM_HTML_1##
+        </div>
+        <div class="col-6">
+            ##PRODUCT_ITEM_HTML_2##
+        </div>
+    </div>
+</div>
+
+<div selector="threeFloatingAdWrapper">
+    <div class="row">
+        <div class="col">
+            ##PRODUCT_ITEM_HTML_1##
+        </div>
+    </div>
+    <div class="row secondary-row">
+        <div class="col">
+            ##PRODUCT_ITEM_HTML_2##
+        </div>
+        <div class="col">
+            ##PRODUCT_ITEM_HTML_3##
+        </div>
+    </div>
+</div>
+
+<div selector="fourFloatingAdWrapper">
+    <div class="row">
+        <div class="col">
+            ##PRODUCT_ITEM_HTML_1##
+        </div>
+        <div class="col">
+            ##PRODUCT_ITEM_HTML_2##
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            ##PRODUCT_ITEM_HTML_3##
+        </div>
+        <div class="col">
+            ##PRODUCT_ITEM_HTML_4##
+        </div>
+    </div>
+</div>
+
+<div selector="fiveFloatingAdWrapper">
+    <div class="row">
+        <div class="col">
+            ##PRODUCT_ITEM_HTML_1##
+        </div>
+    </div>
+    <div class="row secondary-row">
+        <div class="col">
+            ##PRODUCT_ITEM_HTML_2##
+        </div>
+        <div class="col">
+            ##PRODUCT_ITEM_HTML_3##
+        </div>
+    </div>
+    <div class="row secondary-row">
+        <div class="col">
+            ##PRODUCT_ITEM_HTML_4##
+        </div>
+        <div class="col">
+            ##PRODUCT_ITEM_HTML_5##
+        </div>
+    </div>
+</div>
+
+<div selector="sixFloatingAdWrapper">
+    <div class="row">
+        <div class="col">
+            ##PRODUCT_ITEM_HTML_1##
+        </div>
+        <div class="col">
+            ##PRODUCT_ITEM_HTML_2##
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            ##PRODUCT_ITEM_HTML_3##
+        </div>
+        <div class="col">
+            ##PRODUCT_ITEM_HTML_4##
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            ##PRODUCT_ITEM_HTML_5##
+        </div>
+        <div class="col">
+            ##PRODUCT_ITEM_HTML_6##
+        </div>
+    </div>
+</div>
+
+<div selector="floatingProductItemContainer">
+    <div class="product-item-container" onclick="trendii.adsWindow.open('##PRODUCT_ITEM_URL_TO_CLICK##', '_blank');">
+        <div class="product-item" style="background-image: url(##PRODUCT_IMAGE_URL##)">
+            <span class="trendii-onsale" ##ON_SALE_VISIBLE##>ON SALE</span>
+            ##PRODUCT_DETAILS_WRAPPER_IN_ITEM##
+        </div>
+        ##PRODUCT_DETAILS_WRAPPER_IN_WRAPPER##
+        ##PRODUCT_DETAILS_MOBILE_WRAPPER_IN_WRAPPER##
+    </div>
+</div>
+
+<div selector="floatingMobileAdContainer">
+    <div class="trendii-mobile-floating-ad-wrapper" id="trendii-native-ad-wrapper">
+        <div class="outer">
+            ##AD_HEADER_FLOATING_HTML_MOBILE##
+            <div class="trendii-product-item-wrapper" id="trendii-products-container-320X50">
+                <div class="##PRODUCT_WRAPPER_CLASS##">
+                    ##PRODUCT_HTML##
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div selector="oneFloatingMobileAdWrapper">
+    <div class="row">
+        <div class="col-12">
+            ##PRODUCT_ITEM_HTML_1##
+        </div>
+    </div>
+</div>
+
+<div selector="twoFloatingMobileAdWrapper">
+    <div class="row">
+        <div class="col-6">
+            ##PRODUCT_ITEM_HTML_1##
+        </div>
+        <div class="col-6">
+            ##PRODUCT_ITEM_HTML_2##
+        </div>
+    </div>
+</div>
+
+<div selector="threeFloatingMobileAdWrapper">
+    <div class="row row-cols-3">
+        <div class="col">
+            ##PRODUCT_ITEM_HTML_1##
+        </div>
+        <div class="col">
+            ##PRODUCT_ITEM_HTML_2##
+        </div>
+        <div class="col">
+            ##PRODUCT_ITEM_HTML_3##
+        </div>
+    </div>
+</div>
+
+<div selector="fourFloatingMobileAdWrapper">
+    <div class="row row-cols-4">
+        <div class="col">
+            ##PRODUCT_ITEM_HTML_1##
+        </div>
+        <div class="col">
+            ##PRODUCT_ITEM_HTML_2##
+        </div>
+        <div class="col">
+            ##PRODUCT_ITEM_HTML_3##
+        </div>
+        <div class="col">
+            ##PRODUCT_ITEM_HTML_4##
+        </div>
+    </div>
+</div>
+
+<div selector="fiveFloatingMobileAdWrapper">
+    <div class="row row-cols-5">
+        <div class="col">
+            ##PRODUCT_ITEM_HTML_1##
+        </div>
+        <div class="col">
+            ##PRODUCT_ITEM_HTML_2##
+        </div>
+        <div class="col">
+            ##PRODUCT_ITEM_HTML_3##
+        </div>
+        <div class="col">
+            ##PRODUCT_ITEM_HTML_4##
+        </div>
+        <div class="col">
+            ##PRODUCT_ITEM_HTML_5##
+        </div>
+    </div>
+</div>
+
+<div selector="sixFloatingMobileAdWrapper">
+    <div class="row">
+        <div class="col-2">
+            ##PRODUCT_ITEM_HTML_1##
+        </div>
+        <div class="col-2">
+            ##PRODUCT_ITEM_HTML_2##
+        </div>
+        <div class="col-2">
+            ##PRODUCT_ITEM_HTML_3##
+        </div>
+        <div class="col-2">
+            ##PRODUCT_ITEM_HTML_4##
+        </div>
+        <div class="col-2">
+            ##PRODUCT_ITEM_HTML_5##
+        </div>
+        <div class="col-2">
+            ##PRODUCT_ITEM_HTML_6##
+        </div>
+    </div>
+</div>
+
+<div selector="floatingMobileProductItemContainer">
+    <div class="product-item-container" onclick="trendii.adsWindow.open('##PRODUCT_ITEM_URL_TO_CLICK##', '_blank');">
+        <div class="product-item">
+            <div class="product-item-image" style="background-image: url(##PRODUCT_IMAGE_URL##)">
+            </div>
+            ##PRODUCT_DETAILS_WRAPPER_IN_ITEM##
+        </div>
+        ##PRODUCT_DETAILS_WRAPPER_IN_WRAPPER##
+        ##PRODUCT_DETAILS_MOBILE_WRAPPER_IN_WRAPPER##
+    </div>
+</div>
+
+<div selector="floatingMobileProductItemContainerSmall">
+    <div class="product-item" onclick="trendii.adsWindow.open('##PRODUCT_ITEM_URL_TO_CLICK##', '_blank');"
+        style="background-image: url(##PRODUCT_IMAGE_URL##)">
+    </div>
+</div>
