@@ -595,9 +595,9 @@
   text-transform: uppercase;
   position: absolute;
   top: 9px;
-  left: -1px;
+  left: 0;
   width: 43px;
-  background: #ee1100;
+  background: var(--trendii-floating-ad-on-sale-tag-color);
   color: #fff;
   font-size: 8px;
   line-height: 10px;
@@ -751,9 +751,9 @@
   text-transform: uppercase;
   position: absolute;
   top: 9px;
-  left: -1px;
+  left: 0;
   width: 43px;
-  background: #ee1100;
+  background: var(--trendii-floating-ad-on-sale-tag-color);
   color: #fff;
   font-size: 8px;
   line-height: 10px;
@@ -1494,8 +1494,8 @@ transition: all 0.3s ease;
   position: absolute;
   top: 9px;
   left: 0;
-  width: 40px;
-  background: #ee1100;
+  width: 43px;
+  background: var(--trendii-floating-ad-on-sale-tag-color);
   color: #fff;
   font-size: 8px;
   line-height: 10px;
@@ -1517,8 +1517,8 @@ transition: all 0.3s ease;
   bottom: 0;
   border-left: 0 solid transparent;
   border-right: 7px solid #fff0;
-  border-top: 7px solid #ee1100;
-  border-bottom: 7px solid #ee1100;
+  border-top: 7px solid var(--trendii-floating-ad-on-sale-tag-color);
+  border-bottom: 7px solid var(--trendii-floating-ad-on-sale-tag-color);
 }
 
 .trendii-floating-ad-wrapper
@@ -1692,9 +1692,9 @@ transition: all 0.3s ease;
   text-transform: uppercase;
   position: absolute;
   top: 9px;
-  left: -1px;
-  width: 35px;
-  background: #ee1100;
+  left: 0;
+  width: 43px;
+  background: var(--trendii-floating-ad-on-sale-tag-color);
   color: #fff;
   font-size: 8px;
   line-height: 10px;
@@ -1716,8 +1716,8 @@ transition: all 0.3s ease;
   bottom: 0;
   border-left: 0 solid transparent;
   border-right: 7px solid #fff0;
-  border-top: 7px solid #ee1100;
-  border-bottom: 7px solid #ee1100;
+  border-top: 7px solid var(--trendii-floating-ad-on-sale-tag-color);
+  border-bottom: 7px solid var(--trendii-floating-ad-on-sale-tag-color);
 }
 
 .trendii-floating-ad-wrapper
@@ -2042,9 +2042,9 @@ transition: all 0.3s ease;
   text-transform: uppercase;
   position: absolute;
   top: 9px;
-  left: -1px;
-  width: 35px;
-  background: #ee1100;
+  left: 0;
+  width: 43px;
+  background: var(--trendii-floating-ad-on-sale-tag-color);
   color: #fff;
   font-size: 8px;
   line-height: 10px;
@@ -2066,8 +2066,8 @@ transition: all 0.3s ease;
   bottom: 0;
   border-left: 0 solid transparent;
   border-right: 7px solid #fff0;
-  border-top: 7px solid #ee1100;
-  border-bottom: 7px solid #ee1100;
+  border-top: 7px solid var(--trendii-floating-ad-on-sale-tag-color);
+  border-bottom: 7px solid var(--trendii-floating-ad-on-sale-tag-color);
 }
 
 .trendii-floating-ad-wrapper
@@ -2233,8 +2233,8 @@ transition: all 0.3s ease;
   text-transform: uppercase;
   position: absolute;
   top: 9px;
-  left: -1px;
-  width: 35px;
+  left: 0;
+  width: 43px;
   background: #ee1100;
   color: #fff;
   font-size: 8px;
@@ -2257,8 +2257,8 @@ transition: all 0.3s ease;
   bottom: 0;
   border-left: 0 solid transparent;
   border-right: 7px solid #fff0;
-  border-top: 7px solid #ee1100;
-  border-bottom: 7px solid #ee1100;
+  border-top: 7px solid var(--trendii-floating-ad-on-sale-tag-color);
+  border-bottom: 7px solid var(--trendii-floating-ad-on-sale-tag-color);
 }
 
 .trendii-floating-ad-wrapper
@@ -2460,9 +2460,9 @@ transition: all 0.3s ease;
   text-transform: uppercase;
   position: absolute;
   top: 9px;
-  left: -1px;
-  width: 35px;
-  background: #ee1100;
+  left: 0;
+  width: 43px;
+  background: var(--trendii-floating-ad-on-sale-tag-color);
   color: #fff;
   font-size: 8px;
   line-height: 10px;
@@ -2484,8 +2484,8 @@ transition: all 0.3s ease;
   bottom: 0;
   border-left: 0 solid transparent;
   border-right: 7px solid #fff0;
-  border-top: 7px solid #ee1100;
-  border-bottom: 7px solid #ee1100;
+  border-top: 7px solid var(--trendii-floating-ad-on-sale-tag-color);
+  border-bottom: 7px solid var(--trendii-floating-ad-on-sale-tag-color);
 }
 
 .trendii-floating-ad-wrapper
@@ -2845,9 +2845,9 @@ transition: all 0.3s ease;
   text-transform: uppercase;
   position: absolute;
   top: 9px;
-  left: -1px;
-  width: 35px;
-  background: #ee1100;
+  left: 0;
+  width: 43px;
+  background: var(--trendii-floating-ad-on-sale-tag-color);
   color: #fff;
   font-size: 8px;
   line-height: 10px;
@@ -2869,8 +2869,8 @@ transition: all 0.3s ease;
   bottom: 0;
   border-left: 0 solid transparent;
   border-right: 7px solid #fff0;
-  border-top: 7px solid #ee1100;
-  border-bottom: 7px solid #ee1100;
+  border-top: 7px solid var(--trendii-floating-ad-on-sale-tag-color);
+  border-bottom: 7px solid var(--trendii-floating-ad-on-sale-tag-color);
 }
 
 .trendii-floating-ad-wrapper
